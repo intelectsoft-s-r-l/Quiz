@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -47,8 +48,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+
 app.UseAuthentication();
+app.UseAuthorization();
+
 
 
 
