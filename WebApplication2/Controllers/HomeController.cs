@@ -33,20 +33,20 @@ namespace WebApplication2.Controllers
                         await RefreshToken();
                         return await Index();
                     }
-                    else if(data.ErrorCode == 118)
+                    else if (data.ErrorCode == 118)
                     {
                         return View("~/Views/Account/Login.cshtml");
                     }
-                    else if(data.ErrorCode == 0)
+                    else if (data.ErrorCode == 0)
                     {
                         return View("~/Views/Home/Index.cshtml", data.User);
                     }
 
 
-                   
+
                 }
             }
-               
+
 
             return View("~/Views/Home/Index.cshtml");
         }

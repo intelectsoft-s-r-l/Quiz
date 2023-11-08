@@ -25,7 +25,7 @@ namespace WebApplication2.Controllers
                 var claims = user.Claims;
 
                 // Получите конкретный Claim по типу
-                var nameClaim = user.FindFirst(".AspNetCore.Admin");
+                var nameClaim = user.FindFirst(".AspNetCore.Admin");    //token
 
                 if (nameClaim != null)
                 {
@@ -79,7 +79,7 @@ namespace WebApplication2.Controllers
                         //SignIn to save claim principal
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
 
-                        
+
                     }
 
                 }

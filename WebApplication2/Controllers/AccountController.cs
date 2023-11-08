@@ -88,7 +88,7 @@ namespace WebApplication2.Controllers
         {
             await HttpContext.SignOutAsync();
 
-               // return View("~/Views/Account/Login.cshtml");
+            // return View("~/Views/Account/Login.cshtml");
             return RedirectToAction("Login", "Account");
         }
     }
