@@ -59,7 +59,7 @@
                                     <div class="mb-3">
                                         <div class="float-end">
                                             @* <a href=@Url.Action("Index", "AuthRecoverpw") class="text-muted">Forgot password?</a> *@
-                                            <a asp-area="" asp-controller="Account" asp-action="AuthRecoverpw" class="text-muted">Forgot password?</a>
+                                            <a href="@Url.Action("AuthRecoverpw", "Account")" class="text-muted">Forgot password?</a>
                                         </div>
                                         @*
                                         <label class="form-label" for="userpassword">Password</label>
