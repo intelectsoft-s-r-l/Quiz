@@ -12,7 +12,7 @@ using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
 
         [HttpGet]
@@ -20,8 +20,8 @@ namespace WebApplication2.Controllers
         public IActionResult Login()
         {
 
-            var response = new AuthorizeViewModel();
-            return View(response);
+            //var response = new AuthorizeViewModel();
+            return View("~/Views/Account/Login.cshtml");//response);
         }
 
         [HttpPost]
@@ -45,23 +45,32 @@ namespace WebApplication2.Controllers
                 {
                     // Чтение данных из HTTP-ответа.
                     var data = await response.Content.ReadAsAsync<GetProfileInfo>();
-                    List<Claim> userClaims = new List<Claim>();
-                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, data.User.ID.ToString()));
-                    userClaims.Add(new Claim(ClaimTypes.Email, data.User.Email));
-                    userClaims.Add(new Claim("FullName", data.User.FirstName + " " + data.User.LastName));
-                    userClaims.Add(new Claim("Company", data.User.Company));
-                    userClaims.Add(new Claim("PhoneNumber", data.User.PhoneNumber));
-                    userClaims.Add(new Claim(".AspNetCore.Admin", data.Token));
 
-                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    if (data.ErrorCode == 0)
+                    {
+                        List<Claim> userClaims = new List<Claim>();
+                        userClaims.Add(new Claim(ClaimTypes.NameIdentifier, data.User.ID.ToString()));
+                        userClaims.Add(new Claim(ClaimTypes.Email, data.User.Email));
+                        userClaims.Add(new Claim("FullName", data.User.FirstName + " " + data.User.LastName));
+                        userClaims.Add(new Claim("Company", data.User.Company));
+                        userClaims.Add(new Claim("PhoneNumber", data.User.PhoneNumber));
+                        userClaims.Add(new Claim(".AspNetCore.Admin", data.Token));
 
-                    //Adding claimsIdentity to ClaimsPrincipal
-                    var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
+                        var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    //SignIn to save Claims in cookie, and re-use it in refresh token, after restarting application
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+                        //Adding claimsIdentity to ClaimsPrincipal
+                        var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                        //SignIn to save Claims in cookie, and re-use it in refresh token, after restarting application
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                    }
+                    else
+                    {
+                        TempData["Error"] = data.ErrorMessage;
+                        return View(loginVM);
+                    }
                 }
                 else
                 {
@@ -78,8 +87,9 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return View("Error");
-            //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+               // return View("~/Views/Account/Login.cshtml");
+            return RedirectToAction("Login", "Account");
         }
     }
 
