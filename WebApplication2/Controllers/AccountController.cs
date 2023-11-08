@@ -82,6 +82,59 @@ namespace WebApplication2.Controllers
 
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AuthRecoverpw()
+        {
+            // return View("~/Views/Account/AuthRecoverpw.cshtml");
+            return View();
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AuthRecoverpw(AuthRecoverpwViewModel recoverpwVM)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            using (var httpClient = new HttpClient())
+            {
+                // Замените URL на ссылку, с которой вы хотите получить данные.
+                var apiUrl = "https://dev.edi.md/ISAuthService/json/ResetPassword";
+
+                // Преобразуйте объект loginVM в JSON и отправьте его с помощью HttpContent.
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(recoverpwVM), Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PostAsync(apiUrl, jsonContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Чтение данных из HTTP-ответа.
+                    var data = await response.Content.ReadAsAsync<BaseResponse>();
+
+                    if (data.ErrorCode == 0)
+                    {
+                        AuthorizeViewModel authorizeViewModel = new AuthorizeViewModel();
+                        authorizeViewModel.Email = recoverpwVM.Email;
+                        TempData["Success"] = "Check your email adress!";
+                        return View("~/Views/Account/Login.cshtml", authorizeViewModel);
+                    }
+                    else
+                    {
+                        TempData["Error"] = data.ErrorMessage;
+                        return View("~/Views/Account/AuthRecoverpw.cshtml");
+                    }
+                }
+                else
+                {
+                    // Обработка ошибки, если запрос не удался.
+                    return View("Error");
+                }
+            }
+
+
+        }
 
         [HttpGet]
         public async Task<IActionResult> Logout()
