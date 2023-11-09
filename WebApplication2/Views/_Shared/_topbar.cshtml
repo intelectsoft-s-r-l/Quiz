@@ -3,7 +3,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href=@Url.Action("Index", "index") class="logo logo-dark">
+                <a href=@Url.Action("Index", "Home") class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="~/assets/images/logo-sm.png" alt="" height="22">
                     </span>
@@ -12,7 +12,7 @@
                     </span>
                 </a>
 
-                <a href=@Url.Action("Index", "index") class="logo logo-light">
+                <a href=@Url.Action("Index", "Home") class="logo logo-light">
                     <span class="logo-sm">
                         <img src="~/assets/images/logo-sm.png" alt="" height="22">
                     </span>
@@ -53,6 +53,7 @@
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
                     <a class="dropdown-item" href="@Url.Action("ProfileInfo", "User")"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">View Profile</span></a>
+                    <a class="dropdown-item d-block" href="@Url.Action("Settings", "User")"><i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Settings</span></a>
                     <a class="dropdown-item" href="@Url.Action("Logout", "Account")"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
                 </div>
             </div>

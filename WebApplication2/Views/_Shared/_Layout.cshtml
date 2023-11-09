@@ -5,6 +5,8 @@
 
     @Html.Partial("~/Views/_Shared/_title_meta.cshtml")
     @Html.Partial("~/Views/_Shared/_head_css.cshtml")
+    <script src="~/assets/libs/jquery/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -32,8 +34,6 @@
         <!-- end main content-->
 
     </div>
-
-    @RenderSection("externalhtml", required: false)
 
     <!-- END layout-wrapper -->
     @Html.Partial("~/Views/_Shared/_right_sidebar.cshtml")
