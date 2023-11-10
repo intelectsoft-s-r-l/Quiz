@@ -142,7 +142,16 @@ namespace WebApplication2.Controllers
         [HttpGet]   //!
         public async Task<IActionResult> AddQuestion()
         {
-            return PartialView("~/Views/Home/_AddQuestion.cshtml");
+            //var tmp = new CreateQuestionViewModel();
+            return PartialView("~/Views/Home/_AddQuestion.cshtml");//, tmp);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddQuestion(CreateQuestionViewModel questionViewModel, CreateQuestionnaireViewModel questionnaireViewModel)
+        {
+            questionnaireViewModel.questionViewModels.Add(questionViewModel);
+
+            return PartialView("~/Views/Home/_CreateQuestionnaire.cshtml", questionnaireViewModel);
         }
 
     }
