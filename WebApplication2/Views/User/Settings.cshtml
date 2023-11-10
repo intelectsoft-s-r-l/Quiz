@@ -100,11 +100,11 @@
 
                 <div id="changepassword-collapse" class="collapse">
                     <div class="p-4 border-top">
-                        @* <div id="changePassword"></div> *@
-                        @{
+                        <div id="changePassword"></div>
+@*                         @{
                             var tmp = new ChangeConfirmPasswordViewModel();
                             await Html.RenderPartialAsync("_ChangePassword", tmp);
-                        }
+                        } *@
                     </div>
                 </div>
             </div>
@@ -123,6 +123,6 @@
 </div>
 <!-- end row -->
 <!-- JAVASCRIPT -->
-@* <script>
+<script>
     drawPatrialView("/User/ChangePassword", "changePassword");
-</script> *@
+</script>

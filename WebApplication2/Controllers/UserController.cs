@@ -86,21 +86,21 @@ namespace WebApplication2.Controllers
             }
             return View("~/Views/Account/Login.cshtml"); /////////!!!!!!
         }
-        /*
-        [HttpGet]
+
+        [HttpGet]   //!
         public async Task<IActionResult> ChangePassword()
         {
             return PartialView("~/Views/User/_ChangePassword.cshtml");
         }
-        */
+
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(/*[FromBody]*/ ChangeConfirmPasswordViewModel changepwVM)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)   //FromBody
         {
 
             if (!ModelState.IsValid)
             {
-                //return Json(new { StatusCode = 500, Message = "No Valid" });
-                return View();
+                return Json(new { StatusCode = 500, Message = "No Valid" });
+                //return View();
             }
 
             string token = GetToken();
@@ -134,17 +134,17 @@ namespace WebApplication2.Controllers
                     }
                     else if (data.ErrorCode == 0)
                     {
-                        TempData["Success"] = "Password chenged";
-                        return View("~/Views/User/Settings.cshtml");
+                        //TempData["Success"] = "Password chenged";
+                        //return View("~/Views/User/Settings.cshtml");
 
-                        //return Json(new { StatusCode = 200, Message = "Password changed successfully" });
+                        return Json(new { StatusCode = 200, Message = "Password changed successfully" });
                     }
 
                     else
                     {
-                        TempData["Error"] = "Password unchenged";
-                        return View("~/Views/User/Settings.cshtml");
-                        //return Json(new { StatusCode = 500, Message = data.ErrorMessage });
+                        //TempData["Error"] = "Password unchenged";
+                        //return View("~/Views/User/Settings.cshtml");
+                        return Json(new { StatusCode = 500, Message = data.ErrorMessage });
                     }
                 }
                 else
@@ -155,6 +155,8 @@ namespace WebApplication2.Controllers
             }
 
         }
+
+
 
     }
 }

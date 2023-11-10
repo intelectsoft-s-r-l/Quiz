@@ -1,0 +1,11 @@
+﻿@using WebApplication2.ViewModels;
+@model CreateQuestionViewModel
+<div class="row">
+    <div class="col-12">
+        <div class="form-group">
+            <label asp-for="question">Test</label>
+            <input asp-for="question" required>
+            <span asp-validation-for="question" class="text-danger"></span>
+        </div>
+    </div>
+</div>

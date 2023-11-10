@@ -1,0 +1,26 @@
+﻿@using WebApplication2.ViewModels;
+@model CreateQuestionnaireViewModel
+
+<input data-repeater-create type="button" class="btn btn-success inner" value="Add Question" id="btn1" />
+
+
+<partial name="_AddQuestion" for="questionViewModels" />
+
+
+
+
+
+
+@* <script>
+    $(document).ready(function () {
+        $("#btn1").click(function () {
+            $.get("/Home/AddQuestion", function (data) {
+                $("#addQuestion").append(data);
+            });
+        });
+    });
+
+            // drawPatrialView("/Home/AddQuestion", "addQuestion");
+</script> *@
+
+@* <div id="addQuestion"></div>*@
