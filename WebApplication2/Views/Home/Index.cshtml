@@ -1,4 +1,7 @@
-﻿@{
+﻿@using WebApplication2.Models.API;
+@model IEnumerable<Questionnaire>
+
+@{
     ViewBag.Title = "Editable Table";
     ViewBag.pTitle = "Editable Table";
     ViewBag.pageTitle = "Tables";
@@ -14,7 +17,14 @@
     </div>
 </div>
 
-
+@foreach(var item in Model)
+{
+    <h1>@item.name</h1>
+@*     foreach(var q in item.questions)
+    {
+        <p>@q.question</p>
+    } *@
+}
 @* <div class="row">
     <div class="col-12">
         <div class="card">

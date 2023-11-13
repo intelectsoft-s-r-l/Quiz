@@ -1,12 +1,12 @@
 ﻿using WebApplication2.Models.Enum;
 
-namespace WebApplication2.Models.API
+namespace WebApplication2.ViewModels
 {
-    public class Question
+    public class CreateQuestion
     {
         public string question {  get; set; }
         public GradingType gradingType { get; set; }
         public string comentary { get; set; }
-        public List<string> answerVariants { get; set; } // ListAnsw and null
+        public List<string> answerVariants { get; set; }
     }
 }

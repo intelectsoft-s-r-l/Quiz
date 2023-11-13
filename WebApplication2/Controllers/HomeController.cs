@@ -8,6 +8,7 @@ using System.Text;
 using WebApplication2.Models;
 using WebApplication2.Models.API;
 using WebApplication2.ViewModels;
+using System.Net.Http;
 
 namespace WebApplication2.Controllers
 {
@@ -59,55 +60,53 @@ namespace WebApplication2.Controllers
             using (var httpClient = new HttpClient())
             {
 
-                var apiUrl = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var response = await httpClient.GetAsync(apiUrl);
+                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
 
-                if (response.IsSuccessStatusCode)
+                if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
                     // Чтение данных из HTTP-ответа.
 
-                    var data = await response.Content.ReadAsAsync<GetProfileInfo>();
-                    if (data.ErrorCode == 143)
+                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                    if (userData.ErrorCode == 143)
                     {
                         await RefreshToken();
                         return await Index();
                     }
-                    else if (data.ErrorCode == 118)
+                    else if (userData.ErrorCode == 118)
                     {
                         return View("~/Views/Account/Login.cshtml");
                     }
-                    else if (data.ErrorCode == 0)
+                    else if (userData.ErrorCode == 0)
                     {
                         using (var httpClient1 = new HttpClient())
                         {
 
-                            var apiUrl1 = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaires?token=" + token;
+                            var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaires?token=" + token;
                             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
 
                             // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
                             httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
 
-                            var response1 = await httpClient1.GetAsync(apiUrl1);
+                            var responseGetQuestionnaires = await httpClient1.GetAsync(apiUrlGetQuestionnairesByToken);
 
-                            if (response1.IsSuccessStatusCode)
+                            if (responseGetQuestionnaires.IsSuccessStatusCode)
                             {
-                                // Чтение данных из HTTP-ответа.
-
-                                var data1 = await response1.Content.ReadAsAsync<GetQuestionnaireInfo>();
-                                if (data1.errorCode == 143)
+                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnaireInfo>();
+                                if (questionnaireData.errorCode == 143)
                                 {
                                     await RefreshToken();
                                     return await Index();
                                 }
-                                else if (data1.errorCode == 118)
+                                else if (questionnaireData.errorCode == 118)
                                 {
                                     return View("~/Views/Account/Login.cshtml");
                                 }
-                                else if (data1.errorCode == 0)
+                                else if (questionnaireData.errorCode == 0)
                                 {
-                                    return View("~/Views/Home/Index.cshtml", data1.questionnaires);
+                                    return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
                                 }
 
 
@@ -131,28 +130,103 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
-        
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateQuestionnaireViewModel VM)
-        {
-            return View();
-
-        }
-
-        [HttpGet]   //!
-        public async Task<IActionResult> AddQuestion()
-        {
-            //var tmp = new CreateQuestionViewModel();
-            return PartialView("~/Views/Home/_AddQuestion.cshtml");//, tmp);
-        }
 
         [HttpPost]
-        public async Task<IActionResult> AddQuestion(CreateQuestionViewModel questionViewModel, CreateQuestionnaireViewModel questionnaireViewModel)
+        public async Task<IActionResult> Create(CreateQuestionnaireViewModel CreateQuestionnaireVM)
         {
-            questionnaireViewModel.questionViewModels.Add(questionViewModel);
+            
+            string token = GetToken();
+            using (var httpClient = new HttpClient())
+            {
 
-            return PartialView("~/Views/Home/_CreateQuestionnaire.cshtml", questionnaireViewModel);
+                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+
+                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+
+                if (responseGetProfileInfo.IsSuccessStatusCode)
+                {
+                    // Чтение данных из HTTP-ответа.
+
+                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                    if (userData.ErrorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Create(CreateQuestionnaireVM);
+                    }
+                    else if (userData.ErrorCode == 118)
+                    {
+                        return View("~/Views/Account/Login.cshtml");
+                    }
+                    else if (userData.ErrorCode == 0)
+                    {
+                        using (var httpClient1 = new HttpClient())
+                        {
+                            var apiUrlForPostQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/UpsertQuestionnaire";
+                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+
+                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
+                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                            //Correct model for post
+                            CreateQuestionnaire createQuestionnaire = new CreateQuestionnaire();
+                            createQuestionnaire.oid = 0;
+                            createQuestionnaire.name = CreateQuestionnaireVM.Title;
+                            List<CreateQuestion> tmp = new List<CreateQuestion>();
+                            foreach(var question in CreateQuestionnaireVM.Questions)
+                            {
+                                CreateQuestion createQuestion = new CreateQuestion();
+                                createQuestion.question = question.Text;
+                                createQuestion.comentary = question.comentary;
+                                createQuestion.gradingType = question.gradingType;
+                                if(question.Answers.Any())
+                                {
+                                    createQuestion.answerVariants = new List<string>();
+                                    foreach (var answer in question.Answers)
+                                    {
+                                        //if (answer.Text != null)
+                                            createQuestion.answerVariants.Add(answer);
+                                    }
+                                }
+                                tmp.Add(createQuestion);
+                            }
+                            createQuestionnaire.questions = tmp;
+                            createQuestionnaire.companyOid = userData.User.CompanyID; //0
+                            createQuestionnaire.token = token;
+                            createQuestionnaire.company = userData.User.Company;
+
+                            var jsonContent = new StringContent(JsonConvert.SerializeObject(createQuestionnaire), Encoding.UTF8, "application/json");
+
+                            var responsePostQuestionnaire = await httpClient1.PostAsync(apiUrlForPostQuestionnaire, jsonContent);
+
+                            if (responsePostQuestionnaire.IsSuccessStatusCode)
+                            {
+                                // Чтение данных из HTTP-ответа.
+
+                                var questionnaireBaseResponsedData = await responsePostQuestionnaire.Content.ReadAsAsync<BaseErrors>(); //Тут была ошибка из-за названия переменных
+
+                                if (questionnaireBaseResponsedData.errorCode == 143)
+                                {
+                                    await RefreshToken();
+                                    return await Create(CreateQuestionnaireVM); ///!
+                                }
+                                else if (questionnaireBaseResponsedData.errorCode == 0)
+                                {
+                                    return View("~/Views/User/Settings.cshtml");
+                                }
+
+
+
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+
+            return View("~/Views/Home/Index.cshtml");
         }
+
 
     }
 }

@@ -1,19 +1,133 @@
 ﻿@using WebApplication2.ViewModels;
+@using WebApplication2.Models.Enum;
 @model CreateQuestionnaireViewModel
 <script src="~/js/app.js"></script>
+<style>
+    .question {
+        border: 1px solid black;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+</style>
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Questionnaire</h4>
-                <form method="post" asp-action="Create" enctype="multipart/form-data">
-                    @{
-                        await Html.RenderPartialAsync("_CreateQuestionnaire", Model);
-                    }
-                    <button type="submit" class="submit-button">Save</button>
-                </form>
+
+                @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title)
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <h3>Questions</h3>
+                    <div id="questions-container">
+                        <!-- Здесь вы можете вставить существующие вопросы, если они есть в опроснике -->
+                    </div>
+                    <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Add Question</button>
+                    <br/>
+                    <br/>
+                    <input type="submit" style="width: 100%;" class="btn btn-outline-success waves-effect waves-light" value="Save" />
+                }
             </div>
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var questionIndex = 0;
+
+            function addQuestion() {
+                var questionHtml = `
+                            <div class="question">
+                                <div class="form-group">
+                                    <label for="Questions_${questionIndex}__Text">Question Text</label>
+                                    <input type="text" name="Questions[${questionIndex}].Text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
+                                    <select name="Questions[${questionIndex}].gradingType" class="form-control">
+                                        <option value="1">Yes or No</option>
+                                        <option value="2">Score 10 points</option>
+                                        <option value="3">One answer variant</option>
+                                        <option value="4">Multi answer variant</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Questions_${questionIndex}__comentary">Commentary</label>
+                                    <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" />
+                                </div>
+                                
+                                <div class="answers-container" style="display: none;">
+                                        <h4>Answers</h4>
+                                    <div class="answer">
+                                        <div class="form-group">
+                                            <label for="Questions_${questionIndex}__Answers_0__Text">Answer Text</label>
+                                            <input type="text" name="Questions[${questionIndex}].Answers[0]" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light">Add Answer</button>
+                            </div>`;
+
+                $("#questions-container").append(questionHtml);
+                questionIndex++;
+            }
+
+            $("#add-question").click(function () {
+                addQuestion();
+            });
+
+
+
+
+
+            $("#questions-container").on("change", "select[name$='.gradingType']", function () {
+                var $question = $(this).closest(".question");
+                var $answersContainer = $question.find(".answers-container");
+                var $addAnswerButton = $question.find("#add-answer");
+
+                if ($(this).val() == "4") { // Показать поле для ответов только при выборе "Multi answer variant"
+                    $answersContainer.show();
+                    $addAnswerButton.show();
+                }
+                else if ($(this).val() == "3")
+                {
+                    $answersContainer.show();
+                    $addAnswerButton.hide();
+                }
+                else {
+                    $answersContainer.hide();
+                    $addAnswerButton.hide();
+                }
+            });
+
+            $("#questions-container").on("click", "#add-answer", function () {
+                var $question = $(this).closest(".question");
+                var $answersContainer = $question.find(".answers-container");
+                var answerIndex = $answersContainer.find(".answer").length;
+
+                var answerHtml = `
+                            <div class="answer">
+                                <div class="form-group">
+                                    <label for="Questions_${questionIndex - 1}__Answers_${answerIndex}__Text">Answer Text</label>
+                                    <input type="text" name="Questions[${questionIndex - 1}].Answers[${answerIndex}]" class="form-control" />
+                                </div>
+                            </div>`;
+
+                $answersContainer.append(answerHtml);
+            });
+
+            // Инициализация формы с одним вопросом
+            addQuestion();
+        });
+    </script>
+}
 

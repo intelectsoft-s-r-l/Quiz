@@ -1,0 +1,25 @@
+﻿@using WebApplication2.Models.API;
+@model IEnumerable<Questionnaire>
+<ul class="sub-menu" aria-expanded="true">
+    <li>
+        @foreach (var questionnaire in Model)
+        {
+            if (questionnaire.questions != null)
+            {
+                <a href="javascript: void(0);" class="has-arrow">@questionnaire.name</a>
+
+                foreach (var question in questionnaire.questions)
+                {
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li><a href="javascript: void(0);">@question.question</a></li>
+
+                    </ul>
+                }
+            }
+            else
+            {
+            <li><a href="javascript: void(0);">@questionnaire.name</a></li>
+            }
+        }
+    </li>
+</ul>

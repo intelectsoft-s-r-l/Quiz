@@ -15,6 +15,7 @@ function drawPatrialView(url, divId) {
         },
     });
 }
+
 //function postPatrialView(form) {
 //    debugger
 //    var $form = $("form[name='" + form +"']");
