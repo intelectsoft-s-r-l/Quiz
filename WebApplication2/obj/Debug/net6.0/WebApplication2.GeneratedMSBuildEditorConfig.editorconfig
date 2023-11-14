@@ -28,6 +28,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/Home/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,6 +46,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/_ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/_CreateLicence.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfQ3JlYXRlTGljZW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/_LicenseList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfTGljZW5zZUxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/_Questionnaire.cshtml]
@@ -78,6 +90,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_layout_ico_loading.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfbGF5b3V0X2ljb19sb2FkaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_Modals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfTW9kYWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_page_title.cshtml]

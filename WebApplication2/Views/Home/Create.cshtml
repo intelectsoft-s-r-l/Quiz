@@ -10,6 +10,7 @@
         margin: 10px 0;
     }
 </style>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -30,8 +31,9 @@
                         <!-- Здесь вы можете вставить существующие вопросы, если они есть в опроснике -->
                     </div>
                     <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Add Question</button>
-                    <br/>
-                    <br/>
+                    @*<button type="button" id="remove-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Remove Question</button>*@
+                    <br />
+                    <br />
                     <input type="submit" style="width: 100%;" class="btn btn-outline-success waves-effect waves-light" value="Save" />
                 }
             </div>
@@ -46,48 +48,70 @@
 
             function addQuestion() {
                 var questionHtml = `
-                            <div class="question">
+                    <div class="question" id="question${questionIndex}">
+                        <input type='button' class='btnremove' value='remove'/>
+                        <div class="form-group">
+                            <label for="Questions_${questionIndex}__Text">Question Text</label>
+                            <input type="text" name="Questions[${questionIndex}].question" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
+                            <select name="Questions[${questionIndex}].gradingType" class="form-control">
+                                <option value="1">Yes or No</option>
+                                <option value="2">Score 10 points</option>
+                                <option value="3">One answer variant</option>
+                                <option value="4">Multi answer variant</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Questions_${questionIndex}__comentary">Commentary</label>
+                            <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" />
+                        </div>
+                        <div class="answers-container" style="display: none;">
+                            <h4>Answers</h4>
+                            <div class="answer">
                                 <div class="form-group">
-                                    <label for="Questions_${questionIndex}__Text">Question Text</label>
-                                    <input type="text" name="Questions[${questionIndex}].Text" class="form-control" />
+                                    <label for="Questions_${questionIndex}__Answers_0__Text">Answer Text</label>
+                                    <input type="text" name="Questions[${questionIndex}].answerVariants[0]" class="form-control" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
-                                    <select name="Questions[${questionIndex}].gradingType" class="form-control">
-                                        <option value="1">Yes or No</option>
-                                        <option value="2">Score 10 points</option>
-                                        <option value="3">One answer variant</option>
-                                        <option value="4">Multi answer variant</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Questions_${questionIndex}__comentary">Commentary</label>
-                                    <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" />
-                                </div>
-                                
-                                <div class="answers-container" style="display: none;">
-                                        <h4>Answers</h4>
-                                    <div class="answer">
-                                        <div class="form-group">
-                                            <label for="Questions_${questionIndex}__Answers_0__Text">Answer Text</label>
-                                            <input type="text" name="Questions[${questionIndex}].Answers[0]" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light">Add Answer</button>
-                            </div>`;
+                            </div>
+                        </div>
+                        <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light">Add Answer</button>
+                        <button type="button" id="remove-answer" style="display: none; width: 100%; margin-top: 10px;">Remove Answer</button>
+                    </div>`;
 
                 $("#questions-container").append(questionHtml);
                 questionIndex++;
+                addRemoveAction();
+            }
+
+            function addRemoveAction() {
+                $(".btnremove").each(function (index, item) {
+                    $(item).click(function () {
+                        var $question = $(this).closest('.question');
+                        $question.remove();
+                        reIndexQuestions();
+                    });
+                });
+            }
+
+            function reIndexQuestions() {
+                $(".question").each(function (index) {
+                    var newIndex = index;
+                    $(this).attr("id", "question" + newIndex);
+                    $(this).find("input, select").each(function () {
+                        var name = $(this).attr("name");
+                        if (name) {
+                            var newName = name.replace(/\[\d+\]/g, "[" + newIndex + "]");
+                            $(this).attr("name", newName);
+                        }
+                    });
+                });
             }
 
             $("#add-question").click(function () {
                 addQuestion();
             });
-
-
-
-
 
             $("#questions-container").on("change", "select[name$='.gradingType']", function () {
                 var $question = $(this).closest(".question");
@@ -97,9 +121,9 @@
                 if ($(this).val() == "4") { // Показать поле для ответов только при выборе "Multi answer variant"
                     $answersContainer.show();
                     $addAnswerButton.show();
+                    // $removeAnswerButton.show();
                 }
-                else if ($(this).val() == "3")
-                {
+                else if ($(this).val() == "3") {
                     $answersContainer.show();
                     $addAnswerButton.hide();
                 }
@@ -115,19 +139,20 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `
-                            <div class="answer">
-                                <div class="form-group">
-                                    <label for="Questions_${questionIndex - 1}__Answers_${answerIndex}__Text">Answer Text</label>
-                                    <input type="text" name="Questions[${questionIndex - 1}].Answers[${answerIndex}]" class="form-control" />
-                                </div>
-                            </div>`;
+        <div class="answer">
+            <div class="form-group">
+                <label for="Questions_${questionIndex - 1}__Answers_${answerIndex}__Text">Answer Text</label>
+                <input type="text" name="Questions[${questionIndex - 1}].answerVariants[${answerIndex}]" class="form-control" />
+            </div>
+        </div>`;
 
                 $answersContainer.append(answerHtml);
             });
-
-            // Инициализация формы с одним вопросом
+            // Initialize with one question
             addQuestion();
         });
+
     </script>
 }
+
 

@@ -1,0 +1,51 @@
+﻿@using WebApplication2.Models.API;
+@model DetailQuestionnaire
+
+<form method="POST" asp-controller="Home" asp-action="DeleteQuestionnaire" id="DeleteQuestionnaireForm">
+    @* <form method="post" asp-action="ChangePassword" enctype="multipart/form-data"> *@
+
+    <div class="form-container">
+
+        <div class="modal-body">
+
+            <p>
+                Are u sure delete @Model.questionnaire.name?
+            </p>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger waves-effect waves-light"> Delete</button>
+            @* <a href="@Url.Action("DeleteQuestionnaire", "Home", new {/**/oid = Model.questionnaire.oid})" type="button" class="btn btn-danger waves-effect waves-light">Delete</a> *@
+        </div>
+    </div>
+
+    @*     <button type="submit" class="submit-button">Edit</button> *@
+</form>
+<script>
+    $(document).ready(function () {
+        $('#DeleteQuestionnaireForm').on('submit', function (e) {
+            e.preventDefault();
+
+
+            $.ajax({
+                url: '../Home/DeleteQuestionnaire',
+                cache: false,
+                type: "POST",
+                data: JSON.stringify(@Model.questionnaire.oid),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.statusCode === 200) {
+                        $('.modal').modal('hide');
+                        window.location.reload();
+
+                    } else {
+                        var errorMessage = $('<div class="alert alert-danger" role="alert">' + data.message + '</div>');
+                        $('#DeleteQuestionnaireForm').append(errorMessage);
+                    }
+                },
+
+            });
+        });
+    });
+</script>

@@ -159,143 +159,82 @@ namespace WebApplication2.Controllers
 
 
         [HttpGet]   //!
-        public async Task<IActionResult> GetQuestionnaires()
+        public async Task<IActionResult> CreateLicence()
         {
-            string token = GetToken();
-            using (var httpClient = new HttpClient())
+            return PartialView("~/Views/User/_CreateLicence.cshtml");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateLicence(GenerateLicenseViewModel generateLicenseVM)
+        {
+            if (generateLicenseVM.quantity > 0)
             {
-
-                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
-
-                if (responseGetProfileInfo.IsSuccessStatusCode)
+                string token = GetToken();
+                using (var httpClient = new HttpClient())
                 {
-                    // Чтение данных из HTTP-ответа.
 
-                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                    if (userData.ErrorCode == 143)
+                    var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+
+                    var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+
+                    if (responseGetProfileInfo.IsSuccessStatusCode)
                     {
-                        await RefreshToken();
-                        return await GetQuestionnaires();
-                    }
-                    else if (userData.ErrorCode == 118)
-                    {
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    else if (userData.ErrorCode == 0)
-                    {
-                        using (var httpClient1 = new HttpClient())
+                        // Чтение данных из HTTP-ответа.
+
+                        var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                        if (userData.ErrorCode == 143)
                         {
-
-                            var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaires?token=" + token;
-                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                            var responseGetQuestionnaires = await httpClient1.GetAsync(apiUrlGetQuestionnairesByToken);
-
-                            if (responseGetQuestionnaires.IsSuccessStatusCode)
+                            await RefreshToken();
+                            return await CreateLicence(generateLicenseVM);
+                        }
+                        else if (userData.ErrorCode == 118)
+                        {
+                            return View("~/Views/Account/Login.cshtml");
+                        }
+                        else if (userData.ErrorCode == 0)
+                        {
+                            using (var httpClient1 = new HttpClient())
                             {
-                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnaireInfo>();
-                                if (questionnaireData.errorCode == 143)
+                                var addingStr = "?token=" + token + "&quantity=" + generateLicenseVM.quantity;
+                                var apiUrlForPostLicense = "https://dev.edi.md/ISNPSAPI/Web/GenerateLicense" + addingStr;
+                                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+
+                                // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
+                                httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                                //generateLicenseVM.token = token;
+
+                                var jsonContent = new StringContent(JsonConvert.SerializeObject(generateLicenseVM), Encoding.UTF8, "application/json");
+
+                                var responsePostLicense = await httpClient1.PostAsync(apiUrlForPostLicense, jsonContent);
+
+                                if (responsePostLicense.IsSuccessStatusCode)
                                 {
-                                    await RefreshToken();
-                                    return await GetQuestionnaires();
-                                }
-                                else if (questionnaireData.errorCode == 118)
-                                {
-                                    return View("~/Views/Account/Login.cshtml");
-                                }
-                                else if (questionnaireData.errorCode == 0)
-                                {
-                                   return PartialView("~/Views/User/_Questionnaire.cshtml", questionnaireData.questionnaires);
-                                }
+                                    // Чтение данных из HTTP-ответа.
+
+                                    var baseResponsedData = await responsePostLicense.Content.ReadAsAsync<BaseErrors>();
+
+                                    if (baseResponsedData.errorCode == 143)
+                                    {
+                                        await RefreshToken();
+                                        return await CreateLicence(generateLicenseVM); ///!
+                                    }
+                                    else if (baseResponsedData.errorCode == 0)
+                                    {
+                                        return View("~/Views/User/ProfileInfo.cshtml");
+                                    }
 
 
 
+                                }
                             }
                         }
                     }
-
-
-
                 }
             }
 
-            return PartialView("~/Views/User/_Questionnaire.cshtml");
+            return View("~/Views/Home/Index.cshtml");
         }
 
-        [HttpGet]   //!
-        public async Task<IActionResult> GetQuestionnaireslevel()
-        {
-            string token = GetToken();
-            using (var httpClient = new HttpClient())
-            {
 
-                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
-
-                if (responseGetProfileInfo.IsSuccessStatusCode)
-                {
-                    // Чтение данных из HTTP-ответа.
-
-                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                    if (userData.ErrorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await GetQuestionnaires();
-                    }
-                    else if (userData.ErrorCode == 118)
-                    {
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    else if (userData.ErrorCode == 0)
-                    {
-                        using (var httpClient1 = new HttpClient())
-                        {
-
-                            var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaires?token=" + token;
-                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                            var responseGetQuestionnaires = await httpClient1.GetAsync(apiUrlGetQuestionnairesByToken);
-
-                            if (responseGetQuestionnaires.IsSuccessStatusCode)
-                            {
-                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnaireInfo>();
-                                if (questionnaireData.errorCode == 143)
-                                {
-                                    await RefreshToken();
-                                    return await GetQuestionnaires();
-                                }
-                                else if (questionnaireData.errorCode == 118)
-                                {
-                                    return View("~/Views/Account/Login.cshtml");
-                                }
-                                else if (questionnaireData.errorCode == 0)
-                                {
-                                    return PartialView("~/Views/_Shared/_QuestionnaireLevel.cshtml", questionnaireData.questionnaires);
-                                }
-
-
-
-                            }
-                        }
-                    }
-
-
-
-                }
-            }
-
-            return PartialView("~/Views/Home/Index.cshtml");
-        }
     }
 }
