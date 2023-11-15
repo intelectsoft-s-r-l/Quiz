@@ -256,11 +256,11 @@
 
                 <div class="tab-pane" id="tasks" role="tabpanel">
                     @*<div id="licenses"></div>*@
-                    <button id="addButtonPar" type="button" class="btn btn-danger waves-effect waves-light" style="width: 100%;">Generate license</button>
+@*                     <button id="addButtonPar" type="button" class="btn btn-danger waves-effect waves-light" style="width: 100%;">Generate license</button>
                     <div id="visualCreate" style="display: none;">
                         <div id="Createlicense"></div>
                         </div>
-                    <br/>
+                    <br/> *@
                     <div id="questionnaires"></div>
                 </div>
 
@@ -343,12 +343,13 @@
 <!-- end row -->
 <!-- JAVASCRIPT -->
 <script>
+    /*
     $(document).ready(function () {
         $("#addButtonPar").click(function () {
             $("#visualCreate").show();
             $(this).hide();
         });
     });
-    drawPatrialView("/User/CreateLicence", "Createlicense");
+    drawPatrialView("/User/CreateLicence", "Createlicense");*/
     drawPatrialView("/User/GetQuestionnaires", "questionnaires");
 </script>

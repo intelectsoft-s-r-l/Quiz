@@ -159,6 +159,76 @@ namespace WebApplication2.Controllers
 
 
         [HttpGet]   //!
+        public async Task<IActionResult> GetQuestionnaires()
+        {
+            string token = GetToken();
+            using (var httpClient = new HttpClient())
+            {
+
+                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+
+                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+
+                if (responseGetProfileInfo.IsSuccessStatusCode)
+                {
+                    // Чтение данных из HTTP-ответа.
+
+                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                    if (userData.ErrorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await GetQuestionnaires();
+                    }
+                    else if (userData.ErrorCode == 118)
+                    {
+                        return View("~/Views/Account/Login.cshtml");
+                    }
+                    else if (userData.ErrorCode == 0)
+                    {
+                        using (var httpClient1 = new HttpClient())
+                        {
+
+                            var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaires?token=" + token;
+                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+
+                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
+                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                            var responseGetQuestionnaires = await httpClient1.GetAsync(apiUrlGetQuestionnairesByToken);
+
+                            if (responseGetQuestionnaires.IsSuccessStatusCode)
+                            {
+                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnaireInfo>();
+                                if (questionnaireData.errorCode == 143)
+                                {
+                                    await RefreshToken();
+                                    return await GetQuestionnaires();
+                                }
+                                else if (questionnaireData.errorCode == 118)
+                                {
+                                    return View("~/Views/Account/Login.cshtml");
+                                }
+                                else if (questionnaireData.errorCode == 0)
+                                {
+                                    return PartialView("~/Views/User/_Questionnaire.cshtml", questionnaireData.questionnaires);
+                                }
+
+
+
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+
+            return PartialView("~/Views/User/_Questionnaire.cshtml");
+        }
+
+        [HttpGet]   //!
         public async Task<IActionResult> CreateLicence()
         {
             return PartialView("~/Views/User/_CreateLicence.cshtml");

@@ -9,6 +9,10 @@
         padding: 10px;
         margin: 10px 0;
     }
+
+    .btn-remove {
+        display: none;
+    }
 </style>
 
 <div class="row">
@@ -45,11 +49,15 @@
     <script>
         $(document).ready(function () {
             var questionIndex = 0;
-
+            var question0 = document.getElementById('question0');
+            var button0 = document.getElementById('button0');
+            if (question0) {
+                button0.classList.add('hidden');
+            }
             function addQuestion() {
                 var questionHtml = `
                     <div class="question" id="question${questionIndex}">
-                        <input type='button' class='btnremove' value='remove'/>
+                                               <input type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? 'hidden' : ''}' value='Delete question'/>
                         <div class="form-group">
                             <label for="Questions_${questionIndex}__Text">Question Text</label>
                             <input type="text" name="Questions[${questionIndex}].question" class="form-control" />

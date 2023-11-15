@@ -1,5 +1,5 @@
 function drawPatrialView(url, divId) {
-    debugger
+    //debugger
     $.ajax({
         url: url,
         cache: false,
@@ -11,7 +11,7 @@ function drawPatrialView(url, divId) {
             },
         },
         success: function (result, e) {
-            debugger
+            //debugger
             $('#' + divId).html(result);
 
         },

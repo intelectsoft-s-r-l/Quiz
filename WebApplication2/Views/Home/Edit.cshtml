@@ -1,0 +1,267 @@
+﻿@using WebApplication2.Models.API;
+@using WebApplication2.Models.Enum;
+@using WebApplication2.ViewModels;
+@using Newtonsoft.Json
+@model CreateQuestionnaireViewModel
+
+<script src="~/js/app.js"></script>
+<style>
+    .question {
+        border: 1px solid black;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .btn-remove {
+        display: none;
+    }
+</style>
+@{
+    int i = 0;
+}
+<form method="POST" asp-controller="Home" asp-action="EditQuestionnaire" id="EditQuestionnaireForm" enctype="multipart/form-data">
+    @* <form method="post" asp-action="ChangePassword" enctype="multipart/form-data"> *@
+
+    <div class="form-container">
+
+        @* @Html.AntiForgeryToken() *@
+
+        <div class="form-group">
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" required id="titleQ">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <h3>Questions</h3>
+        <div id="questions-container">
+
+            @foreach (var item in Model.Questions)
+            {
+                <div class="question" id="question_@i">
+                    @if (i > 0)
+                    {
+                        <input type="button" style="width: 100%;" class="btn btn-danger waves-effect waves-light btnremove" value="Delete question" />
+                    }
+                    <div class="form-group">
+                        <label asp-for="@item.question">Question Text</label>
+                        <input type="text" name="@item.question" asp-for="@item.question" class=" form-control" id="questionName_@i" />
+                    </div>
+                    <div class="form-group"> @*Исправить если мы выбрали мультиАнсв, то кнопка появляется(сделать кнопку на удаление ответов)*@
+                        <label asp-for="@item.gradingType">GradingType</label>
+                        <select id="questionGradingType_@i" name=".gradingType" class="form-control">
+                            <option value="1" selected="@(item.gradingType == GradingType.YesNo)">Yes or No</option>
+                            <option value="2" selected="@(item.gradingType == GradingType.Point10Score)">Score 10 points</option>
+                            <option value="3" selected="@(item.gradingType == GradingType.SingleAnswerVariant)">One answer variant</option>
+                            <option value="4" selected="@(item.gradingType == GradingType.MultipleAnswerVariant)">Multi answer variant</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@item.comentary">Commentary</label>
+                        <input type="text" name="@item.comentary" asp-for="@item.comentary" class="form-control" id="questionComentary_@i" />
+                    </div>
+                    <div class="answers-container">
+                        @{
+                            int j = 0;
+                        }
+                        @foreach (var answ in item.answerVariants)
+                        {
+
+                            if (answ != null)
+                            {
+
+                                <div class="answer">
+                                    <div class="form-group">
+                                        <label asp-for="@answ">Answer Text</label>
+                                        <input type="text" asp-for="@answ" class="form-control" id="answerVal_@j" />
+                                    </div>
+                                </div>
+                                j++;
+                            }
+                        }
+                    </div>
+                    @if (item.answerVariants.Count > 1)
+                    {
+                        <button type="button" id="add-answer" style="width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light">Add Answer</button>
+                        <button type="button" id="remove-answer" style="display: none; width: 100%; margin-top: 10px;">Remove Answer</button>
+                    }
+                </div>
+                i++;
+            }
+        </div>
+        <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Add Question</button>
+    </div>
+    <button type="submit" class="submit-button">Create</button>
+    @*     <button type="submit" class="submit-button">Edit</button> *@
+</form>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var questionIndex = @i;
+            // var question0 = document.getElementById('question0');
+            // var button0 = document.getElementById('button0');
+            // if (question0) {
+            //     button0.classList.add('hidden');
+            //}
+            function addQuestion() {
+                var questionHtml = `
+                                    <div class="question" id="question_${questionIndex}">
+                                        <input type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? 'hidden' : ''}' value='Delete question'/>
+                                        <div class="form-group">
+                                            <label for="Questions_${questionIndex}__Text">Question Text</label>
+                                            <input type="text" name="Questions[${questionIndex}].question" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
+                                            <select name="Questions[${questionIndex}].gradingType" class="form-control">
+                                                <option value="1">Yes or No</option>
+                                                <option value="2">Score 10 points</option>
+                                                <option value="3">One answer variant</option>
+                                                <option value="4">Multi answer variant</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Questions_${questionIndex}__comentary">Commentary</label>
+                                            <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" />
+                                        </div>
+                                        <div class="answers-container" style="display: none;">
+                                            <h4>Answers</h4>
+                                            <div class="answer">
+                                                <div class="form-group">
+                                                    <label for="Questions_${questionIndex}__Answers_0__Text">Answer Text</label>
+                                                    <input type="text" name="Questions[${questionIndex}].answerVariants[0]" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light">Add Answer</button>
+                                        <button type="button" id="remove-answer" style="display: none; width: 100%; margin-top: 10px;">Remove Answer</button>
+                                    </div>`;
+
+                $("#questions-container").append(questionHtml);
+                questionIndex++;
+                addRemoveAction();
+            }
+
+            function addRemoveAction() {
+                $(".btnremove").each(function (index, item) {
+                    $(item).click(function () {
+                        var $question = $(this).closest('.question');
+                        $question.remove();
+                        //reIndexQuestions();
+                    });
+                });
+            }
+            /*
+            function reIndexQuestions() {
+                $(".question").each(function (index) {
+                    var newIndex = index;
+                    $(this).attr("id", "question" + newIndex);
+                    $(this).find("input, select").each(function () {
+                        var name = $(this).attr("name");
+                        if (name) {
+                            var newName = name.replace(/\[\d+\]/g, "[" + newIndex + "]");
+                            $(this).attr("name", newName);
+                        }
+                    });
+                });
+            }
+            */
+
+            $("#add-question").click(function () {
+                addQuestion();
+            });
+
+            $("#questions-container").on("change", "select[name$='.gradingType']", function () {
+                var $question = $(this).closest(".question");
+                var $answersContainer = $question.find(".answers-container");
+                var $addAnswerButton = $question.find("#add-answer");
+
+                if ($(this).val() == "4") { // Показать поле для ответов только при выборе "Multi answer variant"
+                    $answersContainer.show();
+                    $addAnswerButton.show();
+                    // $removeAnswerButton.show();
+                }
+                else if ($(this).val() == "3") {
+                    $answersContainer.show();
+                    $addAnswerButton.hide();
+                }
+                else {
+                    $answersContainer.hide();
+                    $addAnswerButton.hide();
+                }
+            });
+
+            $("#questions-container").on("click", "#add-answer", function () {
+                var $question = $(this).closest(".question");
+                var $answersContainer = $question.find(".answers-container");
+                var answerIndex = $answersContainer.find(".answer").length;
+
+                var answerHtml = `<div class="answer">
+                                    <div class="form-group">
+                                        <label for="Questions_${questionIndex - 1}__Answers_${answerIndex}__Text">Answer Text</label>
+                                        <input type="text" name="Questions[${questionIndex - 1}].answerVariants[${answerIndex}]" class="form-control" />
+                                    </div>
+                                </div>`;
+
+                $answersContainer.append(answerHtml);
+            });
+
+            // Initialize with one question
+            // addQuestion();
+
+            $('#EditQuestionnaireForm').on('submit', function (e) {
+                e.preventDefault();
+                var questions = [];
+
+                debugger
+                let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
+                divsSetQuestions.each(function (e, element) {
+                    var answerRes = [];
+                    let questionName = $("#" + element.id).find("input[id*='questionName_']");
+                    let questionGradingType = $("#" + element.id).find("select[id*='questionGradingType_']");
+                    let questionComentary = $("#" + element.id).find("input[id*='questionComentary_']");
+                    let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
+                    if (answerVal.length > 0) {
+                        answerVal.each(function (e, answElement) {
+                            answerRes.push(answElement.value);
+                        });
+                    }
+                    else {
+                        answerRes.push(null);
+                    }
+                    questions.push({ question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, answerVariants: answerRes });
+                });
+
+                var Quest = {
+                    Title: $('#titleQ').val(),
+                    Questions: JSON.stringify({ questions }),
+                };
+                debugger
+                $.ajax({
+                    url: '/Home/EditQuestionnaire',
+                    cache: false,
+                    type: "POST",
+                    data: JSON.stringify(Quest),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.statusCode === 200) {
+
+                        } else {
+
+                        }
+                    },
+
+                });
+
+
+
+            });
+
+        });
+
+    </script>
+}
+
+
