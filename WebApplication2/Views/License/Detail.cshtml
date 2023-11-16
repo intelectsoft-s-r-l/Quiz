@@ -1,0 +1,68 @@
+﻿@using WebApplication2.Models.API.License;
+@model License
+
+<form method="POST" asp-controller="Home" asp-action="DeleteQuestionnaire" id="DeleteQuestionnaireForm">
+    @* <form method="post" asp-action="ChangePassword" enctype="multipart/form-data"> *@
+
+
+
+    <div class="modal-body">
+        <div class="col-sm-12">
+            <div class="form-container">
+                <h2>License Details</h2>
+                <p><strong>DataTime Activated:</strong> @Model.licenseActivated</p>
+                @if (Model.licenseStatus == 0)
+                {
+                    <p><strong>Status:</strong> NotActivated</p>
+                }
+                else if (Model.licenseStatus == 1)
+                {
+                    <p><strong>Status:</strong> Active</p>
+                }
+                else
+                {
+                    <p><strong>Status:</strong> Disabled</p>
+                }
+                <p><strong>Device model:</strong> @Model.deviceModel</p>
+                <p><strong>Device name:</strong> @Model.deviceName</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+        <button type="submit" id="asd1" class="btn btn-danger waves-effect waves-light"> Activate</button> @*Если активно то только деактив и релиз, если деактив то только актив и релиз иначе и то и то, затем возвращаемся на эту стр(перезагр)*@
+        <button type="submit" class="btn btn-danger waves-effect waves-light"> Deactivate</button>
+        <button type="submit" class="btn btn-danger waves-effect waves-light"> Release</button>
+        @* <a href="@Url.Action("DeleteQuestionnaire", "Home", new {/**/oid = Model.questionnaire.oid})" type="button" class="btn btn-danger waves-effect waves-light">Delete</a> *@
+    </div>
+
+
+    @*     <button type="submit" class="submit-button">Edit</button> *@
+</form>
+<script>
+    $(document).ready(function () {
+        $('#DeleteQuestionnaireForm').on('click', function (e) {
+            e.preventDefault();
+
+
+            $.ajax({
+                url: '../Home/DeleteQuestionnaire',
+                cache: false,
+                type: "POST",
+                data: JSON.stringify(@Model.oid),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.statusCode === 200) {
+                        $('.modal').modal('hide');
+                        window.location.reload();
+
+                    } else {
+                        var errorMessage = $('<div class="alert alert-danger" role="alert">' + data.message + '</div>');
+                        $('#DeleteQuestionnaireForm').append(errorMessage);
+                    }
+                },
+
+            });
+        });
+    });
+</script>

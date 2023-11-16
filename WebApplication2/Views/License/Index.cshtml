@@ -1,0 +1,123 @@
+﻿@using WebApplication2.Models.API.License;
+@model IEnumerable<License>
+
+
+
+@{
+    ViewData["Title"] = "Questionnaires";
+    Layout = "~/Views/_Shared/_Layout.cshtml";
+}
+<script src="~/js/app.js"></script>
+<!-- DataTables -->
+<link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="button-items">
+            
+            <div id="licenses"></div>
+            <button id="addButtonPar" type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light">Generate license</button>
+            <div id="visualCreate" style="display: none;">
+                <div id="Createlicense"></div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>licenseActivated</th> @*Time*@
+                            <th>licenseStatus</th>
+                            <th>deviceModel</th>
+                            <th>deviceName</th>
+                            <th>battery</th>
+                            <th style="width: 120px;">Action</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.licenseActivated</td>
+                                @if (item.licenseStatus == 0)
+                                {
+                                    <th><span class="badge bg-soft-primary font-size-15" style="width: 100%;">NotActivated</span></th>
+                                }
+                                else if (item.licenseStatus == 1)
+                                {
+                                    <th><span class="badge bg-soft-success font-size-15" style="width: 100%;">Activated</span></th>
+                                }
+                                else
+                                {
+                                    <th><span class="badge bg-soft-danger font-size-15" style="width: 100%;">Disabled</span></th>
+                                }
+                                <th>@item.deviceModel</th>
+                                <th>@item.deviceName</th>
+                                <th>@item.battery</th>
+                                <td>
+                                    @*
+                                    <a href="" class="px-3 text-warning"><i class="uil uil-file-info-alt font-size-18"></i></a>
+                                    <a href="" class="px-3 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a> 
+                                    <button type="button" style="width: 100%;" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Delete/'+@item.oid, 'lgModalBody')"><i class="uil-trash-alt"></i>Delete</button>
+                                *@
+                                    @* <a style="width: 100%;" href="@Url.Action("Delete", "License", new {oid = item.oid})" class="btn btn-primary waves-effect waves-light">Edit</a> *@
+                                    <a type="button" class="px-3 text-warning" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Detail/'+'@item.oid', 'lgModalBody')"><i class="uil uil-file-info-alt font-size-18"></i></a>
+                                    <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Delete/'+'@item.oid', 'lgModalBody')"><i class="uil-trash-alt  font-size-18"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<!-- Required datatable js -->
+<script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<!-- Responsive examples -->
+<script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="~/assets/js/pages/datatables.init.js"></script>
+
+
+
+<script>
+    drawPatrialView("/License/CreateLicence", "Createlicense");
+    $(document).ready(function () {
+        $("#addButtonPar").click(function () {
+            $("#visualCreate").show();
+            $(this).hide();
+        });
+        // Проверяем, инициализирована ли уже таблица DataTable
+        if ($.fn.DataTable.isDataTable('#datatable')) {
+            // Если да, уничтожаем текущую инициализацию
+            $('#datatable').DataTable().destroy();
+        }
+
+        // Инициализируем DataTable с вашими настройками
+        $('#datatable').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [1, 2, 3] }
+            ]
+        });
+    });
+
+</script>

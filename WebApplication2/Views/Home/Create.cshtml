@@ -2,6 +2,12 @@
 @using WebApplication2.Models.Enum;
 @model CreateQuestionnaireViewModel
 <script src="~/js/app.js"></script>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/_Shared/_Layout.cshtml";
+}
+
 <style>
     .question {
         border: 1px solid black;
@@ -38,7 +44,7 @@
                     @*<button type="button" id="remove-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Remove Question</button>*@
                     <br />
                     <br />
-                    <input type="submit" style="width: 100%;" class="btn btn-outline-success waves-effect waves-light" value="Save" />
+                    <input type="submit" style="width: 100%;" class="btn btn-outline-success waves-effect waves-light" value="Create" />
                 }
             </div>
         </div>

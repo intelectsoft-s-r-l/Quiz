@@ -40,6 +40,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/_CreateLicence.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfQ3JlYXRlTGljZW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/ProfileInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,14 +68,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/_CreateLicence.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfQ3JlYXRlTGljZW5jZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/_LicenseList.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfTGljZW5zZUxpc3QuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/_Questionnaire.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfUXVlc3Rpb25uYWlyZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,10 +78,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_BlankLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfQmxhbmtMYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_CalendarLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfQ2FsZW5kYXJMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_footer.cshtml]
@@ -102,10 +106,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_page_title.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfcGFnZV90aXRsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_QuestionnaireLevel.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfUXVlc3Rpb25uYWlyZUxldmVsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/_Shared/_right_sidebar.cshtml]

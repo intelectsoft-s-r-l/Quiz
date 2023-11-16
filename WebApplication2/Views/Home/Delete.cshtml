@@ -1,28 +1,63 @@
 ﻿@using WebApplication2.Models.API;
+@using WebApplication2.Models.Enum;
 @model DetailQuestionnaire
+<style>
 
+
+    /* Stylish form container */
+    .form-container {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+</style>
 <form method="POST" asp-controller="Home" asp-action="DeleteQuestionnaire" id="DeleteQuestionnaireForm">
     @* <form method="post" asp-action="ChangePassword" enctype="multipart/form-data"> *@
 
-    <div class="form-container">
 
-        <div class="modal-body">
-            <div class="col-sm-12">
-            <div class="alert alert-danger alert-dismissible fade show mt-4 px-4 mb-0 text-center" role="alert">
+
+    <div class="modal-body">
+        <div class="col-sm-12">
+            <div class="alert alert-danger alert-dismissible fade show mt-1 px-1 mb-0 text-center" role="alert">
                 <i class="uil uil-exclamation-octagon d-block display-4 mt-2 mb-3 text-danger"></i>
                 <h5 class="text-danger">Delete</h5>
                 <p>
-                    Are u sure delete @Model.questionnaire.name?
+                    Are you sure?
                 </p>
+                <h2>Questionnaire Details</h2>
+            </div><div class="form-container">
+                <h3 style="margin-top:20px;"><strong>Questionnaire Title:</strong> @Model.questionnaire.name</h3>
+                <p>Questions:</p>
+                <ol>
+                    @foreach (var question in Model.questionnaire.questions)
+                    {
+                        <li><h5>@question.question</h5></li>
+                        <p>Commentary: @question.comentary</p>
+                        <p>AnswerType: @question.gradingType</p>
+                        if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
+                        {
+                            <ul>
+                                @foreach (var answer in question.answerVariants)
+                                {
+                                    <li><p>@answer</p></li>
+                                }
+                            </ul>
+                        }
+                    }
+                </ol>
+
             </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger waves-effect waves-light"> Delete</button>
-            @* <a href="@Url.Action("DeleteQuestionnaire", "Home", new {/**/oid = Model.questionnaire.oid})" type="button" class="btn btn-danger waves-effect waves-light">Delete</a> *@
         </div>
     </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger waves-effect waves-light"> Delete</button>
+        @* <a href="@Url.Action("DeleteQuestionnaire", "Home", new {/**/oid = Model.questionnaire.oid})" type="button" class="btn btn-danger waves-effect waves-light">Delete</a> *@
+    </div>
+
 
     @*     <button type="submit" class="submit-button">Edit</button> *@
 </form>

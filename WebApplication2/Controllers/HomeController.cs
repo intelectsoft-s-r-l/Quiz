@@ -1,60 +1,16 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Security.Claims;
 using System.Text;
 using WebApplication2.Models;
 using WebApplication2.Models.API;
 using WebApplication2.ViewModels;
-using System.Net.Http;
-using static System.Net.WebRequestMethods;
 
 namespace WebApplication2.Controllers
 {
     [Authorize]
     public class HomeController : BaseController
     {
-        //public async Task<IActionResult> Index()
-        //{
-        //    string token = GetToken();//Work
-
-        //    using (var httpClient = new HttpClient())
-        //    {
-
-        //        var apiUrl = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-        //        var response = await httpClient.GetAsync(apiUrl);
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            // Чтение данных из HTTP-ответа.
-
-        //            var data = await response.Content.ReadAsAsync<GetProfileInfo>();
-        //            if (data.ErrorCode == 143)
-        //            {
-        //                await RefreshToken();
-        //                return await Index();
-        //            }
-        //            else if (data.ErrorCode == 118)
-        //            {
-        //                return View("~/Views/Account/Login.cshtml");
-        //            }
-        //            else if (data.ErrorCode == 0)
-        //            {
-        //                return View("~/Views/Home/Index.cshtml", data.User);
-        //            }
-
-
-
-        //        }
-        //    }
-
-
-        //    return View("~/Views/Home/Index.cshtml");
-        //}
-
         public async Task<IActionResult> Index()
         {
             string token = GetToken();
@@ -108,8 +64,8 @@ namespace WebApplication2.Controllers
                                 else if (questionnaireData.errorCode == 0)
                                 {
 
-                                        return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
-                                    
+                                    return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
+
                                 }
 
 
@@ -129,11 +85,11 @@ namespace WebApplication2.Controllers
             return View("~/Views/Home/Index.cshtml");
         }
 
+
         public IActionResult Create()
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Create(CreateQuestionnaireViewModel CreateQuestionnaireVM)
         {
@@ -233,7 +189,7 @@ namespace WebApplication2.Controllers
         }
 
 
-        [HttpGet]
+        //[HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             string token = GetToken();
@@ -287,6 +243,7 @@ namespace WebApplication2.Controllers
                                 else if (questionnaireData.errorCode == 0)
                                 {
                                     var upsertVm = new CreateQuestionnaireViewModel();
+                                    upsertVm.oid = id;
                                     upsertVm.Title = questionnaireData.questionnaire.name;
                                     upsertVm.Questions = questionnaireData.questionnaire.questions;
                                     return /*Partial*/View("~/Views/Home/Edit.cshtml", upsertVm);
@@ -299,14 +256,82 @@ namespace WebApplication2.Controllers
             }
             return View("Error");
         }
-
+        [HttpPost]
         public async Task<IActionResult> EditQuestionnaire([FromBody] EditQuestionnareViewModel editQuestionnaireVM)
         {
 
             var quest = JsonConvert.DeserializeObject<QuestionsViewModel>(editQuestionnaireVM.Questions);
-            var test = 0;
-            return View();
+            string token = GetToken();
+            using (var httpClient = new HttpClient())
+            {
+
+                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+
+                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+
+                if (responseGetProfileInfo.IsSuccessStatusCode)
+                {
+                    // Чтение данных из HTTP-ответа.
+
+                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                    if (userData.ErrorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await EditQuestionnaire(editQuestionnaireVM);
+                    }
+                    else if (userData.ErrorCode == 118)
+                    {
+                        return View("~/Views/Account/Login.cshtml");
+                    }
+                    else if (userData.ErrorCode == 0)
+                    {
+                        using (var httpClient1 = new HttpClient())
+                        {
+                            var apiUrlForPostQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/UpsertQuestionnaire";
+                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+
+                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
+                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                            //Correct model for post
+                            CreateQuestionnaire createQuestionnaire = new CreateQuestionnaire();
+                            createQuestionnaire.oid = editQuestionnaireVM.id;
+                            createQuestionnaire.name = editQuestionnaireVM.Title;
+                            createQuestionnaire.questions = quest.questions;
+
+                            createQuestionnaire.companyOid = userData.User.CompanyID;
+                            createQuestionnaire.token = token;
+                            createQuestionnaire.company = userData.User.Company;
+
+                            var jsonContent = new StringContent(JsonConvert.SerializeObject(createQuestionnaire), Encoding.UTF8, "application/json");
+
+                            var responsePostQuestionnaire = await httpClient1.PostAsync(apiUrlForPostQuestionnaire, jsonContent);
+
+                            if (responsePostQuestionnaire.IsSuccessStatusCode)
+                            {
+                                // Чтение данных из HTTP-ответа.
+
+                                var questionnaireBaseResponsedData = await responsePostQuestionnaire.Content.ReadAsAsync<BaseErrors>(); //Тут была ошибка из-за названия переменных
+
+                                if (questionnaireBaseResponsedData.errorCode == 143)
+                                {
+                                    await RefreshToken();
+                                    return await EditQuestionnaire(editQuestionnaireVM); ///!
+                                }
+                                else if (questionnaireBaseResponsedData.errorCode == 0)
+                                {
+                                    return Json(new { StatusCode = 200 });
+                                }
+
+
+
+                            }
+                        }
+                    }
+                }
+            }
+            return View("~/Views/Home/Index.cshtml");
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
@@ -374,8 +399,8 @@ namespace WebApplication2.Controllers
 
             return PartialView();
         }
-        
-        //[HttpPost, ActionName("Delete")]
+        //[HttpDelete, ActionName("Delete")]
+        [HttpPost]
         public async Task<IActionResult> DeleteQuestionnaire([FromBody] int oid)
         {
             string token = GetToken();

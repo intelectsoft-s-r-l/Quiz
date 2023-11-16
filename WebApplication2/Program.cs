@@ -65,6 +65,9 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+    //endpoints.MapControllerRoute(
+    //   name: "License",
+    //   pattern: "{controller=Home}/{action=Index}/{oid?}");
 
 });
 app.Run();
