@@ -75,6 +75,23 @@
                                     @* <a style="width: 100%;" href="@Url.Action("Delete", "License", new {oid = item.oid})" class="btn btn-primary waves-effect waves-light">Edit</a> *@
                                     <a type="button" class="px-3 text-warning" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Detail/'+'@item.oid', 'lgModalBody')"><i class="uil uil-file-info-alt font-size-18"></i></a>
                                     <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Delete/'+'@item.oid', 'lgModalBody')"><i class="uil-trash-alt  font-size-18"></i></a>
+                                    <div class="dropdown float-end">
+                                        <a class="text-body dropdown-toggle font-size-18" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                            <i class="uil uil-ellipsis-v"></i>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            @if (item.licenseStatus != 1)
+                                            {
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=1', 'lgModalBody')">Activate</a>
+                                            }
+                                            @if (item.licenseStatus == 1)
+                                            {
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=2', 'lgModalBody')">Deactivate</a>
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=3', 'lgModalBody')">Release</a>
+                                            }
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -115,7 +132,7 @@
         // Инициализируем DataTable с вашими настройками
         $('#datatable').DataTable({
             "columnDefs": [
-                { "orderable": false, "targets": [1, 2, 3] }
+                { "orderable": false, "targets": [5] }
             ]
         });
     });

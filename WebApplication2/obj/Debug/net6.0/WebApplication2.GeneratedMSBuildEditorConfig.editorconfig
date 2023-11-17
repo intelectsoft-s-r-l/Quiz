@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/Home/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/Home/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,8 +56,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/_Activate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfQWN0aXZhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/_CreateLicence.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfQ3JlYXRlTGljZW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/_Deactivate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfRGVhY3RpdmF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/License/_Release.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfUmVsZWFzZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/Desktop/WebApplication2/WebApplication2/Views/User/ProfileInfo.cshtml]

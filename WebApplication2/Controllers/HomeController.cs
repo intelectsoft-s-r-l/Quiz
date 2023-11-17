@@ -86,6 +86,73 @@ namespace WebApplication2.Controllers
         }
 
 
+        public async Task<IActionResult> Detail(int id)
+        {
+            string token = GetToken();
+            using (var httpClient = new HttpClient())
+            {
+
+                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+
+                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+
+                if (responseGetProfileInfo.IsSuccessStatusCode)
+                {
+                    // Чтение данных из HTTP-ответа.
+
+                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                    if (userData.ErrorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Detail(id);
+                    }
+                    else if (userData.ErrorCode == 118)
+                    {
+                        return View("~/Views/Account/Login.cshtml");
+                    }
+                    else if (userData.ErrorCode == 0)
+                    {
+                        using (var httpClient1 = new HttpClient())
+                        {
+
+                            var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaire?Token=" + token + "&id=" + id;
+                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+
+                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
+                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                            var responseGetQuestionnaire = await httpClient1.GetAsync(apiUrlGetQuestionnaire);
+
+                            if (responseGetQuestionnaire.IsSuccessStatusCode)
+                            {
+                                var questionnaireData = await responseGetQuestionnaire.Content.ReadAsAsync<DetailQuestionnaire>();
+                                if (questionnaireData.errorCode == 143)
+                                {
+                                    await RefreshToken();
+                                    return await Detail(id);
+                                }
+                                else if (questionnaireData.errorCode == 118)
+                                {
+                                    return View("~/Views/Account/Login.cshtml");
+                                }
+                                else if (questionnaireData.errorCode == 0)
+                                {
+                                    var upsertVm = new CreateQuestionnaireViewModel();
+                                    upsertVm.oid = id;
+                                    upsertVm.Title = questionnaireData.questionnaire.name;
+                                    upsertVm.Questions = questionnaireData.questionnaire.questions;
+                                    return /*Partial*/View("~/Views/Home/Detail.cshtml", upsertVm);
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return View("Error");
+        }
+
         public IActionResult Create()
         {
             return View();

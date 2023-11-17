@@ -1,0 +1,60 @@
+﻿@model string
+<style>
+
+
+    /* Stylish form container */
+    .form-container {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+</style>
+<form id="Deactivate">
+    @* <form method="post" asp-action="ChangePassword" enctype="multipart/form-data"> *@
+
+
+    <div class="modal-body">
+        <div class="col-sm-12">
+            <div class="alert alert-warning alert-dismissible fade show mt-1 px-1 mb-0 text-center" role="alert">
+                <i class="uil uil-exclamation-triangle d-block display-4 mt-2 mb-3 text-warning"></i>
+                <h5 class="text-warning">Deactivate</h5>
+                <p>Are you sure?</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success waves-effect waves-light"> Yes</button>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $('#Deactivate').on('submit', function (e) {
+            e.preventDefault();
+
+
+            $.ajax({
+                url: './License/Deactivate?oid=@Model',
+                cache: false,
+                type: "GET",
+                /*
+                data: JSON.stringify(@Model),
+                contentType: "application/json; charset=utf-8",*/
+                success: function (data) {
+                    if (data.statusCode === 200) {
+                        $('.modal').modal('hide');
+                        window.location.reload();
+
+                    } else {
+                        var errorMessage = $('<div class="alert alert-danger" role="alert">' + data.message + '</div>');
+                        $('#Deactivate').append(errorMessage);
+                    }
+                },
+
+            });
+        });
+    });
+</script>
