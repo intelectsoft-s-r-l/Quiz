@@ -15,22 +15,21 @@ namespace WebApplication2.Controllers
     public class LicenseController : BaseController
     {
 
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             string token = GetToken();
 
-            using (var httpClient = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
                 var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                 if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
-
                     var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                     if (userData.ErrorCode == 143)
                     {
@@ -46,38 +45,35 @@ namespace WebApplication2.Controllers
                         using (var httpClientForLicenseList = new HttpClient())
                         {
 
-                            var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/GetLicenseList?token=" + token;
-                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                            var apiUrlGetLicenseListByToken = "https://dev.edi.md/ISNPSAPI/Web/GetLicenseList?token=" + token;
 
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
+                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
                             httpClientForLicenseList.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
 
-                            var responseGetLicenseList = await httpClientForLicenseList.GetAsync(apiUrlGetQuestionnairesByToken);
+                            var responseGetLicenseList = await httpClientForLicenseList.GetAsync(apiUrlGetLicenseListByToken);
 
                             if (responseGetLicenseList.IsSuccessStatusCode)
                             {
-                                var questionnaireData = await responseGetLicenseList.Content.ReadAsAsync<GetLicenseList>();
-                                if (questionnaireData.errorCode == 143)
+                                var licensesData = await responseGetLicenseList.Content.ReadAsAsync<GetLicenseList>();
+                                if (licensesData.errorCode == 143)
                                 {
                                     await RefreshToken();
                                     return await Index();
                                 }
-                                else if (questionnaireData.errorCode == 118)
+                                else if (licensesData.errorCode == 118)
                                 {
                                     return View("~/Views/Account/Login.cshtml");
                                 }
-                                else if (questionnaireData.errorCode == 0)
+                                else if (licensesData.errorCode == 0)
                                 {
 
-                                    return View("~/Views/License/Index.cshtml", questionnaireData.licenses);
+                                    return View("~/Views/License/Index.cshtml", licensesData.licenses);
 
                                 }
                             }
                         }
                     }
-
-
 
                 }
             }
@@ -92,12 +88,12 @@ namespace WebApplication2.Controllers
         {
             string token = GetToken();
 
-            using (var httpClient = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
                 var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                 if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
@@ -119,11 +115,9 @@ namespace WebApplication2.Controllers
                         {
 
                             var apiUrlGetLicense = "https://dev.edi.md/ISNPSAPI/Web/GetLicense?token=" + token + "&Oid=" + id;
+
                             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
                             httpClientForLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
 
                             var responseGetLicense = await httpClientForLicense.GetAsync(apiUrlGetLicense);
 
@@ -148,8 +142,6 @@ namespace WebApplication2.Controllers
                             }
                         }
                     }
-
-
 
                 }
             }
@@ -182,17 +174,15 @@ namespace WebApplication2.Controllers
             {
                 string token = GetToken();
 
-                using (var httpClientForUser = new HttpClient())
+                using (var httpClientForProfileInfo = new HttpClient())
                 {
 
                     var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                    var responseGetProfileInfo = await httpClientForUser.GetAsync(apiUrlForGetProfileInfo);
+                    var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                     if (responseGetProfileInfo.IsSuccessStatusCode)
                     {
-                        // Чтение данных из HTTP-ответа.
-
                         var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                         if (userData.ErrorCode == 143)
                         {
@@ -205,17 +195,15 @@ namespace WebApplication2.Controllers
                         }
                         else if (userData.ErrorCode == 0)
                         {
-                            using (var httpClientForLicense = new HttpClient())
+                            using (var httpClientForActivateLicense = new HttpClient())
                             {
 
                                 var apiUrlDeactivateLicense = "https://dev.edi.md/ISNPSAPI/Web/DeactivateLicense?token=" + token + "&Oid=" + oid;
+
                                 var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                                httpClientForActivateLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
-                                // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                                httpClientForLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                                var responseDeactivateLicense = await httpClientForLicense.GetAsync(apiUrlDeactivateLicense);
+                                var responseDeactivateLicense = await httpClientForActivateLicense.GetAsync(apiUrlDeactivateLicense);
 
                                 if (responseDeactivateLicense.IsSuccessStatusCode)
                                 {
@@ -231,23 +219,16 @@ namespace WebApplication2.Controllers
                                     }
                                     else if (licenseData.errorCode == 0)
                                     {
-
-                                        // return PartialView("~/Views/Home/Index.cshtml");
                                         return Json(new { StatusCode = 200, Message = "Ok" });
 
                                     }
                                     else
                                     {
-                                        //TempData["Error"] = "Password unchenged";
-                                        //return View("~/Views/User/Settings.cshtml");
                                         return Json(new { StatusCode = 500, Message = licenseData.errorMessage });
                                     }
                                 }
                             }
                         }
-
-
-
                     }
                 }
             }
@@ -264,17 +245,15 @@ namespace WebApplication2.Controllers
 
             string token = GetToken();
 
-            using (var httpClientForUser = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
                 var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var responseGetProfileInfo = await httpClientForUser.GetAsync(apiUrlForGetProfileInfo);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                 if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
-
                     var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                     if (userData.ErrorCode == 143)
                     {
@@ -287,17 +266,15 @@ namespace WebApplication2.Controllers
                     }
                     else if (userData.ErrorCode == 0)
                     {
-                        using (var httpClientForLicense = new HttpClient())
+                        using (var httpClientForActivateLicense = new HttpClient())
                         {
 
                             var apiUrlActivateLicense = "https://dev.edi.md/ISNPSAPI/Web/ActivateLicense?token=" + token + "&Oid=" + oid;
+
                             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                            httpClientForActivateLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                            httpClientForLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                            var responseActivateLicense = await httpClientForLicense.GetAsync(apiUrlActivateLicense);
+                            var responseActivateLicense = await httpClientForActivateLicense.GetAsync(apiUrlActivateLicense);
 
                             if (responseActivateLicense.IsSuccessStatusCode)
                             {
@@ -313,23 +290,16 @@ namespace WebApplication2.Controllers
                                 }
                                 else if (licenseData.errorCode == 0)
                                 {
-
-                                    // return PartialView("~/Views/Home/Index.cshtml");
                                     return Json(new { StatusCode = 200, Message = "Ok" });
 
                                 }
                                 else
                                 {
-                                    //TempData["Error"] = "Password unchenged";
-                                    //return View("~/Views/User/Settings.cshtml");
                                     return Json(new { StatusCode = 500, Message = licenseData.errorMessage });
                                 }
                             }
                         }
                     }
-
-
-
                 }
             }
             return View("Error");
@@ -339,18 +309,15 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Release(string oid)
         {
             string token = GetToken();
-
-            using (var httpClientForUser = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
                 var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var responseGetProfileInfo = await httpClientForUser.GetAsync(apiUrlForGetProfileInfo);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                 if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
-
                     var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                     if (userData.ErrorCode == 143)
                     {
@@ -363,17 +330,15 @@ namespace WebApplication2.Controllers
                     }
                     else if (userData.ErrorCode == 0)
                     {
-                        using (var httpClientForLicense = new HttpClient())
+                        using (var httpClientForReleaseLicense = new HttpClient())
                         {
 
                             var apiUrlReleaseLicense = "https://dev.edi.md/ISNPSAPI/Web/ReleaseLicense?token=" + token + "&Oid=" + oid;
+
                             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                            httpClientForReleaseLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                            httpClientForLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                            var responseReleaseLicense = await httpClientForLicense.GetAsync(apiUrlReleaseLicense);
+                            var responseReleaseLicense = await httpClientForReleaseLicense.GetAsync(apiUrlReleaseLicense);
 
                             if (responseReleaseLicense.IsSuccessStatusCode)
                             {
@@ -389,28 +354,20 @@ namespace WebApplication2.Controllers
                                 }
                                 else if (licenseData.errorCode == 0)
                                 {
-
-                                    // return PartialView("~/Views/Home/Index.cshtml");
                                     return Json(new { StatusCode = 200, Message = "Ok" });
 
                                 }
                                 else
                                 {
-                                    //TempData["Error"] = "Password unchenged";
-                                    //return View("~/Views/User/Settings.cshtml");
                                     return Json(new { StatusCode = 500, Message = licenseData.errorMessage });
                                 }
                             }
                         }
                     }
-
-
-
                 }
             }
             return View("Error");
         }
-
 
 
         [HttpGet]
@@ -419,23 +376,21 @@ namespace WebApplication2.Controllers
             return PartialView("~/Views/License/_CreateLicence.cshtml");
         }
 
-        [HttpPost]
+        [HttpPost] //418 PostAsync?
         public async Task<IActionResult> CreateLicence(GenerateLicenseViewModel generateLicenseVM)
         {
             if (generateLicenseVM.quantity > 0)
             {
                 string token = GetToken();
-                using (var httpClient = new HttpClient())
+                using (var httpClientForProfileInfo = new HttpClient())
                 {
 
                     var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                    var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+                    var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                     if (responseGetProfileInfo.IsSuccessStatusCode)
                     {
-                        // Чтение данных из HTTP-ответа.
-
                         var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                         if (userData.ErrorCode == 143)
                         {
@@ -448,24 +403,22 @@ namespace WebApplication2.Controllers
                         }
                         else if (userData.ErrorCode == 0)
                         {
-                            using (var httpClient1 = new HttpClient())
+                            using (var httpClientForPostLicense = new HttpClient())
                             {
                                 var addingStr = "?token=" + token + "&quantity=" + generateLicenseVM.quantity;
-                                var apiUrlForPostLicense = "https://dev.edi.md/ISNPSAPI/Web/GenerateLicense" + addingStr;
-                                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
 
-                                // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                                httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                                var apiUrlForPostLicense = "https://dev.edi.md/ISNPSAPI/Web/GenerateLicense" + addingStr;
+
+                                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                                httpClientForPostLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
                                 //generateLicenseVM.token = token;
 
                                 var jsonContent = new StringContent(JsonConvert.SerializeObject(generateLicenseVM), Encoding.UTF8, "application/json");
 
-                                var responsePostLicense = await httpClient1.PostAsync(apiUrlForPostLicense, jsonContent);
+                                var responsePostLicense = await httpClientForPostLicense.PostAsync(apiUrlForPostLicense, jsonContent);
 
                                 if (responsePostLicense.IsSuccessStatusCode)
                                 {
-                                    // Чтение данных из HTTP-ответа.
-
                                     var baseResponsedData = await responsePostLicense.Content.ReadAsAsync<BaseErrors>();
 
                                     if (baseResponsedData.errorCode == 143)
@@ -477,9 +430,6 @@ namespace WebApplication2.Controllers
                                     {
                                         return RedirectToAction(nameof(LicenseController.Index), "License");
                                     }
-
-
-
                                 }
                             }
                         }
@@ -487,7 +437,7 @@ namespace WebApplication2.Controllers
                 }
             }
 
-            return View("~/Views/Home/Index.cshtml");
+            return View("Error");
         }
 
 
@@ -496,16 +446,15 @@ namespace WebApplication2.Controllers
         {
 
             string token = GetToken();
-            using (var httpClient = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
                 var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                 if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
 
                     var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                     if (userData.ErrorCode == 143)
@@ -520,60 +469,25 @@ namespace WebApplication2.Controllers
                     else if (userData.ErrorCode == 0)
                     {
                         return PartialView("~/Views/License/Delete.cshtml", id);
-                        /*using (var httpClient1 = new HttpClient())
-                        {
-
-                            var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaire?Token=" + token + "&id=" + id;
-                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                            var responseGetQuestionnaires = await httpClient1.GetAsync(apiUrlGetQuestionnaire);
-
-                            if (responseGetQuestionnaires.IsSuccessStatusCode)
-                            {
-                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<DetailQuestionnaire>();
-                                if (questionnaireData.errorCode == 143)
-                                {
-                                    await RefreshToken();
-                                    return await Delete(id);
-                                }
-                                else if (questionnaireData.errorCode == 118)
-                                {
-                                    return View("~/Views/Account/Login.cshtml");
-                                }
-                                else if (questionnaireData.errorCode == 0)
-                                {
-
-                                    return PartialView("~/Views/Home/Delete.cshtml", questionnaireData);
-
-                                }
-                            }
-                        }*/
                     }
                 }
             }
-
-            return PartialView();
+            return View("Error");
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteLicense(string oid)
         {
             string token = GetToken();
-            using (var httpClient = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
                 var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                 if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
-
                     var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                     if (userData.ErrorCode == 143)
                     {
@@ -586,17 +500,16 @@ namespace WebApplication2.Controllers
                     }
                     else if (userData.ErrorCode == 0)
                     {
-                        using (var httpClient1 = new HttpClient())
+                        using (var httpClientForDeleteLicense = new HttpClient())
                         {
 
                             var apiUrlDeleteLicense = "https://dev.edi.md/ISNPSAPI/Web/DeleteLicense?token=" + token + "&Oid=" + oid;
+
                             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                            httpClientForDeleteLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
 
-                            var responseDeleteLicense = await httpClient1.DeleteAsync(apiUrlDeleteLicense);
+                            var responseDeleteLicense = await httpClientForDeleteLicense.DeleteAsync(apiUrlDeleteLicense);
 
                             if (responseDeleteLicense.IsSuccessStatusCode)
                             {
@@ -612,29 +525,19 @@ namespace WebApplication2.Controllers
                                 }
                                 else if (licenseDataError.errorCode == 0)
                                 {
-
-                                    // return PartialView("~/Views/Home/Index.cshtml");
                                     return Json(new { StatusCode = 200, Message = "Ok" });
 
                                 }
                                 else
                                 {
-                                    //TempData["Error"] = "Password unchenged";
-                                    //return View("~/Views/User/Settings.cshtml");
                                     return Json(new { StatusCode = 500, Message = licenseDataError.errorMessage });
                                 }
-
-
-
                             }
                         }
                     }
-
-
-
                 }
             }
-            return View("Index");
+            return View("Error");
         }
 
     }

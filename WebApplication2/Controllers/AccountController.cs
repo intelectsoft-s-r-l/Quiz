@@ -15,14 +15,14 @@ namespace WebApplication2.Controllers
     public class AccountController : BaseController
     {
 
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
         {
-
-            //var response = new AuthorizeViewModel();
-            return View("~/Views/Account/Login.cshtml");//response);
+            return View("~/Views/Account/Login.cshtml");
         }
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -31,44 +31,40 @@ namespace WebApplication2.Controllers
             if (!ModelState.IsValid)
                 return View(loginVM);
 
-            using (var httpClient = new HttpClient())
+            using (var httpClientForAuth = new HttpClient())
             {
-                // Замените URL на ссылку, с которой вы хотите получить данные.
-                var apiUrl = "https://dev.edi.md/ISAuthService/json/AuthorizeUser";
+                var apiUrlForAuth = "https://dev.edi.md/ISAuthService/json/AuthorizeUser";
 
-                // Преобразуйте объект loginVM в JSON и отправьте его с помощью HttpContent.
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(loginVM), Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(apiUrl, jsonContent);
+                var responseAuth = await httpClientForAuth.PostAsync(apiUrlForAuth, jsonContent);
 
-                if (response.IsSuccessStatusCode)
+                if (responseAuth.IsSuccessStatusCode)
                 {
                     // Чтение данных из HTTP-ответа.
-                    var data = await response.Content.ReadAsAsync<GetProfileInfo>();
+                    var userData = await responseAuth.Content.ReadAsAsync<GetProfileInfo>();
 
-                    if (data.ErrorCode == 0)
+                    if (userData.ErrorCode == 0)
                     {
                         List<Claim> userClaims = new List<Claim>();
-                        userClaims.Add(new Claim(ClaimTypes.NameIdentifier, data.User.ID.ToString()));
-                        userClaims.Add(new Claim(ClaimTypes.Email, data.User.Email));
-                        userClaims.Add(new Claim("FullName", data.User.FirstName + " " + data.User.LastName));
-                        userClaims.Add(new Claim("Company", data.User.Company));
-                        userClaims.Add(new Claim("PhoneNumber", data.User.PhoneNumber));
-                        userClaims.Add(new Claim(".AspNetCore.Admin", data.Token));
+                        userClaims.Add(new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()));
+                        userClaims.Add(new Claim(ClaimTypes.Email, userData.User.Email));
+                        userClaims.Add(new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName));
+                        userClaims.Add(new Claim("Company", userData.User.Company));
+                        userClaims.Add(new Claim("PhoneNumber", userData.User.PhoneNumber));
+                        userClaims.Add(new Claim(".AspNetCore.Admin", userData.Token));
 
                         var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                        //Adding claimsIdentity to ClaimsPrincipal
                         var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
-                        //SignIn to save Claims in cookie, and re-use it in refresh token, after restarting application
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
                     else
                     {
-                        TempData["Error"] = data.ErrorMessage;
+                        TempData["Error"] = userData.ErrorMessage;
                         return View(loginVM);
                     }
                 }
@@ -82,11 +78,11 @@ namespace WebApplication2.Controllers
 
         }
 
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AuthRecoverpw()
         {
-            // return View("~/Views/Account/AuthRecoverpw.cshtml");
             return View();
         }
 
@@ -98,22 +94,21 @@ namespace WebApplication2.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            using (var httpClient = new HttpClient())
+            using (var httpClientForResetPW = new HttpClient())
             {
-                // Замените URL на ссылку, с которой вы хотите получить данные.
-                var apiUrl = "https://dev.edi.md/ISAuthService/json/ResetPassword";
 
-                // Преобразуйте объект loginVM в JSON и отправьте его с помощью HttpContent.
+                var apiUrlForResetPW = "https://dev.edi.md/ISAuthService/json/ResetPassword";
+
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(recoverpwVM), Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(apiUrl, jsonContent);
+                var response = await httpClientForResetPW.PostAsync(apiUrlForResetPW, jsonContent);
 
                 if (response.IsSuccessStatusCode)
                 {
                     // Чтение данных из HTTP-ответа.
-                    var data = await response.Content.ReadAsAsync<BaseResponse>();
+                    var baseResponseData = await response.Content.ReadAsAsync<BaseResponse>();
 
-                    if (data.ErrorCode == 0)
+                    if (baseResponseData.ErrorCode == 0)
                     {
                         AuthorizeViewModel authorizeViewModel = new AuthorizeViewModel();
                         authorizeViewModel.Email = recoverpwVM.Email;
@@ -122,7 +117,7 @@ namespace WebApplication2.Controllers
                     }
                     else
                     {
-                        TempData["Error"] = data.ErrorMessage;
+                        TempData["Error"] = baseResponseData.ErrorMessage;
                         return View("~/Views/Account/AuthRecoverpw.cshtml");
                     }
                 }
@@ -136,12 +131,11 @@ namespace WebApplication2.Controllers
 
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-
-            // return View("~/Views/Account/Login.cshtml");
             return RedirectToAction("Login", "Account");
         }
     }

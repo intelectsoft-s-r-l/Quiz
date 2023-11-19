@@ -13,80 +13,76 @@ namespace WebApplication2.Controllers
     [Authorize]
     public class UserController : BaseController
     {
+
+
         [HttpGet]
         public async Task<IActionResult> ProfileInfo()
         {
 
             string token = GetToken();
-            using (var httpClient = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
-                var apiUrl = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+                var apiUrlGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var response = await httpClient.GetAsync(apiUrl);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlGetProfileInfo);
 
-                if (response.IsSuccessStatusCode)
+                if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
-
-                    var data = await response.Content.ReadAsAsync<GetProfileInfo>();
-                    if (data.ErrorCode == 143)
+                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                    if (userData.ErrorCode == 143)
                     {
                         await RefreshToken();
                         return await ProfileInfo();
                     }
-                    else if (data.ErrorCode == 118)
+                    else if (userData.ErrorCode == 118)
                     {
                         return View("~/Views/Account/Login.cshtml");
                     }
-                    else if (data.ErrorCode == 0)
+                    else if (userData.ErrorCode == 0)
                     {
-                        return View("~/Views/User/ProfileInfo.cshtml", data.User);
+                        return View("~/Views/User/ProfileInfo.cshtml", userData.User);
                     }
-
-
 
                 }
             }
-            return View("~/Views/Account/Login.cshtml"); /////////!!!!!!
+            return View("Error");
+           // return View("~/Views/Account/Login.cshtml"); /////////!!!!!!
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Settings()
         {
             string token = GetToken();
-            using (var httpClient = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
-                var apiUrl = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+                var apiUrlGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var response = await httpClient.GetAsync(apiUrl);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlGetProfileInfo);
 
-                if (response.IsSuccessStatusCode)
+                if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
-
-                    var data = await response.Content.ReadAsAsync<GetProfileInfo>();
-                    if (data.ErrorCode == 143)
+                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+                    if (userData.ErrorCode == 143)
                     {
                         await RefreshToken();
                         return await Settings();
                     }
-                    else if (data.ErrorCode == 118)
+                    else if (userData.ErrorCode == 118)
                     {
                         return View("~/Views/Account/Login.cshtml");
                     }
-                    else if (data.ErrorCode == 0)
+                    else if (userData.ErrorCode == 0)
                     {
-                        return View("~/Views/User/Settings.cshtml", data.User);
+                        return View("~/Views/User/Settings.cshtml", userData.User);
                     }
-
-
-
                 }
             }
-            return View("~/Views/Account/Login.cshtml"); /////////!!!!!!
+            return View("Error");
         }
+
 
         [HttpGet]   //!
         public async Task<IActionResult> ChangePassword()
@@ -94,7 +90,7 @@ namespace WebApplication2.Controllers
             return PartialView("~/Views/User/_ChangePassword.cshtml");
         }
 
-        [HttpPost]
+        [HttpPost]  //NormalToken, mb problem
         public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)   //FromBody
         {
 
@@ -113,27 +109,25 @@ namespace WebApplication2.Controllers
                 Token = token
             };
 
-            using (var httpClient = new HttpClient())
+            using (var httpClientForChangePW = new HttpClient())
             {
-                // Замените URL на ссылку, с которой вы хотите получить данные.
-                var apiUrl = "https://dev.edi.md/ISAuthService/json/ChangePassword";
 
-                // Преобразуйте объект loginVM в JSON и отправьте его с помощью HttpContent.
+                var apiUrlForChangePW = "https://dev.edi.md/ISAuthService/json/ChangePassword";
+
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(changePassword), Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(apiUrl, jsonContent);
+                var responseChangePW = await httpClientForChangePW.PostAsync(apiUrlForChangePW, jsonContent);
 
-                if (response.IsSuccessStatusCode)
+                if (responseChangePW.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
-                    var data = await response.Content.ReadAsAsync<BaseResponse>();
+                    var baseResponseData = await responseChangePW.Content.ReadAsAsync<BaseResponse>();
 
-                    if (data.ErrorCode == 143)
+                    if (baseResponseData.ErrorCode == 143)
                     {
                         await RefreshToken();
                         return await ChangePassword(changepwVM); ///!
                     }
-                    else if (data.ErrorCode == 0)
+                    else if (baseResponseData.ErrorCode == 0)
                     {
                         //TempData["Success"] = "Password chenged";
                         //return View("~/Views/User/Settings.cshtml");
@@ -145,7 +139,7 @@ namespace WebApplication2.Controllers
                     {
                         //TempData["Error"] = "Password unchenged";
                         //return View("~/Views/User/Settings.cshtml");
-                        return Json(new { StatusCode = 500, Message = data.ErrorMessage });
+                        return Json(new { StatusCode = 500, Message = baseResponseData.ErrorMessage });
                     }
                 }
                 else
@@ -158,20 +152,19 @@ namespace WebApplication2.Controllers
         }
 
 
-        [HttpGet]   //!
+        [HttpGet] 
         public async Task<IActionResult> GetQuestionnaires()
         {
             string token = GetToken();
-            using (var httpClient = new HttpClient())
+            using (var httpClientForProfileInfo = new HttpClient())
             {
 
                 var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
 
-                var responseGetProfileInfo = await httpClient.GetAsync(apiUrlForGetProfileInfo);
+                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
 
                 if (responseGetProfileInfo.IsSuccessStatusCode)
                 {
-                    // Чтение данных из HTTP-ответа.
 
                     var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
                     if (userData.ErrorCode == 143)
@@ -185,17 +178,16 @@ namespace WebApplication2.Controllers
                     }
                     else if (userData.ErrorCode == 0)
                     {
-                        using (var httpClient1 = new HttpClient())
+                        using (var httpClientForQuestionnaires = new HttpClient())
                         {
 
                             var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaires?token=" + token;
+
                             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-
-                            // Добавляем аутентификацию в заголовок Authorization с префиксом "Basic ".
-                            httpClient1.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                            httpClientForQuestionnaires.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
 
-                            var responseGetQuestionnaires = await httpClient1.GetAsync(apiUrlGetQuestionnairesByToken);
+                            var responseGetQuestionnaires = await httpClientForQuestionnaires.GetAsync(apiUrlGetQuestionnairesByToken);
 
                             if (responseGetQuestionnaires.IsSuccessStatusCode)
                             {
@@ -213,9 +205,6 @@ namespace WebApplication2.Controllers
                                 {
                                     return PartialView("~/Views/User/_Questionnaire.cshtml", questionnaireData.questionnaires);
                                 }
-
-
-
                             }
                         }
                     }
@@ -224,9 +213,9 @@ namespace WebApplication2.Controllers
 
                 }
             }
-
-            return PartialView("~/Views/User/_Questionnaire.cshtml");
+            return View("Error");
         }
+
 
 
 

@@ -14,6 +14,7 @@ namespace WebApplication2.Controllers
     public class BaseController : Controller
     {
 
+
         public string GetToken()
         {
             var user = User;
@@ -38,6 +39,8 @@ namespace WebApplication2.Controllers
             return null;
         }
 
+
+        //Take void
         public async Task<bool> RefreshToken()
         {
             //Getting principal claims that are read-only
@@ -49,28 +52,28 @@ namespace WebApplication2.Controllers
                          where c.Type == ".AspNetCore.Admin"
                          select c).FirstOrDefault();
 
-            using (var httpClient = new HttpClient())
+            using (var httpClientForRefreshToken = new HttpClient())
             {
                 // Замените URL на ссылку, с которой вы хотите получить данные.
-                var apiUrl = "https://dev.edi.md/ISAuthService/json/RefreshToken?Token=" + claim.Value;
+                var apiUrlForRefreshToken = "https://dev.edi.md/ISAuthService/json/RefreshToken?Token=" + claim.Value;
 
                 // Преобразуйте объект loginVM в JSON и отправьте его с помощью HttpContent.
                 // var jsonContent = new StringContent(JsonConvert.SerializeObject(loginVM), Encoding.UTF8, "application/json");
 
-                var response = await httpClient.GetAsync(apiUrl);
+                var responseForRefreshToken = await httpClientForRefreshToken.GetAsync(apiUrlForRefreshToken);
 
-                if (response.IsSuccessStatusCode)
+                if (responseForRefreshToken.IsSuccessStatusCode)
                 {
                     // Чтение данных из HTTP-ответа.
-                    var data = await response.Content.ReadAsAsync<GetProfileInfo>();
-                    if (!string.IsNullOrEmpty(data.Token))
+                    var userData = await responseForRefreshToken.Content.ReadAsAsync<GetProfileInfo>();
+                    if (!string.IsNullOrEmpty(userData.Token))
                     {
 
                         //SignOut to unlock claims for mananging them
                         HttpContext.SignOutAsync();
 
                         //Creating new claim to change our token after refresh
-                        var claimNew = new Claim(".AspNetCore.Admin", data.Token);
+                        var claimNew = new Claim(".AspNetCore.Admin", userData.Token);
                         //Try remove claim selected from claimIdentity
                         //If we use RemoveClaim we can get excetion if claim can't be removed
                         claimIdentity.TryRemoveClaim(claim);
@@ -91,6 +94,9 @@ namespace WebApplication2.Controllers
             }
             return false;
         }
+
+
+
 
     }
 }

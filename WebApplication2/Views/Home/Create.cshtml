@@ -14,6 +14,7 @@
         border-radius: 15px;
         padding: 10px;
         margin: 10px 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .btn-remove {
@@ -41,7 +42,6 @@
                         <!-- Здесь вы можете вставить существующие вопросы, если они есть в опроснике -->
                     </div>
                     <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Add Question</button>
-                    @*<button type="button" id="remove-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Remove Question</button>*@
                     <br />
                     <br />
                     <input type="submit" style="width: 100%;" class="btn btn-outline-success waves-effect waves-light" value="Create" />
@@ -63,7 +63,7 @@
             function addQuestion() {
                 var questionHtml = `
                     <div class="question" id="question${questionIndex}">
-                                               <input type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? 'hidden' : ''}' value='Delete question'/>
+                       <input type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? 'hidden' : ''}' value='Delete question'/>
                         <div class="form-group">
                             <label for="Questions_${questionIndex}__Text">Question Text</label>
                             <input type="text" name="Questions[${questionIndex}].question" class="form-control" />
@@ -91,7 +91,6 @@
                             </div>
                         </div>
                         <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light">Add Answer</button>
-                        <button type="button" id="remove-answer" style="display: none; width: 100%; margin-top: 10px;">Remove Answer</button>
                     </div>`;
 
                 $("#questions-container").append(questionHtml);
@@ -162,6 +161,7 @@
 
                 $answersContainer.append(answerHtml);
             });
+
             // Initialize with one question
             addQuestion();
         });
