@@ -50,7 +50,7 @@
                                 <div id="Titlequestion_@i" style="cursor: pointer;">
                                     <div class="form-group">
                                         <label asp-for="@item.question">Question Text</label>
-                                        <h3><strong>@item.question</strong></h3>
+                                        <h3><strong><i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>  @item.question</strong></h3>
                                     </div>
                                 </div>
                                 <div id="detail_@i">
@@ -63,13 +63,16 @@
                                         <label asp-for="@item.comentary">Commentary</label>
                                         <p><strong>@item.comentary</strong></p>
                                     </div>
-                                    @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
+                                    @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant && item.answerVariants != null)
                                     {
                                         <label>Answers</label>
                                         <ul>
                                             @foreach (var answ in item.answerVariants)
                                             {
-                                                <li><p>@answ</p></li>
+                                                if (answ != null) @*Да наверное можно и убрать*@
+                                                {
+                                                    <li><p>@answ</p></li>
+                                                }
                                             }
                                         </ul>
                                     }

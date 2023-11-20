@@ -34,18 +34,26 @@
                 <ol>
                     @foreach (var question in Model.questionnaire.questions)
                     {
-                        <li><h5>@question.question</h5></li>
-                        <p>Commentary: @question.comentary</p>
-                        <p>AnswerType: @question.gradingType</p>
-                        if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
-                        {
-                            <ul>
-                                @foreach (var answer in question.answerVariants)
-                                {
-                                    <li><p>@answer</p></li>
-                                }
-                            </ul>
-                        }
+                        <li>
+                            <h5>@question.question</h5>
+                            <p>Commentary: @question.comentary</p>
+                            <p>AnswerType: @question.gradingType</p>
+
+                            @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant && question.answerVariants != null)
+                            {
+                                <ul>
+                                    @foreach (var answer in question.answerVariants)
+                                    {
+                                        if (answer != null)
+                                        {
+                                            <li><p>@answer</p></li>
+                                        }
+                                    }
+                                </ul>
+                            }
+
+                            <hr style="height: 2px; background-color: black; border: none;">
+                        </li>
                     }
                 </ol>
 
