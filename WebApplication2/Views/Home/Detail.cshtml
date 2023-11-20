@@ -22,6 +22,7 @@
         display: none;
     }
 
+
 </style>
 
 <div class="form-container">
@@ -49,18 +50,18 @@
                                 <div id="Titlequestion_@i" style="cursor: pointer;">
                                     <div class="form-group">
                                         <label asp-for="@item.question">Question Text</label>
-                                        <h3>@item.question</h3>
+                                        <h3><strong>@item.question</strong></h3>
                                     </div>
                                 </div>
                                 <div id="detail_@i">
                                     <div class="form-group">
                                         @*Исправить если мы выбрали мультиАнсв, то кнопка появляется(сделать кнопку на удаление ответов)*@
                                         <label asp-for="@item.gradingType">GradingType</label>
-                                        <p>@item.gradingType</p>
+                                        <p><strong>@item.gradingType</strong></p>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="@item.comentary">Commentary</label>
-                                        <p>@item.comentary</p>
+                                        <p><strong>@item.comentary</strong></p>
                                     </div>
                                     @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                                     {
@@ -77,8 +78,14 @@
                             i++;
                         }
                     </div>
-                    <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">Edit</a>
-                    <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">Cancel</a>
+                    <div class="row">
+                        <div id="editBtn" class="col-lg-9">
+                            <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">Edit</a>
+                        </div>
+                        <div id="cancelBtn" class="col-lg-3">
+                            <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">Cancel</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,6 +94,40 @@
 
 <script>
     $(document).ready(function () {
+/*
+        $("#editBtn").mouseenter(function () {
+            $("#editBtn").stop().animate({
+                width: "84%" // 10/12 in percentage (col-lg-10)
+            }, 450); // Adjust the duration (e.g., 200 milliseconds)
+            $("#cancelBtn").stop().animate({
+                width: "16%" // 2/12 in percentage (col-lg-2)
+            }, 200);
+        }).mouseleave(function () {
+            $("#editBtn").stop().animate({
+                width: "50%" // 6/12 in percentage (col-lg-6)
+            }, 200);
+            $("#cancelBtn").stop().animate({
+                width: "50%" // 6/12 in percentage (col-lg-6)
+            }, 200);
+        });
+
+        $("#cancelBtn").mouseenter(function () {
+            $("#cancelBtn").stop().animate({
+                width: "84%" // 10/12 in percentage (col-lg-10)
+            }, 450);
+            $("#editBtn").stop().animate({
+                width: "16%" // 2/12 in percentage (col-lg-2)
+            }, 200);
+        }).mouseleave(function () {
+            $("#cancelBtn").stop().animate({
+                width: "50%" // 6/12 in percentage (col-lg-6)
+            }, 200);
+            $("#editBtn").stop().animate({
+                width: "50%" // 6/12 in percentage (col-lg-6)
+            }, 200);
+        });
+        */
+
         $("div[id^='Titlequestion_']").click(function () {
             var questionId = $(this).attr('id');
             var detailId = "#detail_" + questionId.split('_')[1];

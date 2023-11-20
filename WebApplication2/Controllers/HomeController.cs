@@ -144,81 +144,6 @@ namespace WebApplication2.Controllers
         }
 
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateQuestionnaireViewModel CreateQuestionnaireVM)
-        {
-            if (CreateQuestionnaireVM.Questions != null)
-            {
-                string token = GetToken();
-                using (var httpClientForProfileInfo = new HttpClient())
-                {
-
-                    var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                    var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
-
-                    if (responseGetProfileInfo.IsSuccessStatusCode)
-                    {
-
-                        var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                        if (userData.ErrorCode == 143)
-                        {
-                            await RefreshToken();
-                            return await Create(CreateQuestionnaireVM);
-                        }
-                        else if (userData.ErrorCode == 118)
-                        {
-                            return View("~/Views/Account/Login.cshtml");
-                        }
-                        else if (userData.ErrorCode == 0)
-                        {
-                            using (var httpClientPostQuestionnaire = new HttpClient())
-                            {
-                                var apiUrlForPostQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/UpsertQuestionnaire";
-
-                                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-                                httpClientPostQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-                                //Correct model for post
-                                CreateQuestionnaire createQuestionnaire = new CreateQuestionnaire();
-                                createQuestionnaire.oid = 0;
-                                createQuestionnaire.name = CreateQuestionnaireVM.Title;
-                                createQuestionnaire.questions = CreateQuestionnaireVM.Questions;
-                                createQuestionnaire.companyOid = userData.User.CompanyID;
-                                createQuestionnaire.token = token;
-                                createQuestionnaire.company = userData.User.Company;
-
-                                var jsonContent = new StringContent(JsonConvert.SerializeObject(createQuestionnaire), Encoding.UTF8, "application/json");
-
-                                var responsePostQuestionnaire = await httpClientPostQuestionnaire.PostAsync(apiUrlForPostQuestionnaire, jsonContent);
-
-                                if (responsePostQuestionnaire.IsSuccessStatusCode)
-                                {
-                                    var questionnaireBaseResponsedData = await responsePostQuestionnaire.Content.ReadAsAsync<BaseErrors>();
-
-                                    if (questionnaireBaseResponsedData.errorCode == 143)
-                                    {
-                                        await RefreshToken();
-                                        return await Create(CreateQuestionnaireVM); ///!
-                                    }
-                                    else if (questionnaireBaseResponsedData.errorCode == 0)
-                                    {
-                                        return RedirectToAction(nameof(HomeController.Index), "Home");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return View("~/Views/Home/Index.cshtml");
-        }
 
 
         //[HttpGet]
@@ -292,7 +217,7 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertQuestionnaire([FromBody] EditQuestionnareViewModel editQuestionnaireVM)
+        public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnareViewModel upsertQuestionnaireVM)
         {
 
             string token = GetToken();
@@ -310,7 +235,7 @@ namespace WebApplication2.Controllers
                     if (userData.ErrorCode == 143)
                     {
                         await RefreshToken();
-                        return await UpsertQuestionnaire(editQuestionnaireVM);
+                        return await UpsertQuestionnaire(upsertQuestionnaireVM);
                     }
                     else if (userData.ErrorCode == 118)
                     {
@@ -325,13 +250,13 @@ namespace WebApplication2.Controllers
                             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
                             httpClientForEditQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
-                            var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(editQuestionnaireVM.Questions);
+                            var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
 
                             //Correct model for post
                             //Data from body(scritp post)
                             CreateQuestionnaire createQuestionnaire = new CreateQuestionnaire();
-                            createQuestionnaire.oid = editQuestionnaireVM.id;
-                            createQuestionnaire.name = editQuestionnaireVM.Title;
+                            createQuestionnaire.oid = upsertQuestionnaireVM.id;
+                            createQuestionnaire.name = upsertQuestionnaireVM.Title;
                             createQuestionnaire.questions = questionsVM.questions;
 
                             //Data from userApi
@@ -350,7 +275,7 @@ namespace WebApplication2.Controllers
                                 if (questionnaireBaseResponsedData.errorCode == 143)
                                 {
                                     await RefreshToken();
-                                    return await UpsertQuestionnaire(editQuestionnaireVM); ///![Get data fromBody]
+                                    return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data fromBody]
                                 }
                                 else if (questionnaireBaseResponsedData.errorCode == 0)
                                 {
