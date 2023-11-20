@@ -222,7 +222,7 @@ namespace WebApplication2.Controllers
 
 
         //[HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Upsert(int id)
         {
             string token = GetToken();
             using (var httpClientForProfileInfo = new HttpClient())
@@ -238,7 +238,7 @@ namespace WebApplication2.Controllers
                     if (userData.ErrorCode == 143)
                     {
                         await RefreshToken();
-                        return await Edit(id);
+                        return await Upsert(id);
                     }
                     else if (userData.ErrorCode == 118)
                     {
@@ -248,45 +248,51 @@ namespace WebApplication2.Controllers
                     {
                         using (var httpClientForQuestionnaire = new HttpClient())
                         {
-
-                            var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaire?Token=" + token + "&id=" + id;
-
-                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-                            httpClientForQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                            var responseGetQuestionnaire = await httpClientForQuestionnaire.GetAsync(apiUrlGetQuestionnaire);
-
-                            if (responseGetQuestionnaire.IsSuccessStatusCode)
+                            var upsertVm = new CreateQuestionnaireViewModel();
+                            if (id != 0)
                             {
-                                var questionnaireData = await responseGetQuestionnaire.Content.ReadAsAsync<DetailQuestionnaire>();
-                                if (questionnaireData.errorCode == 143)
-                                {
-                                    await RefreshToken();
-                                    return await Edit(id);
-                                }
-                                else if (questionnaireData.errorCode == 118)
-                                {
-                                    return View("~/Views/Account/Login.cshtml");
-                                }
-                                else if (questionnaireData.errorCode == 0)
-                                {
-                                    var upsertVm = new CreateQuestionnaireViewModel();
-                                    upsertVm.oid = id;
-                                    upsertVm.Title = questionnaireData.questionnaire.name;
-                                    upsertVm.Questions = questionnaireData.questionnaire.questions;
-                                    return View("~/Views/Home/Edit.cshtml", upsertVm);
+                                var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaire?Token=" + token + "&id=" + id;
 
+                                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                                httpClientForQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                                var responseGetQuestionnaire = await httpClientForQuestionnaire.GetAsync(apiUrlGetQuestionnaire);
+
+                                if (responseGetQuestionnaire.IsSuccessStatusCode)
+                                {
+                                    var questionnaireData = await responseGetQuestionnaire.Content.ReadAsAsync<DetailQuestionnaire>();
+                                    if (questionnaireData.errorCode == 143)
+                                    {
+                                        await RefreshToken();
+                                        return await Upsert(id);
+                                    }
+                                    else if (questionnaireData.errorCode == 118)
+                                    {
+                                        return View("~/Views/Account/Login.cshtml");
+                                    }
+                                    else if (questionnaireData.errorCode == 0)
+                                    {
+                                        upsertVm.oid = id;
+                                        upsertVm.Title = questionnaireData.questionnaire.name;
+                                        upsertVm.Questions = questionnaireData.questionnaire.questions;
+                                        return View("~/Views/Home/Upsert.cshtml", upsertVm);
+
+                                    }
                                 }
                             }
+                            upsertVm.oid = id;
+                            upsertVm.Questions = new List<CreateQuestionViewModel>();
+                            return View("~/Views/Home/Upsert.cshtml", upsertVm);
                         }
                     }
                 }
             }
             return View("Error");
         }
+
         [HttpPost]
-        public async Task<IActionResult> EditQuestionnaire([FromBody] EditQuestionnareViewModel editQuestionnaireVM)
+        public async Task<IActionResult> UpsertQuestionnaire([FromBody] EditQuestionnareViewModel editQuestionnaireVM)
         {
 
             string token = GetToken();
@@ -304,7 +310,7 @@ namespace WebApplication2.Controllers
                     if (userData.ErrorCode == 143)
                     {
                         await RefreshToken();
-                        return await EditQuestionnaire(editQuestionnaireVM);
+                        return await UpsertQuestionnaire(editQuestionnaireVM);
                     }
                     else if (userData.ErrorCode == 118)
                     {
@@ -344,7 +350,7 @@ namespace WebApplication2.Controllers
                                 if (questionnaireBaseResponsedData.errorCode == 143)
                                 {
                                     await RefreshToken();
-                                    return await EditQuestionnaire(editQuestionnaireVM); ///![Get data fromBody]
+                                    return await UpsertQuestionnaire(editQuestionnaireVM); ///![Get data fromBody]
                                 }
                                 else if (questionnaireBaseResponsedData.errorCode == 0)
                                 {
