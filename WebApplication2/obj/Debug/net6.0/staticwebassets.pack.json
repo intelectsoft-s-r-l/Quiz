@@ -193,30 +193,6 @@
       "PackagePath": "staticwebassets\\assets\\images\\500-error.png"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\brands\\bitbucket.png",
-      "PackagePath": "staticwebassets\\assets\\images\\brands\\bitbucket.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\brands\\dribbble.png",
-      "PackagePath": "staticwebassets\\assets\\images\\brands\\dribbble.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\brands\\dropbox.png",
-      "PackagePath": "staticwebassets\\assets\\images\\brands\\dropbox.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\brands\\github.png",
-      "PackagePath": "staticwebassets\\assets\\images\\brands\\github.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\brands\\mail_chimp.png",
-      "PackagePath": "staticwebassets\\assets\\images\\brands\\mail_chimp.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\brands\\slack.png",
-      "PackagePath": "staticwebassets\\assets\\images\\brands\\slack.png"
-    },
-    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\coming-soon-img.png",
       "PackagePath": "staticwebassets\\assets\\images\\coming-soon-img.png"
     },
@@ -227,66 +203,6 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\favicon.ico",
       "PackagePath": "staticwebassets\\assets\\images\\favicon.ico"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\french.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\french.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\germany.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\germany.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\italy.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\italy.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\russia.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\russia.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\select2\\ak.png",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\select2\\ak.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\select2\\ca.png",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\select2\\ca.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\select2\\hi.png",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\select2\\hi.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\select2\\nv.png",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\select2\\nv.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\select2\\or.png",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\select2\\or.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\select2\\wa.png",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\select2\\wa.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\spain.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\spain.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\us.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\flags\\us.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\layouts\\layout-1.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\layouts\\layout-1.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\layouts\\layout-2.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\layouts\\layout-2.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\layouts\\layout-3.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\layouts\\layout-3.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\login-img.png",
@@ -309,64 +225,12 @@
       "PackagePath": "staticwebassets\\assets\\images\\maintenance.png"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\product\\img-1.png",
-      "PackagePath": "staticwebassets\\assets\\images\\product\\img-1.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\product\\img-2.png",
-      "PackagePath": "staticwebassets\\assets\\images\\product\\img-2.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\product\\img-3.png",
-      "PackagePath": "staticwebassets\\assets\\images\\product\\img-3.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\product\\img-4.png",
-      "PackagePath": "staticwebassets\\assets\\images\\product\\img-4.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\product\\img-5.png",
-      "PackagePath": "staticwebassets\\assets\\images\\product\\img-5.png"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\product\\img-6.png",
-      "PackagePath": "staticwebassets\\assets\\images\\product\\img-6.png"
-    },
-    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\register-img.png",
       "PackagePath": "staticwebassets\\assets\\images\\register-img.png"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\setup-analytics-amico.svg",
       "PackagePath": "staticwebassets\\assets\\images\\setup-analytics-amico.svg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\small\\img-1.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\small\\img-1.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\small\\img-2.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\small\\img-2.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\small\\img-3.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\small\\img-3.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\small\\img-4.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\small\\img-4.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\small\\img-5.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\small\\img-5.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\small\\img-6.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\small\\img-6.jpg"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\small\\img-7.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\small\\img-7.jpg"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\users\\avatar-1.jpg",
@@ -409,152 +273,12 @@
       "PackagePath": "staticwebassets\\assets\\js\\app.js"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\apexcharts.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\apexcharts.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\auth-carousel.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\auth-carousel.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\calendar.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\calendar.init.js"
-    },
-    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\chartjs.init.js",
       "PackagePath": "staticwebassets\\assets\\js\\pages\\chartjs.init.js"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\coming-soon.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\coming-soon.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\dashboard.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\dashboard.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\datatables.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\datatables.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\ecommerce-add-product.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\ecommerce-add-product.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\ecommerce-cart.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\ecommerce-cart.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\ecommerce-datatables.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\ecommerce-datatables.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\email-editor.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\email-editor.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\flot.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\flot.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\fontawesome.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\fontawesome.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\form-advanced.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\form-advanced.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\form-editor.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\form-editor.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\form-mask.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\form-mask.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\form-repeater.int.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\form-repeater.int.js"
-    },
-    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\form-validation.init.js",
       "PackagePath": "staticwebassets\\assets\\js\\pages\\form-validation.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\form-wizard.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\form-wizard.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\form-xeditable.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\form-xeditable.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\gmaps.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\gmaps.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\jquery-knob.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\jquery-knob.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\leaflet-map.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\leaflet-map.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\leaflet-us-states.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\leaflet-us-states.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\lightbox.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\lightbox.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\materialdesign.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\materialdesign.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\product-filter-range.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\product-filter-range.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\range-sliders.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\range-sliders.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\rating-init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\rating-init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\session-timeout.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\session-timeout.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\sparklines.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\sparklines.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\sweet-alerts.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\sweet-alerts.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\table-editable.int.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\table-editable.int.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\table-responsive.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\table-responsive.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\timeline.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\timeline.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\toastr.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\toastr.init.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\pages\\vector-maps.init.js",
-      "PackagePath": "staticwebassets\\assets\\js\\pages\\vector-maps.init.js"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\admin-resources\\bootstrap-filestyle\\bootstrap-filestyle.min.js",

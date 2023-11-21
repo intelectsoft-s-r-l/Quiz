@@ -7,8 +7,6 @@
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 
-<script src="~/js/app.js"></script>
-
 <div class="row mb-4">
     <div class="col-xl-12">
         <div class="card h-100">
@@ -351,13 +349,5 @@
 <!-- end row -->
 <!-- JAVASCRIPT -->
 <script>
-    /*
-    $(document).ready(function () {
-        $("#addButtonPar").click(function () {
-            $("#visualCreate").show();
-            $(this).hide();
-        });
-    });
-    drawPatrialView("/User/CreateLicence", "Createlicense");*/
     drawPatrialView("/User/GetQuestionnaires", "questionnaires");
 </script>

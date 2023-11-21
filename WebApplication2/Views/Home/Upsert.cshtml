@@ -9,7 +9,7 @@
     ViewBag.Title = (Model.oid == 0) ? "Create" : "Edit";
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
-<script src="~/js/app.js"></script>
+
 
 <style>
     .question {
@@ -29,10 +29,6 @@
     int i = 0;
 }
 
-
-<script src="~/assets/libs/parsleyjs/parsley.min.js"></script>
-
-<script src="~/assets/js/pages/form-validation.init.js"></script>
 
 
 <form method="POST" asp-controller="Home" asp-action="UpsertQuestionnaire" id="UpsertQuestionnaireForm" enctype="multipart/form-data" class="custom-validation">
@@ -161,30 +157,30 @@
 
             function addQuestion() {
                 var questionHtml = `<div class="question" id="question_${questionIndex}">
-                     <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> Delete question</button>
-                    <div class="form-group">
-                        <label for="Questions_${questionIndex}__Text">Question Text</label>
-                        <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
-                                <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
-                            <option value="1">Yes or No</option>
-                            <option value="2">Score 10 points</option>
-                            <option value="3">One answer variant</option>
-                            <option value="4">Multi answer variant</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="Questions_${questionIndex}__comentary">Commentary</label>
-                        <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
-                    </div>
-                    <div class="answers-container" style="display: none;">
-                        <h4>Answers</h4>
+                             <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> Delete question</button>
+                            <div class="form-group">
+                                <label for="Questions_${questionIndex}__Text">Question Text</label>
+                                <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
+                                        <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
+                                    <option value="1">Yes or No</option>
+                                    <option value="2">Score 10 points</option>
+                                    <option value="3">One answer variant</option>
+                                    <option value="4">Multi answer variant</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Questions_${questionIndex}__comentary">Commentary</label>
+                                <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
+                            </div>
+                            <div class="answers-container" style="display: none;">
+                                <h4>Answers</h4>
 
-                    </div>
-                    <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> Add Answer</button>
-                </div>`;
+                            </div>
+                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> Add Answer</button>
+                        </div>`;
 
                 $("#questions-container").append(questionHtml);
                 questionIndex++;
@@ -259,23 +255,23 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-lg-10">
-                                        <div class="mb-3">
-                                            <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">Answer Text</label>
-                                            <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control" required id="answerVal_${questionIndex}_${answerIndex}" />
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-10">
+                                                <div class="mb-3">
+                                                    <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">Answer Text</label>
+                                                    <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control" required id="answerVal_${questionIndex}_${answerIndex}" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input">Delete</label><i class="uil-trash-alt"></i>
+                                                     <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' Delete answer' />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="basicpill-lastname-input">Delete</label><i class="uil-trash-alt"></i>
-                                             <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' Delete answer' />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
+                                </div>`;
 
                 $answersContainer.append(answerHtml);
                 addRemoveAnswerAction();

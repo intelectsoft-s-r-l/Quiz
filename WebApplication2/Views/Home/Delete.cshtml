@@ -15,10 +15,6 @@
 
 </style>
 <form method="POST" asp-controller="Home" asp-action="DeleteQuestionnaire" id="DeleteQuestionnaireForm">
-    @* <form method="post" asp-action="ChangePassword" enctype="multipart/form-data"> *@
-
-
-
     <div class="modal-body">
         <div class="col-sm-12">
             <div class="alert alert-danger alert-dismissible fade show mt-1 px-1 mb-0 text-center" role="alert">
@@ -63,11 +59,8 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-danger waves-effect waves-light"> Delete</button>
-        @* <a href="@Url.Action("DeleteQuestionnaire", "Home", new {/**/oid = Model.questionnaire.oid})" type="button" class="btn btn-danger waves-effect waves-light">Delete</a> *@
+
     </div>
-
-
-    @*     <button type="submit" class="submit-button">Edit</button> *@
 </form>
 <script>
     $(document).ready(function () {

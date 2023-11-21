@@ -14,9 +14,9 @@
                 <div class="col-md-8 col-lg-6 col-xl-5">
                     <div>
 
-                      @*   <a href=@Url.Action("Index", "index") class="mb-5 d-block auth-logo">
-                            <img src="~/assets/images/logo-dark.png" alt="" height="22" class="logo logo-dark">
-                            <img src="~/assets/images/logo-light.png" alt="" height="22" class="logo logo-light">
+                        @*   <a href=@Url.Action("Index", "index") class="mb-5 d-block auth-logo">
+                        <img src="~/assets/images/logo-dark.png" alt="" height="22" class="logo logo-dark">
+                        <img src="~/assets/images/logo-light.png" alt="" height="22" class="logo logo-light">
                         </a> *@
                         <div class="card">
                             <!-- Вывод сообщения об ошибке (если есть) -->
@@ -39,8 +39,6 @@
                                     <form id="login-form" asp-action="AuthRecoverpw">
 
                                         <div class="mb-3">
-@*                                          <label class="form-label" for="useremail">Email</label>
-                                            <input type="email" class="form-control" id="useremail" placeholder="Enter email"> *@
                                             <label class="form-label" asp-for="Email" class="control-label">Email</label>
                                             <input type="email" asp-for="Email" required class="form-control" placeholder="Email">
                                         </div>

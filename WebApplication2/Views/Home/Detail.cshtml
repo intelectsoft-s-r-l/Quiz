@@ -8,7 +8,7 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
-<script src="~/js/app.js"></script>
+
 <style>
     .question {
         border: 1px solid #2c3036;
@@ -21,7 +21,6 @@
     .btn-remove {
         display: none;
     }
-
 
 </style>
 
@@ -55,7 +54,6 @@
                                 </div>
                                 <div id="detail_@i">
                                     <div class="form-group">
-                                        @*Исправить если мы выбрали мультиАнсв, то кнопка появляется(сделать кнопку на удаление ответов)*@
                                         <label asp-for="@item.gradingType">GradingType</label>
                                         <p><strong>@item.gradingType</strong></p>
                                     </div>
@@ -69,7 +67,7 @@
                                         <ul>
                                             @foreach (var answ in item.answerVariants)
                                             {
-                                                if (answ != null) @*Да наверное можно и убрать*@
+                                                if (answ != null)
                                                 {
                                                     <li><p>@answ</p></li>
                                                 }
@@ -97,39 +95,39 @@
 
 <script>
     $(document).ready(function () {
-/*
-        $("#editBtn").mouseenter(function () {
-            $("#editBtn").stop().animate({
-                width: "84%" // 10/12 in percentage (col-lg-10)
-            }, 450); // Adjust the duration (e.g., 200 milliseconds)
-            $("#cancelBtn").stop().animate({
-                width: "16%" // 2/12 in percentage (col-lg-2)
-            }, 200);
-        }).mouseleave(function () {
-            $("#editBtn").stop().animate({
-                width: "50%" // 6/12 in percentage (col-lg-6)
-            }, 200);
-            $("#cancelBtn").stop().animate({
-                width: "50%" // 6/12 in percentage (col-lg-6)
-            }, 200);
-        });
+        /*
+                $("#editBtn").mouseenter(function () {
+                    $("#editBtn").stop().animate({
+                        width: "84%" // 10/12 in percentage (col-lg-10)
+                    }, 450); // Adjust the duration (e.g., 200 milliseconds)
+                    $("#cancelBtn").stop().animate({
+                        width: "16%" // 2/12 in percentage (col-lg-2)
+                    }, 200);
+                }).mouseleave(function () {
+                    $("#editBtn").stop().animate({
+                        width: "50%" // 6/12 in percentage (col-lg-6)
+                    }, 200);
+                    $("#cancelBtn").stop().animate({
+                        width: "50%" // 6/12 in percentage (col-lg-6)
+                    }, 200);
+                });
 
-        $("#cancelBtn").mouseenter(function () {
-            $("#cancelBtn").stop().animate({
-                width: "84%" // 10/12 in percentage (col-lg-10)
-            }, 450);
-            $("#editBtn").stop().animate({
-                width: "16%" // 2/12 in percentage (col-lg-2)
-            }, 200);
-        }).mouseleave(function () {
-            $("#cancelBtn").stop().animate({
-                width: "50%" // 6/12 in percentage (col-lg-6)
-            }, 200);
-            $("#editBtn").stop().animate({
-                width: "50%" // 6/12 in percentage (col-lg-6)
-            }, 200);
-        });
-        */
+                $("#cancelBtn").mouseenter(function () {
+                    $("#cancelBtn").stop().animate({
+                        width: "84%" // 10/12 in percentage (col-lg-10)
+                    }, 450);
+                    $("#editBtn").stop().animate({
+                        width: "16%" // 2/12 in percentage (col-lg-2)
+                    }, 200);
+                }).mouseleave(function () {
+                    $("#cancelBtn").stop().animate({
+                        width: "50%" // 6/12 in percentage (col-lg-6)
+                    }, 200);
+                    $("#editBtn").stop().animate({
+                        width: "50%" // 6/12 in percentage (col-lg-6)
+                    }, 200);
+                });
+                */
 
         $("div[id^='Titlequestion_']").click(function () {
             var questionId = $(this).attr('id');

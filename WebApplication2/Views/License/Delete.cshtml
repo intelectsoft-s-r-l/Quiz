@@ -15,10 +15,6 @@
 
 </style>
 <form method="POST" asp-controller="License" asp-action="DeleteLicense" id="DeleteQuestionnaireForm">
-    @* <form method="post" asp-action="ChangePassword" enctype="multipart/form-data"> *@
-
-
-
     <div class="modal-body">
         <div class="col-sm-12">
             <div class="alert alert-danger alert-dismissible fade show mt-1 px-1 mb-0 text-center" role="alert">
@@ -27,17 +23,13 @@
                 <p>
                     Are you sure?
                 </p>
+            </div>
         </div>
-    </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-danger waves-effect waves-light"> Delete</button>
-        @* <a href="@Url.Action("DeleteQuestionnaire", "Home", new {/**/oid = Model.questionnaire.oid})" type="button" class="btn btn-danger waves-effect waves-light">Delete</a> *@
     </div>
-
-
-    @*     <button type="submit" class="submit-button">Edit</button> *@
 </form>
 <script>
     $(document).ready(function () {
@@ -49,7 +41,7 @@
                 url: '../License/DeleteLicense?oid=@Model',
                 cache: false,
                 type: "POST",/*
-                data: JSON.stringify(@Model),*/
+                    data: JSON.stringify(@Model),*/
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     if (data.statusCode === 200) {
