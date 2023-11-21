@@ -1,4 +1,5 @@
-﻿@model User
+﻿@using System.Text;
+@model User
 @{
     ViewBag.Title = "Profile";
     ViewBag.pTitle = "Profile";
@@ -9,7 +10,7 @@
 <script src="~/js/app.js"></script>
 
 <div class="row mb-4">
-    <div class="col-xl-4">
+    <div class="col-xl-12">
         <div class="card h-100">
             <div class="card-body">
                 <div class="text-center">
@@ -26,21 +27,35 @@
                     </div>
                     <div class="clearfix"></div>
                     <div>
-                        <img src="~/assets/images/users/avatar-4.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail">
+                        @{
+                            string imgDataURL = "/assets/images/users/avatar-4.jpg";
+                            if (Model.Picture != null)
+                            {
+                                byte[] intsAsBytes = Array.ConvertAll(Model.Picture, c => (byte)c);
+                                var base64urlString = Encoding.UTF8.GetString(intsAsBytes);
+                                if (base64urlString.Contains('\0'))
+                                {
+                                    base64urlString = base64urlString.Replace("\0", "");
+                                }
+                                imgDataURL = base64urlString;
+                            }
+
+                        }
+                        <img src="@imgDataURL" alt="" class="avatar-lg rounded-circle img-thumbnail">
                     </div>
                     <h5 class="mt-3 mb-1">@Model.FirstName</h5>
                     <p class="text-muted">@Model.Company</p>
 
-                    <div class="mt-4">
+@*                     <div class="mt-4">
                         <button type="button" class="btn btn-light btn-sm"><i class="uil uil-envelope-alt me-2"></i> Message</button>
-                    </div>
+                    </div> *@
                 </div>
 
                 <hr class="my-4">
 
                 <div class="text-muted">
-                    <h5 class="font-size-16">About</h5>
-                    <p>Hi I'm Marcus,has been the industry's standard dummy text To an English person, it will seem like simplified English, as a skeptical Cambridge.</p>
+                    @* <h5 class="font-size-16">About</h5>
+                    <p>Hi I'm Marcus,has been the industry's standard dummy text To an English person, it will seem like simplified English, as a skeptical Cambridge.</p> *@
                     <div class="table-responsive mt-4">
                         <div>
                             <p class="mb-1">Full Name :</p>
@@ -54,10 +69,10 @@
                             <p class="mb-1">E-mail :</p>
                             <h5 class="font-size-16">@Model.Email</h5>
                         </div>
-                        <div class="mt-4">
+@*                         <div class="mt-4">
                             <p class="mb-1">Location :</p>
                             <h5 class="font-size-16">California, United States</h5>
-                        </div>
+                        </div> *@
 
                     </div>
                 </div>
@@ -65,7 +80,7 @@
         </div>
     </div>
 
-    <div class="col-xl-8">
+@*     <div class="col-xl-8">
         <div class="card mb-0">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
@@ -254,13 +269,6 @@
                     </div>
                 </div>
 
-                <div class="tab-pane" id="tasks" role="tabpanel">
-                    @*<div id="licenses"></div>*@
-@*                     <button id="addButtonPar" type="button" class="btn btn-danger waves-effect waves-light" style="width: 100%;">Generate license</button>
-                    <div id="visualCreate" style="display: none;">
-                        <div id="Createlicense"></div>
-                        </div>
-                    <br/> *@
                     <div id="questionnaires"></div>
                 </div>
 
@@ -338,7 +346,7 @@
 
             </div>
         </div>
-    </div>
+    </div> *@
 </div>
 <!-- end row -->
 <!-- JAVASCRIPT -->

@@ -413,7 +413,7 @@ namespace WebApplication2.Controllers
                                 httpClientForPostLicense.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
                                 //generateLicenseVM.token = token;
 
-                                var jsonContent = new StringContent(JsonConvert.SerializeObject(generateLicenseVM), Encoding.UTF8, "application/json");
+                                var jsonContent = new StringContent(JsonConvert.SerializeObject(generateLicenseVM), Encoding.UTF8, "application/json"); //Зачем мне передовать объект
 
                                 var responsePostLicense = await httpClientForPostLicense.PostAsync(apiUrlForPostLicense, jsonContent);
 

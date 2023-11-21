@@ -128,7 +128,7 @@ namespace WebApplication2.Controllers
                                 }
                                 else if (questionnaireData.errorCode == 0)
                                 {
-                                    var upsertVm = new CreateQuestionnaireViewModel();
+                                    var upsertVm = new QuestionnaireViewModel();
                                     upsertVm.oid = id;
                                     upsertVm.Title = questionnaireData.questionnaire.name;
                                     upsertVm.Questions = questionnaireData.questionnaire.questions;
@@ -142,7 +142,6 @@ namespace WebApplication2.Controllers
             }
             return View("Error");
         }
-
 
 
 
@@ -173,7 +172,7 @@ namespace WebApplication2.Controllers
                     {
                         using (var httpClientForQuestionnaire = new HttpClient())
                         {
-                            var upsertVm = new CreateQuestionnaireViewModel();
+                            var upsertVm = new QuestionnaireViewModel();
                             if (id != 0)
                             {
                                 var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaire?Token=" + token + "&id=" + id;
@@ -207,7 +206,7 @@ namespace WebApplication2.Controllers
                                 }
                             }
                             upsertVm.oid = id;
-                            upsertVm.Questions = new List<CreateQuestionViewModel>();
+                            upsertVm.Questions = new List<QuestionViewModel>();
                             return View("~/Views/Home/Upsert.cshtml", upsertVm);
                         }
                     }
@@ -254,7 +253,7 @@ namespace WebApplication2.Controllers
 
                             //Correct model for post
                             //Data from body(scritp post)
-                            CreateQuestionnaire createQuestionnaire = new CreateQuestionnaire();
+                            UpsertQuestionnaire createQuestionnaire = new UpsertQuestionnaire();
                             createQuestionnaire.oid = upsertQuestionnaireVM.id;
                             createQuestionnaire.name = upsertQuestionnaireVM.Title;
                             createQuestionnaire.questions = questionsVM.questions;
@@ -275,7 +274,7 @@ namespace WebApplication2.Controllers
                                 if (questionnaireBaseResponsedData.errorCode == 143)
                                 {
                                     await RefreshToken();
-                                    return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data fromBody]
+                                    return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
                                 }
                                 else if (questionnaireBaseResponsedData.errorCode == 0)
                                 {

@@ -1,7 +1,7 @@
 ﻿namespace WebApplication2.ViewModels
 {
-    public class QuestionsViewModel
+    public class QuestionsViewModel //For desirialize
     {
-        public List<CreateQuestionViewModel> questions { get; set; }
+        public List<QuestionViewModel> questions { get; set; }
     }
 }
