@@ -376,7 +376,7 @@ namespace WebApplication2.Controllers
             return PartialView("~/Views/License/_CreateLicence.cshtml");
         }
 
-        [HttpPost] //418 PostAsync?
+        [HttpPost] //418Line PostAsync?
         public async Task<IActionResult> CreateLicence(GenerateLicenseViewModel generateLicenseVM)
         {
             if (generateLicenseVM.quantity > 0)

@@ -5,9 +5,8 @@
 @model CreateQuestionnaireViewModel
 
 @{
-    ViewBag.Title = "Form Validation";
-    ViewBag.pTitle = "Validation";
-    ViewBag.pageTitle = "Forms";
+
+    ViewBag.Title = (Model.oid == 0) ? "Create" : "Edit";
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 <script src="~/js/app.js"></script>
@@ -53,21 +52,20 @@
 
                         <input type="hidden" asp-for="oid" id="mainId" />
                         <br />
-                        <div class="mb-3">
-                        </div>
-                        
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="mb-3 mb-4">
+
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3 mb-4">
                                     <label asp-for="Title" class="form-label"><h4>Questionnaire title</h4></label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="mb-3 mb-4">
-                                    <input style="width: 100%;" type="text" name="Title" asp-for="Title" class="form-control" required id="titleQ" />
-                                    </div>
                                 </div>
                             </div>
+                            <div class="col-lg-9">
+                                <div class="mb-3 mb-4">
+                                    <input style="width: 100%;" type="text" name="Title" asp-for="Title" class="form-control" required id="titleQ" />
+                                </div>
+                            </div>
+                        </div>
 
 
                         <br />
@@ -88,7 +86,7 @@
                                     <div class="form-group">
                                         @*Исправить если мы выбрали мультиАнсв, то кнопка появляется(сделать кнопку на удаление ответов)*@
                                         <label asp-for="@item.gradingType">GradingType</label>
-                                        <select id="questionGradingType_@i" name=".gradingType" class="form-control">
+                                        <select id="questionGradingType_@i" name=".gradingType" class="form-select">
                                             <option value="1" selected="@(item.gradingType == GradingType.YesNo)">Yes or No</option>
                                             <option value="2" selected="@(item.gradingType == GradingType.Point10Score)">Score 10 points</option>
                                             <option value="3" selected="@(item.gradingType == GradingType.SingleAnswerVariant)">One answer variant</option>
@@ -163,30 +161,30 @@
 
             function addQuestion() {
                 var questionHtml = `<div class="question" id="question_${questionIndex}">
-            <input type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}' value='Delete question' />
-            <div class="form-group">
-                <label for="Questions_${questionIndex}__Text">Question Text</label>
-                <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
-            </div>
-            <div class="form-group">
-                <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
-                <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-control">
-                    <option value="1">Yes or No</option>
-                    <option value="2">Score 10 points</option>
-                    <option value="3">One answer variant</option>
-                    <option value="4">Multi answer variant</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="Questions_${questionIndex}__comentary">Commentary</label>
-                <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
-            </div>
-            <div class="answers-container" style="display: none;">
-                <h4>Answers</h4>
+                     <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> Delete question</button>
+                    <div class="form-group">
+                        <label for="Questions_${questionIndex}__Text">Question Text</label>
+                        <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
+                                <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
+                            <option value="1">Yes or No</option>
+                            <option value="2">Score 10 points</option>
+                            <option value="3">One answer variant</option>
+                            <option value="4">Multi answer variant</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Questions_${questionIndex}__comentary">Commentary</label>
+                        <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
+                    </div>
+                    <div class="answers-container" style="display: none;">
+                        <h4>Answers</h4>
 
-            </div>
-            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> Add Answer</button>
-        </div>`;
+                    </div>
+                    <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> Add Answer</button>
+                </div>`;
 
                 $("#questions-container").append(questionHtml);
                 questionIndex++;
@@ -236,6 +234,8 @@
             $("#questions-container").on("change", "select[id*='questionGradingType_']", function () {
                 var $question = $(this).closest(".question");
                 var $answersContainer = $question.find(".answers-container");
+                //debugger
+                var $answers = $question.find(".answer");
                 var $addAnswerButton = $question.find("#add-answer");
 
 
@@ -246,6 +246,7 @@
                     // $removeAnswerButton.show();
                 }
                 else {
+                    $answers.remove();
                     $answersContainer.hide();
                     $addAnswerButton.hide();
                 }
@@ -258,23 +259,23 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-10">
-                                <div class="mb-3">
-                                    <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">Answer Text</label>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <div class="mb-3">
+                                            <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">Answer Text</label>
                                             <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control" required id="answerVal_${questionIndex}_${answerIndex}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="basicpill-lastname-input">Delete</label><i class="uil-trash-alt"></i>
+                                             <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' Delete answer' />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Delete</label><i class="uil-trash-alt"></i>
-                                     <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' Delete answer' />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+                        </div>`;
 
                 $answersContainer.append(answerHtml);
                 addRemoveAnswerAction();
