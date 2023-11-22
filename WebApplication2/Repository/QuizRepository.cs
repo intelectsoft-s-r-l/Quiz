@@ -54,7 +54,7 @@ namespace WebApplication2.Repository
             }
         }
 
-        public async Task<GetQuestionnaireInfo> GetQuestionnaires(string token)
+        public async Task<GetQuestionnairesInfo> GetQuestionnaires(string token)
         {
             using (var httpClientForQuestionnaires = new HttpClient())
             {
@@ -70,10 +70,10 @@ namespace WebApplication2.Repository
 
                 if (responseGetQuestionnaires.IsSuccessStatusCode)
                 {
-                    var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnaireInfo>();
+                    var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnairesInfo>();
                     return questionnaireData;
                 }
-                return new GetQuestionnaireInfo { errorCode = -1 };
+                return new GetQuestionnairesInfo { errorCode = -1 };
             }
         }
 

@@ -1917,82 +1917,6 @@
       "PackagePath": "staticwebassets\\assets\\libs\\fullcalendar\\timegrid\\main.min.js"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\gmaps.min.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\gmaps.min.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\jsdoc.json",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\jsdoc.json"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.controls.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.controls.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.core.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.core.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.events.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.events.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.geofences.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.geofences.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.geometry.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.geometry.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.layers.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.layers.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.map_types.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.map_types.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.markers.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.markers.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.native_extensions.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.native_extensions.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.overlays.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.overlays.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.routes.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.routes.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.static.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.static.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.streetview.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.streetview.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.styles.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.styles.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\lib\\gmaps.utils.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\lib\\gmaps.utils.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\umd.hbs",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\umd.hbs"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gmaps\\yarn-error.log",
-      "PackagePath": "staticwebassets\\assets\\libs\\gmaps\\yarn-error.log"
-    },
-    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\gulp-rtlcss\\index.js",
       "PackagePath": "staticwebassets\\assets\\libs\\gulp-rtlcss\\index.js"
     },
@@ -3559,14 +3483,6 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\sweetalert2\\sweetalert2.min.js",
       "PackagePath": "staticwebassets\\assets\\libs\\sweetalert2\\sweetalert2.min.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\table-edits\\build\\table-edits.min.js",
-      "PackagePath": "staticwebassets\\assets\\libs\\table-edits\\build\\table-edits.min.js"
-    },
-    {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\table-edits\\index.html",
-      "PackagePath": "staticwebassets\\assets\\libs\\table-edits\\index.html"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\libs\\tinymce\\changelog.txt",

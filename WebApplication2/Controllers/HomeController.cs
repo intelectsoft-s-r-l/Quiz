@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Text;
 using WebApplication2.Interface;
 using WebApplication2.Models;
-using WebApplication2.Models.API;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
@@ -18,6 +16,7 @@ namespace WebApplication2.Controllers
         {
             _quizRepository = quizRepository;
         }
+
         public async Task<IActionResult> Index()
         {
             string token = GetToken();
@@ -507,7 +506,7 @@ namespace WebApplication2.Controllers
                 return Json(new { StatusCode = 200, Message = "Ok" });
             else
                 return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
-            
+
             /*  using (var httpClientForProfileInfo = new HttpClient())
               {
 
@@ -576,4 +575,4 @@ namespace WebApplication2.Controllers
 
     }
 }
- 
+

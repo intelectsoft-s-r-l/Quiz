@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Text;
 using WebApplication2.Interface;
-using WebApplication2.Models;
-using WebApplication2.Models.API;
-using WebApplication2.Models.API.License;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
@@ -38,7 +32,7 @@ namespace WebApplication2.Controllers
 
             else /*if (licenseData.errorCode == 118)*/
                 return View("~/Views/Account/Login.cshtml");
-            
+
 
             //using (var httpClientForProfileInfo = new HttpClient())
             //{
@@ -114,7 +108,7 @@ namespace WebApplication2.Controllers
             }
             else if (licenseData.errorCode == 0)
                 return PartialView("~/Views/License/Detail.cshtml", licenseData.license);
-            else 
+            else
                 return View("~/Views/Account/Login.cshtml");
 
 
@@ -351,7 +345,7 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Release(string oid)
         {
             string token = GetToken();
-            var licenseResponse =  await _licenseRepository.ReleaseLicense(token, oid);
+            var licenseResponse = await _licenseRepository.ReleaseLicense(token, oid);
             if (licenseResponse.errorCode == 143)
             {
                 await RefreshToken();

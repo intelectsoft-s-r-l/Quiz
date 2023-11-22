@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Net;
 using System.Text;
 using WebApplication2.Interface;
 using WebApplication2.Models;
@@ -23,7 +20,7 @@ namespace WebApplication2.Controllers
 
         [HttpGet]
         public async Task<IActionResult> ProfileInfo()
-        { 
+        {
             string token = GetToken();
             var UserData = await _userRepository.getProfileInfo(token);
             if (UserData.ErrorCode == 0)
@@ -161,7 +158,7 @@ namespace WebApplication2.Controllers
         }
 
 
-        [HttpGet] 
+        [HttpGet]
         public async Task<IActionResult> GetQuestionnaires()
         {
             string token = GetToken();
@@ -200,7 +197,7 @@ namespace WebApplication2.Controllers
 
                             if (responseGetQuestionnaires.IsSuccessStatusCode)
                             {
-                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnaireInfo>();
+                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnairesInfo>();
                                 if (questionnaireData.errorCode == 143)
                                 {
                                     await RefreshToken();

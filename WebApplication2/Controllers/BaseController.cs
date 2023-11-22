@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Security.Claims;
-using System.Text;
 using WebApplication2.Models;
-using System.Linq;
 
 namespace WebApplication2.Controllers
 {
@@ -100,7 +97,7 @@ namespace WebApplication2.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 //throw;
             }
 

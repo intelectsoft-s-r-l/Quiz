@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\assets\libs\table-edits\**" />
+    <Content Remove="wwwroot\assets\libs\table-edits\**" />
+    <EmbeddedResource Remove="wwwroot\assets\libs\table-edits\**" />
+    <None Remove="wwwroot\assets\libs\table-edits\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\assets\libs\datatables.net-autofill\node_modules\datatables.net\License.txt" />
     <Content Include="wwwroot\assets\libs\datatables.net-bs4\node_modules\datatables.net\License.txt" />
     <Content Include="wwwroot\assets\libs\datatables.net-buttons\node_modules\datatables.net\License.txt" />
@@ -71,9 +78,6 @@
     <Folder Include="wwwroot\assets\libs\flot-charts\examples\" />
     <Folder Include="wwwroot\assets\libs\flot.curvedlines\examples\" />
     <Folder Include="wwwroot\assets\libs\flot.curvedlines\tests\" />
-    <Folder Include="wwwroot\assets\libs\gmaps\docs\" />
-    <Folder Include="wwwroot\assets\libs\gmaps\examples\" />
-    <Folder Include="wwwroot\assets\libs\gmaps\test\" />
     <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\chalk\types\" />
     <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\postcss\docs\" />
     <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\rtlcss\docs\" />
@@ -94,7 +98,6 @@
     <Folder Include="wwwroot\assets\libs\jquery.repeater\test\" />
     <Folder Include="wwwroot\assets\libs\moment\src\" />
     <Folder Include="wwwroot\assets\libs\pdfmake\src\" />
-    <Folder Include="wwwroot\assets\libs\table-edits\src\" />
     <Folder Include="wwwroot\assets\libs\toastr\tests\" />
     <Folder Include="wwwroot\assets\libs\waypoints\src\" />
     <Folder Include="wwwroot\assets\libs\waypoints\test\" />
