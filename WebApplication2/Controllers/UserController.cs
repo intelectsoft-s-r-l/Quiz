@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Text;
+using WebApplication2.Interface;
 using WebApplication2.Models;
 using WebApplication2.Models.API;
 using WebApplication2.ViewModels;
@@ -13,41 +14,57 @@ namespace WebApplication2.Controllers
     [Authorize]
     public class UserController : BaseController
     {
+        private readonly IUserRepository _userRepository;
 
+        public UserController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         [HttpGet]
         public async Task<IActionResult> ProfileInfo()
-        {
-
+        { 
             string token = GetToken();
-            using (var httpClientForProfileInfo = new HttpClient())
+            var UserData = await _userRepository.getProfileInfo(token);
+            if (UserData.ErrorCode == 0)
+                return View("~/Views/User/ProfileInfo.cshtml", UserData.User);
+            else if (UserData.ErrorCode == 143)
             {
-
-                var apiUrlGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlGetProfileInfo);
-
-                if (responseGetProfileInfo.IsSuccessStatusCode)
-                {
-                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                    if (userData.ErrorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await ProfileInfo();
-                    }
-                    else if (userData.ErrorCode == 118)
-                    {
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    else if (userData.ErrorCode == 0)
-                    {
-                        return View("~/Views/User/ProfileInfo.cshtml", userData.User);
-                    }
-
-                }
+                await RefreshToken();
+                return await ProfileInfo();
             }
-            return View("Error");
-           // return View("~/Views/Account/Login.cshtml"); /////////!!!!!!
+            else
+                return View("~/Views/Account/Login.cshtml");
+
+
+            //using (var httpClientForProfileInfo = new HttpClient())
+            //{
+
+            //    var apiUrlGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
+
+            //    var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlGetProfileInfo);
+
+            //    if (responseGetProfileInfo.IsSuccessStatusCode)
+            //    {
+            //        var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
+            //        if (userData.ErrorCode == 143)
+            //        {
+            //            await RefreshToken();
+            //            return await ProfileInfo();
+            //        }
+            //        else if (userData.ErrorCode == 118)
+            //        {
+            //            return View("~/Views/Account/Login.cshtml");
+            //        }
+            //        else if (userData.ErrorCode == 0)
+            //        {
+            //            return View("~/Views/User/ProfileInfo.cshtml", userData.User);
+            //        }
+
+            //    }
+            //}
+            //return View("Error");
+            // return View("~/Views/Account/Login.cshtml"); /////////!!!!!!
         }
 
 
@@ -55,32 +72,16 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Settings()
         {
             string token = GetToken();
-            using (var httpClientForProfileInfo = new HttpClient())
+            var UserData = await _userRepository.getProfileInfo(token);
+            if (UserData.ErrorCode == 0)
+                return View("~/Views/User/Settings.cshtml", UserData.User);
+            else if (UserData.ErrorCode == 143)
             {
-
-                var apiUrlGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlGetProfileInfo);
-
-                if (responseGetProfileInfo.IsSuccessStatusCode)
-                {
-                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                    if (userData.ErrorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await Settings();
-                    }
-                    else if (userData.ErrorCode == 118)
-                    {
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    else if (userData.ErrorCode == 0)
-                    {
-                        return View("~/Views/User/Settings.cshtml", userData.User);
-                    }
-                }
+                await RefreshToken();
+                return await Settings();
             }
-            return View("Error");
+            else
+                return View("~/Views/Account/Login.cshtml");
         }
 
 
@@ -95,10 +96,7 @@ namespace WebApplication2.Controllers
         {
 
             if (!ModelState.IsValid)
-            {
                 return Json(new { StatusCode = 500, Message = "No Valid" });
-                //return View();
-            }
 
             string token = GetToken();
 
@@ -109,45 +107,56 @@ namespace WebApplication2.Controllers
                 Token = token
             };
 
-            using (var httpClientForChangePW = new HttpClient())
+            var baseResponseData = await _userRepository.changePassword(changePassword);
+            if (baseResponseData.ErrorCode == 0)
+                return Json(new { StatusCode = 200, Message = "Password changed successfully" });
+            else if (baseResponseData.ErrorCode == 143)
             {
-
-                var apiUrlForChangePW = "https://dev.edi.md/ISAuthService/json/ChangePassword";
-
-                var jsonContent = new StringContent(JsonConvert.SerializeObject(changePassword), Encoding.UTF8, "application/json");
-
-                var responseChangePW = await httpClientForChangePW.PostAsync(apiUrlForChangePW, jsonContent);
-
-                if (responseChangePW.IsSuccessStatusCode)
-                {
-                    var baseResponseData = await responseChangePW.Content.ReadAsAsync<BaseResponse>();
-
-                    if (baseResponseData.ErrorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await ChangePassword(changepwVM); ///!
-                    }
-                    else if (baseResponseData.ErrorCode == 0)
-                    {
-                        //TempData["Success"] = "Password chenged";
-                        //return View("~/Views/User/Settings.cshtml");
-
-                        return Json(new { StatusCode = 200, Message = "Password changed successfully" });
-                    }
-
-                    else
-                    {
-                        //TempData["Error"] = "Password unchenged";
-                        //return View("~/Views/User/Settings.cshtml");
-                        return Json(new { StatusCode = 500, Message = baseResponseData.ErrorMessage });
-                    }
-                }
-                else
-                {
-                    // Обработка ошибки, если запрос не удался.
-                    return View("Error");
-                }
+                await RefreshToken();
+                return await ChangePassword(changepwVM);
             }
+            else
+                return Json(new { StatusCode = 500, Message = baseResponseData.ErrorMessage });
+
+            //using (var httpClientForChangePW = new HttpClient())
+            //{
+
+            //    var apiUrlForChangePW = "https://dev.edi.md/ISAuthService/json/ChangePassword";
+
+            //    var jsonContent = new StringContent(JsonConvert.SerializeObject(changePassword), Encoding.UTF8, "application/json");
+
+            //    var responseChangePW = await httpClientForChangePW.PostAsync(apiUrlForChangePW, jsonContent);
+
+            //    if (responseChangePW.IsSuccessStatusCode)
+            //    {
+            //        var baseResponseData = await responseChangePW.Content.ReadAsAsync<BaseResponse>();
+
+            //        if (baseResponseData.ErrorCode == 143)
+            //        {
+            //            await RefreshToken();
+            //            return await ChangePassword(changepwVM); ///!
+            //        }
+            //        else if (baseResponseData.ErrorCode == 0)
+            //        {
+            //            //TempData["Success"] = "Password chenged";
+            //            //return View("~/Views/User/Settings.cshtml");
+
+            //            return Json(new { StatusCode = 200, Message = "Password changed successfully" });
+            //        }
+
+            //        else
+            //        {
+            //            //TempData["Error"] = "Password unchenged";
+            //            //return View("~/Views/User/Settings.cshtml");
+            //            return Json(new { StatusCode = 500, Message = baseResponseData.ErrorMessage });
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // Обработка ошибки, если запрос не удался.
+            //        return View("Error");
+            //    }
+            //}
 
         }
 
@@ -208,9 +217,6 @@ namespace WebApplication2.Controllers
                             }
                         }
                     }
-
-
-
                 }
             }
             return View("Error");

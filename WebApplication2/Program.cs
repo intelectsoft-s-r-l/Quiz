@@ -1,10 +1,17 @@
 using ISAdminWeb.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using WebApplication2.Interface;
+using WebApplication2.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
+builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
