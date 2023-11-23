@@ -77,6 +77,49 @@ namespace WebApplication2.Repository
             }
         }
 
+        public async Task<QuestionnaireResponse> GetResponse(string token, int id)
+        {
+            using (var httpClientForQuestionnaires = new HttpClient())
+            {
+
+                var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/QuestionnaireResponse?token=" + token + "&id=" + id;
+                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                httpClientForQuestionnaires.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                var responseGetQuestionnaires = await httpClientForQuestionnaires.GetAsync(apiUrlGetQuestionnairesByToken);
+
+                if (responseGetQuestionnaires.IsSuccessStatusCode)
+                {
+                    var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<QuestionnaireResponse>();
+                    return questionnaireData;
+                }
+                return new QuestionnaireResponse { errorCode = -1 };
+            }
+        }
+
+        public async Task<QuestionnaireResponses> GetResponses(string token, int id)
+        {
+            using (var httpClientForQuestionnaire = new HttpClient())
+            {
+
+                var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/QuestionnaireResponses?token=" + token + "&questionaireId=" + id;
+
+                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                httpClientForQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                var responseGetQuestionnaire = await httpClientForQuestionnaire.GetAsync(apiUrlGetQuestionnaire);
+
+                if (responseGetQuestionnaire.IsSuccessStatusCode)
+                {
+                    return await responseGetQuestionnaire.Content.ReadAsAsync<QuestionnaireResponses>();
+                    // return questionnaireData;
+                }
+                return new QuestionnaireResponses() { errorCode = -1 };
+            }
+        }
+
         public async Task<BaseErrors> Upsert(UpsertQuestionnaire upsertQuestionnaireVM)
         {
             using (var httpClientForEditQuestionnaire = new HttpClient())

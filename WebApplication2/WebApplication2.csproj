@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\assets\libs\table-edits\**" />
-    <Content Remove="wwwroot\assets\libs\table-edits\**" />
-    <EmbeddedResource Remove="wwwroot\assets\libs\table-edits\**" />
-    <None Remove="wwwroot\assets\libs\table-edits\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="wwwroot\assets\libs\datatables.net-autofill\node_modules\datatables.net\License.txt" />
     <Content Include="wwwroot\assets\libs\datatables.net-bs4\node_modules\datatables.net\License.txt" />
     <Content Include="wwwroot\assets\libs\datatables.net-buttons\node_modules\datatables.net\License.txt" />
@@ -24,11 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets\libs\datatables.net-autofill\node_modules\datatables.net\js\jquery.dataTables.min.js" />
     <None Include="wwwroot\assets\libs\datatables.net-bs4\node_modules\datatables.net\js\jquery.dataTables.min.js" />
-    <None Include="wwwroot\assets\libs\datatables.net-buttons\node_modules\datatables.net\js\jquery.dataTables.min.js" />
-    <None Include="wwwroot\assets\libs\datatables.net-keytable\node_modules\datatables.net\js\jquery.dataTables.min.js" />
-    <None Include="wwwroot\assets\libs\datatables.net-responsive\node_modules\datatables.net\js\jquery.dataTables.min.js" />
     <None Include="wwwroot\assets\libs\datatables.net-select\node_modules\datatables.net\js\jquery.dataTables.min.js" />
     <None Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\chalk\index.js" />
     <None Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\chalk\index.js.flow" />
@@ -69,44 +58,21 @@
     <None Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\rtlcss\lib\util.js" />
     <None Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\strip-json-comments\index.js" />
     <None Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\strip-json-comments\license" />
-    <None Include="wwwroot\assets\libs\jquery.easing\bower_components\jquery-easing-original\jquery.easing.compatibility.js" />
     <None Include="wwwroot\assets\libs\jquery.easing\bower_components\jquery-easing-original\jquery.easing.min.js" />
     <None Include="wwwroot\assets\libs\jquery.easing\bower_components\jquery\jquery.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\assets\libs\flot-charts\examples\" />
-    <Folder Include="wwwroot\assets\libs\flot.curvedlines\examples\" />
-    <Folder Include="wwwroot\assets\libs\flot.curvedlines\tests\" />
-    <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\chalk\types\" />
-    <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\postcss\docs\" />
-    <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\rtlcss\docs\" />
-    <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\rtlcss\node_modules\" />
-    <Folder Include="wwwroot\assets\libs\gulp-rtlcss\node_modules\rtlcss\test\" />
-    <Folder Include="wwwroot\assets\libs\ion-rangeslider\less\skins\" />
-    <Folder Include="wwwroot\assets\libs\jquery-sparkline\src\" />
-    <Folder Include="wwwroot\assets\libs\jquery-steps\demo\" />
-    <Folder Include="wwwroot\assets\libs\jquery-steps\src\" />
-    <Folder Include="wwwroot\assets\libs\jquery-steps\test\" />
-    <Folder Include="wwwroot\assets\libs\jquery.counterup\demo\" />
-    <Folder Include="wwwroot\assets\libs\jquery.easing\bower_components\jquery-easing-original\example\" />
-    <Folder Include="wwwroot\assets\libs\jquery.easing\bower_components\jquery\dist\" />
-    <Folder Include="wwwroot\assets\libs\jquery.easing\bower_components\jquery\src\" />
-    <Folder Include="wwwroot\assets\libs\jquery.easing\example\" />
-    <Folder Include="wwwroot\assets\libs\jquery.flot.tooltip\examples\" />
-    <Folder Include="wwwroot\assets\libs\jquery.repeater\src\" />
-    <Folder Include="wwwroot\assets\libs\jquery.repeater\test\" />
-    <Folder Include="wwwroot\assets\libs\moment\src\" />
-    <Folder Include="wwwroot\assets\libs\pdfmake\src\" />
-    <Folder Include="wwwroot\assets\libs\toastr\tests\" />
-    <Folder Include="wwwroot\assets\libs\waypoints\src\" />
-    <Folder Include="wwwroot\assets\libs\waypoints\test\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\libs\datatables.net-autofill\node_modules\datatables.net\js\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-buttons\node_modules\datatables.net\js\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-keytable\node_modules\datatables.net\js\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-responsive\node_modules\datatables.net\js\" />
   </ItemGroup>
 
 </Project>

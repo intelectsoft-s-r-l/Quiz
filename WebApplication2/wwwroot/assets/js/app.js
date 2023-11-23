@@ -122,11 +122,11 @@ File: Main Js File
     }
 
     function initDropdownMenu() {
-        if (document.getElementById("topnav-menu-content")) {
+        if(document.getElementById("topnav-menu-content")){
             var elements = document.getElementById("topnav-menu-content").getElementsByTagName("a");
-            for (var i = 0, len = elements.length; i < len; i++) {
+            for(var i = 0, len = elements.length; i < len; i++) {
                 elements[i].onclick = function (elem) {
-                    if (elem.target.getAttribute("href") === "#") {
+                    if(elem.target.getAttribute("href") === "#") {
                         elem.target.parentElement.classList.toggle("active");
                         elem.target.nextElementSibling.classList.toggle("show");
                     }
@@ -138,8 +138,8 @@ File: Main Js File
 
     function updateMenu() {
         var elements = document.getElementById("topnav-menu-content").getElementsByTagName("a");
-        for (var i = 0, len = elements.length; i < len; i++) {
-            if (elements[i].parentElement.getAttribute("class") === "nav-item dropdown active") {
+        for(var i = 0, len = elements.length; i < len; i++) {
+            if(elements[i].parentElement.getAttribute("class") === "nav-item dropdown active") {
                 elements[i].parentElement.classList.remove("active");
                 elements[i].nextElementSibling.classList.remove("show");
             }

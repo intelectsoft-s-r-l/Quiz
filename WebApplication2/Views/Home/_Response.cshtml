@@ -1,0 +1,23 @@
+﻿@using WebApplication2.Models.API;
+@model IEnumerable<Response>
+
+
+<div class="modal-body">
+    <div class="col-sm-12">
+
+        @foreach (var item in Model)
+        {
+            <h2><strong>@item.question</strong></h2>
+            <ul>
+                @foreach (var res in item.response)
+                {
+                    <li><p>@res</p></li>
+                }
+            </ul>
+        }
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+</div>

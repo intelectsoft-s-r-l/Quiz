@@ -7,6 +7,8 @@ namespace WebApplication2.Interface
     {
         Task<GetQuestionnairesInfo> GetQuestionnaires(string token);
         Task<DetailQuestionnaire> GetQuestionnaire(string token, int id);
+        Task<QuestionnaireResponses> GetResponses(string token, int id);
+        Task<QuestionnaireResponse> GetResponse(string token, int id);
         Task<BaseErrors> Upsert(UpsertQuestionnaire upsertQuestionnaireVM);
         Task<BaseErrors> Delete(string token, int oid);
     }

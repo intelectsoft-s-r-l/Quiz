@@ -1,143 +1,47 @@
-﻿@using WebApplication2.Models.API;
-@using WebApplication2.Models.Enum;
-@using WebApplication2.ViewModels;
-@using Newtonsoft.Json
-@model QuestionnaireViewModel
-
+﻿@model int
 @{
-    ViewData["Title"] = "Details";
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 
-<style>
-    .question {
-        border: 1px solid #2c3036;
-        border-radius: 10px;
-        padding: 10px;
-        margin: 20px 0;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
+<script src="~/js/app.js"></script>
 
-    .btn-remove {
-        display: none;
-    }
+<div class="row mb-4">
+    <div class="col-xl-12">
+        <div class="card mb-0">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#about" role="tab">
+                        <i class="uil-eye font-size-20"></i>
+                        <span class="d-none d-sm-block">View</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#tasks" role="tab">
+                        @* <i class="uil uil-tornado font-size-20"></i> *@
+                        <i class="uil-info-circle font-size-20"></i>
+                        <span class="d-none d-sm-block">Responses</span>
+                    </a>
+                </li>
 
-</style>
-
-<div class="form-container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card" style="border-radius: 10px;">
-                <div class="card-body">
-                    <h2 class="card-title mb-4">See detail</h2>
-                    <input type="hidden" asp-for="oid" id="mainId" />
-                    @* @Html.AntiForgeryToken() *@
-
-                    <div class="form-group">
-                        <label asp-for="Title">Title</label>
-                        <h3>@Model.Title</h3>
-                    </div>
-                    <br />
-                    <h3>Questions</h3>
-                    <div id="questions-container">
-                        @{
-                            int i = 0;
-                        }
-                        @foreach (var item in Model.Questions)
-                        {
-                            <div class="question">
-                                <div id="Titlequestion_@i" style="cursor: pointer;">
-                                    <div class="form-group">
-                                        <label asp-for="@item.question">Question Text</label>
-                                        <h3><strong><i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>  @item.question</strong></h3>
-                                    </div>
-                                </div>
-                                <div id="detail_@i">
-                                    <div class="form-group">
-                                        <label asp-for="@item.gradingType">GradingType</label>
-                                        <p><strong>@item.gradingType</strong></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="@item.comentary">Commentary</label>
-                                        <p><strong>@item.comentary</strong></p>
-                                    </div>
-                                    @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant && item.answerVariants != null)
-                                    {
-                                        <label>Answers</label>
-                                        <ul>
-                                            @foreach (var answ in item.answerVariants)
-                                            {
-                                                if (answ != null)
-                                                {
-                                                    <li><p>@answ</p></li>
-                                                }
-                                            }
-                                        </ul>
-                                    }
-                                </div>
-                            </div>
-                            i++;
-                        }
-                    </div>
-                    <div class="row">
-                        <div id="editBtn" class="col-lg-9">
-                            <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">Edit</a>
-                        </div>
-                        <div id="cancelBtn" class="col-lg-3">
-                            <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">Cancel</a>
-                        </div>
-                    </div>
+            </ul>
+            <!-- Tab content -->
+            <div class="tab-content p-4">
+                <div class="tab-pane active" id="about" role="tabpanel">
+                    <div id="questionnaire"></div>
                 </div>
+
+                <div class="tab-pane" id="tasks" role="tabpanel">
+                    <div id="questionnaireResponses"></div>
+                </div>
+
+
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        /*
-                $("#editBtn").mouseenter(function () {
-                    $("#editBtn").stop().animate({
-                        width: "84%" // 10/12 in percentage (col-lg-10)
-                    }, 450); // Adjust the duration (e.g., 200 milliseconds)
-                    $("#cancelBtn").stop().animate({
-                        width: "16%" // 2/12 in percentage (col-lg-2)
-                    }, 200);
-                }).mouseleave(function () {
-                    $("#editBtn").stop().animate({
-                        width: "50%" // 6/12 in percentage (col-lg-6)
-                    }, 200);
-                    $("#cancelBtn").stop().animate({
-                        width: "50%" // 6/12 in percentage (col-lg-6)
-                    }, 200);
-                });
-
-                $("#cancelBtn").mouseenter(function () {
-                    $("#cancelBtn").stop().animate({
-                        width: "84%" // 10/12 in percentage (col-lg-10)
-                    }, 450);
-                    $("#editBtn").stop().animate({
-                        width: "16%" // 2/12 in percentage (col-lg-2)
-                    }, 200);
-                }).mouseleave(function () {
-                    $("#cancelBtn").stop().animate({
-                        width: "50%" // 6/12 in percentage (col-lg-6)
-                    }, 200);
-                    $("#editBtn").stop().animate({
-                        width: "50%" // 6/12 in percentage (col-lg-6)
-                    }, 200);
-                });
-                */
-
-        $("div[id^='Titlequestion_']").click(function () {
-            var questionId = $(this).attr('id');
-            var detailId = "#detail_" + questionId.split('_')[1];
-
-            // Анимированно скрываем или отображаем детали
-            $(detailId).animate({
-                height: 'toggle'
-            });
-        });
-    });
-
+    drawPatrialView("/Home/GetInfoQuestionnaire/"+@Model, "questionnaire");
+    drawPatrialView("/Home/QuestionnaireResponses/" + @Model, "questionnaireResponses");
 </script>

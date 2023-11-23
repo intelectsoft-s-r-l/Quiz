@@ -1,0 +1,53 @@
+﻿@using WebApplication2.Models.API;
+@model IEnumerable<Responses>
+
+<!-- DataTables -->
+<link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<div class="row">
+    <div class="col-12">
+        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 90vw;">Name</th>
+                    <th style="width: 10vw;">Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td>
+                           @*  style="width: 100%; border-color: #00ce78; background-color:#00ce78" *@
+                            <button style="width: 100%" type="button" class="btn btn-success waves-effect waves-light"
+                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl"
+                                    onclick="drawPatrialView('/Home/QuestionnaireResponse/' + @item.oid, 'xlModalBody')">
+                                Response
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Проверяем, инициализирована ли уже таблица DataTable
+        if ($.fn.DataTable.isDataTable('#datatable')) {
+            // Если да, уничтожаем текущую инициализацию
+            $('#datatable').DataTable().destroy();
+        }
+
+        // Инициализируем DataTable с вашими настройками
+        $('#datatable').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [1] }
+            ]
+        });
+    });
+</script>

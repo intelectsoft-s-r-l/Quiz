@@ -12,8 +12,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
 builder.Services.AddScoped<IQuizRepository, QuizRepository>();
-//
-builder.Services.AddScoped<IResultRepository, ResultRepository>();//
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
