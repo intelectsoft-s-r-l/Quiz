@@ -42,7 +42,7 @@ namespace WebApplication2.Controllers
 
         }
 
-
+        [HttpGet]
         public IActionResult Detail(int id)
         {
             return View("~/Views/Home/Detail.cshtml", id);

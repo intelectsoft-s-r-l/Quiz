@@ -41,7 +41,7 @@
                                 </td>
                                 <td>
                                     @* <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/Home/Edit/'+@item.oid, 'lgModalBody')">Edit</button> *@
-                                    <a style="width: 100%;" href="@Url.Action("Upsert", "Home", new {id = item.oid})" class="btn btn-primary waves-effect waves-light"><i class="bx bx-edit"></i></a>
+                                    <a style="width: 100%;" href="@Url.Action("Upsert", "Home", new {id = item.oid})" class="btn btn-primary waves-effect waves-light"><i class="bx bx-edit"></i>Edit</a>
                                 </td>
                                 <td>
                                     <button type="button" style="width: 100%;" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@item.oid, 'xlModalBody')"><i class="uil-trash-alt"></i>Delete</button>

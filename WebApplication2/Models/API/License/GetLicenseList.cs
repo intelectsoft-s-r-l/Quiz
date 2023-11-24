@@ -4,6 +4,6 @@ namespace WebApplication2.Models.API.License
 {
     public class GetLicenseList : BaseErrors
     {
-        public List<License> licenses { get; set; }
+        public List<License>? licenses { get; set; }
     }
 }
