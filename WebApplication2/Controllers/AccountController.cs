@@ -51,6 +51,7 @@ namespace WebApplication2.Controllers
                         userClaims.Add(new Claim("Company", userData.User.Company));
                         userClaims.Add(new Claim("PhoneNumber", userData.User.PhoneNumber));
                         userClaims.Add(new Claim(".AspNetCore.Admin", userData.Token));
+                        userClaims.Add(new Claim("UiLanguage", userData.User.UiLanguage));
 
                         var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 

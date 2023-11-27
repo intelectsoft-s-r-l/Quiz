@@ -89,7 +89,7 @@ namespace WebApplication2.Controllers
                 return Json(new { StatusCode = 200, Message = "Ok" });
             else
                 return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
-           
+
         }
 
         [HttpGet]
@@ -117,7 +117,7 @@ namespace WebApplication2.Controllers
                 return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
             }
 
-           
+
         }
 
         [HttpGet]
@@ -143,7 +143,7 @@ namespace WebApplication2.Controllers
             {
                 return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
             }
-           
+
         }
 
 
@@ -170,7 +170,7 @@ namespace WebApplication2.Controllers
                 {
                     return RedirectToAction(nameof(LicenseController.Index), "License");
                 }
-                
+
             }
 
             return View("Error");
@@ -181,7 +181,7 @@ namespace WebApplication2.Controllers
         public IActionResult Delete(string id)
         {
             return PartialView("~/Views/License/Delete.cshtml", id);
-           
+
         }
 
         [HttpPost]
@@ -208,7 +208,7 @@ namespace WebApplication2.Controllers
                 return Json(new { StatusCode = 500, Message = deleteLicenseBaseResponse.errorMessage });
             }
 
-            
+
         }
 
     }

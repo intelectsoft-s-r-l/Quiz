@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Text;
 using WebApplication2.Interface;
 using WebApplication2.Models.API;
+using WebApplication2.Models.API.Questionnaires;
 using WebApplication2.ViewModels;
-using System.Security.Cryptography;
 
 namespace WebApplication2.Repository
 {
@@ -26,7 +25,7 @@ namespace WebApplication2.Repository
                 if (responseGetQuestionnaires.IsSuccessStatusCode)
                 {
                     return await responseGetQuestionnaires.Content.ReadAsAsync<BaseErrors>();
-                    
+
                 }
                 return new BaseErrors() { errorCode = -1 };
             }
@@ -129,7 +128,7 @@ namespace WebApplication2.Repository
                 var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
                 httpClientForEditQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
-                
+
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(upsertQuestionnaireVM), Encoding.UTF8, "application/json");
 
                 var responseEditQuestionnaire = await httpClientForEditQuestionnaire.PostAsync(apiUrlForEditQuestionnaire, jsonContent);

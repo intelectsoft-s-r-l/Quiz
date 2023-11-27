@@ -1,26 +1,31 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿//using ISAdminWeb.Filter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
-using System.Text;
 using WebApplication2.Interface;
 using WebApplication2.Models;
-using WebApplication2.Models.API;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
     [Authorize]
+    //[Culture]
     public class HomeController : BaseController
     {
         private readonly IQuizRepository _quizRepository;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IQuizRepository quizRepository)
+        public HomeController(IQuizRepository quizRepository, IStringLocalizer<HomeController> localizer)
         {
             _quizRepository = quizRepository;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Index()
         {
+            var localizedTitle = _localizer["Add"];
+
             string token = GetToken();
             var questionnaireData = await _quizRepository.GetQuestionnaires(token);
             if (questionnaireData.errorCode == 143)
@@ -46,7 +51,7 @@ namespace WebApplication2.Controllers
         public IActionResult Detail(int id)
         {
             return View("~/Views/Home/Detail.cshtml", id);
-            
+
         }
 
         public async Task<IActionResult> GetInfoQuestionnaire(int id)
@@ -83,7 +88,7 @@ namespace WebApplication2.Controllers
             if (questionnaireData.errorCode == 143)
             {
                 await RefreshToken();
-                return await QuestionnaireResponse(id);
+                return await QuestionnaireResponses(id);
             }
             else if (questionnaireData.errorCode == 118)
             {
@@ -150,7 +155,7 @@ namespace WebApplication2.Controllers
             upsertVm.oid = id;
             upsertVm.Questions = new List<QuestionViewModel>();
             return View("~/Views/Home/Upsert.cshtml", upsertVm);
-            
+
         }
 
         [HttpPost]
@@ -209,7 +214,7 @@ namespace WebApplication2.Controllers
                 }
             }
             return View("Error");
-            
+
         }
 
 
@@ -229,7 +234,7 @@ namespace WebApplication2.Controllers
                 return View("~/Views/Account/Login.cshtml");
             else if (questionnaireData.errorCode == 0)
                 return PartialView("~/Views/Home/Delete.cshtml", questionnaireData);
-            
+
             return View("Error");
         }
         //[HttpDelete, ActionName("Delete")]
@@ -250,10 +255,10 @@ namespace WebApplication2.Controllers
             else
                 return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
 
-            
+
         }
 
-       
+
 
 
     }

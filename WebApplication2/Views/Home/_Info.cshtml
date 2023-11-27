@@ -68,16 +68,14 @@
                                 <label asp-for="@item.comentary">Commentary</label>
                                 <p><strong>@item.comentary</strong></p>
                             </div>
-                            @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant && item.answerVariants != null)
+                            @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                             {
                                 <label>Answers</label>
                                 <ul>
                                     @foreach (var answ in item.answerVariants)
                                     {
-                                        if (answ != null)
-                                        {
-                                            <li><p>@answ</p></li>
-                                        }
+
+                                        <li><p>@answ</p></li>
                                     }
                                 </ul>
                             }

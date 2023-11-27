@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using WebApplication2.Interface;
-using WebApplication2.Models;
-using WebApplication2.Models.API;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers

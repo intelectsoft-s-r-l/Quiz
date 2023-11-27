@@ -104,6 +104,28 @@ namespace WebApplication2.Controllers
 
         }
 
+        public string GetLanguageCookie()
+        {
+            var user = User;
+            // Проверьте, аутентифицирован ли пользователь
+            if (user.Identity.IsAuthenticated)
+            {
+                // Получите все Claim-ы пользователя
+                var claims = user.Claims;
+
+                // Получите конкретный Claim по типу
+                var nameClaim = user.FindFirst(".AspNetCore.Admin");    //token
+
+                if (nameClaim != null)
+                {
+                    var name = nameClaim.Value; // Получите значение Claim
+                    return name;
+                }
+
+
+            }
+            return null;
+        }
 
 
 

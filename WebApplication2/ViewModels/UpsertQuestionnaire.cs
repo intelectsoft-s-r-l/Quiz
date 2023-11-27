@@ -1,4 +1,4 @@
-﻿using WebApplication2.Models.API;
+﻿using WebApplication2.Models.API.Questionnaires;
 
 namespace WebApplication2.ViewModels
 {

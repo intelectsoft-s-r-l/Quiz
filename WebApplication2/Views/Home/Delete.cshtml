@@ -1,4 +1,5 @@
 ﻿@using WebApplication2.Models.API;
+@using WebApplication2.Models.API.Questionnaires;
 @using WebApplication2.Models.Enum;
 @model DetailQuestionnaire
 <style>
@@ -35,15 +36,13 @@
                             <p>Commentary: @question.comentary</p>
                             <p>AnswerType: @question.gradingType</p>
 
-                            @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant && question.answerVariants != null)
+                            @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
                             {
                                 <ul>
                                     @foreach (var answer in question.answerVariants)
                                     {
-                                        if (answer != null)
-                                        {
-                                            <li><p>@answer</p></li>
-                                        }
+                                        <li><p>@answer</p></li>
+
                                     }
                                 </ul>
                             }

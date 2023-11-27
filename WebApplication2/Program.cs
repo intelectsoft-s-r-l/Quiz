@@ -1,13 +1,30 @@
 using ISAdminWeb.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 using WebApplication2.Interface;
 using WebApplication2.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+// Add services to the container.
+builder.Services.AddMvc()
+        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+        .AddDataAnnotationsLocalization();
+
+
+builder.Services.Configure<RequestLocalizationOptions>(opt =>
+{
+    var supportedCultures = new[] { "en", "ro", "ru" };
+    opt.SetDefaultCulture(supportedCultures[2])
+        .AddSupportedCultures(supportedCultures)
+        .AddSupportedUICultures(supportedCultures);
+});
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
@@ -40,7 +57,22 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         };
     });
 
+
+//builder.Services.AddRazorPages()
+//    .AddViewLocalization()
+//    .AddSessionStateTempDataProvider();
+
+
+
 var app = builder.Build();
+var supportedCultures = new[] { "en", "ro", "ru" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[2])
+.AddSupportedCultures(supportedCultures)
+.AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
