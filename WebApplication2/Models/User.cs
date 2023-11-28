@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models
+﻿using WebApplication2.Models.Enum;
+
+namespace WebApplication2.Models
 {
     public class User
     {
@@ -14,6 +16,6 @@
         public string PhoneNumber { get; set; }
         public byte[] Picture { get; set; }
         public int Status { get; set; } /////
-        public string UiLanguage { get; set; }  /////
+        public EnUiLanguage UiLanguage { get; set; }  /////
     }
 }

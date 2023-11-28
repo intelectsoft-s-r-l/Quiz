@@ -178,3 +178,8 @@ C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\obj\Debug\net6.
 C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\en\WebApplication2.resources.dll
 C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\obj\Debug\net6.0\WebApplication2.Resources.Localization.en.resources
 C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\obj\Debug\net6.0\en\WebApplication2.resources.dll
+C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\ru\WebApplication2.resources.dll
+C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\obj\Debug\net6.0\WebApplication2.Resources.Localization.ru.resources
+C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\obj\Debug\net6.0\ru\WebApplication2.resources.dll

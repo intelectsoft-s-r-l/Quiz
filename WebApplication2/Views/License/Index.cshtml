@@ -12,8 +12,7 @@
 <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
-<!-- Responsive datatable examples -->
-<link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
 
 <div class="row">
     <div class="col-xl-12">
@@ -96,11 +95,16 @@
     </div>
 </div>
 
-<!-- JAVASCRIPT -->
-<!-- Required datatable js -->
-<!-- Datatable init js -->
 
 
+<!-- Responsive datatable examples -->
+<link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<!-- Responsive examples -->
+<script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 
 <script>
@@ -116,12 +120,38 @@
             $('#datatable').DataTable().destroy();
         }
 
-        // Инициализируем DataTable с вашими настройками
-        $('#datatable').DataTable({
-            "columnDefs": [
-                { "orderable": false, "targets": [5] }
-            ]
-        });
+        var dataTableOptions = {
+            language: {
+                processing: "@Localization.processing",
+                search: "@Localization.Search",
+                lengthMenu: "@Localization.lengthMenu",
+                info: "@Localization.info",
+                infoEmpty: "@Localization.infoEmpty",
+                infoFiltered: "@Localization.infoFiltered",
+                infoPostFix: "",
+                loadingRecords: "@Localization.loadingRecords",
+                zeroRecords: "@Localization.zeroRecords",
+                emptyTable: "@Localization.emptyTable",
+                paginate: {
+                    first: "@Localization.first",
+                    previous: "@Localization.previous",
+                    next: "@Localization.next",
+                    last: "@Localization.last"
+                }/*,
+                    aria: {
+                        sortAscending: ": активировать для сортировки столбца по возрастанию",
+                        sortDescending: ": активировать для сортировки столбца по убыванию"
+                    }*/
+            },
+            columnDefs: [
+                { orderable: false, targets: [5] }
+            ],
+            // Другие настройки DataTables...
+        };
+
+
+        // Используйте языковые опции для DataTables
+        $('#datatable').DataTable(dataTableOptions);
     });
 
 </script>

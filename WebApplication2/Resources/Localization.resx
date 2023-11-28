@@ -117,7 +117,118 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
+  <data name="AddAnswer" xml:space="preserve">
+    <value>Răspuns nou</value>
+  </data>
+  <data name="AddQ" xml:space="preserve">
+    <value>Adăugarea unui chestionar nou</value>
+  </data>
+  <data name="AddQuestion" xml:space="preserve">
+    <value>Adăugarea întrebării</value>
+  </data>
+  <data name="AnswerText" xml:space="preserve">
+    <value>Text răspunsului</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comentariu</value>
+  </data>
+  <data name="CreateQ" xml:space="preserve">
+    <value>Creare chestionar</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Ștergere</value>
+  </data>
+  <data name="DetailQ" xml:space="preserve">
+    <value>Detalii chestionar</value>
+  </data>
+  <data name="EditQ" xml:space="preserve">
+    <value>Editarea unui chestionar</value>
+  </data>
+  <data name="emptyTable" xml:space="preserve">
+    <value>Tabelul este gol</value>
+  </data>
+  <data name="first" xml:space="preserve">
+    <value>Prima</value>
+  </data>
+  <data name="GradingType" xml:space="preserve">
+    <value>Tip de clasificare</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>Sunt afișate înregistrările de la _START_ la _END_ de la _TOTAL_</value>
+  </data>
+  <data name="infoEmpty" xml:space="preserve">
+    <value>Fără înregistrări</value>
+  </data>
+  <data name="infoFiltered" xml:space="preserve">
+    <value>(filtrat din înregistrările _MAX_)</value>
+  </data>
+  <data name="last" xml:space="preserve">
+    <value>Ultima</value>
+  </data>
+  <data name="lengthMenu" xml:space="preserve">
+    <value>Afișați intrările _MENU_ </value>
+  </data>
+  <data name="Licenses" xml:space="preserve">
+    <value>Licenţe</value>
+  </data>
+  <data name="loadingRecords" xml:space="preserve">
+    <value>Încărcare...</value>
+  </data>
+  <data name="Multianswer" xml:space="preserve">
+    <value>Variantă cu răspuns multiplu</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Următore</value>
+  </data>
+  <data name="Oneanswer" xml:space="preserve">
+    <value>Variantă cu un singur răspuns</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>Precedentă</value>
+  </data>
+  <data name="processing" xml:space="preserve">
+    <value>Prelucrare...</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Întrebări</value>
+  </data>
+  <data name="Questionnaires" xml:space="preserve">
+    <value>Chestionare</value>
+  </data>
+  <data name="QuestionText" xml:space="preserve">
+    <value>Textul întrebării</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Răspuns</value>
+  </data>
+  <data name="Responses" xml:space="preserve">
+    <value>Răspunsuri</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="Scorepoints" xml:space="preserve">
+    <value>Scor 10 puncte</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Căutare</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Sunteți siguri?</value>
+  </data>
+  <data name="TitleQ" xml:space="preserve">
+    <value>Titlul chestionarului</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Prezentare</value>
+  </data>
+  <data name="ViewQ" xml:space="preserve">
+    <value>Prezentare chestionarului</value>
+  </data>
+  <data name="YesorNo" xml:space="preserve">
+    <value>DA sau NU</value>
+  </data>
+  <data name="zeroRecords" xml:space="preserve">
+    <value>Fără înregistrări</value>
   </data>
 </root>

@@ -1,15 +1,19 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using ISAdminWeb.Filter;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Text;
 using WebApplication2.Models;
+using WebApplication2.Models.Enum;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+    [Culture]
     public class AccountController : BaseController
     {
 
@@ -51,8 +55,23 @@ namespace WebApplication2.Controllers
                         userClaims.Add(new Claim("Company", userData.User.Company));
                         userClaims.Add(new Claim("PhoneNumber", userData.User.PhoneNumber));
                         userClaims.Add(new Claim(".AspNetCore.Admin", userData.Token));
-                        userClaims.Add(new Claim("UiLanguage", userData.User.UiLanguage));
+                        string userLanguage = "";
+                        switch (userData.User.UiLanguage)
+                        {
+                            case EnUiLanguage.EN: userLanguage = "en";
+                                break;
+                            case EnUiLanguage.RO: userLanguage = "ro";
+                                break;
+                            case EnUiLanguage.RU: userLanguage = "ru";
+                                break;
+                            default:
+                                break;
+                        }
 
+                        userClaims.Add(new Claim("UiLanguage", userLanguage));
+
+
+                        Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(userLanguage.ToString())), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
                         var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                         var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
@@ -137,6 +156,19 @@ namespace WebApplication2.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
+
+        //[HttpGet]
+        //public IActionResult ChangeLanguage(string culture, string returnUrl)
+        //{
+        //    ChangeLanguageCookie(culture);
+
+        //    // Редирект на предыдущую страницу или на дефолтную
+        //    //return LocalRedirect(returnUrl ?? "/");
+        //    return RedirectToAction("Index", "Home");
+        //}
+
+
     }
 
 

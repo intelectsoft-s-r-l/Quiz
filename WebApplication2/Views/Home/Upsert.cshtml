@@ -39,11 +39,11 @@
                     <div class="card-body">
                         @if (Model.oid != 0)
                         {
-                            <h2 class="text-center"><i class="bx bx-edit"></i> Edit Questionnaire</h2>
+                            <h2 class="text-center"><i class="bx bx-edit"></i> @Localization.EditQ</h2>
                         }
                         else
                         {
-                            <h2 class="text-center"><i class="mdi mdi-plus me-1"></i> Create Questionnaire</h2>
+                            <h2 class="text-center"><i class="mdi mdi-plus me-1"></i> @Localization.CreateQ</h2>
                         }
 
                         <input type="hidden" asp-for="oid" id="mainId" />
@@ -53,7 +53,7 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3 mb-4">
-                                    <label asp-for="Title" class="form-label"><h4>Questionnaire title</h4></label>
+                                    <label asp-for="Title" class="form-label"><h4>@Localization.TitleQ</h4></label>
                                 </div>
                             </div>
                             <div class="col-lg-9">
@@ -65,7 +65,7 @@
 
 
                         <br />
-                        <h3>Questions</h3>
+                        <h3>@Localization.Question</h3>
 
                         <div id="questions-container">
 
@@ -73,24 +73,24 @@
                             {
                                 <div class="question" id="question_@i">
 
-                                    <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> Delete question</button>
+                                    <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
 
                                     <div class="form-group">
-                                        <label asp-for="@item.question">Question Text</label>
+                                        <label asp-for="@item.question">@Localization.QuestionText</label>
                                         <input type="text" name="@item.question" asp-for="@item.question" class=" form-control" required id="questionName_@i" />
                                     </div>
                                     <div class="form-group">
                                         @*Исправить если мы выбрали мультиАнсв, то кнопка появляется(сделать кнопку на удаление ответов)*@
-                                        <label asp-for="@item.gradingType">GradingType</label>
+                                        <label asp-for="@item.gradingType">@Localization.GradingType</label>
                                         <select id="questionGradingType_@i" name=".gradingType" class="form-select">
-                                            <option value="1" selected="@(item.gradingType == GradingType.YesNo)">Yes or No</option>
-                                            <option value="2" selected="@(item.gradingType == GradingType.Point10Score)">Score 10 points</option>
-                                            <option value="3" selected="@(item.gradingType == GradingType.SingleAnswerVariant)">One answer variant</option>
-                                            <option value="4" selected="@(item.gradingType == GradingType.MultipleAnswerVariant)">Multi answer variant</option>
+                                            <option value="1" selected="@(item.gradingType == GradingType.YesNo)">@Localization.YesorNo</option>
+                                            <option value="2" selected="@(item.gradingType == GradingType.Point10Score)">@Localization.Scorepoints</option>
+                                            <option value="3" selected="@(item.gradingType == GradingType.SingleAnswerVariant)">@Localization.Oneanswer</option>
+                                            <option value="4" selected="@(item.gradingType == GradingType.MultipleAnswerVariant)">@Localization.Multianswer</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="@item.comentary">Commentary</label>
+                                        <label asp-for="@item.comentary">@Localization.Comment</label>
                                         <input type="text" name="@item.comentary" asp-for="@item.comentary" class="form-control" required id="questionComentary_@i" />
                                     </div>
                                     <div class="answers-container">
@@ -106,16 +106,23 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <div class="mb-3">
-                                                                    <label asp-for="@answ">Answer Text</label>
+                                                                    <label asp-for="@answ">@Localization.AnswerText</label>
                                                                     <input type="text" asp-for="@answ" class="form-control" required id="answerVal_@j" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-2">
                                                                 <div class="mb-3">
-                                                                    <label for="basicpill-lastname-input">Delete<i class="uil-trash-alt"></i></label>
-                                                                    <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value='Delete answer' />
+                                                                    <label for="basicpill-lastname-input">@Localization.Delete<i class="uil-trash-alt"></i></label>
+                                                                    <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value='@Localization.Delete' />
                                                                 </div>
                                                             </div>
+@*                                                             <div class="col-lg-1 d-flex align-items-center">
+                                                                <a type='button' id='btnremoveAnsw' class="px-3 text-danger"><i class="uil-trash-alt font-size-20"></i></a>
+                                                                @* <label for="basicpill-lastname-input">Delete<i class="uil-trash-alt"></i></label>
+                                                    <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value='Delete answer' /> *@
+                                                                @* <input type="button" value="" id="btnremoveAnsw" class="text-danger bg-transparent border-0 p-0">
+                                                    <i class="uil-trash-alt font-size-20"></i> *
+                                                            </div> *@
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,22 +130,22 @@
                                             }
                                         }
                                     </div>
-                                    <button type="button" id="add-answer" style="width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> Add Answer</button>
+                                    <button type="button" id="add-answer" style="width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
                                 </div>
                                 i++;
                             }
                         </div>
 
-                        <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">Add Question</button>
+                        <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">@Localization.AddQuestion</button>
 
                         @if (Model.oid != 0)
                         {
 
-                            <button type="submit" style="margin-top: 10px; width: 100%;" class="btn btn-outline-success waves-effect waves-light"><i class="uil uil-file-alt me-1"></i> Save</button>
+                            <button type="submit" style="margin-top: 10px; width: 100%;" class="btn btn-outline-success waves-effect waves-light"><i class="uil uil-file-alt me-1"></i> @Localization.Save</button>
                         }
                         else
                         {
-                            <button type="submit" style="margin-top: 10px; width: 100%;" class="btn btn-success waves-effect waves-light"><i class="uil uil-file-alt me-1"></i> Create</button>
+                            <button type="submit" style="margin-top: 10px; width: 100%;" class="btn btn-success waves-effect waves-light"><i class="uil uil-file-alt me-1"></i> @Localization.CreateQ</button>
                         }
                         <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">Cancel</a>
                     </div>
@@ -157,29 +164,29 @@
 
             function addQuestion() {
                 var questionHtml = `<div class="question" id="question_${questionIndex}">
-                             <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> Delete question</button>
+                             <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
                             <div class="form-group">
-                                <label for="Questions_${questionIndex}__Text">Question Text</label>
+                                        <label for="Questions_${questionIndex}__Text">@Localization.QuestionText</label>
                                 <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
                             </div>
                             <div class="form-group">
-                                <label for="Questions_${questionIndex}__gradingType">Grading Type</label>
+                                        <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
                                         <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
-                                    <option value="1">Yes or No</option>
-                                    <option value="2">Score 10 points</option>
-                                    <option value="3">One answer variant</option>
-                                    <option value="4">Multi answer variant</option>
+                                            <option value="1">@Localization.YesorNo</option>
+                                            <option value="2">@Localization.Scorepoints</option>
+                                            <option value="3">@Localization.Oneanswer</option>
+                                            <option value="4">@Localization.Multianswer</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="Questions_${questionIndex}__comentary">Commentary</label>
+                                        <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
                                 <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
                             </div>
                             <div class="answers-container" style="display: none;">
-                                <h4>Answers</h4>
+                                        <!--<h4>Answers</h4>-->
 
                             </div>
-                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> Add Answer</button>
+                                    <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
                         </div>`;
 
                 $("#questions-container").append(questionHtml);
@@ -259,14 +266,14 @@
                                         <div class="row">
                                             <div class="col-lg-10">
                                                 <div class="mb-3">
-                                                    <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">Answer Text</label>
+                                                   <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
                                                     <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control" required id="answerVal_${questionIndex}_${answerIndex}" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-lastname-input">Delete</label><i class="uil-trash-alt"></i>
-                                                     <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' Delete answer' />
+                                                            <label for="basicpill-lastname-input">@Localization.Delete</label><i class="uil-trash-alt"></i>
+                                                             <input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />
                                                 </div>
                                             </div>
                                         </div>

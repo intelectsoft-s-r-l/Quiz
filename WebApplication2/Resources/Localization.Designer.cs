@@ -61,11 +61,344 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Добавить.
+        ///   Ищет локализованную строку, похожую на Răspuns nou.
         /// </summary>
-        public static string Add {
+        public static string AddAnswer {
             get {
-                return ResourceManager.GetString("Add", resourceCulture);
+                return ResourceManager.GetString("AddAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Adăugarea unui chestionar nou.
+        /// </summary>
+        public static string AddQ {
+            get {
+                return ResourceManager.GetString("AddQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Adăugarea întrebării.
+        /// </summary>
+        public static string AddQuestion {
+            get {
+                return ResourceManager.GetString("AddQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Text răspunsului.
+        /// </summary>
+        public static string AnswerText {
+            get {
+                return ResourceManager.GetString("AnswerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Comentariu.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Creare chestionar.
+        /// </summary>
+        public static string CreateQ {
+            get {
+                return ResourceManager.GetString("CreateQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ștergere.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Detalii chestionar.
+        /// </summary>
+        public static string DetailQ {
+            get {
+                return ResourceManager.GetString("DetailQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Editarea unui chestionar.
+        /// </summary>
+        public static string EditQ {
+            get {
+                return ResourceManager.GetString("EditQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tabelul este gol.
+        /// </summary>
+        public static string emptyTable {
+            get {
+                return ResourceManager.GetString("emptyTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Prima.
+        /// </summary>
+        public static string first {
+            get {
+                return ResourceManager.GetString("first", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tip de clasificare.
+        /// </summary>
+        public static string GradingType {
+            get {
+                return ResourceManager.GetString("GradingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Sunt afișate înregistrările de la _START_ la _END_ de la _TOTAL_.
+        /// </summary>
+        public static string info {
+            get {
+                return ResourceManager.GetString("info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Fără înregistrări.
+        /// </summary>
+        public static string infoEmpty {
+            get {
+                return ResourceManager.GetString("infoEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на (filtrat din înregistrările _MAX_).
+        /// </summary>
+        public static string infoFiltered {
+            get {
+                return ResourceManager.GetString("infoFiltered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ultima.
+        /// </summary>
+        public static string last {
+            get {
+                return ResourceManager.GetString("last", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Afișați intrările _MENU_ .
+        /// </summary>
+        public static string lengthMenu {
+            get {
+                return ResourceManager.GetString("lengthMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Licenţe.
+        /// </summary>
+        public static string Licenses {
+            get {
+                return ResourceManager.GetString("Licenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Încărcare....
+        /// </summary>
+        public static string loadingRecords {
+            get {
+                return ResourceManager.GetString("loadingRecords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Variantă cu răspuns multiplu.
+        /// </summary>
+        public static string Multianswer {
+            get {
+                return ResourceManager.GetString("Multianswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Următore.
+        /// </summary>
+        public static string next {
+            get {
+                return ResourceManager.GetString("next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Variantă cu un singur răspuns.
+        /// </summary>
+        public static string Oneanswer {
+            get {
+                return ResourceManager.GetString("Oneanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Precedentă.
+        /// </summary>
+        public static string previous {
+            get {
+                return ResourceManager.GetString("previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Prelucrare....
+        /// </summary>
+        public static string processing {
+            get {
+                return ResourceManager.GetString("processing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Întrebări.
+        /// </summary>
+        public static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Chestionare.
+        /// </summary>
+        public static string Questionnaires {
+            get {
+                return ResourceManager.GetString("Questionnaires", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Textul întrebării.
+        /// </summary>
+        public static string QuestionText {
+            get {
+                return ResourceManager.GetString("QuestionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Răspuns.
+        /// </summary>
+        public static string Response {
+            get {
+                return ResourceManager.GetString("Response", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Răspunsuri.
+        /// </summary>
+        public static string Responses {
+            get {
+                return ResourceManager.GetString("Responses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Salvează.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Scor 10 puncte.
+        /// </summary>
+        public static string Scorepoints {
+            get {
+                return ResourceManager.GetString("Scorepoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Căutare.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Sunteți siguri?.
+        /// </summary>
+        public static string Sure {
+            get {
+                return ResourceManager.GetString("Sure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Titlul chestionarului.
+        /// </summary>
+        public static string TitleQ {
+            get {
+                return ResourceManager.GetString("TitleQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Prezentare.
+        /// </summary>
+        public static string View {
+            get {
+                return ResourceManager.GetString("View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Prezentare chestionarului.
+        /// </summary>
+        public static string ViewQ {
+            get {
+                return ResourceManager.GetString("ViewQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на DA sau NU.
+        /// </summary>
+        public static string YesorNo {
+            get {
+                return ResourceManager.GetString("YesorNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Fără înregistrări.
+        /// </summary>
+        public static string zeroRecords {
+            get {
+                return ResourceManager.GetString("zeroRecords", resourceCulture);
             }
         }
     }

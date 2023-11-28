@@ -14,19 +14,23 @@
                 </tr>
             </thead>
             <tbody>
+                @{
+                    int i = 1;
+                }
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td></td>
+                        <td>@i</td>
                         <td>
                            @*  style="width: 100%; border-color: #00ce78; background-color:#00ce78" *@
                             <button style="width: 100%" type="button" class="btn btn-success waves-effect waves-light"
                                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl"
                                     onclick="drawPatrialView('/Home/QuestionnaireResponse/' + @item.oid, 'xlModalBody')">
-                                Response
+                                @Localization.Response
                             </button>
                         </td>
                     </tr>
+                    i++;
                 }
             </tbody>
         </table>
@@ -43,11 +47,37 @@
             $('#datatable').DataTable().destroy();
         }
 
-        // Инициализируем DataTable с вашими настройками
-        $('#datatable').DataTable({
-            "columnDefs": [
-                { "orderable": false, "targets": [1] }
-            ]
-        });
+        var dataTableOptions = {
+            language: {
+                processing: "@Localization.processing",
+                search: "@Localization.Search",
+                lengthMenu: "@Localization.lengthMenu",
+                info: "@Localization.info",
+                infoEmpty: "@Localization.infoEmpty",
+                infoFiltered: "@Localization.infoFiltered",
+                infoPostFix: "",
+                loadingRecords: "@Localization.loadingRecords",
+                zeroRecords: "@Localization.zeroRecords",
+                emptyTable: "@Localization.emptyTable",
+                paginate: {
+                    first: "@Localization.first",
+                    previous: "@Localization.previous",
+                    next: "@Localization.next",
+                    last: "@Localization.last"
+                }/*,
+                    aria: {
+                        sortAscending: ": активировать для сортировки столбца по возрастанию",
+                        sortDescending: ": активировать для сортировки столбца по убыванию"
+                    }*/
+            },
+            columnDefs: [
+                { orderable: false, targets: [1] }
+            ],
+            // Другие настройки DataTables...
+        };
+
+
+        // Используйте языковые опции для DataTables
+        $('#datatable').DataTable(dataTableOptions);
     });
 </script>

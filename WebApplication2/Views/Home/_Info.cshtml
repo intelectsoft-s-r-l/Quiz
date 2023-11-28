@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <h2 class="text-center"><i class="uil-eye font-size-28"></i> Questionnaire view</h2>
+            <h2 class="text-center"><i class="uil-eye font-size-28"></i> @Localization.ViewQ</h2>
             <input type="hidden" asp-for="oid" id="mainId" />
             <br />
 
@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="mb-4">
-                        <label asp-for="Title" class="form-label"><h4>Title</h4></label>
+                        <label asp-for="Title" class="form-label"><h4>@Localization.TitleQ</h4></label>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -45,7 +45,7 @@
 
             <br />
 
-            <h3>Questions</h3>
+            <h3>@Localization.Question</h3>
             <div id="questions-container">
                 @{
                     int i = 0;
@@ -55,27 +55,29 @@
                     <div class="question">
                         <div id="Titlequestion_@i" style="cursor: pointer;">
                             <div class="form-group">
-                                <label asp-for="@item.question">Question Text</label>
+                                <label asp-for="@item.question">@Localization.QuestionText</label>
                                 <h3><strong><i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>  @item.question</strong></h3>
                             </div>
                         </div>
                         <div id="detail_@i">
                             <div class="form-group">
-                                <label asp-for="@item.gradingType">GradingType</label>
+                                <label asp-for="@item.gradingType">@Localization.GradingType</label>
                                 <p><strong>@item.gradingType</strong></p>
                             </div>
                             <div class="form-group">
-                                <label asp-for="@item.comentary">Commentary</label>
+                                <label asp-for="@item.comentary">@Localization.Comment</label>
                                 <p><strong>@item.comentary</strong></p>
                             </div>
                             @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                             {
-                                <label>Answers</label>
+                                <label>@Localization.Responses</label>
                                 <ul>
                                     @foreach (var answ in item.answerVariants)
                                     {
-
-                                        <li><p>@answ</p></li>
+                                        @if (answ != null)
+                                        {
+                                            <li><p>@answ</p></li>
+                                        }
                                     }
                                 </ul>
                             }
@@ -86,7 +88,7 @@
             </div>
             <div class="row">
                 <div id="editBtn" class="col-lg-9">
-                    <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">Edit</a>
+                    <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">@Localization.EditQ</a>
                 </div>
                 <div id="cancelBtn" class="col-lg-3">
                     <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">Cancel</a>

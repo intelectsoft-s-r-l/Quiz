@@ -65,6 +65,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
@@ -74,7 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filter\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-autofill\node_modules\datatables.net\js\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-buttons\node_modules\datatables.net\js\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-keytable\node_modules\datatables.net\js\" />
@@ -96,6 +96,9 @@
     <EmbeddedResource Update="Resources\Localization.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Localization.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
 

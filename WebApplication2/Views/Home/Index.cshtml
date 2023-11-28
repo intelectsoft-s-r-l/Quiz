@@ -1,8 +1,5 @@
 ﻿@using WebApplication2.Models.API.Questionnaires;
-@using Microsoft.AspNetCore.Mvc.Localization
-@* @inject IViewLocalizer Localizer *@
 @model IEnumerable<Questionnaire>
-
 
 @{
     ViewBag.Title = "Datatables";
@@ -16,10 +13,11 @@
 <!-- Responsive datatable examples -->
 <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
+
 <div class="row">
     <div class="col-xl-12">
         <div class="button-items">
-            <a type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = 0})"><i class="mdi mdi-plus me-1"></i> @Localization.Add</a>
+            <a type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = 0})"><i class="mdi mdi-plus me-1"></i> @Localization.AddQ</a>
         </div>
     </div>
 </div>
@@ -33,7 +31,7 @@
                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>@Localization.TitleQ</th>
                             <th width="20px"></th>
 
 
@@ -42,16 +40,16 @@
 
 
                     <tbody>
-                        @foreach(var item in Model)
+                        @foreach (var item in Model)
                         {
                             <tr>
-                            <td height="10%">@item.name</td>
-                            <td>
-                                <a type="button" href="@Url.Action("Detail", "Home", new {id = item.oid})" class="px-3 text-info" ><i class="uil-info-circle font-size-20"></i></a>
+                                <td height="10%">@item.name</td>
+                                <td>
+                                    <a type="button" href="@Url.Action("Detail", "Home", new {id = item.oid})" class="px-3 text-info"><i class="uil-info-circle font-size-20"></i></a>
                                     <a type="button" href="@Url.Action("Upsert", "Home", new {id = item.oid})" class="px-3 text-primary"><i class="bx bx-edit font-size-20"></i></a>
-                                <a type="button" style="width: 100%;" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@item.oid, 'xlModalBody')"><i class="uil-trash-alt font-size-20"></i></a>
-                            </td>
-                        </tr>
+                                    <a type="button" style="width: 100%;" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@item.oid, 'xlModalBody')"><i class="uil-trash-alt font-size-20"></i></a>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -61,6 +59,7 @@
     </div> <!-- end col -->
 </div> <!-- end row -->
 
+
 <!-- JAVASCRIPT -->
 
 
@@ -69,28 +68,52 @@
 <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 
-
 <!-- Responsive examples -->
 <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- Datatable init js -->
 <script src="~/assets/js/pages/datatables.init.js"></script>
+
+
+
 <script>
-    $(document).ready(function () {
-        // Проверяем, инициализирована ли уже таблица DataTable
+   $(document).ready(function () {
         if ($.fn.DataTable.isDataTable('#datatable')) {
             // Если да, уничтожаем текущую инициализацию
             $('#datatable').DataTable().destroy();
         }
+        var dataTableOptions = {
+            language: {
+                processing: "@Localization.processing",
+                search: "@Localization.Search",
+                lengthMenu: "@Localization.lengthMenu",
+                info: "@Localization.info",
+                infoEmpty: "@Localization.infoEmpty",
+                infoFiltered: "@Localization.infoFiltered",
+                infoPostFix: "",
+                loadingRecords: "@Localization.loadingRecords",
+                zeroRecords: "@Localization.zeroRecords",
+                emptyTable: "@Localization.emptyTable",
+                paginate: {
+                    first: "@Localization.first",
+                    previous: "@Localization.previous",
+                    next: "@Localization.next",
+                    last: "@Localization.last"
+                }/*,
+                aria: {
+                    sortAscending: ": активировать для сортировки столбца по возрастанию",
+                    sortDescending: ": активировать для сортировки столбца по убыванию"
+                }*/
+            },
+            columnDefs: [
+                { orderable: false, targets: [1] }
+            ],
+            // Другие настройки DataTables...
+        };
 
-        // Инициализируем DataTable с вашими настройками
-        $('#datatable').DataTable({
-            "columnDefs": [
-                { "orderable": false, "targets": [1] }
-            ]
-        });
+
+        // Используйте языковые опции для DataTables
+        $('#datatable').DataTable(dataTableOptions);
     });
-
 </script>
-

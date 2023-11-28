@@ -117,7 +117,118 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Create</value>
+  <data name="AddAnswer" xml:space="preserve">
+    <value>Add Answer</value>
+  </data>
+  <data name="AddQ" xml:space="preserve">
+    <value>Add Questionnaire</value>
+  </data>
+  <data name="AddQuestion" xml:space="preserve">
+    <value>Add Question</value>
+  </data>
+  <data name="AnswerText" xml:space="preserve">
+    <value>Answer text</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Commentary</value>
+  </data>
+  <data name="CreateQ" xml:space="preserve">
+    <value>Create Questionnaire</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DetailQ" xml:space="preserve">
+    <value>Questionnaire Details</value>
+  </data>
+  <data name="EditQ" xml:space="preserve">
+    <value>Edit Questionnaire</value>
+  </data>
+  <data name="emptyTable" xml:space="preserve">
+    <value>Showing 0 to 0 of 0 entries</value>
+  </data>
+  <data name="first" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="GradingType" xml:space="preserve">
+    <value>Grading Type</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>Showing _START_ to _END_ of _TOTAL_ entries</value>
+  </data>
+  <data name="infoEmpty" xml:space="preserve">
+    <value>Showing 0 to 0 of 0 entries</value>
+  </data>
+  <data name="infoFiltered" xml:space="preserve">
+    <value>(filtered from _MAX_ total entries)</value>
+  </data>
+  <data name="last" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="lengthMenu" xml:space="preserve">
+    <value>Show _MENU_ entries</value>
+  </data>
+  <data name="Licenses" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="loadingRecords" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Multianswer" xml:space="preserve">
+    <value>Multi answer variant</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Oneanswer" xml:space="preserve">
+    <value>One answer variant</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="processing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="Questionnaires" xml:space="preserve">
+    <value>Questionnaires</value>
+  </data>
+  <data name="QuestionText" xml:space="preserve">
+    <value>Question Text</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Response</value>
+  </data>
+  <data name="Responses" xml:space="preserve">
+    <value>Responses</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Scorepoints" xml:space="preserve">
+    <value>Score 10 points</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="TitleQ" xml:space="preserve">
+    <value>Questionnaire title</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ViewQ" xml:space="preserve">
+    <value>Questionnaire view</value>
+  </data>
+  <data name="YesorNo" xml:space="preserve">
+    <value>YES or NO</value>
+  </data>
+  <data name="zeroRecords" xml:space="preserve">
+    <value>No matching records found</value>
   </data>
 </root>

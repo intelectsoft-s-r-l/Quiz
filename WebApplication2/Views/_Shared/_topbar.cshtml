@@ -30,13 +30,9 @@
 
         <div class="d-flex">
 
-
-
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+            <div class="dropdown d-inline-block language-switch">
+                <button type="button" class="btn header-item waves-effect"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="~/assets/images/users/avatar-4.jpg"
-                         alt="Header Avatar">
                     @{
 
                         var user = User;
@@ -45,9 +41,50 @@
                         var claims = user.Claims;
 
                         // Получите конкретный Claim по типу
-                        var nameClaim = user.FindFirst("FullName");
+                        var selectedLangClaim = user.FindFirst("UiLanguage");
+                        var fullNameClaim = user.FindFirst("FullName");
                     }
-                    <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">@nameClaim.Value</span>
+                   @*  <p>@selectedLangClaim.Value.ToLower()</p> *@
+                    @switch (selectedLangClaim.Value.ToLower())
+                    {
+                        case "en":
+                            <img src="~/assets/images/flags/us.jpg" alt="Header Language" height="16">
+                            break;
+                        case "ru":
+                            <img src="~/assets/images/flags/russia.jpg" alt="Header Language" height="16">
+                            break;
+                        case "ro":
+                            <img src="~/assets/images/flags/ro.png" alt="Header Language" height="16">
+                            break;
+                        default: break;  
+                    }
+                    
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+
+                    <!-- item-->
+                    <a asp-controller="Base" asp-action="ChangeCulture" asp-route-shortLang="ro" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item notify-item">
+                        <img src="~/assets/images/flags/ro.png" alt="user-image" class="me-1" height="12"> <span class="align-middle">Ro</span>
+                    </a>
+
+                    <!-- item-->
+                    <a asp-controller="Base" asp-action="ChangeCulture" asp-route-shortLang="ru" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item notify-item">
+                        <img src="~/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Ru</span>
+                    </a>
+
+                    <!-- item-->
+                    <a asp-controller="Base" asp-action="ChangeCulture" asp-route-shortLang="en" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item notify-item">
+                        <img src="~/assets/images/flags/us.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">En</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="rounded-circle header-profile-user" src="~/assets/images/users/avatar-4.jpg"
+                         alt="Header Avatar">
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">@fullNameClaim.Value</span>
                     <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">

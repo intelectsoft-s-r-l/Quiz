@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WSvndGUyi1E4g5t3BhJM503mku8CtwZ1hCKpKThEaT0=",
+  "Hash": "hwuR3FOVNwuC1nnbeys2zUYBcigVr+It6N4HH5i0v64=",
   "Source": "WebApplication2",
   "BasePath": "_content/WebApplication2",
   "Mode": "Default",
@@ -1035,6 +1035,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\flags\\italy.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\ro.png",
+      "SourceId": "WebApplication2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\",
+      "BasePath": "_content/WebApplication2",
+      "RelativePath": "assets/images/flags/ro.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\flags\\ro.png"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\flags\\russia.jpg",

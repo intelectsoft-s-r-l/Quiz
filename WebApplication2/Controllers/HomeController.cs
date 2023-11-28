@@ -1,4 +1,4 @@
-﻿//using ISAdminWeb.Filter;
+﻿using ISAdminWeb.Filter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -10,7 +10,7 @@ using WebApplication2.ViewModels;
 namespace WebApplication2.Controllers
 {
     [Authorize]
-    //[Culture]
+    [Culture]
     public class HomeController : BaseController
     {
         private readonly IQuizRepository _quizRepository;
@@ -24,7 +24,7 @@ namespace WebApplication2.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var localizedTitle = _localizer["Add"];
+            //var localizedTitle = _localizer["Add"];
 
             string token = GetToken();
             var questionnaireData = await _quizRepository.GetQuestionnaires(token);
