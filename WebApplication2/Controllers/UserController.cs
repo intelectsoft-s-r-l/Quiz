@@ -62,7 +62,7 @@ namespace WebApplication2.Controllers
         {
 
             if (!ModelState.IsValid)
-                return Json(new { StatusCode = 500, Message = "No Valid" });
+                return Json(new { StatusCode = 500/*, Message = @Locali */});
 
             string token = GetToken();
 
@@ -75,7 +75,7 @@ namespace WebApplication2.Controllers
 
             var baseResponseData = await _userRepository.changePassword(changePassword);
             if (baseResponseData.ErrorCode == 0)
-                return Json(new { StatusCode = 200, Message = "Password changed successfully" });
+                return Json(new { StatusCode = 200/*, Message = "Password changed successfully" */});
             else if (baseResponseData.ErrorCode == 143)
             {
                 await RefreshToken();

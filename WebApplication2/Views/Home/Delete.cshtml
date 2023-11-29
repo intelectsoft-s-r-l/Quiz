@@ -47,7 +47,8 @@
                                 </ul>
                             }
 
-                            <hr style="height: 2px; background-color: black; border: none;">
+                            @* <hr style="height: 2px; background-color: black; border: none;"> *@
+                            <br/>
                         </li>
                     }
                 </ol>
@@ -56,8 +57,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-danger waves-effect waves-light"> @Localization.Delete</button>
+        <button type="submit" style="width: 10%;" class="btn btn-danger waves-effect waves-light"> @Localization.Delete</button>
+        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">@Localization.Cancel</button>
 
     </div>
 </form>

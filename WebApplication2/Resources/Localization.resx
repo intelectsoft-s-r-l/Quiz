@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activate" xml:space="preserve">
+    <value>Activare</value>
+  </data>
+  <data name="Activated" xml:space="preserve">
+    <value>Activat</value>
+  </data>
+  <data name="activationCode" xml:space="preserve">
+    <value>Cod de activare</value>
+  </data>
   <data name="AddAnswer" xml:space="preserve">
     <value>Răspuns nou</value>
   </data>
@@ -129,17 +138,53 @@
   <data name="AnswerText" xml:space="preserve">
     <value>Text răspunsului</value>
   </data>
+  <data name="battery" xml:space="preserve">
+    <value>Baterie</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anula</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Schimbare parolă</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Comentariu</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmare parolă</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creare</value>
   </data>
   <data name="CreateQ" xml:space="preserve">
     <value>Creare chestionar</value>
   </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Dezactivare</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Ștergere</value>
   </data>
+  <data name="DetailLicense" xml:space="preserve">
+    <value>Detalii licență</value>
+  </data>
   <data name="DetailQ" xml:space="preserve">
     <value>Detalii chestionar</value>
+  </data>
+  <data name="deviceModel" xml:space="preserve">
+    <value>Modelul dispozitivului</value>
+  </data>
+  <data name="deviceName" xml:space="preserve">
+    <value>Numele dispozitivului</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Dezactivat</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editarea</value>
   </data>
   <data name="EditQ" xml:space="preserve">
     <value>Editarea unui chestionar</value>
@@ -149,6 +194,9 @@
   </data>
   <data name="first" xml:space="preserve">
     <value>Prima</value>
+  </data>
+  <data name="Generatelicense" xml:space="preserve">
+    <value>Generați licență</value>
   </data>
   <data name="GradingType" xml:space="preserve">
     <value>Tip de clasificare</value>
@@ -168,6 +216,9 @@
   <data name="lengthMenu" xml:space="preserve">
     <value>Afișați intrările _MENU_ </value>
   </data>
+  <data name="licenseActivated" xml:space="preserve">
+    <value>Data activării licenței</value>
+  </data>
   <data name="Licenses" xml:space="preserve">
     <value>Licenţe</value>
   </data>
@@ -177,8 +228,17 @@
   <data name="Multianswer" xml:space="preserve">
     <value>Variantă cu răspuns multiplu</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Parolă nouă</value>
+  </data>
   <data name="next" xml:space="preserve">
     <value>Următore</value>
+  </data>
+  <data name="NotActivated" xml:space="preserve">
+    <value>Neactivat</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Parola veche</value>
   </data>
   <data name="Oneanswer" xml:space="preserve">
     <value>Variantă cu un singur răspuns</value>
@@ -189,6 +249,12 @@
   <data name="processing" xml:space="preserve">
     <value>Prelucrare...</value>
   </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Cantitate</value>
+  </data>
+  <data name="quantityText" xml:space="preserve">
+    <value>Introduceți cantitatea</value>
+  </data>
   <data name="Question" xml:space="preserve">
     <value>Întrebări</value>
   </data>
@@ -197,6 +263,9 @@
   </data>
   <data name="QuestionText" xml:space="preserve">
     <value>Textul întrebării</value>
+  </data>
+  <data name="Release" xml:space="preserve">
+    <value>Publicare</value>
   </data>
   <data name="Response" xml:space="preserve">
     <value>Răspuns</value>
@@ -213,17 +282,38 @@
   <data name="Search" xml:space="preserve">
     <value>Căutare</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configurări</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Deconectează-te</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="SuccessPW" xml:space="preserve">
+    <value>Parola s-a schimbat cu succes</value>
+  </data>
   <data name="Sure" xml:space="preserve">
     <value>Sunteți siguri?</value>
   </data>
   <data name="TitleQ" xml:space="preserve">
     <value>Titlul chestionarului</value>
   </data>
+  <data name="UnSuccessPW" xml:space="preserve">
+    <value>Schimbarea parolei nu a reușit</value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>Prezentare</value>
   </data>
+  <data name="ViewProfile" xml:space="preserve">
+    <value>Profilul</value>
+  </data>
   <data name="ViewQ" xml:space="preserve">
     <value>Prezentare chestionarului</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Da</value>
   </data>
   <data name="YesorNo" xml:space="preserve">
     <value>DA sau NU</value>

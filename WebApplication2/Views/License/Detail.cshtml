@@ -1,29 +1,148 @@
 ﻿@using WebApplication2.Models.API.License;
 @model License
 
-
+@* 
+<p><strong>@Localization.deviceModel</strong> @Model.deviceModel</p>
+<p><strong>@Localization.deviceName</strong> @Model.deviceName</p>
+ *@
 <div class="modal-body">
     <div class="col-sm-12">
-        <div class="form-container">
-            <h2>License Details</h2>
-            <p><strong>DataTime Activated:</strong> @Model.licenseActivated</p>
-            @if (Model.licenseStatus == 0)
-            {
-                <p><strong>Status:</strong> NotActivated</p>
-            }
-            else if (Model.licenseStatus == 1)
-            {
-                <p><strong>Status:</strong> Active</p>
-            }
-            else
-            {
-                <p><strong>Status:</strong> Disabled</p>
-            }
-            <p><strong>Device model:</strong> @Model.deviceModel</p>
-            <p><strong>Device name:</strong> @Model.deviceName</p>
+        <h2>@Localization.DetailLicense</h2>
+        <div class="row">
+            <div class="col-lg-12">
+                       @*  <div class="row">
+
+                            <div class="col-xl-6 col-sm-6">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                @Localization.activationCode:
+                                                @if (Model.activationCode.Length > 0)
+                                                {
+                                                    <span><a type="button" onclick="copyActivationCode()" class="text-info"><i class="uil-copy font-size-18"></i></a></span>
+                                                }
+                                            </label>
+                                            <p id="activationCode">@Model.activationCode</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">@Localization.licenseActivated:</label>
+                                            <p>@Model.licenseActivated</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="showMethod">@Localization.Status:</label>
+                                            @if (Model.licenseStatus == 0)
+                                            {
+                                                <p>@Localization.NotActivated</p>
+                                            }
+                                            else if (Model.licenseStatus == 1)
+                                            {
+                                                <p>@Localization.Activate</p>
+                                            }
+                                            else
+                                            {
+                                                <p>@Localization.Disabled</p>
+                                            }
+                                        </div>
+@*                                         <div class="mb-3">
+                                            <label class="form-label" for="hideMethod">Hide Method</label>
+                                            <input id="hideMethod" type="text" placeholder="hide, fadeOut, slideUp" class="input-mini form-control" value="fadeOut" />
+                                        </div> *
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-sm-6">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="mb-3">
+                                            <label class="form-label">@Localization.deviceModel:</label>
+                                            <p>@Model.deviceModel</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">@Localization.deviceName:</label>
+                                            <p>@Model.deviceName</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">@Localization.battery:</label>
+                                            <p>@Model.battery</p>
+                                        </div>
+@*                                         <div class="mb-3">
+                                            <label class="form-label" for="extendedTimeOut">Extended time out</label>
+                                            <input id="extendedTimeOut" type="text" placeholder="ms" class="input-mini form-control" value="1000" />
+                                        </div> *
+                                    </div>
+                                </div>
+                            </div>
+                        </div> *@
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            @Localization.activationCode:
+                            @if (Model.activationCode.Length > 0)
+                            {
+                                <span><a type="button" onclick="copyActivationCode()" class="text-info"><i class="uil-copy font-size-18"></i></a></span>
+                            }
+                        </label>
+                        <p id="activationCode">@Model.activationCode</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">@Localization.deviceModel:</label>
+                        <p>@Model.deviceModel</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">@Localization.licenseActivated:</label>
+                        <p>@Model.licenseActivated</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">@Localization.deviceName:</label>
+                        <p>@Model.deviceName</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label" for="showMethod">@Localization.Status:</label>
+                        @if (Model.licenseStatus == 0)
+                        {
+                            <p>@Localization.NotActivated</p>
+                        }
+                        else if (Model.licenseStatus == 1)
+                        {
+                            <p>@Localization.Activate</p>
+                        }
+                        else
+                        {
+                            <p>@Localization.Disabled</p>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">@Localization.battery:</label>
+                        <p>@Model.battery</p>
+                    </div>
+                </div>
+
+
+             
+            </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">@Localization.Close</button>
 </div>
+<script>
+    function copyActivationCode() {
+        var activationCodeElement = document.getElementById("activationCode");
+        var range = document.createRange();
+        range.selectNode(activationCodeElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+    }
+</script>

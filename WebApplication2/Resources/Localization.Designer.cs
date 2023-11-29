@@ -61,6 +61,33 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Activare.
+        /// </summary>
+        public static string Activate {
+            get {
+                return ResourceManager.GetString("Activate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Activat.
+        /// </summary>
+        public static string Activated {
+            get {
+                return ResourceManager.GetString("Activated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cod de activare.
+        /// </summary>
+        public static string activationCode {
+            get {
+                return ResourceManager.GetString("activationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Răspuns nou.
         /// </summary>
         public static string AddAnswer {
@@ -97,11 +124,65 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Baterie.
+        /// </summary>
+        public static string battery {
+            get {
+                return ResourceManager.GetString("battery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Anula.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Schimbare parolă.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Închide.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Comentariu.
         /// </summary>
         public static string Comment {
             get {
                 return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Confirmare parolă.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Creare.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
             }
         }
         
@@ -115,6 +196,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Dezactivare.
+        /// </summary>
+        public static string Deactivate {
+            get {
+                return ResourceManager.GetString("Deactivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ștergere.
         /// </summary>
         public static string Delete {
@@ -124,11 +214,56 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Detalii licență.
+        /// </summary>
+        public static string DetailLicense {
+            get {
+                return ResourceManager.GetString("DetailLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Detalii chestionar.
         /// </summary>
         public static string DetailQ {
             get {
                 return ResourceManager.GetString("DetailQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Modelul dispozitivului.
+        /// </summary>
+        public static string deviceModel {
+            get {
+                return ResourceManager.GetString("deviceModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Numele dispozitivului.
+        /// </summary>
+        public static string deviceName {
+            get {
+                return ResourceManager.GetString("deviceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Dezactivat.
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Editarea.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -156,6 +291,15 @@ namespace WebApplication2.Resources {
         public static string first {
             get {
                 return ResourceManager.GetString("first", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Generați licență.
+        /// </summary>
+        public static string Generatelicense {
+            get {
+                return ResourceManager.GetString("Generatelicense", resourceCulture);
             }
         }
         
@@ -214,6 +358,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Data activării licenței.
+        /// </summary>
+        public static string licenseActivated {
+            get {
+                return ResourceManager.GetString("licenseActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Licenţe.
         /// </summary>
         public static string Licenses {
@@ -241,11 +394,38 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Parolă nouă.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Următore.
         /// </summary>
         public static string next {
             get {
                 return ResourceManager.GetString("next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Neactivat.
+        /// </summary>
+        public static string NotActivated {
+            get {
+                return ResourceManager.GetString("NotActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Parola veche.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         
@@ -277,6 +457,24 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Cantitate.
+        /// </summary>
+        public static string quantity {
+            get {
+                return ResourceManager.GetString("quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Introduceți cantitatea.
+        /// </summary>
+        public static string quantityText {
+            get {
+                return ResourceManager.GetString("quantityText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Întrebări.
         /// </summary>
         public static string Question {
@@ -300,6 +498,15 @@ namespace WebApplication2.Resources {
         public static string QuestionText {
             get {
                 return ResourceManager.GetString("QuestionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Publicare.
+        /// </summary>
+        public static string Release {
+            get {
+                return ResourceManager.GetString("Release", resourceCulture);
             }
         }
         
@@ -349,6 +556,42 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Configurări.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Deconectează-te.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Stare.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Parola s-a schimbat cu succes.
+        /// </summary>
+        public static string SuccessPW {
+            get {
+                return ResourceManager.GetString("SuccessPW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Sunteți siguri?.
         /// </summary>
         public static string Sure {
@@ -367,6 +610,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Schimbarea parolei nu a reușit.
+        /// </summary>
+        public static string UnSuccessPW {
+            get {
+                return ResourceManager.GetString("UnSuccessPW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Prezentare.
         /// </summary>
         public static string View {
@@ -376,11 +628,29 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Profilul.
+        /// </summary>
+        public static string ViewProfile {
+            get {
+                return ResourceManager.GetString("ViewProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Prezentare chestionarului.
         /// </summary>
         public static string ViewQ {
             get {
                 return ResourceManager.GetString("ViewQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Da.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

@@ -208,6 +208,7 @@ namespace WebApplication2.Controllers
                         else if (questionnaireBaseResponsed.errorCode == 0)
                         {
                             return Json(new { StatusCode = 200 });
+                            //return RedirectToAction("Index");
                         }
                     }
 

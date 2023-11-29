@@ -9,19 +9,19 @@
         <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
             <thead>
                 <tr>
-                    <th style="width: 90vw;">Name</th>
-                    <th style="width: 10vw;"></th>
+                    <th>Name</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @{
-                    int i = 1;
+                    int i = Model.Count();
                 }
-                @foreach (var item in Model)
+                @foreach (var item in Model.OrderByDescending(x => x.oid))
                 {
                     <tr>
-                        <td>@i</td>
-                        <td>
+                        <td style="width: 90vw!important;">@i</td>
+                        <td style="width: 10vw!important;">
                            @*  style="width: 100%; border-color: #00ce78; background-color:#00ce78" *@
                             <button style="width: 100%" type="button" class="btn btn-success waves-effect waves-light"
                                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl"
@@ -30,7 +30,7 @@
                             </button>
                         </td>
                     </tr>
-                    i++;
+                    i--;
                 }
             </tbody>
         </table>

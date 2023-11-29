@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activate" xml:space="preserve">
+    <value>Активировать</value>
+  </data>
+  <data name="Activated" xml:space="preserve">
+    <value>Активировано</value>
+  </data>
+  <data name="activationCode" xml:space="preserve">
+    <value>Код активации</value>
+  </data>
   <data name="AddAnswer" xml:space="preserve">
     <value>Добавить ответ</value>
   </data>
@@ -129,17 +138,53 @@
   <data name="AnswerText" xml:space="preserve">
     <value>Текст ответа</value>
   </data>
+  <data name="battery" xml:space="preserve">
+    <value>Батарея</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Комментарий</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтвердить пароль</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
   </data>
   <data name="CreateQ" xml:space="preserve">
     <value>Создание анкеты</value>
   </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Деактивировать</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="DetailLicense" xml:space="preserve">
+    <value>Детали лицензии</value>
+  </data>
   <data name="DetailQ" xml:space="preserve">
     <value>Детали анкеты</value>
+  </data>
+  <data name="deviceModel" xml:space="preserve">
+    <value>Модель устройства</value>
+  </data>
+  <data name="deviceName" xml:space="preserve">
+    <value>Имя устройства</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Изменить</value>
   </data>
   <data name="EditQ" xml:space="preserve">
     <value>Изменение анкеты</value>
@@ -149,6 +194,9 @@
   </data>
   <data name="first" xml:space="preserve">
     <value>Первая</value>
+  </data>
+  <data name="Generatelicense" xml:space="preserve">
+    <value>Сгенерировать лицензии</value>
   </data>
   <data name="GradingType" xml:space="preserve">
     <value>Тип вопроса</value>
@@ -168,6 +216,9 @@
   <data name="lengthMenu" xml:space="preserve">
     <value>Показать _MENU_ записей на странице</value>
   </data>
+  <data name="licenseActivated" xml:space="preserve">
+    <value>Дата активации лицензии</value>
+  </data>
   <data name="Licenses" xml:space="preserve">
     <value>Лицензии</value>
   </data>
@@ -177,8 +228,17 @@
   <data name="Multianswer" xml:space="preserve">
     <value>Несколько вариантов ответа</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
   <data name="next" xml:space="preserve">
     <value>Следующая</value>
+  </data>
+  <data name="NotActivated" xml:space="preserve">
+    <value>Не активировано</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Старый пароль</value>
   </data>
   <data name="Oneanswer" xml:space="preserve">
     <value>Один вариан ответа</value>
@@ -189,6 +249,12 @@
   <data name="processing" xml:space="preserve">
     <value>Обработка...</value>
   </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="quantityText" xml:space="preserve">
+    <value>Введите количество</value>
+  </data>
   <data name="Question" xml:space="preserve">
     <value>Вопросы</value>
   </data>
@@ -197,6 +263,9 @@
   </data>
   <data name="QuestionText" xml:space="preserve">
     <value>Текст вопроса</value>
+  </data>
+  <data name="Release" xml:space="preserve">
+    <value>Публикация</value>
   </data>
   <data name="Response" xml:space="preserve">
     <value>Ответ</value>
@@ -213,17 +282,38 @@
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SuccessPW" xml:space="preserve">
+    <value>Пароль успешно изменен</value>
+  </data>
   <data name="Sure" xml:space="preserve">
     <value>Вы уверены?</value>
   </data>
   <data name="TitleQ" xml:space="preserve">
     <value>Название анкеты</value>
   </data>
+  <data name="UnSuccessPW" xml:space="preserve">
+    <value>Пароль не был изменен успешно</value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>Представление</value>
   </data>
+  <data name="ViewProfile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
   <data name="ViewQ" xml:space="preserve">
     <value>Представление анкеты</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
   </data>
   <data name="YesorNo" xml:space="preserve">
     <value>ДА или НЕТ</value>

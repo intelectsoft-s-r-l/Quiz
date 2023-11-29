@@ -30,12 +30,12 @@
 
 
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="mb-4">
                         <label asp-for="Title" class="form-label"><h4>@Localization.TitleQ</h4></label>
                     </div>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-10">
                     <div class="mb-4">
                         <h3>@Model.Title</h3>
                     </div>
@@ -91,7 +91,7 @@
                     <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">@Localization.EditQ</a>
                 </div>
                 <div id="cancelBtn" class="col-lg-3">
-                    <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">Cancel</a>
+                    <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">@Localization.Cancel</a>
                 </div>
 
             </div>

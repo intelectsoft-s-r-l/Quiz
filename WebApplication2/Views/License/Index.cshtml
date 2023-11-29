@@ -19,7 +19,7 @@
         <div class="button-items">
 
             <div id="licenses"></div>
-            <button id="addButtonPar" type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> Generate license</button>
+            <button id="addButtonPar" type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.Generatelicense</button>
             <div id="visualCreate" style="display: none;">
                 <div id="Createlicense"></div>
             </div>
@@ -35,11 +35,11 @@
                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>licenseActivated</th> @*Time*@
-                            <th>licenseStatus</th>
-                            <th>deviceModel</th>
-                            <th>deviceName</th>
-                            <th>battery</th>
+                            <th>@Localization.licenseActivated</th> @*Time*@
+                            <th>@Localization.Status</th>
+                            <th>@Localization.deviceModel</th>
+                            <th>@Localization.deviceName</th>
+                            <th>@Localization.battery</th>
                             <th style="width: 120px;"></th>
                         </tr>
                     </thead>
@@ -52,15 +52,15 @@
                                 <td>@item.licenseActivated</td>
                                 @if (item.licenseStatus == 0)
                                 {
-                                    <th><span class="badge bg-soft-primary font-size-15" style="width: 100%;">NotActivated</span></th>
+                                    <th><span class="badge bg-soft-primary font-size-15" style="width: 100%;">@Localization.NotActivated</span></th>
                                 }
                                 else if (item.licenseStatus == 1)
                                 {
-                                    <th><span class="badge bg-soft-success font-size-15" style="width: 100%;">Activated</span></th>
+                                    <th><span class="badge bg-soft-success font-size-15" style="width: 100%;">@Localization.Activated</span></th>
                                 }
                                 else
                                 {
-                                    <th><span class="badge bg-soft-danger font-size-15" style="width: 100%;">Disabled</span></th>
+                                    <th><span class="badge bg-soft-danger font-size-15" style="width: 100%;">@Localization.Disabled</span></th>
                                 }
                                 <th>@item.deviceModel</th>
                                 <th>@item.deviceName</th>
@@ -76,13 +76,14 @@
                                         <div class="dropdown-menu dropdown-menu-end">
                                             @if (item.licenseStatus != 1)
                                             {
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=1', 'lgModalBody')">Activate</a>
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=1', 'lgModalBody')">@Localization.Activate</a>
                                             }
-                                            @if (item.licenseStatus == 1)
+                                            @if (item.licenseStatus != 2)@*Enum*@
                                             {
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=2', 'lgModalBody')">Deactivate</a>
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=3', 'lgModalBody')">Release</a>
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=2', 'lgModalBody')">@Localization.Deactivate</a>
                                             }
+                                            <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=3', 'lgModalBody')">@Localization.Release</a>
+
                                         </div>
                                     </div>
                                 </td>
