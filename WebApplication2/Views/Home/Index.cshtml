@@ -2,7 +2,7 @@
 @model IEnumerable<Questionnaire>
 
 @{
-    ViewBag.Title = "Datatables";
+    ViewBag.Title = Localization.Questionnaires;
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 
@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>@Localization.TitleQ</th>
-                            <th width="20px"></th>
+                            <th width="20px;"></th>
 
 
                         </tr>
@@ -43,8 +43,8 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td height="10%">@item.name</td>
-                                <td>
+                                <td>@item.name</td>
+                                <td style="width: 20px!important;">
                                     <a type="button" href="@Url.Action("Detail", "Home", new {id = item.oid})" class="px-3 text-info"><i class="uil-info-circle font-size-20"></i></a>
                                     <a type="button" href="@Url.Action("Upsert", "Home", new {id = item.oid})" class="px-3 text-primary"><i class="bx bx-edit font-size-20"></i></a>
                                     <a type="button" style="width: 100%;" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@item.oid, 'xlModalBody')"><i class="uil-trash-alt font-size-20"></i></a>

@@ -201,6 +201,9 @@
   <data name="GradingType" xml:space="preserve">
     <value>Tip de clasificare</value>
   </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Ascunde tot</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Sunt afișate înregistrările de la _START_ la _END_ de la _TOTAL_</value>
   </data>
@@ -242,6 +245,9 @@
   </data>
   <data name="Oneanswer" xml:space="preserve">
     <value>Variantă cu un singur răspuns</value>
+  </data>
+  <data name="osVersion" xml:space="preserve">
+    <value>Versiunea OS</value>
   </data>
   <data name="previous" xml:space="preserve">
     <value>Precedentă</value>
@@ -285,6 +291,9 @@
   <data name="Settings" xml:space="preserve">
     <value>Configurări</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Arată tot</value>
+  </data>
   <data name="SignOut" xml:space="preserve">
     <value>Deconectează-te</value>
   </data>
@@ -299,6 +308,9 @@
   </data>
   <data name="TitleQ" xml:space="preserve">
     <value>Titlul chestionarului</value>
+  </data>
+  <data name="typeOs" xml:space="preserve">
+    <value>Tip OS</value>
   </data>
   <data name="UnSuccessPW" xml:space="preserve">
     <value>Schimbarea parolei nu a reușit</value>

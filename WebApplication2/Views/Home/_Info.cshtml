@@ -42,10 +42,16 @@
                 </div>
             </div>
 
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <h3>@Localization.Question</h3>
+                <span>
+                    <button type="button" id="hideAll" class="btn btn-primary btn-rounded waves-effect waves-light">@Localization.HideAll</button>
+                    <button type="button" id="showAll" class="btn btn-primary btn-rounded waves-effect waves-light">@Localization.ShowAll</button>
+                </span>
+            </div>
+
 
             <br />
-
-            <h3>@Localization.Question</h3>
             <div id="questions-container">
                 @{
                     int i = 0;
@@ -102,7 +108,6 @@
 <script>
     $(document).ready(function () {
 
-
         $("div[id^='Titlequestion_']").click(function () {
             var questionId = $(this).attr('id');
             var detailId = "#detail_" + questionId.split('_')[1];
@@ -112,6 +117,36 @@
                 height: 'toggle'
             });
         });
+
+        $("#hideAll").click(function () {
+            $("[id^='detail_']").animate({
+                height: 'hide'
+            });
+/*
+            $(this).animate({
+                height: 'hide'
+            });
+            $("#showAll").animate({
+                height: 'show'
+            });
+            */
+        });
+
+        $("#showAll").click(function () {
+            $("[id^='detail_']").animate({
+                height: 'show'
+            });
+        });
+        /*
+        $("#hideAll").click(function () {
+            $("[id^='detail_']").each(function () {
+                $(this).animate({
+                    height: 'toggle'
+                });
+            });
+        });
+        */
+
     });
 
 </script>

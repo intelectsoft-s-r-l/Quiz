@@ -58,11 +58,14 @@ namespace WebApplication2.Controllers
                         string userLanguage = "";
                         switch (userData.User.UiLanguage)
                         {
-                            case EnUiLanguage.EN: userLanguage = "en";
+                            case EnUiLanguage.EN:
+                                userLanguage = "en";
                                 break;
-                            case EnUiLanguage.RO: userLanguage = "ro";
+                            case EnUiLanguage.RO:
+                                userLanguage = "ro";
                                 break;
-                            case EnUiLanguage.RU: userLanguage = "ru";
+                            case EnUiLanguage.RU:
+                                userLanguage = "ru";
                                 break;
                             default:
                                 break;

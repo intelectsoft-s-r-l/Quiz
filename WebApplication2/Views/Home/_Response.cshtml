@@ -4,12 +4,14 @@
 
 <div class="modal-body">
     <div class="col-sm-12">
-
+        <ol>
         @foreach (var item in Model)
         {
             @if (item.response != null)
             {
-                <h2><strong>@item.question</strong></h2>
+
+                    <h2>
+                    <li><strong>@item.question</strong></li></h2>
                 <ul>
 
                     @foreach (var res in item.response)
@@ -20,7 +22,7 @@
                 </ul>
             }
         }
-
+        </ol>
     </div>
 </div>
 <div class="modal-footer">

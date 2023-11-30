@@ -4,7 +4,7 @@
 
 
 @{
-    ViewData["Title"] = "Questionnaires";
+    ViewData["Title"] = Localization.Licenses;
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 <script src="~/js/app.js"></script>
@@ -65,7 +65,7 @@
                                 <th>@item.deviceModel</th>
                                 <th>@item.deviceName</th>
                                 <th>@item.battery</th>
-                                <td>
+                                <td style="width: 20px!important;">
                                     <a type="button" class="px-3 text-warning" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Detail/'+'@item.oid', 'lgModalBody')"><i class="uil uil-file-info-alt font-size-18"></i></a>
                                     <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Delete/'+'@item.oid', 'lgModalBody')"><i class="uil-trash-alt  font-size-18"></i></a>
                                     <div class="dropdown float-end">

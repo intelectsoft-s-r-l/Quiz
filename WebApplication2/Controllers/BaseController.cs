@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebApplication2.Models;
 using WebApplication2.Models.Enum;
-using static System.Formats.Asn1.AsnWriter;
-using WebApplication2.Resources;
 
 namespace WebApplication2.Controllers
 {
@@ -200,13 +198,13 @@ namespace WebApplication2.Controllers
                         }
                         else if (baseResponseData.ErrorCode != 0)
                         {
-                            
+
                         }
                         return LocalRedirect(returnUrl ?? "/");
                     }
                 }
 
-                
+
             }
             catch (Exception ex)
             {

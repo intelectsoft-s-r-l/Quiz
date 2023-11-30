@@ -313,6 +313,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ascunde tot.
+        /// </summary>
+        public static string HideAll {
+            get {
+                return ResourceManager.GetString("HideAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Sunt afișate înregistrările de la _START_ la _END_ de la _TOTAL_.
         /// </summary>
         public static string info {
@@ -435,6 +444,15 @@ namespace WebApplication2.Resources {
         public static string Oneanswer {
             get {
                 return ResourceManager.GetString("Oneanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Versiunea OS.
+        /// </summary>
+        public static string osVersion {
+            get {
+                return ResourceManager.GetString("osVersion", resourceCulture);
             }
         }
         
@@ -565,6 +583,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Arată tot.
+        /// </summary>
+        public static string ShowAll {
+            get {
+                return ResourceManager.GetString("ShowAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Deconectează-te.
         /// </summary>
         public static string SignOut {
@@ -606,6 +633,15 @@ namespace WebApplication2.Resources {
         public static string TitleQ {
             get {
                 return ResourceManager.GetString("TitleQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tip OS.
+        /// </summary>
+        public static string typeOs {
+            get {
+                return ResourceManager.GetString("typeOs", resourceCulture);
             }
         }
         

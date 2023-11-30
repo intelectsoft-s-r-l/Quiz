@@ -201,6 +201,9 @@
   <data name="GradingType" xml:space="preserve">
     <value>Grading Type</value>
   </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Hide all</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Showing _START_ to _END_ of _TOTAL_ entries</value>
   </data>
@@ -242,6 +245,9 @@
   </data>
   <data name="Oneanswer" xml:space="preserve">
     <value>One answer variant</value>
+  </data>
+  <data name="osVersion" xml:space="preserve">
+    <value>OS version</value>
   </data>
   <data name="previous" xml:space="preserve">
     <value>Previous</value>
@@ -285,6 +291,9 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show all</value>
+  </data>
   <data name="SignOut" xml:space="preserve">
     <value>Sign out</value>
   </data>
@@ -299,6 +308,9 @@
   </data>
   <data name="TitleQ" xml:space="preserve">
     <value>Questionnaire title</value>
+  </data>
+  <data name="typeOs" xml:space="preserve">
+    <value>Type OS</value>
   </data>
   <data name="UnSuccessPW" xml:space="preserve">
     <value>Password change unsuccessful</value>

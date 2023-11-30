@@ -1,7 +1,7 @@
 ﻿@using WebApplication2.Models.API.License;
 @model License
 
-@* 
+@*
 <p><strong>@Localization.deviceModel</strong> @Model.deviceModel</p>
 <p><strong>@Localization.deviceName</strong> @Model.deviceName</p>
  *@
@@ -10,97 +10,106 @@
         <h2>@Localization.DetailLicense</h2>
         <div class="row">
             <div class="col-lg-12">
-                       @*  <div class="row">
+                @*  <div class="row">
 
-                            <div class="col-xl-6 col-sm-6">
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <div class="mb-3">
-                                            <label class="form-label">
-                                                @Localization.activationCode:
-                                                @if (Model.activationCode.Length > 0)
-                                                {
-                                                    <span><a type="button" onclick="copyActivationCode()" class="text-info"><i class="uil-copy font-size-18"></i></a></span>
-                                                }
-                                            </label>
-                                            <p id="activationCode">@Model.activationCode</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@Localization.licenseActivated:</label>
-                                            <p>@Model.licenseActivated</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="showMethod">@Localization.Status:</label>
-                                            @if (Model.licenseStatus == 0)
-                                            {
-                                                <p>@Localization.NotActivated</p>
-                                            }
-                                            else if (Model.licenseStatus == 1)
-                                            {
-                                                <p>@Localization.Activate</p>
-                                            }
-                                            else
-                                            {
-                                                <p>@Localization.Disabled</p>
-                                            }
-                                        </div>
-@*                                         <div class="mb-3">
-                                            <label class="form-label" for="hideMethod">Hide Method</label>
-                                            <input id="hideMethod" type="text" placeholder="hide, fadeOut, slideUp" class="input-mini form-control" value="fadeOut" />
-                                        </div> *
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-xl-6 col-sm-6">
+                <div class="control-group">
+                <div class="controls">
+                <div class="mb-3">
+                <label class="form-label">
+                @Localization.activationCode:
+                @if (Model.activationCode.Length > 0)
+                {
+                <span><a type="button" onclick="copyActivationCode()" class="text-info"><i class="uil-copy font-size-18"></i></a></span>
+                }
+                </label>
+                <p id="activationCode">@Model.activationCode</p>
+                </div>
+                <div class="mb-3">
+                <label class="form-label">@Localization.licenseActivated:</label>
+                <p>@Model.licenseActivated</p>
+                </div>
+                <div class="mb-3">
+                <label class="form-label" for="showMethod">@Localization.Status:</label>
+                @if (Model.licenseStatus == 0)
+                {
+                <p>@Localization.NotActivated</p>
+                }
+                else if (Model.licenseStatus == 1)
+                {
+                <p>@Localization.Activate</p>
+                }
+                else
+                {
+                <p>@Localization.Disabled</p>
+                }
+                </div>
+                @*                                         <div class="mb-3">
+                <label class="form-label" for="hideMethod">Hide Method</label>
+                <input id="hideMethod" type="text" placeholder="hide, fadeOut, slideUp" class="input-mini form-control" value="fadeOut" />
+                </div> *
+                </div>
+                </div>
+                </div>
 
-                            <div class="col-xl-6 col-sm-6">
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <div class="mb-3">
-                                            <label class="form-label">@Localization.deviceModel:</label>
-                                            <p>@Model.deviceModel</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@Localization.deviceName:</label>
-                                            <p>@Model.deviceName</p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@Localization.battery:</label>
-                                            <p>@Model.battery</p>
-                                        </div>
-@*                                         <div class="mb-3">
-                                            <label class="form-label" for="extendedTimeOut">Extended time out</label>
-                                            <input id="extendedTimeOut" type="text" placeholder="ms" class="input-mini form-control" value="1000" />
-                                        </div> *
-                                    </div>
-                                </div>
-                            </div>
-                        </div> *@
-
+                <div class="col-xl-6 col-sm-6">
+                <div class="control-group">
+                <div class="controls">
+                <div class="mb-3">
+                <label class="form-label">@Localization.deviceModel:</label>
+                <p>@Model.deviceModel</p>
+                </div>
+                <div class="mb-3">
+                <label class="form-label">@Localization.deviceName:</label>
+                <p>@Model.deviceName</p>
+                </div>
+                <div class="mb-3">
+                <label class="form-label">@Localization.battery:</label>
+                <p>@Model.battery</p>
+                </div>
+                @*                                         <div class="mb-3">
+                <label class="form-label" for="extendedTimeOut">Extended time out</label>
+                <input id="extendedTimeOut" type="text" placeholder="ms" class="input-mini form-control" value="1000" />
+                </div> *
+                </div>
+                </div>
+                </div>
+                </div> *@
+                <br />
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">
                             @Localization.activationCode:
-                            @if (Model.activationCode.Length > 0)
-                            {
-                                <span><a type="button" onclick="copyActivationCode()" class="text-info"><i class="uil-copy font-size-18"></i></a></span>
-                            }
                         </label>
-                        <p id="activationCode">@Model.activationCode</p>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="@Model.activationCode" id="activationCode" readonly disabled />
+                            <div class="input-group-append">
+                                @if (Model.activationCode.Length > 0)
+                                {
+                                    <button class="btn btn-outline-secondary" type="button" onclick="copyActivationCode()">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                        @* <input type="text" asp-for="activationCode" class="form-control" value="@Model.activationCode" id="activationCode" readonly disabled /> *@
+                        @*  <p id="activationCode">@Model.activationCode</p> *@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">@Localization.deviceModel:</label>
-                        <p>@Model.deviceModel</p>
+                        <input type="text" asp-for="deviceModel" class="form-control" value="@Model.deviceModel" readonly disabled />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label">@Localization.licenseActivated:</label>
+                        <input type="text" class="form-control" value="@Model.licenseActivated" readonly disabled />
                         <p>@Model.licenseActivated</p>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">@Localization.deviceName:</label>
-                        <p>@Model.deviceName</p>
+                        <input type="text" class="form-control" value="@Model.deviceName" readonly disabled />
                     </div>
                 </div>
 
@@ -109,25 +118,38 @@
                         <label class="form-label" for="showMethod">@Localization.Status:</label>
                         @if (Model.licenseStatus == 0)
                         {
-                            <p>@Localization.NotActivated</p>
+                            <input type="text" class="form-control" value="@Localization.NotActivated" readonly disabled />
+                            @*  <p>@Localization.NotActivated</p> *@
                         }
                         else if (Model.licenseStatus == 1)
                         {
-                            <p>@Localization.Activate</p>
+                            <input type="text" class="form-control" value="@Localization.Activated" readonly disabled />
+                            @*  <p>@Localization.Activate</p> *@
                         }
                         else
                         {
-                            <p>@Localization.Disabled</p>
+                            <input type="text" class="form-control" value="@Localization.Disabled" readonly disabled />
+                            @* <p>@Localization.Disabled</p> *@
                         }
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">@Localization.battery:</label>
-                        <p>@Model.battery</p>
+                        <input type="text" class="form-control" value="@Model.battery" readonly disabled />
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">@Localization.osVersion:</label>
+                        <input type="text" class="form-control" value="@Model.osVersion" readonly disabled />
+                        @*                       <p>@Model.osVersion</p> *@
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">@Localization.typeOs:</label>
+                        <input type="text" class="form-control" value="@Model.os" readonly disabled />
+                    </div>
+                </div>
 
-             
             </div>
         </div>
     </div>

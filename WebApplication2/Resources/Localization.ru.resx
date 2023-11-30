@@ -201,6 +201,9 @@
   <data name="GradingType" xml:space="preserve">
     <value>Тип вопроса</value>
   </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Скрыть все</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Показаны записи с _START_ по _END_ из _TOTAL_</value>
   </data>
@@ -242,6 +245,9 @@
   </data>
   <data name="Oneanswer" xml:space="preserve">
     <value>Один вариан ответа</value>
+  </data>
+  <data name="osVersion" xml:space="preserve">
+    <value>Версия ОС</value>
   </data>
   <data name="previous" xml:space="preserve">
     <value>Предыдущая</value>
@@ -285,6 +291,9 @@
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Показать все</value>
+  </data>
   <data name="SignOut" xml:space="preserve">
     <value>Выход</value>
   </data>
@@ -299,6 +308,9 @@
   </data>
   <data name="TitleQ" xml:space="preserve">
     <value>Название анкеты</value>
+  </data>
+  <data name="typeOs" xml:space="preserve">
+    <value>Тип ОС</value>
   </data>
   <data name="UnSuccessPW" xml:space="preserve">
     <value>Пароль не был изменен успешно</value>
