@@ -277,6 +277,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на E-mail adresa.
+        /// </summary>
+        public static string emailAddress {
+            get {
+                return ResourceManager.GetString("emailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Tabelul este gol.
         /// </summary>
         public static string emptyTable {
@@ -291,6 +300,15 @@ namespace WebApplication2.Resources {
         public static string first {
             get {
                 return ResourceManager.GetString("first", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Nume.
+        /// </summary>
+        public static string firstName {
+            get {
+                return ResourceManager.GetString("firstName", resourceCulture);
             }
         }
         
@@ -354,6 +372,15 @@ namespace WebApplication2.Resources {
         public static string last {
             get {
                 return ResourceManager.GetString("last", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Prenume.
+        /// </summary>
+        public static string lastName {
+            get {
+                return ResourceManager.GetString("lastName", resourceCulture);
             }
         }
         
@@ -457,6 +484,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Telefon.
+        /// </summary>
+        public static string phone {
+            get {
+                return ResourceManager.GetString("phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Precedentă.
         /// </summary>
         public static string previous {
@@ -471,6 +507,15 @@ namespace WebApplication2.Resources {
         public static string processing {
             get {
                 return ResourceManager.GetString("processing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Informații profil.
+        /// </summary>
+        public static string profileInfo {
+            get {
+                return ResourceManager.GetString("profileInfo", resourceCulture);
             }
         }
         

@@ -1,9 +1,6 @@
 using ISAdminWeb.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
-using System.Globalization;
 using WebApplication2.Interface;
 using WebApplication2.Repository;
 

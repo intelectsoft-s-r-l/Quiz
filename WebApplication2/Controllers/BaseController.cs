@@ -105,6 +105,7 @@ namespace WebApplication2.Controllers
 
 
         }
+        
         [HttpGet]
         public async Task<IActionResult> ChangeCulture(string shortLang, string returnUrl)
         {

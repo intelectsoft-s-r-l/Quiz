@@ -183,5 +183,3 @@ C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.
 C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
-C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
-C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll

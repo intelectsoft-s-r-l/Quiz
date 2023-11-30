@@ -35,12 +35,12 @@
                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>@Localization.licenseActivated</th> @*Time*@
+                            <th>@Localization.licenseActivated</th>
                             <th>@Localization.Status</th>
                             <th>@Localization.deviceModel</th>
                             <th>@Localization.deviceName</th>
                             <th>@Localization.battery</th>
-                            <th style="width: 120px;"></th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -65,7 +65,7 @@
                                 <th>@item.deviceModel</th>
                                 <th>@item.deviceName</th>
                                 <th>@item.battery</th>
-                                <td style="width: 20px!important;">
+                                <td style="width: 120px!important;">
                                     <a type="button" class="px-3 text-warning" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Detail/'+'@item.oid', 'lgModalBody')"><i class="uil uil-file-info-alt font-size-18"></i></a>
                                     <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Delete/'+'@item.oid', 'lgModalBody')"><i class="uil-trash-alt  font-size-18"></i></a>
                                     <div class="dropdown float-end">

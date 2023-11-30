@@ -189,11 +189,17 @@
   <data name="EditQ" xml:space="preserve">
     <value>Изменение анкеты</value>
   </data>
+  <data name="emailAddress" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
   <data name="emptyTable" xml:space="preserve">
     <value>Таблица пуста</value>
   </data>
   <data name="first" xml:space="preserve">
     <value>Первая</value>
+  </data>
+  <data name="firstName" xml:space="preserve">
+    <value>Имя</value>
   </data>
   <data name="Generatelicense" xml:space="preserve">
     <value>Сгенерировать лицензии</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="last" xml:space="preserve">
     <value>Последняя</value>
+  </data>
+  <data name="lastName" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
   <data name="lengthMenu" xml:space="preserve">
     <value>Показать _MENU_ записей на странице</value>
@@ -249,11 +258,17 @@
   <data name="osVersion" xml:space="preserve">
     <value>Версия ОС</value>
   </data>
+  <data name="phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
   <data name="previous" xml:space="preserve">
     <value>Предыдущая</value>
   </data>
   <data name="processing" xml:space="preserve">
     <value>Обработка...</value>
+  </data>
+  <data name="profileInfo" xml:space="preserve">
+    <value>Информация о профиле</value>
   </data>
   <data name="quantity" xml:space="preserve">
     <value>Количество</value>

@@ -189,11 +189,17 @@
   <data name="EditQ" xml:space="preserve">
     <value>Editarea unui chestionar</value>
   </data>
+  <data name="emailAddress" xml:space="preserve">
+    <value>E-mail adresa</value>
+  </data>
   <data name="emptyTable" xml:space="preserve">
     <value>Tabelul este gol</value>
   </data>
   <data name="first" xml:space="preserve">
     <value>Prima</value>
+  </data>
+  <data name="firstName" xml:space="preserve">
+    <value>Nume</value>
   </data>
   <data name="Generatelicense" xml:space="preserve">
     <value>Generați licență</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="last" xml:space="preserve">
     <value>Ultima</value>
+  </data>
+  <data name="lastName" xml:space="preserve">
+    <value>Prenume</value>
   </data>
   <data name="lengthMenu" xml:space="preserve">
     <value>Afișați intrările _MENU_ </value>
@@ -249,11 +258,17 @@
   <data name="osVersion" xml:space="preserve">
     <value>Versiunea OS</value>
   </data>
+  <data name="phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
   <data name="previous" xml:space="preserve">
     <value>Precedentă</value>
   </data>
   <data name="processing" xml:space="preserve">
     <value>Prelucrare...</value>
+  </data>
+  <data name="profileInfo" xml:space="preserve">
+    <value>Informații profil</value>
   </data>
   <data name="quantity" xml:space="preserve">
     <value>Cantitate</value>

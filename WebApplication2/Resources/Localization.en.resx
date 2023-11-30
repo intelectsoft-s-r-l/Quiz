@@ -189,11 +189,17 @@
   <data name="EditQ" xml:space="preserve">
     <value>Edit Questionnaire</value>
   </data>
+  <data name="emailAddress" xml:space="preserve">
+    <value>Email address</value>
+  </data>
   <data name="emptyTable" xml:space="preserve">
     <value>Showing 0 to 0 of 0 entries</value>
   </data>
   <data name="first" xml:space="preserve">
     <value>First</value>
+  </data>
+  <data name="firstName" xml:space="preserve">
+    <value>First name</value>
   </data>
   <data name="Generatelicense" xml:space="preserve">
     <value>Generate license</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="last" xml:space="preserve">
     <value>Last</value>
+  </data>
+  <data name="lastName" xml:space="preserve">
+    <value>Last name</value>
   </data>
   <data name="lengthMenu" xml:space="preserve">
     <value>Show _MENU_ entries</value>
@@ -249,11 +258,17 @@
   <data name="osVersion" xml:space="preserve">
     <value>OS version</value>
   </data>
+  <data name="phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
   <data name="previous" xml:space="preserve">
     <value>Previous</value>
   </data>
   <data name="processing" xml:space="preserve">
     <value>Processing...</value>
+  </data>
+  <data name="profileInfo" xml:space="preserve">
+    <value>Profile info</value>
   </data>
   <data name="quantity" xml:space="preserve">
     <value>Quantity</value>

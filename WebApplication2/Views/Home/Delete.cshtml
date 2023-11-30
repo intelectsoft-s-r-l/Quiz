@@ -27,14 +27,26 @@
                 <h2>@Localization.DetailQ</h2>
             </div><div class="form-container">
                 <h3 style="margin-top:20px;"><strong>@Localization.TitleQ:</strong> @Model.questionnaire.name</h3>
-                <p>@Localization.Question:</p>
+                <p><strong>@Localization.Question </strong></p>
                 <ol>
                     @foreach (var question in Model.questionnaire.questions)
                     {
                         <li>
                             <h5>@question.question</h5>
-                            <p>@Localization.Comment: @question.comentary</p>
-                            <p>@Localization.GradingType: @question.gradingType</p>
+                            <p><strong>@Localization.Comment:</strong> @question.comentary</p>
+                            @{
+                                string answerLocalization = "";
+                                switch (question.gradingType)
+                                {
+                                    case GradingType.YesNo: answerLocalization = Localization.YesorNo; break;
+                                    case GradingType.Point10Score: answerLocalization = Localization.Scorepoints; break;
+                                    case GradingType.SingleAnswerVariant: answerLocalization = Localization.Oneanswer; break;
+                                    case GradingType.MultipleAnswerVariant: answerLocalization = Localization.Multianswer; break;
+                                    default:
+                                        answerLocalization = question.gradingType.ToString(); break;
+                                }
+                            }
+                            <p><strong>@Localization.GradingType:</strong> @answerLocalization</p>
 
                             @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
                             {
@@ -46,8 +58,6 @@
                                     }
                                 </ul>
                             }
-
-                            @* <hr style="height: 2px; background-color: black; border: none;"> *@
                             <br/>
                         </li>
                     }
