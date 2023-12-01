@@ -1,4 +1,7 @@
-﻿namespace WebApplication2.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+using WebApplication2.Resources;
+
+namespace WebApplication2.ViewModels
 {
     public class QuestionnaireViewModel
     {

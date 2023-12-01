@@ -130,7 +130,7 @@
     <value>Добавить ответ</value>
   </data>
   <data name="AddQ" xml:space="preserve">
-    <value>Добавить анкету</value>
+    <value>Добавить опрос</value>
   </data>
   <data name="AddQuestion" xml:space="preserve">
     <value>Добавить вопрос</value>
@@ -160,7 +160,7 @@
     <value>Создать</value>
   </data>
   <data name="CreateQ" xml:space="preserve">
-    <value>Создание анкеты</value>
+    <value>Создание опроса</value>
   </data>
   <data name="Deactivate" xml:space="preserve">
     <value>Деактивировать</value>
@@ -172,7 +172,7 @@
     <value>Детали лицензии</value>
   </data>
   <data name="DetailQ" xml:space="preserve">
-    <value>Детали анкеты</value>
+    <value>Детали опроса</value>
   </data>
   <data name="deviceModel" xml:space="preserve">
     <value>Модель устройства</value>
@@ -280,7 +280,7 @@
     <value>Вопросы</value>
   </data>
   <data name="Questionnaires" xml:space="preserve">
-    <value>Анкеты</value>
+    <value>Опросы</value>
   </data>
   <data name="QuestionText" xml:space="preserve">
     <value>Текст вопроса</value>
@@ -322,7 +322,7 @@
     <value>Вы уверены?</value>
   </data>
   <data name="TitleQ" xml:space="preserve">
-    <value>Название анкеты</value>
+    <value>Название опроса</value>
   </data>
   <data name="typeOs" xml:space="preserve">
     <value>Тип ОС</value>
@@ -337,7 +337,7 @@
     <value>Профиль</value>
   </data>
   <data name="ViewQ" xml:space="preserve">
-    <value>Представление анкеты</value>
+    <value>Просмотр опроса</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>

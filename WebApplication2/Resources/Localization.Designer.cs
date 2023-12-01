@@ -673,7 +673,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Titlul chestionarului.
+        ///   Ищет локализованную строку, похожую на Titlu chestionarului.
         /// </summary>
         public static string TitleQ {
             get {

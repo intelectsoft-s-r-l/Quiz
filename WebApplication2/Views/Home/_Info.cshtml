@@ -25,9 +25,20 @@
         <div class="col-lg-12">
 
             <h2 class="text-center"><i class="uil-eye font-size-28"></i> @Localization.ViewQ</h2>
+
             <input type="hidden" asp-for="oid" id="mainId" />
+@*          <hr style="height: 10px; background-color:black; border-radius:5px;" />
             <br />
 
+            <div class="row">
+                <div class="col-md-2">
+                    <label asp-for="Title" class="form-label"><h4>@Localization.TitleQ</h4></label>
+                </div>
+                <div class="col-md-10">
+                    <h3>@Model.Title</h3>
+                </div>
+            </div> *@
+            <br />
 
             <div class="row">
                 <div class="col-lg-2">
@@ -43,7 +54,7 @@
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between;">
-                <h3>@Localization.Question</h3>
+                <h3>@Localization.Question ("@Model.Questions.Count")</h3>
                 <span>
                     <button type="button" id="hideAll" class="btn btn-primary btn-rounded waves-effect waves-light">@Localization.HideAll</button>
                     <button type="button" id="showAll" class="btn btn-primary btn-rounded waves-effect waves-light">@Localization.ShowAll</button>

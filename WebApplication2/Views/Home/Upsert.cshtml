@@ -29,7 +29,7 @@
     int i = 0;
 }
 
-<form method="POST" asp-controller="Home" asp-action="UpsertQuestionnaire" id="UpsertQuestionnaireForm" enctype="multipart/form-data" class="custom-validation">
+<form method="POST" asp-controller="Home" asp-action="UpsertQuestionnaire" id="UpsertQuestionnaireForm" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="form-container">
         <div class="row">
             <div class="col-lg-12">
@@ -295,51 +295,65 @@
                 addQuestion();
             }
 
-            $('#UpsertQuestionnaireForm').on('submit', function (e) {
-                e.preventDefault();
-                var questions = [];
 
-                //debugger
-                let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
-                divsSetQuestions.each(function (e, element) {
-                    var answerRes = [];
-                    let questionName = $("#" + element.id).find("input[id*='questionName_']");
-                    let questionGradingType = $("#" + element.id).find("select[id*='questionGradingType_']");
-                    let questionComentary = $("#" + element.id).find("input[id*='questionComentary_']");
-                    let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
-                    if (answerVal.length > 0) {
-                        answerVal.each(function (e, answElement) {
-                            answerRes.push(answElement.value);
-                        });
-                    }
-                    else {
-                        answerRes.push(null);
-                    }
-                    questions.push({ question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, answerVariants: answerRes });
-                });
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (e) {
+                           // e.preventDefault();
+                            //e.stopPropagation();
+                            if (form.checkValidity() === true) {
+                                    e.preventDefault();
+                                    var questions = [];
 
-                var Quest = {
-                    id: $('#mainId').val(),
-                    Title: $('#defaultconfig').val(),
-                    Questions: JSON.stringify({ questions }),
-                };
-                //debugger
-                $.ajax({
-                    url: '/Home/UpsertQuestionnaire',
-                    cache: false,
-                    type: "POST",
-                    data: JSON.stringify(Quest),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        if (data.statusCode === 200) {
-                            window.location.href = '/Home/Index';
-                        } else {
+                                    //debugger
+                                    let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
+                                    divsSetQuestions.each(function (e, element) {
+                                        var answerRes = [];
+                                        let questionName = $("#" + element.id).find("input[id*='questionName_']");
+                                        let questionGradingType = $("#" + element.id).find("select[id*='questionGradingType_']");
+                                        let questionComentary = $("#" + element.id).find("input[id*='questionComentary_']");
+                                        let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
+                                        if (answerVal.length > 0) {
+                                            answerVal.each(function (e, answElement) {
+                                                answerRes.push(answElement.value);
+                                            });
+                                        }
+                                        else {
+                                            answerRes.push(null);
+                                        }
+                                        questions.push({ question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, answerVariants: answerRes });
+                                    });
 
-                        }
-                    },
+                                    var Quest = {
+                                        id: $('#mainId').val(),
+                                        Title: $('#defaultconfig').val(),
+                                        Questions: JSON.stringify({ questions }),
+                                    };
+                                    //debugger
+                                    $.ajax({
+                                        url: '/Home/UpsertQuestionnaire',
+                                        cache: false,
+                                        type: "POST",
+                                        data: JSON.stringify(Quest),
+                                        contentType: "application/json; charset=utf-8",
+                                        success: function (data) {
+                                            if (data.statusCode === 200) {
+                                                window.location.href = '/Home/Index';
+                                            } else {
 
-                });
-            });
+                                            }
+                                        },
+
+                                    });
+                                
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+
+            
         });
     </script>
 }

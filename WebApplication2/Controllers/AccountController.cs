@@ -22,6 +22,15 @@ namespace WebApplication2.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            /*
+            string languageFromCookie = GetLanguageCookie();
+
+            if (string.IsNullOrEmpty(languageFromCookie))
+            {
+                ViewBag.Language = "ru";
+            }
+            else
+                ViewBag.Language = shortLang;*/
             return View("~/Views/Account/Login.cshtml");
         }
 
@@ -160,6 +169,21 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ChangeCultureLogin(string shortLang)
+        {
+            List<string> cultures = new List<string>() { "en", "ro", "ru" };
+            if (!cultures.Contains(shortLang))
+            {
+                shortLang = "ru";
+            }
+
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+
+            return RedirectToAction("Login");
+
+        }
 
         //[HttpGet]
         //public IActionResult ChangeLanguage(string culture, string returnUrl)

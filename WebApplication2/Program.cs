@@ -1,4 +1,6 @@
+using FluentValidation.AspNetCore;
 using ISAdminWeb.Common;
+using ISAdminWeb.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;
 using WebApplication2.Interface;
@@ -54,7 +56,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         };
     });
 
+builder.Services.AddControllers().AddFluentValidation(options =>
+{
+    // Automatic registration of validators in assembly
+    //options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    options.RegisterValidatorsFromAssemblyContaining<Program>();
+    options.LocalizationEnabled = true;
+});
 
+ValidatorViewModel validatorViewModel = new ValidatorViewModel(builder.Services);
 //builder.Services.AddRazorPages()
 //    .AddViewLocalization()
 //    .AddSessionStateTempDataProvider();
