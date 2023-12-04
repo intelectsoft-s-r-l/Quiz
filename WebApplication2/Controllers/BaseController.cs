@@ -180,11 +180,11 @@ namespace WebApplication2.Controllers
             try
             {
                 var token = GetToken();
-                using (var httpClientForChangePassword = new HttpClient())
+                using (var httpClientForChangeLanguage = new HttpClient())
                 {
                     var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISAuthService/json/ChangeUILanguage?Token=" + token + "&Language=" + lang;
 
-                    var responseGetQuestionnaires = await httpClientForChangePassword.GetAsync(apiUrlGetQuestionnairesByToken);
+                    var responseGetQuestionnaires = await httpClientForChangeLanguage.GetAsync(apiUrlGetQuestionnairesByToken);
                     if (responseGetQuestionnaires.IsSuccessStatusCode)
                     {
                         var baseResponseData = await responseGetQuestionnaires.Content.ReadAsAsync<BaseResponse>();

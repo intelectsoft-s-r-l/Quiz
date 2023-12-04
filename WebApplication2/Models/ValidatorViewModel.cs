@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using WebApplication2.ViewModels;
+using WebApplication2.Volidator;
 
 namespace ISAdminWeb.Models
 {
@@ -8,8 +9,10 @@ namespace ISAdminWeb.Models
 
         public ValidatorViewModel(IServiceCollection services)
         {
-            services.AddTransient<IValidator<QuestionnaireViewModel>, QuestionnaireViewModelValidation>();
-            services.AddTransient<IValidator<QuestionViewModel>, QuestionViewModelValidation>();
+            services.AddTransient<IValidator<AuthRecoverpwViewModel>, AuthRecoverpwViewModelVolidator>();
+            services.AddTransient<IValidator<AuthorizeViewModel>, AuthorizeViewModelVolidator>();
+            services.AddTransient<IValidator<ChangeConfirmPasswordViewModel>, ChangeConfirmPasswordViewModelValidator>();
+            services.AddTransient<IValidator<GenerateLicenseViewModel>, GenerateLicenseViewModelVolidator>();
         }
     }
 }

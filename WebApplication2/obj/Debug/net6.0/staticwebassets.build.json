@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hwuR3FOVNwuC1nnbeys2zUYBcigVr+It6N4HH5i0v64=",
+  "Hash": "lAccScPzU8qpZtTwBqFG3Qynf9SCqu+F/tMkLpQvzPc=",
   "Source": "WebApplication2",
   "BasePath": "_content/WebApplication2",
   "Mode": "Default",
@@ -16,6 +16,40 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\WebApplication2.styles.css",
+      "SourceId": "WebApplication2",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "BasePath": "_content/WebApplication2",
+      "RelativePath": "WebApplication2.styles.css",
+      "AssetKind": "All",
+      "AssetMode": "CurrentProject",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ApplicationBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\bundle\\WebApplication2.styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\WebApplication2.bundle.scp.css",
+      "SourceId": "WebApplication2",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "BasePath": "_content/WebApplication2",
+      "RelativePath": "WebApplication2.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\WebApplication2.bundle.scp.css"
+    },
     {
       "Identity": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\css\\app.css",
       "SourceId": "WebApplication2",

@@ -24,8 +24,6 @@ namespace WebApplication2.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var localizedTitle = _localizer["Add"];
-
             string token = GetToken();
             var questionnaireData = await _quizRepository.GetQuestionnaires(token);
             if (questionnaireData.errorCode == 143)

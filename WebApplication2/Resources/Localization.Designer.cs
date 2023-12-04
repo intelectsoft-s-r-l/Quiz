@@ -61,7 +61,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Activare.
+        ///   Ищет локализованную строку, похожую на Activate.
         /// </summary>
         public static string Activate {
             get {
@@ -70,7 +70,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Activat.
+        ///   Ищет локализованную строку, похожую на Activated.
         /// </summary>
         public static string Activated {
             get {
@@ -79,7 +79,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Cod de activare.
+        ///   Ищет локализованную строку, похожую на Activation code.
         /// </summary>
         public static string activationCode {
             get {
@@ -88,7 +88,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Răspuns nou.
+        ///   Ищет локализованную строку, похожую на Add Answer.
         /// </summary>
         public static string AddAnswer {
             get {
@@ -97,7 +97,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Adăugarea unui chestionar nou.
+        ///   Ищет локализованную строку, похожую на Add Questionnaire.
         /// </summary>
         public static string AddQ {
             get {
@@ -106,7 +106,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Adăugarea întrebării.
+        ///   Ищет локализованную строку, похожую на Add Question.
         /// </summary>
         public static string AddQuestion {
             get {
@@ -115,7 +115,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Text răspunsului.
+        ///   Ищет локализованную строку, похожую на Answer text.
         /// </summary>
         public static string AnswerText {
             get {
@@ -124,7 +124,16 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Baterie.
+        ///   Ищет локализованную строку, похожую на Sign in.
+        /// </summary>
+        public static string autentificare {
+            get {
+                return ResourceManager.GetString("autentificare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Battery.
         /// </summary>
         public static string battery {
             get {
@@ -133,7 +142,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Anula.
+        ///   Ищет локализованную строку, похожую на Cancel.
         /// </summary>
         public static string Cancel {
             get {
@@ -142,7 +151,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Schimbare parolă.
+        ///   Ищет локализованную строку, похожую на Change password.
         /// </summary>
         public static string ChangePassword {
             get {
@@ -151,7 +160,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Închide.
+        ///   Ищет локализованную строку, похожую на Close.
         /// </summary>
         public static string Close {
             get {
@@ -160,7 +169,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Comentariu.
+        ///   Ищет локализованную строку, похожую на Commentary.
         /// </summary>
         public static string Comment {
             get {
@@ -169,7 +178,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Confirmare parolă.
+        ///   Ищет локализованную строку, похожую на Confirm password.
         /// </summary>
         public static string ConfirmPassword {
             get {
@@ -178,7 +187,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Creare.
+        ///   Ищет локализованную строку, похожую на Create.
         /// </summary>
         public static string Create {
             get {
@@ -187,7 +196,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Creare chestionar.
+        ///   Ищет локализованную строку, похожую на Create Questionnaire.
         /// </summary>
         public static string CreateQ {
             get {
@@ -196,7 +205,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Dezactivare.
+        ///   Ищет локализованную строку, похожую на Deactivate.
         /// </summary>
         public static string Deactivate {
             get {
@@ -205,7 +214,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ștergere.
+        ///   Ищет локализованную строку, похожую на Delete.
         /// </summary>
         public static string Delete {
             get {
@@ -214,7 +223,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Detalii licență.
+        ///   Ищет локализованную строку, похожую на License Details.
         /// </summary>
         public static string DetailLicense {
             get {
@@ -223,7 +232,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Detalii chestionar.
+        ///   Ищет локализованную строку, похожую на Questionnaire Details.
         /// </summary>
         public static string DetailQ {
             get {
@@ -232,7 +241,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Modelul dispozitivului.
+        ///   Ищет локализованную строку, похожую на Device model.
         /// </summary>
         public static string deviceModel {
             get {
@@ -241,7 +250,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Numele dispozitivului.
+        ///   Ищет локализованную строку, похожую на Device name.
         /// </summary>
         public static string deviceName {
             get {
@@ -250,7 +259,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Dezactivat.
+        ///   Ищет локализованную строку, похожую на Disabled.
         /// </summary>
         public static string Disabled {
             get {
@@ -259,7 +268,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Editarea.
+        ///   Ищет локализованную строку, похожую на Edit.
         /// </summary>
         public static string Edit {
             get {
@@ -268,7 +277,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Editarea unui chestionar.
+        ///   Ищет локализованную строку, похожую на Edit Questionnaire.
         /// </summary>
         public static string EditQ {
             get {
@@ -277,7 +286,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на E-mail adresa.
+        ///   Ищет локализованную строку, похожую на Email address.
         /// </summary>
         public static string emailAddress {
             get {
@@ -286,7 +295,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Tabelul este gol.
+        ///   Ищет локализованную строку, похожую на Showing 0 to 0 of 0 entries.
         /// </summary>
         public static string emptyTable {
             get {
@@ -295,7 +304,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Prima.
+        ///   Ищет локализованную строку, похожую на First.
         /// </summary>
         public static string first {
             get {
@@ -304,7 +313,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Nume.
+        ///   Ищет локализованную строку, похожую на First name.
         /// </summary>
         public static string firstName {
             get {
@@ -313,7 +322,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Generați licență.
+        ///   Ищет локализованную строку, похожую на Generate license.
         /// </summary>
         public static string Generatelicense {
             get {
@@ -322,7 +331,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Tip de clasificare.
+        ///   Ищет локализованную строку, похожую на Grading Type.
         /// </summary>
         public static string GradingType {
             get {
@@ -331,7 +340,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ascunde tot.
+        ///   Ищет локализованную строку, похожую на Hide all.
         /// </summary>
         public static string HideAll {
             get {
@@ -340,7 +349,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Sunt afișate înregistrările de la _START_ la _END_ de la _TOTAL_.
+        ///   Ищет локализованную строку, похожую на Showing _START_ to _END_ of _TOTAL_ entries.
         /// </summary>
         public static string info {
             get {
@@ -349,7 +358,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Fără înregistrări.
+        ///   Ищет локализованную строку, похожую на Showing 0 to 0 of 0 entries.
         /// </summary>
         public static string infoEmpty {
             get {
@@ -358,7 +367,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на (filtrat din înregistrările _MAX_).
+        ///   Ищет локализованную строку, похожую на (filtered from _MAX_ total entries).
         /// </summary>
         public static string infoFiltered {
             get {
@@ -367,7 +376,16 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ultima.
+        ///   Ищет локализованную строку, похожую на en.
+        /// </summary>
+        public static string languageState {
+            get {
+                return ResourceManager.GetString("languageState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Last.
         /// </summary>
         public static string last {
             get {
@@ -376,7 +394,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Prenume.
+        ///   Ищет локализованную строку, похожую на Last name.
         /// </summary>
         public static string lastName {
             get {
@@ -385,7 +403,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Afișați intrările _MENU_ .
+        ///   Ищет локализованную строку, похожую на Show _MENU_ entries.
         /// </summary>
         public static string lengthMenu {
             get {
@@ -394,7 +412,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Data activării licenței.
+        ///   Ищет локализованную строку, похожую на License Activation Date.
         /// </summary>
         public static string licenseActivated {
             get {
@@ -403,7 +421,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Licenţe.
+        ///   Ищет локализованную строку, похожую на Licenses.
         /// </summary>
         public static string Licenses {
             get {
@@ -412,7 +430,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Încărcare....
+        ///   Ищет локализованную строку, похожую на Loading....
         /// </summary>
         public static string loadingRecords {
             get {
@@ -421,7 +439,16 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Variantă cu răspuns multiplu.
+        ///   Ищет локализованную строку, похожую на Log In.
+        /// </summary>
+        public static string logIn {
+            get {
+                return ResourceManager.GetString("logIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Multi answer variant.
         /// </summary>
         public static string Multianswer {
             get {
@@ -430,7 +457,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Parolă nouă.
+        ///   Ищет локализованную строку, похожую на New password.
         /// </summary>
         public static string NewPassword {
             get {
@@ -439,7 +466,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Următore.
+        ///   Ищет локализованную строку, похожую на Next.
         /// </summary>
         public static string next {
             get {
@@ -448,7 +475,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Neactivat.
+        ///   Ищет локализованную строку, похожую на Not activated.
         /// </summary>
         public static string NotActivated {
             get {
@@ -457,7 +484,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Parola veche.
+        ///   Ищет локализованную строку, похожую на Old password.
         /// </summary>
         public static string OldPassword {
             get {
@@ -466,7 +493,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Variantă cu un singur răspuns.
+        ///   Ищет локализованную строку, похожую на One answer variant.
         /// </summary>
         public static string Oneanswer {
             get {
@@ -475,7 +502,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Versiunea OS.
+        ///   Ищет локализованную строку, похожую на OS version.
         /// </summary>
         public static string osVersion {
             get {
@@ -484,7 +511,16 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Telefon.
+        ///   Ищет локализованную строку, похожую на Password.
+        /// </summary>
+        public static string password {
+            get {
+                return ResourceManager.GetString("password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Phone.
         /// </summary>
         public static string phone {
             get {
@@ -493,7 +529,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Precedentă.
+        ///   Ищет локализованную строку, похожую на Previous.
         /// </summary>
         public static string previous {
             get {
@@ -502,7 +538,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Prelucrare....
+        ///   Ищет локализованную строку, похожую на Processing....
         /// </summary>
         public static string processing {
             get {
@@ -511,7 +547,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Informații profil.
+        ///   Ищет локализованную строку, похожую на Profile info.
         /// </summary>
         public static string profileInfo {
             get {
@@ -520,7 +556,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Cantitate.
+        ///   Ищет локализованную строку, похожую на Quantity.
         /// </summary>
         public static string quantity {
             get {
@@ -529,7 +565,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Introduceți cantitatea.
+        ///   Ищет локализованную строку, похожую на Input number.
         /// </summary>
         public static string quantityText {
             get {
@@ -538,7 +574,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Întrebări.
+        ///   Ищет локализованную строку, похожую на Questions.
         /// </summary>
         public static string Question {
             get {
@@ -547,7 +583,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Chestionare.
+        ///   Ищет локализованную строку, похожую на Questionnaires.
         /// </summary>
         public static string Questionnaires {
             get {
@@ -556,7 +592,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Textul întrebării.
+        ///   Ищет локализованную строку, похожую на Question Text.
         /// </summary>
         public static string QuestionText {
             get {
@@ -565,7 +601,25 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Publicare.
+        ///   Ищет локализованную строку, похожую на Reset password.
+        /// </summary>
+        public static string recoverPW {
+            get {
+                return ResourceManager.GetString("recoverPW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Please enter the email address used for your registration..
+        /// </summary>
+        public static string recoverPWMessage {
+            get {
+                return ResourceManager.GetString("recoverPWMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Publication.
         /// </summary>
         public static string Release {
             get {
@@ -574,7 +628,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Răspuns.
+        ///   Ищет локализованную строку, похожую на Response.
         /// </summary>
         public static string Response {
             get {
@@ -583,7 +637,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Răspunsuri.
+        ///   Ищет локализованную строку, похожую на Responses.
         /// </summary>
         public static string Responses {
             get {
@@ -592,7 +646,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Salvează.
+        ///   Ищет локализованную строку, похожую на Save.
         /// </summary>
         public static string Save {
             get {
@@ -601,7 +655,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Scor 10 puncte.
+        ///   Ищет локализованную строку, похожую на Score 10 points.
         /// </summary>
         public static string Scorepoints {
             get {
@@ -610,7 +664,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Căutare.
+        ///   Ищет локализованную строку, похожую на Search.
         /// </summary>
         public static string Search {
             get {
@@ -619,7 +673,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Configurări.
+        ///   Ищет локализованную строку, похожую на Settings.
         /// </summary>
         public static string Settings {
             get {
@@ -628,7 +682,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Arată tot.
+        ///   Ищет локализованную строку, похожую на Show all.
         /// </summary>
         public static string ShowAll {
             get {
@@ -637,7 +691,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Deconectează-te.
+        ///   Ищет локализованную строку, похожую на Sign out.
         /// </summary>
         public static string SignOut {
             get {
@@ -646,7 +700,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Stare.
+        ///   Ищет локализованную строку, похожую на Status.
         /// </summary>
         public static string Status {
             get {
@@ -655,7 +709,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Parola s-a schimbat cu succes.
+        ///   Ищет локализованную строку, похожую на Password changed successfully.
         /// </summary>
         public static string SuccessPW {
             get {
@@ -664,7 +718,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Sunteți siguri?.
+        ///   Ищет локализованную строку, похожую на Are you sure?.
         /// </summary>
         public static string Sure {
             get {
@@ -673,7 +727,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Titlu chestionarului.
+        ///   Ищет локализованную строку, похожую на Questionnaire title.
         /// </summary>
         public static string TitleQ {
             get {
@@ -682,7 +736,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Tip OS.
+        ///   Ищет локализованную строку, похожую на Type OS.
         /// </summary>
         public static string typeOs {
             get {
@@ -691,7 +745,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Schimbarea parolei nu a reușit.
+        ///   Ищет локализованную строку, похожую на Password change unsuccessful.
         /// </summary>
         public static string UnSuccessPW {
             get {
@@ -700,7 +754,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Prezentare.
+        ///   Ищет локализованную строку, похожую на View.
         /// </summary>
         public static string View {
             get {
@@ -709,7 +763,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Profilul.
+        ///   Ищет локализованную строку, похожую на View Profile.
         /// </summary>
         public static string ViewProfile {
             get {
@@ -718,7 +772,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Prezentare chestionarului.
+        ///   Ищет локализованную строку, похожую на Questionnaire view.
         /// </summary>
         public static string ViewQ {
             get {
@@ -727,7 +781,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Da.
+        ///   Ищет локализованную строку, похожую на Yes.
         /// </summary>
         public static string Yes {
             get {
@@ -736,7 +790,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на DA sau NU.
+        ///   Ищет локализованную строку, похожую на YES or NO.
         /// </summary>
         public static string YesorNo {
             get {
@@ -745,7 +799,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Fără înregistrări.
+        ///   Ищет локализованную строку, похожую на No matching records found.
         /// </summary>
         public static string zeroRecords {
             get {

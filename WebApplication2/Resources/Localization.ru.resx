@@ -138,6 +138,9 @@
   <data name="AnswerText" xml:space="preserve">
     <value>Текст ответа</value>
   </data>
+  <data name="autentificare" xml:space="preserve">
+    <value>Авторизация</value>
+  </data>
   <data name="battery" xml:space="preserve">
     <value>Батарея</value>
   </data>
@@ -219,6 +222,9 @@
   <data name="infoFiltered" xml:space="preserve">
     <value>(отфильтровано из _MAX_ записей)</value>
   </data>
+  <data name="languageState" xml:space="preserve">
+    <value>ru</value>
+  </data>
   <data name="last" xml:space="preserve">
     <value>Последняя</value>
   </data>
@@ -236,6 +242,9 @@
   </data>
   <data name="loadingRecords" xml:space="preserve">
     <value>Загрузка...</value>
+  </data>
+  <data name="logIn" xml:space="preserve">
+    <value>Войти</value>
   </data>
   <data name="Multianswer" xml:space="preserve">
     <value>Несколько вариантов ответа</value>
@@ -257,6 +266,9 @@
   </data>
   <data name="osVersion" xml:space="preserve">
     <value>Версия ОС</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Пароль</value>
   </data>
   <data name="phone" xml:space="preserve">
     <value>Телефон</value>
@@ -284,6 +296,12 @@
   </data>
   <data name="QuestionText" xml:space="preserve">
     <value>Текст вопроса</value>
+  </data>
+  <data name="recoverPW" xml:space="preserve">
+    <value>Сбросить пароль</value>
+  </data>
+  <data name="recoverPWMessage" xml:space="preserve">
+    <value>Пожалуйста, введите адрес электронной почты, который использовался при регистрации.</value>
   </data>
   <data name="Release" xml:space="preserve">
     <value>Публикация</value>

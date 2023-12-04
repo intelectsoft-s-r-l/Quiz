@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\WebApplication2.bundle.scp.css",
+      "PackagePath": "staticwebassets\\WebApplication2.bundle.scp.css"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\css\\app-dark-rtl.min.css",
       "PackagePath": "staticwebassets\\assets\\css\\app-dark-rtl.min.css"
     },

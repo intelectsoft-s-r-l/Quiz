@@ -156,9 +156,12 @@ namespace WebApplication2.Controllers
         [HttpPost] //418Line PostAsync?
         public async Task<IActionResult> CreateLicence(GenerateLicenseViewModel generateLicenseVM)
         {
-            if (generateLicenseVM.quantity > 0)
-            {
-                string token = GetToken();
+            if (!ModelState.IsValid)
+                return RedirectToAction(nameof(LicenseController.Index), "License");
+
+
+
+            string token = GetToken();
                 generateLicenseVM.token = token;
                 var postLicenseBaseResponse = await _licenseRepository.GenerateLicense(generateLicenseVM);
                 if (postLicenseBaseResponse.errorCode == 143)
@@ -166,13 +169,12 @@ namespace WebApplication2.Controllers
                     await RefreshToken();
                     return await CreateLicence(generateLicenseVM); ///!
                 }
-                else if (postLicenseBaseResponse.errorCode == 0)
+                else if (postLicenseBaseResponse.errorCode != 0)
                 {
-                    return RedirectToAction(nameof(LicenseController.Index), "License");
+                return View("Error");
                 }
+            return RedirectToAction(nameof(LicenseController.Index), "License");
 
-            }
-            return View("Error");
         }
 
 

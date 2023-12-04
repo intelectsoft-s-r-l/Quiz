@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Interface;
+using WebApplication2.Resources;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
@@ -57,12 +58,26 @@ namespace WebApplication2.Controllers
             return PartialView("~/Views/User/_ChangePassword.cshtml");
         }
 
-        [HttpPost]  //NormalToken, mb problem
+        [HttpPost]  
         public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)   //FromBody
         {
 
             if (!ModelState.IsValid)
-                return Json(new { StatusCode = 500/*, Message = @Locali */});
+            {
+                var errors = ModelState.Where(x => x.Value.Errors.Any())
+                                       .ToDictionary(
+                                            kvp => kvp.Key,
+                                            kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                                       );
+
+                //Console.WriteLine($"Validation Errors: {string.Join(", ", errors.Values.SelectMany(x => x))}");
+
+                //return Json(new { StatusCode = 500, Message = Localization.UnSuccessPW/*string.Join(", ", errors.Values.SelectMany(x => x))*/ });
+                return PartialView("~/Views/User/_ChangePassword.cshtml", changepwVM);
+            }
+
+
+
 
             string token = GetToken();
 
@@ -83,74 +98,6 @@ namespace WebApplication2.Controllers
             }
             else
                 return Json(new { StatusCode = 500, Message = baseResponseData.ErrorMessage });
-
-
         }
-
-        /*
-        [HttpGet]
-        public async Task<IActionResult> GetQuestionnaires()
-        {
-            string token = GetToken();
-            using (var httpClientForProfileInfo = new HttpClient())
-            {
-
-                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
-
-                if (responseGetProfileInfo.IsSuccessStatusCode)
-                {
-
-                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                    if (userData.ErrorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await GetQuestionnaires();
-                    }
-                    else if (userData.ErrorCode == 118)
-                    {
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    else if (userData.ErrorCode == 0)
-                    {
-                        using (var httpClientForQuestionnaires = new HttpClient())
-                        {
-
-                            var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/GetQuestionnaires?token=" + token;
-
-                            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-                            httpClientForQuestionnaires.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                            var responseGetQuestionnaires = await httpClientForQuestionnaires.GetAsync(apiUrlGetQuestionnairesByToken);
-
-                            if (responseGetQuestionnaires.IsSuccessStatusCode)
-                            {
-                                var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<GetQuestionnairesInfo>();
-                                if (questionnaireData.errorCode == 143)
-                                {
-                                    await RefreshToken();
-                                    return await GetQuestionnaires();
-                                }
-                                else if (questionnaireData.errorCode == 118)
-                                {
-                                    return View("~/Views/Account/Login.cshtml");
-                                }
-                                else if (questionnaireData.errorCode == 0)
-                                {
-                                    return PartialView("~/Views/User/_Questionnaire.cshtml", questionnaireData.questionnaires);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return View("Error");
-        }
-
-        */
-
-
     }
 }

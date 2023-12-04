@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using ISAdminWeb.Common;
 using ISAdminWeb.Models;
+using ISAdminWeb.Models.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;
 using WebApplication2.Interface;
@@ -8,6 +9,22 @@ using WebApplication2.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddControllersWithViews();//.AddFluentValidation();
+//builder.Services.AddTransient<IValidator<AuthRecoverpwViewModel>, AuthRecoverpwViewModelVolidator>();
+
+//Added fluent validation
+builder.Services.AddControllers().AddFluentValidation(options =>
+{
+    // Automatic registration of validators in assembly
+    //options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    options.RegisterValidatorsFromAssemblyContaining<Program>();
+    options.LocalizationEnabled = true;
+});
+
+ValidatorViewModel validatorViewModel = new ValidatorViewModel(builder.Services);
+
+builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
 // Add services to the container.
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -17,6 +34,7 @@ builder.Services.AddMvc()
         .AddDataAnnotationsLocalization();
 
 
+
 builder.Services.Configure<RequestLocalizationOptions>(opt =>
 {
     var supportedCultures = new[] { "en", "ro", "ru" };
@@ -24,6 +42,7 @@ builder.Services.Configure<RequestLocalizationOptions>(opt =>
         .AddSupportedCultures(supportedCultures)
         .AddSupportedUICultures(supportedCultures);
 });
+
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
@@ -56,18 +75,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         };
     });
 
-builder.Services.AddControllers().AddFluentValidation(options =>
-{
-    // Automatic registration of validators in assembly
-    //options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-    options.RegisterValidatorsFromAssemblyContaining<Program>();
-    options.LocalizationEnabled = true;
-});
 
-ValidatorViewModel validatorViewModel = new ValidatorViewModel(builder.Services);
-//builder.Services.AddRazorPages()
-//    .AddViewLocalization()
-//    .AddSessionStateTempDataProvider();
 
 
 
