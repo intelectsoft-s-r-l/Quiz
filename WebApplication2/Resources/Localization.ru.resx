@@ -366,4 +366,7 @@
   <data name="zeroRecords" xml:space="preserve">
     <value>Записи отсутствуют</value>
   </data>
+  <data name="successRecoverPWMessage" xml:space="preserve">
+    <value>Проверьте вашу электронную почту</value>
+  </data>
 </root>

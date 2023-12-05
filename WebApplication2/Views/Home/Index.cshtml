@@ -5,21 +5,13 @@
     ViewBag.Title = Localization.Questionnaires;
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
-
+<link rel="stylesheet" href="~/css/TableQ.css">
 <!-- DataTables -->
 <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 <link href="~/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
 <!-- Responsive datatable examples -->
 <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-<style>
-    .ellipsis {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100px; /* Укажите максимальную ширину, при необходимости */
-    }
-</style>
 
 
 
@@ -36,28 +28,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
-
                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
                             <th>@Localization.TitleQ</th>
-                            <th style="width: 20px!important;"></th>
-
-
+                            <th></th>
                         </tr>
                     </thead>
-
 
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td class="ellipsis">@item.name</td>
-                                <td style="width: 20px!important;">
+                                <td style ="width: 10vw!important;">
                                     <a type="button" href="@Url.Action("Detail", "Home", new {id = item.oid})" class="px-3 text-info"><i class="uil-info-circle font-size-20"></i></a>
                                     <a type="button" href="@Url.Action("Upsert", "Home", new {id = item.oid})" class="px-3 text-primary"><i class="bx bx-edit font-size-20"></i></a>
-                                    <a type="button" style="width: 100%;" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@item.oid, 'xlModalBody')"><i class="uil-trash-alt font-size-20"></i></a>
+                                    <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@item.oid, 'xlModalBody')"><i class="uil-trash-alt font-size-20"></i></a>
                                 </td>
                             </tr>
                         }

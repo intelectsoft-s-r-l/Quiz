@@ -4553,6 +4553,10 @@
       "PackagePath": "staticwebassets\\assets\\libs\\waypoints\\testem.json"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\css\\TableQ.css",
+      "PackagePath": "staticwebassets\\css\\TableQ.css"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

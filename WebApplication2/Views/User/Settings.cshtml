@@ -1,9 +1,7 @@
 ﻿@using WebApplication2.ViewModels;
 @model User
 @{
-    ViewBag.Title = "Settings";
-    ViewBag.pTitle = "Settings";
-    ViewBag.pageTitle = "Profile";
+    ViewBag.Title = Localization.Settings;
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 <script src="~/js/app.js"></script>
@@ -117,8 +115,7 @@
         </div> <!-- end row-->
     </div>
 </div>
-<!-- end row -->
-<!-- JAVASCRIPT -->
+
 <script>
     drawPatrialView("/User/ChangePassword", "changePassword");
 </script>

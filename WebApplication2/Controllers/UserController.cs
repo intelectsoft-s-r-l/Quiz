@@ -53,10 +53,8 @@ namespace WebApplication2.Controllers
 
 
         [HttpGet]   //!
-        public IActionResult ChangePassword()
-        {
-            return PartialView("~/Views/User/_ChangePassword.cshtml");
-        }
+        public IActionResult ChangePassword() => PartialView("~/Views/User/_ChangePassword.cshtml");
+        
 
         [HttpPost]  
         public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)   //FromBody
@@ -64,12 +62,12 @@ namespace WebApplication2.Controllers
 
             if (!ModelState.IsValid)
             {
-                var errors = ModelState.Where(x => x.Value.Errors.Any())
+               /* var errors = ModelState.Where(x => x.Value.Errors.Any())
                                        .ToDictionary(
                                             kvp => kvp.Key,
                                             kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                                        );
-
+               */
                 //Console.WriteLine($"Validation Errors: {string.Join(", ", errors.Values.SelectMany(x => x))}");
 
                 //return Json(new { StatusCode = 500, Message = Localization.UnSuccessPW/*string.Join(", ", errors.Values.SelectMany(x => x))*/ });

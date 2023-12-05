@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using WebApplication2.Interface;
 using WebApplication2.Models;
+using WebApplication2.Repository;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
@@ -14,11 +15,13 @@ namespace WebApplication2.Controllers
     public class HomeController : BaseController
     {
         private readonly IQuizRepository _quizRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IQuizRepository quizRepository, IStringLocalizer<HomeController> localizer)
+        public HomeController(IQuizRepository quizRepository, IUserRepository userRepository, IStringLocalizer<HomeController> localizer)
         {
             _quizRepository = quizRepository;
+            _userRepository = userRepository;
             _localizer = localizer;
         }
 
@@ -46,12 +49,10 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet]
-        public IActionResult Detail(int id)
-        {
-            return View("~/Views/Home/Detail.cshtml", id);
+        public IActionResult Detail(int id) => View("~/Views/Home/Detail.cshtml", id);
 
-        }
 
+        [HttpGet]
         public async Task<IActionResult> GetInfoQuestionnaire(int id)
         {
             string token = GetToken();
@@ -78,7 +79,7 @@ namespace WebApplication2.Controllers
             return View("Error");
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> QuestionnaireResponses(int id)
         {
             string token = GetToken();
@@ -101,6 +102,7 @@ namespace WebApplication2.Controllers
             return View("Error");
         }
 
+        [HttpGet]
         public async Task<IActionResult> QuestionnaireResponse(int id)
         {
             string token = GetToken();
@@ -161,55 +163,44 @@ namespace WebApplication2.Controllers
         {
 
             string token = GetToken();
-            using (var httpClientForProfileInfo = new HttpClient())
+            
+            var userData = await _userRepository.getProfileInfo(token);
+
+            if (userData.ErrorCode == 143)
             {
+                await RefreshToken();
+                return await UpsertQuestionnaire(upsertQuestionnaireVM);
+            }
+            else if (userData.ErrorCode == 118)
+            {
+                return View("~/Views/Account/Login.cshtml");
+            }
+            else if (userData.ErrorCode == 0)
+            {
+                var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
 
-                var apiUrlForGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlForGetProfileInfo);
-
-                if (responseGetProfileInfo.IsSuccessStatusCode)
+                //Correct model for post
+                //Data from body(scritp post)
+                UpsertQuestionnaire upsertQuestionnaire = new UpsertQuestionnaire()
                 {
+                    oid = upsertQuestionnaireVM.id,
+                    name = upsertQuestionnaireVM.Title,
+                    questions = questionsVM.questions,
+                    companyOid = userData.User.CompanyID,
+                    token = token,
+                    company = userData.User.Company
+                };
 
-                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                    if (userData.ErrorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await UpsertQuestionnaire(upsertQuestionnaireVM);
-                    }
-                    else if (userData.ErrorCode == 118)
-                    {
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    else if (userData.ErrorCode == 0)
-                    {
-                        var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
-
-                        //Correct model for post
-                        //Data from body(scritp post)
-                        UpsertQuestionnaire upsertQuestionnaire = new UpsertQuestionnaire()
-                        {
-                            oid = upsertQuestionnaireVM.id,
-                            name = upsertQuestionnaireVM.Title,
-                            questions = questionsVM.questions,
-                            companyOid = userData.User.CompanyID,
-                            token = token,
-                            company = userData.User.Company
-                        };
-
-                        var questionnaireBaseResponsed = await _quizRepository.Upsert(upsertQuestionnaire);
-                        if (questionnaireBaseResponsed.errorCode == 143)
-                        {
-                            await RefreshToken();
-                            return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
-                        }
-                        else if (questionnaireBaseResponsed.errorCode == 0)
-                        {
-                            return Json(new { StatusCode = 200 });
-                            //return RedirectToAction("Index");
-                        }
-                    }
-
+                var questionnaireBaseResponsed = await _quizRepository.Upsert(upsertQuestionnaire);
+                if (questionnaireBaseResponsed.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
+                }
+                else if (questionnaireBaseResponsed.errorCode == 0)
+                {
+                    return Json(new { StatusCode = 200 });
+                    //return RedirectToAction("Index");
                 }
             }
             return View("Error");
@@ -254,10 +245,7 @@ namespace WebApplication2.Controllers
             else
                 return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
 
-
         }
-
-
 
 
     }

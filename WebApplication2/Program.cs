@@ -1,11 +1,11 @@
 using FluentValidation.AspNetCore;
 using ISAdminWeb.Common;
-using ISAdminWeb.Models;
 using ISAdminWeb.Models.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;
 using WebApplication2.Interface;
 using WebApplication2.Repository;
+using WebApplication2.Volidator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +25,13 @@ builder.Services.AddControllers().AddFluentValidation(options =>
 ValidatorViewModel validatorViewModel = new ValidatorViewModel(builder.Services);
 
 builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
+
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
+builder.Services.AddScoped<IQuizRepository, QuizRepository>();
+
+
 // Add services to the container.
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -44,9 +51,6 @@ builder.Services.Configure<RequestLocalizationOptions>(opt =>
 });
 
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
-builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();

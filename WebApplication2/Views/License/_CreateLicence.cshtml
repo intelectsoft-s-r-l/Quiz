@@ -1,17 +1,48 @@
 ﻿@using WebApplication2.ViewModels;
 @model GenerateLicenseViewModel
-<form method="post" asp-action="CreateLicence" asp-controller="License">
+
+<form method="POST" id="generateLicenseForm">
     <div class="row mb-4">
         <label asp-for="quantity" class="form-label">@Localization.quantity</label>
         <div class="col-md-10 col-8">
-            <input asp-for="quantity" type="number" class="form-control"  placeholder="@Localization.quantityText:" min="1">
-
+            <input asp-for="quantity" type="number" class="form-control" id="quantity" value="0" placeholder="@Localization.quantityText:" />
+            <span asp-validation-for="quantity" class="text-danger"></span>
         </div>
-        <div class="col-md-2 col-4 d-grid">
-            <button type="submit" class="btn btn-success"> <i class="uil uil-file-alt me-1"></i> @Localization.Create</button>
+        <div class="col-md-2 col-4">
+            <button type="submit"  style="width: 90%;" class="btn btn-success"> <i class="uil uil-file-alt me-1"></i> @Localization.Create</button>
         </div>
     </div>
 </form>
 
+<script>
+    $(document).ready(function () {
+        $('#generateLicenseForm').on('submit', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var licenseModel = {
+                quantity: $('#quantity').val(),
+            };
+            $.ajax({
+                url: '../License/CreateLicence',
+                cache: false,
+                type: "POST",
+                data: JSON.stringify(licenseModel),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $('#generateLicenseForm').find('.text-danger').remove();
+                    if (data.statusCode === 200) {
+                        window.location.href = '/License/Index';
+                    } else if (data.statusCode === 500) {
+                        
+                    }
+                    else {
+                        $('#createlicense').html(data);
+                    }
 
+                },
 
+            });
+
+        });
+    });
+</script>

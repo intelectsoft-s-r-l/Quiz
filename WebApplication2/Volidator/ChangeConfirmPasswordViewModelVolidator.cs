@@ -6,17 +6,24 @@ namespace WebApplication2.Volidator
 {
     public class ChangeConfirmPasswordViewModelValidator : AbstractValidator<ChangeConfirmPasswordViewModel>
     {
+        const string passwordPattern = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[\{\}@?])[A-Za-z\d\{\}@?]{8,}$";
+
         public ChangeConfirmPasswordViewModelValidator()
         {
             RuleFor(x => x.OldPassword)
-                .NotEmpty().WithName(Localization.OldPassword);//.WithMessage("Пожалуйста, введите старый пароль.");
+                .NotEmpty().WithName(Localization.OldPassword);
 
             RuleFor(x => x.NewPassword)
-                .NotEmpty()/*.WithMessage("Пожалуйста, введите новый пароль.")*/.MinimumLength(8).MaximumLength(20).WithName(Localization.NewPassword);//.WithMessage("Новый пароль должен содержать как минимум 6 символов.");
+                .NotEmpty()
+                .MinimumLength(8)
+                .MaximumLength(20)
+                .Matches(passwordPattern)
+                .WithName(Localization.NewPassword);
 
             RuleFor(x => x.ConfirmPassword)
-                .NotEmpty()/*.WithMessage("Пожалуйста, подтвердите новый пароль.")*/
-                .Equal(x => x.NewPassword).WithName(Localization.ConfirmPassword);//.WithMessage("Подтверждение пароля не совпадает с новым паролем.");
+                .NotEmpty()
+                .Equal(x => x.NewPassword)
+                .WithName(Localization.ConfirmPassword);
         }
     }
 

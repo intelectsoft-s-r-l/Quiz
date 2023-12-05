@@ -366,4 +366,7 @@
   <data name="zeroRecords" xml:space="preserve">
     <value>Fără înregistrări</value>
   </data>
+  <data name="successRecoverPWMessage" xml:space="preserve">
+    <value>Verifică-ți e-mail adresa!</value>
+  </data>
 </root>

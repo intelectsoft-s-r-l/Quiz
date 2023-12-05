@@ -8,7 +8,7 @@ namespace WebApplication2.Volidator
     {
         public GenerateLicenseViewModelVolidator()
         {
-            RuleFor(x => x.quantity).NotEmpty().InclusiveBetween(1, 100).WithName(Localization.quantity);
+            RuleFor(x => x.quantity).NotEmpty().NotNull().InclusiveBetween(1, 100).WithName(Localization.quantity);
         }
     }
 }

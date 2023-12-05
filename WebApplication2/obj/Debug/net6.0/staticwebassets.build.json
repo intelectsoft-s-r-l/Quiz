@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lAccScPzU8qpZtTwBqFG3Qynf9SCqu+F/tMkLpQvzPc=",
+  "Hash": "m3YRtyE7mDsfQIy1Y11EIb4Yg+Ff9+ePFnSKlQpCwcA=",
   "Source": "WebApplication2",
   "BasePath": "_content/WebApplication2",
   "Mode": "Default",
@@ -19378,6 +19378,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\libs\\waypoints\\testem.json"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\css\\TableQ.css",
+      "SourceId": "WebApplication2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\",
+      "BasePath": "_content/WebApplication2",
+      "RelativePath": "css/TableQ.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\TableQ.css"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\favicon.ico",

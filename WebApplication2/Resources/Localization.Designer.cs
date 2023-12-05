@@ -718,6 +718,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Check your email adress!.
+        /// </summary>
+        public static string successRecoverPWMessage {
+            get {
+                return ResourceManager.GetString("successRecoverPWMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Are you sure?.
         /// </summary>
         public static string Sure {

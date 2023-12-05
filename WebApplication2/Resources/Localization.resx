@@ -366,4 +366,7 @@
   <data name="zeroRecords" xml:space="preserve">
     <value>No matching records found</value>
   </data>
+  <data name="successRecoverPWMessage" xml:space="preserve">
+    <value>Check your email adress!</value>
+  </data>
 </root>

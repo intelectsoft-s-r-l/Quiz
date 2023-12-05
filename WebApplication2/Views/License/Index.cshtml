@@ -18,10 +18,14 @@
     <div class="col-xl-12">
         <div class="button-items">
 
-            <div id="licenses"></div>
             <button id="addButtonPar" type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.Generatelicense</button>
             <div id="visualCreate" style="display: none;">
-                <div id="Createlicense"></div>
+                <div class="card">
+
+                    <div style="padding: 10px;" id="createlicense"></div>
+
+                </div>
+
             </div>
             <br />
         </div>
@@ -46,15 +50,15 @@
 
 
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var license in Model)
                         {
                             <tr>
-                                <td>@item.licenseActivated</td>
-                                @if (item.licenseStatus == 0)
+                                <td>@license.licenseActivated</td>
+                                @if (license.licenseStatus == 0)
                                 {
                                     <th><span class="badge bg-soft-primary font-size-15" style="width: 100%;">@Localization.NotActivated</span></th>
                                 }
-                                else if (item.licenseStatus == 1)
+                                else if (license.licenseStatus == 1)
                                 {
                                     <th><span class="badge bg-soft-success font-size-15" style="width: 100%;">@Localization.Activated</span></th>
                                 }
@@ -62,30 +66,30 @@
                                 {
                                     <th><span class="badge bg-soft-danger font-size-15" style="width: 100%;">@Localization.Disabled</span></th>
                                 }
-                                <th>@item.deviceModel</th>
-                                <th>@item.deviceName</th>
-                                <th>@item.battery</th>
-                                <td style="width: 120px!important;">
-                                    <a type="button" class="px-3 text-warning" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Detail/'+'@item.oid', 'lgModalBody')"><i class="uil uil-file-info-alt font-size-18"></i></a>
-                                    <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Delete/'+'@item.oid', 'lgModalBody')"><i class="uil-trash-alt  font-size-18"></i></a>
+                                <th>@license.deviceModel</th>
+                                <th>@license.deviceName</th>
+                                <th>@license.battery</th>
+                                <td>
                                     <div class="dropdown float-end">
                                         <a class="text-body dropdown-toggle font-size-18" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
                                             <i class="uil uil-ellipsis-v"></i>
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            @if (item.licenseStatus != 1)
+                                            @if (license.licenseStatus != 1)
                                             {
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=1', 'lgModalBody')">@Localization.Activate</a>
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@license.oid&option=1', 'lgModalBody')">@Localization.Activate</a>
                                             }
-                                            @if (item.licenseStatus != 2)@*Enum*@
+                                            @if (license.licenseStatus != 2)@*Enum*@
                                             {
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=2', 'lgModalBody')">@Localization.Deactivate</a>
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@license.oid&option=2', 'lgModalBody')">@Localization.Deactivate</a>
                                             }
-                                            <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@item.oid&option=3', 'lgModalBody')">@Localization.Release</a>
+                                            <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@license.oid&option=3', 'lgModalBody')">@Localization.Release</a>
 
                                         </div>
                                     </div>
+                                    <a type="button" class="px-3 text-warning" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Detail/'+'@license.oid', 'lgModalBody')"><i class="uil uil-file-info-alt font-size-18"></i></a>
+                                    <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Delete/'+'@license.oid', 'lgModalBody')"><i class="uil-trash-alt  font-size-18"></i></a>
                                 </td>
                             </tr>
                         }
@@ -98,18 +102,16 @@
 
 
 
-<!-- Responsive datatable examples -->
+<!-- Responsive datatable examples 
 <link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 <script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<!-- Buttons examples -->
-<!-- Responsive examples -->
 <script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>-->
 
 
 <script>
-    drawPatrialView("/License/CreateLicence", "Createlicense");
+    drawPatrialView("/License/CreateLicence", "createlicense");
     $(document).ready(function () {
         $("#addButtonPar").click(function () {
             $("#visualCreate").show();
@@ -139,10 +141,10 @@
                     next: "@Localization.next",
                     last: "@Localization.last"
                 }/*,
-                    aria: {
-                        sortAscending: ": активировать для сортировки столбца по возрастанию",
-                        sortDescending: ": активировать для сортировки столбца по убыванию"
-                    }*/
+                        aria: {
+                            sortAscending: ": активировать для сортировки столбца по возрастанию",
+                            sortDescending: ": активировать для сортировки столбца по убыванию"
+                        }*/
             },
             columnDefs: [
                 { orderable: false, targets: [5] }

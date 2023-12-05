@@ -59,7 +59,7 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult Action(string oid, int option)
         {
-            if (oid != null && option > 0)
+            if (!string.IsNullOrEmpty(oid) && option > 0)
             {
                 if (option == 1)
                     return PartialView("~/Views/License/_Activate.cshtml", oid);
@@ -148,20 +148,20 @@ namespace WebApplication2.Controllers
 
 
         [HttpGet]
-        public IActionResult CreateLicence()
-        {
-            return PartialView("~/Views/License/_CreateLicence.cshtml");
-        }
+        public IActionResult CreateLicence() => PartialView("~/Views/License/_CreateLicence.cshtml");
+
 
         [HttpPost] //418Line PostAsync?
-        public async Task<IActionResult> CreateLicence(GenerateLicenseViewModel generateLicenseVM)
+        public async Task<IActionResult> CreateLicence([FromBody] GenerateLicenseViewModel generateLicenseVM)
         {
             if (!ModelState.IsValid)
-                return RedirectToAction(nameof(LicenseController.Index), "License");
+            {
+                return PartialView("~/Views/License/_CreateLicence.cshtml", generateLicenseVM);
 
-
-
-            string token = GetToken();
+            }
+            else
+            {
+                string token = GetToken();
                 generateLicenseVM.token = token;
                 var postLicenseBaseResponse = await _licenseRepository.GenerateLicense(generateLicenseVM);
                 if (postLicenseBaseResponse.errorCode == 143)
@@ -171,19 +171,16 @@ namespace WebApplication2.Controllers
                 }
                 else if (postLicenseBaseResponse.errorCode != 0)
                 {
-                return View("Error");
+                    return View("Error");
                 }
-            return RedirectToAction(nameof(LicenseController.Index), "License");
-
+                //return RedirectToAction(nameof(LicenseController.Index), "License");
+                return Json(new { StatusCode = 200, Message = "Ok" });
+            }
         }
 
 
         [HttpGet]
-        public IActionResult Delete(string id)
-        {
-            return PartialView("~/Views/License/Delete.cshtml", id);
-
-        }
+        public IActionResult Delete(string id) => PartialView("~/Views/License/Delete.cshtml", id);
 
         [HttpPost]
         public async Task<IActionResult> DeleteLicense(string oid)
