@@ -79,7 +79,19 @@
                         <div id="detail_@i">
                             <div class="form-group">
                                 <label asp-for="@item.gradingType">@Localization.GradingType</label>
-                                <p><strong>@item.gradingType</strong></p>
+                                @{
+                                    string answerLocalization = "";
+                                    switch (item.gradingType)
+                                    {
+                                        case GradingType.YesNo: answerLocalization = Localization.YesorNo; break;
+                                        case GradingType.Point10Score: answerLocalization = Localization.Scorepoints; break;
+                                        case GradingType.SingleAnswerVariant: answerLocalization = Localization.Oneanswer; break;
+                                        case GradingType.MultipleAnswerVariant: answerLocalization = Localization.Multianswer; break;
+                                        default:
+                                            answerLocalization = item.gradingType.ToString(); break;
+                                    }
+                                }
+                                <p><strong>@answerLocalization</strong></p>
                             </div>
                             <div class="form-group">
                                 <label asp-for="@item.comentary">@Localization.Comment</label>

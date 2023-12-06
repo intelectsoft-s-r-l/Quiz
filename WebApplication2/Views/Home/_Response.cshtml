@@ -5,23 +5,22 @@
 <div class="modal-body">
     <div class="col-sm-12">
         <ol>
-        @foreach (var item in Model)
-        {
-            @if (item.response != null)
+            @foreach (var item in Model)
             {
+                @if (item.response != null)
+                {
 
-                    <h2>
-                    <li><strong>@item.question</strong></li></h2>
-                <ul>
+                    <h2><li><strong>@item.question</strong></li></h2>
+                    <ul>
 
-                    @foreach (var res in item.response)
-                    {
-                        <li><p>@res</p></li>
-                    }
+                        @foreach (var res in item.response)
+                        {
+                            <li><p>@res</p></li>
+                        }
 
-                </ul>
+                    </ul>
+                }
             }
-        }
         </ol>
     </div>
 </div>

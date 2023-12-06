@@ -211,7 +211,7 @@
     <value>Тип вопроса</value>
   </data>
   <data name="HideAll" xml:space="preserve">
-    <value>Скрыть все</value>
+    <value>Скрыть</value>
   </data>
   <data name="info" xml:space="preserve">
     <value>Показаны записи с _START_ по _END_ из _TOTAL_</value>
@@ -325,7 +325,7 @@
     <value>Настройки</value>
   </data>
   <data name="ShowAll" xml:space="preserve">
-    <value>Показать все</value>
+    <value>Показать</value>
   </data>
   <data name="SignOut" xml:space="preserve">
     <value>Выход</value>
