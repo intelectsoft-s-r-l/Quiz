@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using WebApplication2.Interface;
-using WebApplication2.Models;
-using WebApplication2.Repository;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
@@ -163,7 +161,7 @@ namespace WebApplication2.Controllers
         {
 
             string token = GetToken();
-            
+
             var userData = await _userRepository.getProfileInfo(token);
 
             if (userData.ErrorCode == 143)

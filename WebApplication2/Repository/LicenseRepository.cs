@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Text;
-using WebApplication2.Controllers;
 using WebApplication2.Interface;
 using WebApplication2.Models.API;
 using WebApplication2.Models.API.License;
@@ -96,7 +94,7 @@ namespace WebApplication2.Repository
                 {
                     var baseResponsedData = await responsePostLicense.Content.ReadAsAsync<BaseErrors>();
                     return baseResponsedData;
-                    
+
                 }
                 return new BaseErrors() { errorCode = -1 };
             }

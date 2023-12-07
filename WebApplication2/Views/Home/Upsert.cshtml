@@ -72,13 +72,13 @@
                                     @if (i > 0)
                                     {
                                         <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                   
-                                    <br/>
-                                    <br />
+
+                                        <br />
+                                        <br />
                                     }
                                     <div class="form-group">
                                         <label asp-for="@item.question">@Localization.QuestionText</label>
-                                        <input type="text" name="@item.question" asp-for="@item.question" class=" form-control" required  id="questionName_@i" />
+                                        <input type="text" name="@item.question" asp-for="@item.question" class=" form-control" required id="questionName_@i" />
                                     </div>
                                     <br />
                                     <div class="form-group">
@@ -96,7 +96,7 @@
                                         <label asp-for="@item.comentary">@Localization.Comment</label>
                                         <input type="text" name="@item.comentary" asp-for="@item.comentary" class="form-control" required id="questionComentary_@i" />
                                     </div>
-                                    <div class="answers-container">                                        
+                                    <div class="answers-container">
                                         @{
                                             int j = 0;
                                         }
@@ -171,33 +171,33 @@
 
             function addQuestion() {
                 var questionHtml = `<div class="question" id="question_${questionIndex}">
-                                     <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                    <div class="form-group">
-                                        <label for="Questions_${questionIndex}__Text">@Localization.QuestionText</label>
-                                        <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
-                                    </div>
-                                            <br/>
-                                    <div class="form-group">
-                                        <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
-                                        <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
-                                            <option value="1">@Localization.YesorNo</option>
-                                            <option value="2">@Localization.Scorepoints</option>
-                                            <option value="3">@Localization.Oneanswer</option>
-                                            <option value="4">@Localization.Multianswer</option>
-                                        </select>
-                                    </div>
-                                   <br/>
-                                    <div class="form-group">
-                                        <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
-                                        <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
-                                    </div>
-                                    <div class="answers-container" style="display: none;">
-                                     <br/>
-                                     <h4>@Localization.Responses</h4>
-                                     <br/>
-                                    </div>
-                                    <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                                </div>`;
+                                <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                            <div class="form-group">
+                                <label for="Questions_${questionIndex}__Text">@Localization.QuestionText</label>
+                                <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
+                            </div>
+                                    <br/>
+                            <div class="form-group">
+                                <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
+                                <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
+                                    <option value="1">@Localization.YesorNo</option>
+                                    <option value="2">@Localization.Scorepoints</option>
+                                    <option value="3">@Localization.Oneanswer</option>
+                                    <option value="4">@Localization.Multianswer</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
+                                <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
+                            </div>
+                            <div class="answers-container" style="display: none;">
+                                <br/>
+                                <h4>@Localization.Responses</h4>
+                                <br/>
+                            </div>
+                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
+                        </div>`;
 
                 $("#questions-container").append(questionHtml);
                 questionIndex++;
@@ -272,19 +272,19 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
-                                            <div class="form-group">
-                                                 <div class="row align-items-center">
-                                                    <div class="col-lg-11">
-                                                        <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
-                                                        <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control mb-4" required id="answerVal_${questionIndex}_${answerIndex}" />
+                                                    <div class="form-group">
+                                                         <div class="row align-items-center">
+                                                            <div class="col-lg-11">
+                                                                <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
+                                                                <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control mb-4" required id="answerVal_${questionIndex}_${answerIndex}" />
+                                                            </div>
+                                                            <div class="col-lg-1">
+                                                               <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
+                                                               <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-lg-1">
-                                                       <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
-                                                       <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>`;
+                                                </div>`;
 
                 $answersContainer.append(answerHtml);
                 addRemoveAnswerAction();
@@ -299,64 +299,64 @@
             }
 
 
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('submit', function (e) {
-                           // e.preventDefault();
-                            //e.stopPropagation();
-                            if (form.checkValidity() === true) {
-                                    e.preventDefault();
-                                    var questions = [];
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (e) {
+                    // e.preventDefault();
+                    //e.stopPropagation();
+                    if (form.checkValidity() === true) {
+                        e.preventDefault();
+                        var questions = [];
 
-                                    //debugger
-                                    let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
-                                    divsSetQuestions.each(function (e, element) {
-                                        var answerRes = [];
-                                        let questionName = $("#" + element.id).find("input[id*='questionName_']");
-                                        let questionGradingType = $("#" + element.id).find("select[id*='questionGradingType_']");
-                                        let questionComentary = $("#" + element.id).find("input[id*='questionComentary_']");
-                                        let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
-                                        if (answerVal.length > 0) {
-                                            answerVal.each(function (e, answElement) {
-                                                answerRes.push(answElement.value);
-                                            });
-                                        }
-                                        else {
-                                            answerRes.push(null);
-                                        }
-                                        questions.push({ question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, answerVariants: answerRes });
-                                    });
-
-                                    var Quest = {
-                                        id: $('#mainId').val(),
-                                        Title: $('#defaultconfig').val(),
-                                        Questions: JSON.stringify({ questions }),
-                                    };
-                                    //debugger
-                                    $.ajax({
-                                        url: '/Home/UpsertQuestionnaire',
-                                        cache: false,
-                                        type: "POST",
-                                        data: JSON.stringify(Quest),
-                                        contentType: "application/json; charset=utf-8",
-                                        success: function (data) {
-                                            if (data.statusCode === 200) {
-                                                window.location.href = '/Home/Index';
-                                            } else {
-
-                                            }
-                                        },
-
-                                    });
-                                
+                        //debugger
+                        let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
+                        divsSetQuestions.each(function (e, element) {
+                            var answerRes = [];
+                            let questionName = $("#" + element.id).find("input[id*='questionName_']");
+                            let questionGradingType = $("#" + element.id).find("select[id*='questionGradingType_']");
+                            let questionComentary = $("#" + element.id).find("input[id*='questionComentary_']");
+                            let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
+                            if (answerVal.length > 0) {
+                                answerVal.each(function (e, answElement) {
+                                    answerRes.push(answElement.value);
+                                });
                             }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
+                            else {
+                                answerRes.push(null);
+                            }
+                            questions.push({ question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, answerVariants: answerRes });
+                        });
 
-            
+                        var Quest = {
+                            id: $('#mainId').val(),
+                            Title: $('#defaultconfig').val(),
+                            Questions: JSON.stringify({ questions }),
+                        };
+                        //debugger
+                        $.ajax({
+                            url: '/Home/UpsertQuestionnaire',
+                            cache: false,
+                            type: "POST",
+                            data: JSON.stringify(Quest),
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                if (data.statusCode === 200) {
+                                    window.location.href = '/Home/Index';
+                                } else {
+
+                                }
+                            },
+
+                        });
+
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
+
         });
     </script>
 }

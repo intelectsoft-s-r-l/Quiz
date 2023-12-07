@@ -2,14 +2,14 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 90vw !important; /* Укажите максимальную ширину, при необходимости */
+    width: 90vw;
 }
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 868px) {
     .ellipsis {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 100px; /* Укажите максимальную ширину, при необходимости */
+        max-width: 100px;
     }
 }

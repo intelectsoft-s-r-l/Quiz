@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Localization;
-using Newtonsoft.Json;
-using System.Security.Claims;
+﻿using Newtonsoft.Json;
 using System.Text;
-using WebApplication2.Controllers;
 using WebApplication2.Interface;
 using WebApplication2.Models;
-using WebApplication2.Models.API.Questionnaires;
 using WebApplication2.Models.Enum;
 using WebApplication2.ViewModels;
 
@@ -28,7 +23,7 @@ namespace WebApplication2.Repository
                     return await responseAuth.Content.ReadAsAsync<GetProfileInfo>();
 
                 return new GetProfileInfo { ErrorCode = -1 };
-                    
+
             }
         }
 
