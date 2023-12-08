@@ -52,7 +52,7 @@
 
 
 <script>
-   $(document).ready(function () {
+    $(document).ready(function () {
         if ($.fn.DataTable.isDataTable('#datatable')) {
             // Если да, уничтожаем текущую инициализацию
             $('#datatable').DataTable().destroy();
@@ -75,10 +75,10 @@
                     next: "@Localization.next",
                     last: "@Localization.last"
                 }/*,
-                aria: {
-                    sortAscending: ": активировать для сортировки столбца по возрастанию",
-                    sortDescending: ": активировать для сортировки столбца по убыванию"
-                }*/
+                    aria: {
+                        sortAscending: ": активировать для сортировки столбца по возрастанию",
+                        sortDescending: ": активировать для сортировки столбца по убыванию"
+                    }*/
             },
             columnDefs: [
                 { orderable: false, targets: [1] }

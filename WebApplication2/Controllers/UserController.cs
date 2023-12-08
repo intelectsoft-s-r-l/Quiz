@@ -56,7 +56,7 @@ namespace WebApplication2.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)   //FromBody
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)   
         {
 
             if (!ModelState.IsValid)

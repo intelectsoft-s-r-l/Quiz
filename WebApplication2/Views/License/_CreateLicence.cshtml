@@ -9,7 +9,7 @@
             <span asp-validation-for="quantity" class="text-danger"></span>
         </div>
         <div class="col-md-2 col-4">
-            <button type="submit"  style="width: 90%;" class="btn btn-success"> <i class="uil uil-file-alt me-1"></i> @Localization.Create</button>
+            <button type="submit" style="width: 90%;" class="btn btn-success"> <i class="uil uil-file-alt me-1"></i> @Localization.Create</button>
         </div>
     </div>
 </form>
@@ -33,7 +33,7 @@
                     if (data.statusCode === 200) {
                         window.location.href = '/License/Index';
                     } else if (data.statusCode === 500) {
-                        
+
                     }
                     else {
                         $('#createlicense').html(data);

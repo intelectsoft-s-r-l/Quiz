@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebApplication2.ViewModels
+﻿namespace WebApplication2.ViewModels
 {
     public class ChangeConfirmPasswordViewModel
     {

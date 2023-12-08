@@ -19,7 +19,7 @@
                     <tr>
                         <td style="width: 90vw!important;">@i</td>
                         <td style="width: 10vw!important;">
-                           @*  style="width: 100%; border-color: #00ce78; background-color:#00ce78" *@
+                            @*  style="width: 100%; border-color: #00ce78; background-color:#00ce78" *@
                             <button style="width: 100%" type="button" class="btn btn-success waves-effect waves-light"
                                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl"
                                     onclick="drawPatrialView('/Home/QuestionnaireResponse/' + @item.oid, 'xlModalBody')">
@@ -62,10 +62,10 @@
                     next: "@Localization.next",
                     last: "@Localization.last"
                 }/*,
-                    aria: {
-                        sortAscending: ": активировать для сортировки столбца по возрастанию",
-                        sortDescending: ": активировать для сортировки столбца по убыванию"
-                    }*/
+                        aria: {
+                            sortAscending: ": активировать для сортировки столбца по возрастанию",
+                            sortDescending: ": активировать для сортировки столбца по убыванию"
+                        }*/
             },
             columnDefs: [
                 { orderable: false, targets: [1] }
