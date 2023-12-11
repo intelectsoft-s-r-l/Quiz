@@ -13,7 +13,6 @@ namespace WebApplication2.Controllers
     public class BaseController : Controller
     {
 
-
         public string GetToken()
         {
             try

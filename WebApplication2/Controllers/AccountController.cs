@@ -51,12 +51,7 @@ namespace WebApplication2.Controllers
                 if (userData.ErrorCode == 0)
                 {
                     List<Claim> userClaims = new List<Claim>();
-                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()));
-                    userClaims.Add(new Claim(ClaimTypes.Email, userData.User.Email));
-                    userClaims.Add(new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName));
-                    userClaims.Add(new Claim("Company", userData.User.Company));
-                    userClaims.Add(new Claim("PhoneNumber", userData.User.PhoneNumber));
-                    userClaims.Add(new Claim(".AspNetCore.Admin", userData.Token));
+
 
                     switch (GetLanguageCookie())
                     {
@@ -67,7 +62,7 @@ namespace WebApplication2.Controllers
                         case "ru":
                             userData.User.UiLanguage = EnUiLanguage.RU; break;
                         default:
-                            break;
+                            userData.User.UiLanguage = EnUiLanguage.RU; break;
                     }
 
 
@@ -83,7 +78,12 @@ namespace WebApplication2.Controllers
                     }
 
 
-
+                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()));
+                    userClaims.Add(new Claim(ClaimTypes.Email, userData.User.Email));
+                    userClaims.Add(new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName));
+                    userClaims.Add(new Claim("Company", userData.User.Company));
+                    userClaims.Add(new Claim("PhoneNumber", userData.User.PhoneNumber));
+                    userClaims.Add(new Claim(".AspNetCore.Admin", userData.Token));
                     userClaims.Add(new Claim("UiLanguage", GetLanguageCookie()));
 
                     Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });

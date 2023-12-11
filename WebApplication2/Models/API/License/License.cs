@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models.API.License
+﻿using WebApplication2.Models.Enum;
+
+namespace WebApplication2.Models.API.License
 {
     public class License
     {
@@ -7,7 +9,7 @@
         public int companyOid { get; set; }
         public string activationCode { get; set; }  //d
         public string licenseActivated { get; set; } //Time
-        public int licenseStatus { get; set; }  //
+        public EnLicenseStatus licenseStatus { get; set; }  //
         public string freeRam { get; set; } //!
         public string totalRam { get; set; }    //!
         public string deviceModel { get; set; } 

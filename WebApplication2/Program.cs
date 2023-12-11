@@ -9,6 +9,8 @@ using WebApplication2.Volidator;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddControllersWithViews();//.AddFluentValidation();
 //builder.Services.AddTransient<IValidator<AuthRecoverpwViewModel>, AuthRecoverpwViewModelVolidator>();

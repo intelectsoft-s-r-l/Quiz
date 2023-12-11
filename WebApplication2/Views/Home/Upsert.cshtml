@@ -125,17 +125,29 @@
                                                     <div class="answer">
                                                         <div class="form-group">
                                                             <div class="row align-items-center">
-                                                                <div class="col-lg-11">
-                                                                    <label asp-for="@answ">@Localization.AnswerText</label>
-                                                                    <input type="text" asp-for="@answ" class="form-control mb-4" required id="answerVal_@j" />
-                                                                </div>
-                                                                <div class="col-lg-1">
-                                                                    <button type='button' id='btnremoveAnsw' style="width: 100%; margin-top:6px;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                                                </div>
-                                                            </div>
+                                                                @if (j > 0)
+                                                                {
+                                                                    <div class="col-lg-11">
+                                                                        <label asp-for="@answ">@Localization.AnswerText</label>
+                                                                        <input type="text" asp-for="@answ" class="form-control mb-4" required id="answerVal_@i-@j" />
+                                                                    </div>
+                                                                    <div class="col-lg-1">
 
+                                                                        <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="col-lg-12">
+                                                                        <label asp-for="@answ">@Localization.AnswerText</label>
+                                                                        <input type="text" asp-for="@answ" class="form-control mb-4" required id="answerVal_@i-@j" />
+                                                                    </div>
+                                                                }
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                   
                                                     j++;
                                                 }
                                             }
@@ -182,6 +194,7 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+            
             var questionIndex = @i;
 
             function addQuestion() {
@@ -193,7 +206,7 @@
                                                 <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
                                             </div>
                                                     <br/>
-                                                                    <div id="otherDataQ_${questionIndex}">
+                                            <div id="otherDataQ_${questionIndex}">
                                             <div class="form-group">
                                                 <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
                                                 <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
@@ -227,14 +240,17 @@
             function addRemoveAction() {
                 $(".btnremove").each(function (index, item) {
                     $(item).click(function () {
+                        //debugger
                         var $question = $(this).closest('.question');
                         $question.remove();
                     });
                 });
             }
 
+
             function addRemoveAnswerAction() {
                 $("#questions-container").on("click", "#btnremoveAnsw", function () {
+                    //debugger
                     var $answer = $(this).closest('.answer');
                     $answer.remove();
                 });
@@ -289,19 +305,19 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
-                                                    <div class="form-group">
-                                                            <div class="row align-items-center">
-                                                            <div class="col-lg-11">
-                                                                <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
-                                                                <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control mb-4" required id="answerVal_${questionIndex}_${answerIndex}" />
-                                                            </div>
-                                                            <div class="col-lg-1">
-                                                                <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
-                                                                <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`;
+                                    <div class="form-group">
+                                            <div class="row align-items-center">
+                                            <div class="col-lg-11">
+                                                <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
+                                                <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
+                                                <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
 
                 $answersContainer.append(answerHtml);
                 addRemoveAnswerAction();

@@ -6,7 +6,7 @@ namespace WebApplication2.Volidator
 {
     public class ChangeConfirmPasswordViewModelValidator : AbstractValidator<ChangeConfirmPasswordViewModel>
     {
-        const string passwordPattern = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[\{\}@?])[A-Za-z\d\{\}@?]{8,}$";
+        const string passwordPattern = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[\{\}@?])[A-Za-z\d\{\}@?]{8,}$";  //regulag expresion (regex)
 
         public ChangeConfirmPasswordViewModelValidator()
         {

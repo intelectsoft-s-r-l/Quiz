@@ -1,4 +1,5 @@
 ﻿@using WebApplication2.Models.API.License;
+@using WebApplication2.Models.Enum;
 @model IEnumerable<License>
 
 
@@ -48,18 +49,26 @@
                         {
                             <tr>
                                 <td>@license.licenseActivated</td>
-                                @if (license.licenseStatus == 0)
-                                {
-                                    <th><span class="badge bg-soft-primary font-size-15" style="width: 100%;">@Localization.NotActivated</span></th>
+                                @{
+                                    string licenseStatusLocalization = license.licenseStatus switch
+                                    {
+                                        EnLicenseStatus.NotActivated => Localization.NotActivated,
+                                        EnLicenseStatus.Activated => Localization.Activated,
+                                        EnLicenseStatus.Disabled => Localization.Disabled,
+                                        _ => license.licenseStatus.ToString()
+                                    };
+
+                                    string badgeClass = license.licenseStatus switch
+                                    {
+                                        EnLicenseStatus.NotActivated => "bg-soft-primary",
+                                        EnLicenseStatus.Activated => "bg-soft-success",
+                                        EnLicenseStatus.Disabled => "bg-soft-danger",
+                                        _ => "bg-soft-primary"
+                                    };
                                 }
-                                else if (license.licenseStatus == 1)
-                                {
-                                    <th><span class="badge bg-soft-success font-size-15" style="width: 100%;">@Localization.Activated</span></th>
-                                }
-                                else
-                                {
-                                    <th><span class="badge bg-soft-danger font-size-15" style="width: 100%;">@Localization.Disabled</span></th>
-                                }
+
+                                <th><span class="badge @badgeClass font-size-15" style="width: 100%;">@licenseStatusLocalization</span></th>
+
                                 <th>@license.deviceModel</th>
                                 <th>@license.deviceName</th>
                                 <th>@license.battery</th>
@@ -70,11 +79,12 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            @if (license.licenseStatus != 1)
+
+                                            @if (license.licenseStatus != EnLicenseStatus.Activated)
                                             {
                                                 <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@license.oid&option=1', 'lgModalBody')">@Localization.Activate</a>
                                             }
-                                            @if (license.licenseStatus != 2)@*Enum*@
+                                            @if (license.licenseStatus != EnLicenseStatus.Disabled)
                                             {
                                                 <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg" onclick="drawPatrialView('/License/Action?oid=@license.oid&option=2', 'lgModalBody')">@Localization.Deactivate</a>
                                             }

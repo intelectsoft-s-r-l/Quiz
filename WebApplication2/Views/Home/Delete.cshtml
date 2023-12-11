@@ -4,8 +4,6 @@
 @model DetailQuestionnaire
 <style>
 
-
-    /* Stylish form container */
     .form-container {
         margin: 20px auto;
         padding: 20px;
@@ -15,6 +13,7 @@
     }
 
 </style>
+
 <form method="POST" asp-controller="Home" asp-action="DeleteQuestionnaire" id="DeleteQuestionnaireForm">
     <div class="modal-body">
         <div class="col-sm-12">
@@ -31,35 +30,36 @@
                 <ol>
                     @foreach (var question in Model.questionnaire.questions)
                     {
-                        <li>
-                            <h5>@question.question</h5>
-                            <p><strong>@Localization.Comment:</strong> @question.comentary</p>
-                            @{
-                                string answerLocalization = "";
-                                switch (question.gradingType)
+                        <h5><li>@question.question</li></h5>
+                        <p><strong>@Localization.Comment:</strong> @question.comentary</p>
+
+
+                        @*@{*@
+
+                        string answerLocalization = question.gradingType switch
+                        {
+                            GradingType.YesNo => Localization.YesorNo,
+                            GradingType.Point10Score => Localization.Scorepoints,
+                            GradingType.SingleAnswerVariant => Localization.Oneanswer,
+                            GradingType.MultipleAnswerVariant => Localization.Multianswer,
+                            _ => question.gradingType.ToString()
+                        };
+
+
+                        <p><strong>@Localization.GradingType:</strong> @answerLocalization</p>
+
+                        @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
+                        {
+                            <ul>
+                                @foreach (var answer in question.answerVariants)
                                 {
-                                    case GradingType.YesNo: answerLocalization = Localization.YesorNo; break;
-                                    case GradingType.Point10Score: answerLocalization = Localization.Scorepoints; break;
-                                    case GradingType.SingleAnswerVariant: answerLocalization = Localization.Oneanswer; break;
-                                    case GradingType.MultipleAnswerVariant: answerLocalization = Localization.Multianswer; break;
-                                    default:
-                                        answerLocalization = question.gradingType.ToString(); break;
+                                    <li><p>@answer</p></li>
+
                                 }
-                            }
-                            <p><strong>@Localization.GradingType:</strong> @answerLocalization</p>
+                            </ul>
+                        }
+                        <br />
 
-                            @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
-                            {
-                                <ul>
-                                    @foreach (var answer in question.answerVariants)
-                                    {
-                                        <li><p>@answer</p></li>
-
-                                    }
-                                </ul>
-                            }
-                            <br />
-                        </li>
                     }
                 </ol>
 
@@ -72,6 +72,7 @@
 
     </div>
 </form>
+
 <script>
     $(document).ready(function () {
         $('#DeleteQuestionnaireForm').on('submit', function (e) {

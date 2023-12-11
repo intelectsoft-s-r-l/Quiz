@@ -14,13 +14,13 @@ namespace WebApplication2.Controllers
     {
         private readonly IQuizRepository _quizRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IStringLocalizer<HomeController> _localizer;
+        //private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IQuizRepository quizRepository, IUserRepository userRepository, IStringLocalizer<HomeController> localizer)
+        public HomeController(IQuizRepository quizRepository, IUserRepository userRepository/*, IStringLocalizer<HomeController> localizer*/)
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;
-            _localizer = localizer;
+           // _localizer = localizer;
         }
 
         public async Task<IActionResult> Index()

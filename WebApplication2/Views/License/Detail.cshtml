@@ -1,4 +1,5 @@
 ﻿@using WebApplication2.Models.API.License;
+@using WebApplication2.Models.Enum;
 @model License
 
 <div class="modal-body">
@@ -47,21 +48,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="form-label" for="showMethod">@Localization.Status:</label>
-                        @if (Model.licenseStatus == 0)
-                        {
-                            <input type="text" class="form-control" value="@Localization.NotActivated" readonly disabled />
-                            @*  <p>@Localization.NotActivated</p> *@
+                        @{
+                            string licenseStatusLocalization = Model.licenseStatus switch
+                            {
+                                EnLicenseStatus.NotActivated => Localization.NotActivated,
+                                EnLicenseStatus.Activated => Localization.Activated,
+                                _ => Localization.Disabled
+                            };
                         }
-                        else if (Model.licenseStatus == 1)
-                        {
-                            <input type="text" class="form-control" value="@Localization.Activated" readonly disabled />
-                            @*  <p>@Localization.Activate</p> *@
-                        }
-                        else
-                        {
-                            <input type="text" class="form-control" value="@Localization.Disabled" readonly disabled />
-                            @* <p>@Localization.Disabled</p> *@
-                        }
+
+                        <input type="text" class="form-control" value="@licenseStatusLocalization" readonly disabled />
+
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">@Localization.battery:</label>
