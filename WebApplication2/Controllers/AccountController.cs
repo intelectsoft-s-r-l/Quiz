@@ -1,4 +1,4 @@
-﻿using ISAdminWeb.Filter;
+﻿using WebApplication2.Filter;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -140,9 +140,6 @@ namespace WebApplication2.Controllers
                 TempData["Error"] = baseResponseData.ErrorMessage ?? "Undefined";
                 return View("~/Views/Account/AuthRecoverpw.cshtml");
             }
-
-
-
 
         }
 

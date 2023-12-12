@@ -81,8 +81,9 @@
                         <div id="questions-container">
 
                             @foreach (var item in Model.Questions)
-                            {
+                            {                                
                                 <div class="question" id="question_@i">
+                                    <input type="hidden" asp-for="@item.id" id="questionId_" />
                                     @if (i > 0)
                                     {
                                         <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
@@ -111,7 +112,7 @@
                                             <label asp-for="@item.comentary">@Localization.Comment</label>
                                             <input type="text" name="@item.comentary" asp-for="@item.comentary" class="form-control" required id="questionComentary_@i" />
                                         </div>
-                                        <div class="answers-container">
+                                        @* <div class="answers-container">
                                             @{
                                                 int j = 0;
                                             }
@@ -120,7 +121,8 @@
                                                 <br />
                                                 <h4>@Localization.Responses</h4>
                                                 <br />
-                                                foreach (var answ in item.answerVariants)
+
+                                                foreach (var answ in item.responseVariants)
                                                 {
                                                     <div class="answer">
                                                         <div class="form-group">
@@ -128,7 +130,7 @@
                                                                 @if (j > 0)
                                                                 {
                                                                     <div class="col-lg-11">
-                                                                        <label asp-for="@answ">@Localization.AnswerText</label>
+                                                                        <label asp-for="@answ.response">@Localization.AnswerText</label>
                                                                         <input type="text" asp-for="@answ" class="form-control mb-4" required id="answerVal_@i-@j" />
                                                                     </div>
                                                                     <div class="col-lg-1">
@@ -140,7 +142,7 @@
                                                                 else
                                                                 {
                                                                     <div class="col-lg-12">
-                                                                        <label asp-for="@answ">@Localization.AnswerText</label>
+                                                                        <label asp-for="@answ.response">@Localization.AnswerText</label>
                                                                         <input type="text" asp-for="@answ" class="form-control mb-4" required id="answerVal_@i-@j" />
                                                                     </div>
                                                                 }
@@ -151,7 +153,7 @@
                                                     j++;
                                                 }
                                             }
-                                        </div>
+                                        </div> *@
                                         <button type="button" id="add-answer" style="width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
                                     </div>
                                 </div>
@@ -199,6 +201,7 @@
 
             function addQuestion() {
                 var questionHtml = `<div class="question" id="question_${questionIndex}">
+                                     <input type="hidden" value="0" id="questionId_" />
                                                 <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
                                             <div class="form-group">
                                             <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText</label>
@@ -305,12 +308,14 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
+                                        
                                     <div class="form-group">
                                             <div class="row align-items-center">
                                             <div class="col-lg-11">
                                                 <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
                                                 <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
-                                            </div>
+                                                <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
+                                           </div>
                                             <div class="col-lg-1">
                                                 <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
                                                 <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
@@ -343,23 +348,26 @@
                         e.preventDefault();
                         var questions = [];
 
-                        //debugger
+                        
                         let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
                         divsSetQuestions.each(function (e, element) {
+                            debugger
                             var answerRes = [];
+                            let questionid = $("#" + element.id).find("input[id*='questionId_']");
                             let questionName = $("#" + element.id).find("input[id*='questionName_']");
                             let questionGradingType = $("#" + element.id).find("select[id*='questionGradingType_']");
                             let questionComentary = $("#" + element.id).find("input[id*='questionComentary_']");
                             let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
                             if (answerVal.length > 0) {
                                 answerVal.each(function (e, answElement) {
-                                    answerRes.push(answElement.value);
+                                    let answerid = $("#" + element.id).find("input[id*='answerId_']");
+                                    answerRes.push({ id: answerid[0].value, questionId: questionid[0].value, response: answElement.value});
                                 });
                             }
                             else {
                                 answerRes.push(null);
                             }
-                            questions.push({ question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, answerVariants: answerRes });
+                            questions.push({ id: questionid[0].value, question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, responseVariants: answerRes });
                         });
 
                         var Quest = {

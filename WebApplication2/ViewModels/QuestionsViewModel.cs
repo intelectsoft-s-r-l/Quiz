@@ -2,6 +2,6 @@
 {
     public class QuestionsViewModel //For desirialize
     {
-        public List<QuestionViewModel> questions { get; set; }
+        public List<QuestionViewModel> questions { get; set; } // Json
     }
 }

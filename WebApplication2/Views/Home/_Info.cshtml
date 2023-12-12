@@ -87,6 +87,7 @@
                                 <label asp-for="@item.comentary">@Localization.Comment</label>
                                 <p><strong>@item.comentary</strong></p>
                             </div>
+                            @*
                             @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                             {
                                 <label>@Localization.Responses</label>
@@ -99,7 +100,7 @@
                                         }
                                     }
                                 </ul>
-                            }
+                            }*@
                         </div>
                     </div>
                     i++;

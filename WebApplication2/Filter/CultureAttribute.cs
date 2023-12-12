@@ -4,7 +4,7 @@ using System.Web.Http.Filters;
 using WebApplication2.Controllers;
 using IActionFilter = Microsoft.AspNetCore.Mvc.Filters.IActionFilter;
 
-namespace ISAdminWeb.Filter
+namespace WebApplication2.Filter
 {
     public class CultureAttribute : FilterAttribute, IActionFilter
     {

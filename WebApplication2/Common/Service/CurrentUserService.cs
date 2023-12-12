@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace ISAdminWeb.Common.Service
+namespace WebApplication2.Common.Service
 {
     public class CurrentUserService : ICurrentUserService
     {

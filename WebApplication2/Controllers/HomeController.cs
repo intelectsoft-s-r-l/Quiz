@@ -1,10 +1,11 @@
-﻿using ISAdminWeb.Filter;
+﻿using WebApplication2.Filter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using WebApplication2.Interface;
 using WebApplication2.ViewModels;
+using WebApplication2.Models.API.Questionnaires;
 
 namespace WebApplication2.Controllers
 {
@@ -175,7 +176,6 @@ namespace WebApplication2.Controllers
             }
             else if (userData.ErrorCode == 0)
             {
-                var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
 
                 //Correct model for post
                 //Data from body(scritp post)
@@ -183,13 +183,40 @@ namespace WebApplication2.Controllers
                 {
                     oid = upsertQuestionnaireVM.id,
                     name = upsertQuestionnaireVM.Title,
-                    questions = questionsVM.questions,
                     companyOid = userData.User.CompanyID,
                     token = token,
                     company = userData.User.Company
                 };
 
-                var questionnaireBaseResponsed = await _quizRepository.Upsert(upsertQuestionnaire);
+                
+
+                var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
+                
+                List<UpsertQuestionsViewModel> q = new List<UpsertQuestionsViewModel>();
+                foreach(var item in questionsVM.questions)
+                {
+                    
+                    UpsertQuestionsViewModel upsertQuestionsViewModel = new UpsertQuestionsViewModel();
+                    upsertQuestionsViewModel.id = item.id;
+                    upsertQuestionsViewModel.questionnaireId = upsertQuestionnaireVM.id;
+                    upsertQuestionsViewModel.question = item.question;
+                    upsertQuestionsViewModel.gradingType = item.gradingType;
+                    upsertQuestionsViewModel.comentary = item.comentary;
+
+                    upsertQuestionsViewModel.responseVariants = item.responseVariants ?? new List<ResponseVariant>();
+
+                    q.Add(upsertQuestionsViewModel);
+                }
+
+                UpsertQuestions questions = new UpsertQuestions();
+                questions.questions = q;
+                questions.token = token;
+                var ne = "";
+
+                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
+
+                var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
+
                 if (questionnaireBaseResponsed.errorCode == 143)
                 {
                     await RefreshToken();
@@ -225,6 +252,8 @@ namespace WebApplication2.Controllers
 
             return View("Error");
         }
+
+
         //[HttpDelete, ActionName("Delete")]
         [HttpPost]
         public async Task<IActionResult> DeleteQuestionnaire([FromBody] int oid)

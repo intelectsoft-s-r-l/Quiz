@@ -119,7 +119,9 @@ namespace WebApplication2.Repository
             }
         }
 
-        public async Task<BaseErrors> Upsert(UpsertQuestionnaire upsertQuestionnaireVM)
+
+
+        public async Task<BaseErrors> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM)
         {
             using (var httpClientForEditQuestionnaire = new HttpClient())
             {
@@ -130,6 +132,29 @@ namespace WebApplication2.Repository
 
 
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(upsertQuestionnaireVM), Encoding.UTF8, "application/json");
+
+                var responseEditQuestionnaire = await httpClientForEditQuestionnaire.PostAsync(apiUrlForEditQuestionnaire, jsonContent);
+
+                if (responseEditQuestionnaire.IsSuccessStatusCode)
+                {
+                    var questionnaireBaseResponsedData = await responseEditQuestionnaire.Content.ReadAsAsync<BaseErrors>();
+                    return questionnaireBaseResponsedData;
+                }
+                return new BaseErrors { errorCode = -1 };
+            }
+        }
+
+        public async Task<BaseErrors> UpsertQuestions(UpsertQuestions upsertQuestionsVM)
+        {
+            using (var httpClientForEditQuestionnaire = new HttpClient())
+            {
+                var apiUrlForEditQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/UpsertQuestions";
+
+                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                httpClientForEditQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(upsertQuestionsVM), Encoding.UTF8, "application/json");
 
                 var responseEditQuestionnaire = await httpClientForEditQuestionnaire.PostAsync(apiUrlForEditQuestionnaire, jsonContent);
 

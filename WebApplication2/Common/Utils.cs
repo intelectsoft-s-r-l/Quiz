@@ -1,4 +1,4 @@
-﻿namespace ISAdminWeb.Common
+﻿namespace WebApplication2.Common
 {
     public static class Utils
     {

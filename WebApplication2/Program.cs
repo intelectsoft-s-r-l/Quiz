@@ -1,9 +1,9 @@
 using FluentValidation.AspNetCore;
-using ISAdminWeb.Common;
-using ISAdminWeb.Models.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;
+using WebApplication2.Common;
 using WebApplication2.Interface;
+using WebApplication2.Models.Interfaces;
 using WebApplication2.Repository;
 using WebApplication2.Volidator;
 

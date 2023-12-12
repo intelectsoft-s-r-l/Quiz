@@ -1,4 +1,4 @@
-﻿namespace ISAdminWeb.Common.Service
+﻿namespace WebApplication2.Common.Service
 {
     public interface ICurrentUserService
     {

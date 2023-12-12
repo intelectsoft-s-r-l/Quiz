@@ -4,9 +4,12 @@ namespace WebApplication2.ViewModels
 {
     public class QuestionViewModel
     {
+        public int id { get; set; }
         public string question { get; set; }
         public GradingType gradingType { get; set; }
         public string comentary { get; set; }
-        public List<string> answerVariants { get; set; }
+       // public string responseVariants { get; set; } //Json
+       public List<ResponseVariant> responseVariants { get; set; }
+
     }
 }
