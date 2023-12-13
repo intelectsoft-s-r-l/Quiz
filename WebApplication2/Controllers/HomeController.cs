@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using WebApplication2.Interface;
 using WebApplication2.ViewModels;
 using WebApplication2.Models.API.Questionnaires;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace WebApplication2.Controllers
 {
@@ -51,33 +53,58 @@ namespace WebApplication2.Controllers
         public IActionResult Detail(int id) => View("~/Views/Home/Detail.cshtml", id);
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetInfoQuestionnaire(int id)
+
+
+        public async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
         {
             string token = GetToken();
             var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
             if (questionnaireData.errorCode == 143)
             {
                 await RefreshToken();
-                return await GetInfoQuestionnaire(id);
-            }
-            else if (questionnaireData.errorCode == 118)
-            {
-                return View("~/Views/Account/Login.cshtml");
+                return await QuestionnaireDetail(id);
             }
             else if (questionnaireData.errorCode == 0)
+                return questionnaireData;
+            else
+                return new DetailQuestionnaire { errorCode = -1 };
+
+        }
+
+        public async Task<DetailQuestions> QuestionsDetail(int id)
+        {
+            string token = GetToken();
+            var questionsData = await _quizRepository.GetQuestions(token, id);
+            if (questionsData.errorCode == 143)
+            {
+                await RefreshToken();
+                return await QuestionsDetail(id);
+            }
+            else if (questionsData.errorCode == 0)
+                return questionsData;
+            else
+                return new DetailQuestions { errorCode = -1 };
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetInfoQuestionnaire(int id)
+        {
+
+            var questionnaireData = await QuestionnaireDetail(id);
+            var questionsData = await QuestionsDetail(id);
+
+            if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
             {
                 var detailQuestionnaireVm = new QuestionnaireViewModel();
                 detailQuestionnaireVm.oid = id;
                 detailQuestionnaireVm.Title = questionnaireData.questionnaire.name;
-                detailQuestionnaireVm.Questions = questionnaireData.questionnaire.questions;
+                detailQuestionnaireVm.Questions = questionsData.questions;
                 //return View("~/Views/Home/Detail.cshtml", id);
                 return PartialView("~/Views/Home/_Info.cshtml", detailQuestionnaireVm);
-
             }
-            return View("Error");
+            return View();
         }
-
+        /*
         [HttpGet]
         public async Task<IActionResult> QuestionnaireResponses(int id)
         {
@@ -123,31 +150,64 @@ namespace WebApplication2.Controllers
             }
             return View("Error");
         }
+        */
 
-        //[HttpGet]
-        public async Task<IActionResult> Upsert(int id)
+
+        [HttpPost]
+        public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnaire upsertQuestionnaireVM)
         {
             string token = GetToken();
+
+            var userData = await _userRepository.getProfileInfo(token);
+
+            if (userData.ErrorCode == 143)
+            {
+                await RefreshToken();
+                return await UpsertQuestionnaire(upsertQuestionnaireVM);
+            }
+            else if (userData.ErrorCode == 118)
+            {
+                return View("~/Views/Account/Login.cshtml");
+            }
+            else if (userData.ErrorCode == 0)
+            {
+                upsertQuestionnaireVM.companyOid = userData.User.CompanyID;
+                upsertQuestionnaireVM.company = userData.User.Company;
+                upsertQuestionnaireVM.token = token;
+
+                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaireVM);
+
+                if (questionnaireBaseResponsed.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
+                }
+                else if (questionnaireBaseResponsed.errorCode == 0)
+                {
+                    return Json(new { StatusCode = 200 });
+                    //return RedirectToAction("Index");
+                }
+            }
+            return View("Error");
+        }
+
+
+        //[HttpGet]
+        public async Task<IActionResult> CreateQuestionnaire(int id)
+        {
             var upsertVm = new QuestionnaireViewModel();
             if (id != 0)
             {
-                var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
-                if (questionnaireData.errorCode == 143)
-                {
-                    await RefreshToken();
-                    return await Upsert(id);
-                }
-                else if (questionnaireData.errorCode == 118)
-                {
-                    return View("~/Views/Account/Login.cshtml");
-                }
-                else if (questionnaireData.errorCode == 0)
+
+                var questionnaireData = await QuestionnaireDetail(id);
+                var questionsData = await QuestionsDetail(id);
+
+                if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
                 {
                     upsertVm.oid = id;
                     upsertVm.Title = questionnaireData.questionnaire.name;
-                    upsertVm.Questions = questionnaireData.questionnaire.questions;
+                    upsertVm.Questions = questionsData.questions;
                     return View("~/Views/Home/Upsert.cshtml", upsertVm);
-
                 }
 
             }
@@ -158,7 +218,7 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnareViewModel upsertQuestionnaireVM)
+        public async Task<IActionResult> CreateQuestionnaire([FromBody] UpsertQuestionnareViewModel upsertQuestionnaireVM)
         {
 
             string token = GetToken();
@@ -168,7 +228,7 @@ namespace WebApplication2.Controllers
             if (userData.ErrorCode == 143)
             {
                 await RefreshToken();
-                return await UpsertQuestionnaire(upsertQuestionnaireVM);
+                return await CreateQuestionnaire(upsertQuestionnaireVM);
             }
             else if (userData.ErrorCode == 118)
             {
@@ -211,7 +271,8 @@ namespace WebApplication2.Controllers
                 UpsertQuestions questions = new UpsertQuestions();
                 questions.questions = q;
                 questions.token = token;
-                var ne = "";
+
+                //var ne = "";
 
                 var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
 
@@ -220,7 +281,7 @@ namespace WebApplication2.Controllers
                 if (questionnaireBaseResponsed.errorCode == 143)
                 {
                     await RefreshToken();
-                    return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
+                    return await CreateQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
                 }
                 else if (questionnaireBaseResponsed.errorCode == 0)
                 {
@@ -231,7 +292,6 @@ namespace WebApplication2.Controllers
             return View("Error");
 
         }
-
 
 
         [HttpGet]
@@ -252,7 +312,6 @@ namespace WebApplication2.Controllers
 
             return View("Error");
         }
-
 
         //[HttpDelete, ActionName("Delete")]
         [HttpPost]

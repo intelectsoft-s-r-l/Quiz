@@ -31,6 +31,7 @@ namespace WebApplication2.Repository
             }
         }
 
+
         public async Task<DetailQuestionnaire> GetQuestionnaire(string token, int id)
         {
             using (var httpClientForQuestionnaire = new HttpClient())
@@ -76,49 +77,27 @@ namespace WebApplication2.Repository
             }
         }
 
-        public async Task<QuestionnaireResponse> GetResponse(string token, int id)
+        public async Task<DetailQuestions> GetQuestions(string token, int id)
         {
-            using (var httpClientForQuestionnaires = new HttpClient())
+            using (var httpClientForQuestions = new HttpClient())
             {
 
-                var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISNPSAPI/Web/QuestionnaireResponse?token=" + token + "&id=" + id;
-                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-                httpClientForQuestionnaires.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-
-
-                var responseGetQuestionnaires = await httpClientForQuestionnaires.GetAsync(apiUrlGetQuestionnairesByToken);
-
-                if (responseGetQuestionnaires.IsSuccessStatusCode)
-                {
-                    var questionnaireData = await responseGetQuestionnaires.Content.ReadAsAsync<QuestionnaireResponse>();
-                    return questionnaireData;
-                }
-                return new QuestionnaireResponse { errorCode = -1 };
-            }
-        }
-
-        public async Task<QuestionnaireResponses> GetResponses(string token, int id)
-        {
-            using (var httpClientForQuestionnaire = new HttpClient())
-            {
-
-                var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/QuestionnaireResponses?token=" + token + "&questionaireId=" + id;
+                var apiUrlGetQuestions = "https://dev.edi.md/ISNPSAPI/Web/GetQuestions?token=" + token + "&questionnaireId=" + id;
 
                 var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-                httpClientForQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                httpClientForQuestions.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
 
 
-                var responseGetQuestionnaire = await httpClientForQuestionnaire.GetAsync(apiUrlGetQuestionnaire);
+                var responseGetQuestions = await httpClientForQuestions.GetAsync(apiUrlGetQuestions);
 
-                if (responseGetQuestionnaire.IsSuccessStatusCode)
+                if (responseGetQuestions.IsSuccessStatusCode)
                 {
-                    return await responseGetQuestionnaire.Content.ReadAsAsync<QuestionnaireResponses>();
-                    // return questionnaireData;
+                    var questionsData = await responseGetQuestions.Content.ReadAsAsync<DetailQuestions>();
+                    return questionsData;
                 }
-                return new QuestionnaireResponses() { errorCode = -1 };
+                return new DetailQuestions() { errorCode = -1 };
             }
         }
-
 
 
         public async Task<BaseErrors> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM)
@@ -166,5 +145,7 @@ namespace WebApplication2.Repository
                 return new BaseErrors { errorCode = -1 };
             }
         }
+
+
     }
 }

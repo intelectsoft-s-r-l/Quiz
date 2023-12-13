@@ -27,14 +27,14 @@
             </div><div class="form-container">
                 <h3 style="margin-top:20px;"><strong>@Localization.TitleQ:</strong> @Model.questionnaire.name</h3>
                 <p><strong>@Localization.Question </strong></p>
-                <ol>
+                @* <ol>
                     @foreach (var question in Model.questionnaire.questions)
                     {
                         <h5><li>@question.question</li></h5>
                         <p><strong>@Localization.Comment:</strong> @question.comentary</p>
 
 
-                        @*@{*@
+                        @*{*
 
                         string answerLocalization = question.gradingType switch
                         {
@@ -47,7 +47,7 @@
 
 
                         <p><strong>@Localization.GradingType:</strong> @answerLocalization</p>
-                        /*
+                        
                         @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
                         {
                             <ul>
@@ -59,9 +59,9 @@
                             </ul>
                         }
                         <br />
-                        */
+                        
                     }
-                </ol>
+                </ol> *@
 
             </div>
         </div>

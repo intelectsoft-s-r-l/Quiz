@@ -87,12 +87,13 @@
 </div>
 <script>
     function copyActivationCode() {
-        var activationCodeElement = document.getElementById("activationCode");
-        var range = document.createRange();
-        range.selectNode(activationCodeElement);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand("copy");
-        window.getSelection().removeAllRanges();
+        var copyText = document.getElementById("activationCode");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
     }
 </script>

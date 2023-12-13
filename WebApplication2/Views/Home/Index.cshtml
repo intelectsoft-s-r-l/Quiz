@@ -8,11 +8,46 @@
 }
 <link rel="stylesheet" href="~/css/TableQ.css">
 
+@* <link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
+<script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script>
+    function MySweet() {
+        Swal.fire({
+            title: "Submit email to run ajax request",
+            input: "email",
+            showCancelButton: true,
+            confirmButtonText: "Submit",
+            showLoaderOnConfirm: true,
+            confirmButtonColor: "#5b73e8",
+            cancelButtonColor: "#f46a6a",
+            preConfirm: function (email) {
+                return new Promise(function (resolve, reject) {
+                    setTimeout(function () {
+                        if ("taken@example.com" === email) {
+                            reject("This email is already taken.");
+                        } else {
+                            resolve();
+                        }
+                    }, 2000);
+                });
+            },
+            allowOutsideClick: false
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Ajax request finished!",
+                    html: "Submitted email: " + result.value
+                });
+            }
+        });
+    }
+</script> *@
 <div class="row">
     <div class="col-xl-12">
         <div class="button-items">
-            <a type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = 0})"><i class="mdi mdi-plus me-1"></i> @Localization.AddQ</a>
+            <a type="button" style="margin-bottom: 25px;" class="btn btn-success waves-effect waves-light" href="@Url.Action("CreateQuestionnaire", "Home", new {id = 0})"><i class="mdi mdi-plus me-1"></i> @Localization.AddQ</a>
         </div>
     </div>
 </div>
@@ -37,7 +72,7 @@
                                 <td>
                                     @*style ="width: 10vw!important;"*@
                                     <a type="button" href="@Url.Action("Detail", "Home", new {id = questionnaire.oid})" class="px-3 text-info"><i class="uil-info-circle font-size-20"></i></a>
-                                    <a type="button" href="@Url.Action("Upsert", "Home", new {id = questionnaire.oid})" class="px-3 text-primary"><i class="bx bx-edit font-size-20"></i></a>
+                                    <a type="button" href="@Url.Action("CreateQuestionnaire", "Home", new {id = questionnaire.oid})" class="px-3 text-primary"><i class="bx bx-edit font-size-20"></i></a>
                                     <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@questionnaire.oid, 'xlModalBody')"><i class="uil-trash-alt font-size-20"></i></a>
                                 </td>
                             </tr>

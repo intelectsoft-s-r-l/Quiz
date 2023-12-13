@@ -32,15 +32,20 @@
             <br />
 
             <div class="row">
-                <div class="col-lg-2">
+                <div class="col-md-2">
                     <div class="mb-4">
                         <label asp-for="Title" class="form-label"><h4>@Localization.TitleQ</h4></label>
                     </div>
                 </div>
-                <div class="col-lg-10">
+                <div class="col-md-9">
                     <div class="mb-4">
                         <h3>@Model.Title</h3>
                     </div>
+                </div>
+                <div class="col-md-1">
+                    <a class="btn btn-secondary waves-effect waves-light edit" title="Edit">
+                            <i class="fas fa-pencil-alt font-size-18"></i>
+                    </a>
                 </div>
             </div>
 
@@ -87,20 +92,24 @@
                                 <label asp-for="@item.comentary">@Localization.Comment</label>
                                 <p><strong>@item.comentary</strong></p>
                             </div>
-                            @*
+
                             @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                             {
                                 <label>@Localization.Responses</label>
                                 <ul>
-                                    @foreach (var answ in item.answerVariants)
+                                    @if (item.responseVariants != null)
                                     {
-                                        @if (answ != null)
+                                        @foreach (var answ in item.responseVariants)
                                         {
-                                            <li><p>@answ</p></li>
+                                            @if (answ != null)
+                                            {
+                                                <li><p>@answ.response</p></li>
+                                            }
                                         }
                                     }
+
                                 </ul>
-                            }*@
+                            }
                         </div>
                     </div>
                     i++;
@@ -121,6 +130,55 @@
 
 <script>
     $(document).ready(function () {
+        // Обработчик события для кнопки Edit
+        $(document).on("click", ".edit", function () {
+            var container = $(this).closest(".row");
+            var titleElement = container.find("h3");
+
+            // Создаем input для редактирования
+            var titleInput = $("<input type='text' class='form-control' id='defaultconfig' value='" + titleElement.text() + "' />");
+
+            // Заменяем h3 на input
+            titleElement.replaceWith(titleInput);
+
+            // Заменяем кнопку Edit на Save
+            var saveButton = $("<a class='btn btn-secondary  waves-effect waves-light save' title='Save'><i class='fas fa-save font-size-18'></i></a>").on("click", function () {
+                var updatedTitle = titleInput.val();
+
+                if (updatedTitle.trim() === "") {
+                    alert("Пожалуйста, введите непустое сообщение.");
+                    return;
+                }
+
+                var Quest = {
+                    oid: $('#mainId').val(),
+                    name: $('#defaultconfig').val(),
+                };
+                //debugger
+                $.ajax({
+                    url: '/Home/UpsertQuestionnaire',
+                    cache: false,
+                    type: "POST",
+                    data: JSON.stringify(Quest),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.statusCode === 200) {
+                            // Заменяем input на h3
+                            titleInput.replaceWith("<h3>" + updatedTitle + "</h3>");
+
+                            // Заменяем кнопку Save на Edit
+                            saveButton.replaceWith("<a class='btn btn-secondary  waves-effect waves-light edit' title='Edit'><i class='fas fa-pencil-alt font-size-18'></i></a>");
+                        } else {
+
+                        }
+                    },
+
+                });
+
+            });
+
+            $(this).replaceWith(saveButton);
+        });
 
         $("div[id^='Titlequestion_']").click(function () {
             var questionId = $(this).attr('id');

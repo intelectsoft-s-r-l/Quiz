@@ -5,8 +5,7 @@ namespace WebApplication2.Models.API.Questionnaires
     public class Questionnaire
     {
         public int oid {  get; set; }
-        public string? name { get; set; }    
-        public List<QuestionViewModel>? questions { get; set; }   //!!!!?? нужно только когда я беру опр опросник, если беру все, то не нужно || нужно сделать одну модель вопроса
+        public string name { get; set; }    
         public int companyOid { get; set; }
         public string company {  get; set; }
     }
