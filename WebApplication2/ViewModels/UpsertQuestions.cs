@@ -2,7 +2,7 @@
 {
     public class UpsertQuestions
     {
-        public List<UpsertQuestionsViewModel> questions { get; set; }
+        public List<QuestionViewModel> questions { get; set; }
         public string token { get; set; }
     }
 }

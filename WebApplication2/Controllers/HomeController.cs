@@ -8,6 +8,7 @@ using WebApplication2.ViewModels;
 using WebApplication2.Models.API.Questionnaires;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using WebApplication2.Models.Enum;
 
 namespace WebApplication2.Controllers
 {
@@ -248,42 +249,19 @@ namespace WebApplication2.Controllers
                     company = userData.User.Company
                 };
 
-                
+
+                // var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
 
                 var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
                 
-                List<UpsertQuestionsViewModel> q = new List<UpsertQuestionsViewModel>();
-                foreach(var item in questionsVM.questions)
-                {
-                    
-                    UpsertQuestionsViewModel upsertQuestionsViewModel = new UpsertQuestionsViewModel();
-                    upsertQuestionsViewModel.id = item.id;
-                    upsertQuestionsViewModel.questionnaireId = upsertQuestionnaireVM.id;
-                    upsertQuestionsViewModel.question = item.question;
-                    upsertQuestionsViewModel.gradingType = item.gradingType;
-                    upsertQuestionsViewModel.comentary = item.comentary;
-
-                    upsertQuestionsViewModel.responseVariants = item.responseVariants ?? new List<ResponseVariant>();
-
-                    q.Add(upsertQuestionsViewModel);
-                }
-
                 UpsertQuestions questions = new UpsertQuestions();
-                questions.questions = q;
+                questions.questions = questionsVM.questions;
                 questions.token = token;
 
-                //var ne = "";
-
-                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
 
                 var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
-                if (questionnaireBaseResponsed.errorCode == 143)
-                {
-                    await RefreshToken();
-                    return await CreateQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
-                }
-                else if (questionnaireBaseResponsed.errorCode == 0)
+                if (questionsBaseResponsed.errorCode == 0)
                 {
                     return Json(new { StatusCode = 200 });
                     //return RedirectToAction("Index");

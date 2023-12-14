@@ -342,6 +342,7 @@
 
                         
                         let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
+                        let tmpsss = $('#mainId').val();
                         divsSetQuestions.each(function (e, element) {
                             debugger
                             var answerRes = [];
@@ -356,14 +357,11 @@
                                     answerRes.push({ id: answerid[0].value, questionId: questionid[0].value, response: answElement.value});
                                 });
                             }
-                            else {
-                                answerRes.push(null);
-                            }
-                            questions.push({ id: questionid[0].value, question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, responseVariants: answerRes });
+                            questions.push({ id: questionid[0].value, questionnaireId: tmpsss, question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, responseVariants: answerRes });
                         });
 
                         var Quest = {
-                            id: $('#mainId').val(),
+                            id: tmpsss,
                             Title: $('#defaultconfig').val(),
                             Questions: JSON.stringify({ questions }),
                         };
