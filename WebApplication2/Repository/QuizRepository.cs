@@ -100,7 +100,7 @@ namespace WebApplication2.Repository
         }
 
 
-        public async Task<BaseErrors> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM)
+        public async Task<QuestionnaireIdViewModel> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM)
         {
             using (var httpClientForEditQuestionnaire = new HttpClient())
             {
@@ -116,10 +116,10 @@ namespace WebApplication2.Repository
 
                 if (responseEditQuestionnaire.IsSuccessStatusCode)
                 {
-                    var questionnaireBaseResponsedData = await responseEditQuestionnaire.Content.ReadAsAsync<BaseErrors>();
+                    var questionnaireBaseResponsedData = await responseEditQuestionnaire.Content.ReadAsAsync<QuestionnaireIdViewModel>();
                     return questionnaireBaseResponsedData;
                 }
-                return new BaseErrors { errorCode = -1 };
+                return new QuestionnaireIdViewModel { errorCode = -1 };
             }
         }
 

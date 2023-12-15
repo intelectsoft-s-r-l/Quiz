@@ -1,17 +1,15 @@
-﻿using WebApplication2.Filter;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
+using WebApplication2.Filter;
 using WebApplication2.Interface;
-using WebApplication2.ViewModels;
 using WebApplication2.Models.API.Questionnaires;
-using System.Text;
-using Newtonsoft.Json.Linq;
 using WebApplication2.Models.Enum;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+
     [Authorize]
     [Culture]
     public class HomeController : BaseController
@@ -24,7 +22,7 @@ namespace WebApplication2.Controllers
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;
-           // _localizer = localizer;
+            // _localizer = localizer;
         }
 
         public async Task<IActionResult> Index()
@@ -52,8 +50,6 @@ namespace WebApplication2.Controllers
 
         [HttpGet]
         public IActionResult Detail(int id) => View("~/Views/Home/Detail.cshtml", id);
-
-
 
 
         public async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
@@ -87,6 +83,7 @@ namespace WebApplication2.Controllers
                 return new DetailQuestions { errorCode = -1 };
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetInfoQuestionnaire(int id)
         {
@@ -105,6 +102,20 @@ namespace WebApplication2.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetQuestions(int id)
+        {
+
+            var questionsData = await QuestionsDetail(id);
+
+            if (questionsData.errorCode == 0)
+            {
+                return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
+            }
+            return View();
+        }
+
         /*
         [HttpGet]
         public async Task<IActionResult> QuestionnaireResponses(int id)
@@ -192,6 +203,35 @@ namespace WebApplication2.Controllers
             return View("Error");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpsertQuestion([FromBody] UpsertQuestionsViewModel upsertQuestionVM)
+        {
+            string token = GetToken();
+
+            QuestionViewModel questionViewModel = new QuestionViewModel();
+            questionViewModel.id = upsertQuestionVM.id;
+            questionViewModel.question = upsertQuestionVM.question;
+            questionViewModel.questionnaireId = upsertQuestionVM.questionnaireId;
+            questionViewModel.comentary = upsertQuestionVM.comentary;
+            questionViewModel.gradingType = (GradingType)upsertQuestionVM.gradingType;
+            var tmp = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
+            questionViewModel.responseVariants = tmp.ResponseVariants;
+
+
+            UpsertQuestions upsertQuestions = new UpsertQuestions();
+            upsertQuestions.questions = new List<QuestionViewModel>();
+            upsertQuestions.questions.Add(questionViewModel);
+            upsertQuestions.token = token;
+
+
+
+            var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
+            if (dataResponse.errorCode == 0)
+                return Json(new { StatusCode = 200 });
+
+            return View("Error");
+        }
+
 
         //[HttpGet]
         public async Task<IActionResult> CreateQuestionnaire(int id)
@@ -253,7 +293,7 @@ namespace WebApplication2.Controllers
                 // var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
 
                 var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
-                
+
                 UpsertQuestions questions = new UpsertQuestions();
                 questions.questions = questionsVM.questions;
                 questions.token = token;

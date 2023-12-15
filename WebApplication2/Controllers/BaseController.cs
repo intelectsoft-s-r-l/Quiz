@@ -45,7 +45,6 @@ namespace WebApplication2.Controllers
         }
 
 
-        //Take void
         public async Task RefreshToken()
         {
             try

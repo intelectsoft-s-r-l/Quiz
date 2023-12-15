@@ -39,7 +39,12 @@
     }
 </style>
 
+@{
+    bool isVis = true;
+}
+
 <script>
+
     function DetailMore(index) {
         var detailId = "#detail_" + index;
 
@@ -73,6 +78,25 @@
         comentaryElement.replaceWith(comentaryInput);
 
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+
+            /*let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
+
+            divsSetQuestion.each(function (e, element) {
+                let responses = $("#" + element.id).find("[id^='response_']");
+                let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
+                btnDeleteAnsw.show();
+                responses.each(function (index, responseElement) {
+                    let responseText = $(responseElement).find("b").text();
+
+                    // Создаем новый input с текстом ответа
+                    let inputElement = $("<input type='text' class='form-control' id='response_' value='" + responseText + "' />");
+
+                    // Заменяем текущий элемент на новый input
+                    $(responseElement).replaceWith(inputElement);
+                });
+            });*/
+
+
             // Создаем кнопку
             var addButton = $("<button type='button' id='add-answer' style='width: 100%; margin-top: 10px;' class='btn btn-info waves-effect waves-light'><i class='mdi mdi-plus me-1'></i>@Localization.AddAnswer</button>");
 
@@ -81,19 +105,21 @@
             addButton.on("click", function () {
                 // Ваш код обработки события при нажатии на кнопку
 
-                var newInput = `<div class="answer">
-                                                    <div class="form-group">
-                                                    <div class="row">
-                                    <div class="col-md-10">
-                                        <p>@Localization.AnswerText</p>
-                                        <input type="text" class="form-control mb-4" required />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>`;
+                var newInput = `<div class="answer" id='newAnswer'>
+                                                        <div class="form-group">
+                                                        <div class="row">
+                                        <div class="col-md-10">
+                                            <p>@Localization.AnswerText</p>
+                                                <input hidden id='newResponseId' value='0' />
+                                            <input type="text" id='response_' class="form-control mb-4" />
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>`;
 
                 // Вставляем новый input перед кнопкой
                 container.find("#answersContainer_" + index).append(newInput);
@@ -108,32 +134,91 @@
         var saveButton = $("<a style='margin-top: 10px; width: 100%;' class='btn btn-success waves-effect waves-light save' title='Save'><i class='uil uil-file-alt me-1' ></i>@Localization.Save</a>").on("click", function () {
             container.find(".pencil").show();
 
+
             var updatedTitle = titleInput.val();
             var updateComentary = comentaryInput.val();
 
             titleInput.replaceWith(`<h3 id="questionTitle_${index}"><strong>` + updatedTitle + `</strong></h3>`);
             comentaryInput.replaceWith(`<p id="questionComentary_${index}"><b>` + updateComentary + "</b></p>");
 
+            var responseVariants = [];
+
+            if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+                let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
+
+                divsSetQuestion.each(function (e, element) {
+                    let responses = $("#" + element.id).find("[id^='response_']");
+                    let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
+                    btnDeleteAnsw.hide();
+
+                    responses.each(function (index, responseElement) { //index - 0,1,2...
+                        //debugger
+                        // Получаем значение из textarea
+                        let responseText = $(responseElement).val();
+                        let answerId = $("#" + element.id).find("input[id*='newResponseId']");
+                        if (responseText.length > 0) {
+                            responseVariants.push({ id: answerId[0].value, questionId: $('#QuestionId').val(), response: responseText });
+
+                        }
+                        // Создаем новый параграф с этим значением
+                        let newParagraph = $(`<div class="answer" id="response_" > <div class="row"><b>` + responseText + `</b></div></div>`);
+
+                        // Заменяем текущий элемент на новый параграф
+                        $(responseElement).replaceWith(newParagraph);
+
+                    });
+                });
+
+            }
+
+
+
+
+
             container.find(".save").hide();
             container.find("#add-answer").remove();
-
 
             if (updatedTitle.trim() === "") {
                 alert("Пожалуйста, введите непустое сообщение.");
                 return;
             }
-            //debugger
+
+            var upsertQuestionVM = {
+                id: container.find('#QuestionId').val(),
+                questionnaireId: $('#mainId').val(),
+                question: updatedTitle,
+                gradingType: container.find('#questionGradingType_' + index).val(),
+                comentary: updateComentary,
+                responseVariant: JSON.stringify({ responseVariants }),
+            };
+
+
+            $.ajax({
+                url: '/Home/UpsertQuestion',
+                cache: false,
+                type: "POST",
+                data: JSON.stringify(upsertQuestionVM),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    @isVis = false;
+                    drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
+                },
+
+            });
         });
+
+
         // Добавляем текущую кнопку вызова редактирования в конец контейнера
         container.append(saveButton);
         // Убираем текущую кнопку Edit
         container.find(".pencil").hide();
     }
 
+    function CreateQuestion() {
 
+    }
 
 </script>
-
 
 <div class="form-container">
     <div class="row">
@@ -165,105 +250,15 @@
 
 
             <br />
-            <div id="questions-container">
-                @{
-                    int i = 0;
-                }
-                @foreach (var item in Model.Questions.OrderBy(x => x.id))
-                {
-                    <div class="question" id="questionN_@i">
 
-                        <div class="pencil"><i class="fas fa-pencil-alt font-size-18" onclick="EditQuestion(@i)"></i></div>
-
-                        <div class="form-group">
-                            <h4><i class="uil-eye font-size-24" onclick="DetailMore(@i)" style="cursor: pointer;"></i> @Localization.QuestionText</h4>
-                            <h3 id="questionTitle_@i"><strong>@item.question</strong></h3>
-                        </div>
-
-                        <div id="detail_@i">
-                            <div class="form-group">
-                                @{
-                                    string answerLocalization = "";
-                                    int convertToIntGradingType = 0;
-                                    switch (item.gradingType)
-                                    {
-                                        case GradingType.YesNo:
-                                            {
-                                                answerLocalization = Localization.YesorNo;
-                                                convertToIntGradingType = 1;
-                                                break;
-                                            }
-                                        case GradingType.Point10Score:
-                                            {
-                                                answerLocalization = Localization.Scorepoints;
-                                                convertToIntGradingType = 2;
-                                                break;
-                                            }
-                                        case GradingType.SingleAnswerVariant:
-                                            {
-                                                answerLocalization = Localization.Oneanswer;
-                                                convertToIntGradingType = 3;
-                                                break;
-                                            }
-                                        case GradingType.MultipleAnswerVariant:
-                                            {
-                                                answerLocalization = Localization.Multianswer;
-                                                convertToIntGradingType = 4;
-                                                break;
-                                            }
-                                        default:
-                                            answerLocalization = item.gradingType.ToString(); break;
-                                    }
-                                }
-                                <input hidden id="questionGradingType_@i" value="@convertToIntGradingType" />
-                                <label asp-for="@item.gradingType">@Localization.GradingType</label>
-                                <b>@answerLocalization</b>
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="@item.comentary">@Localization.Comment</label>
-                                <p id="questionComentary_@i"><b>@item.comentary</b></p>
-                            </div>
+            @if (isVis)//Remove this if
+            {
+                <div class="tab-pane active" id="about" role="tabpanel">
+                    <div id="questions"></div>
+                </div>
+            }
 
 
-                            <div class="answers-container" id="answersContainer_@i">
-                                @{
-                                    int j = 0;
-                                }
-                                @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
-                                {
-                                    <h4>@Localization.Responses</h4>
-                                    if (item.responseVariants != null)
-                                    {
-                                        foreach (var answ in item.responseVariants)
-                                        {
-                                            <div class="answer" id="response_@j">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <p>@Localization.AnswerText</p>
-                                                        <b>@answ.response</b>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            j++;
-                                        }
-                                    }
-                                    <div class="answer" id="response_1">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <p>@Localization.AnswerText</p>
-                                                <b>Test21231</b>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    i++;
-                }
-            </div>
             <div class="row">
                 <div id="editBtn" class="col-lg-9">
                     <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">@Localization.EditQ</a>
@@ -278,6 +273,7 @@
 </div>
 
 <script>
+    drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
     $(document).ready(function () {
 
         // Обработчик события для кнопки Edit
