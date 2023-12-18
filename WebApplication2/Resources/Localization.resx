@@ -369,4 +369,7 @@
   <data name="successRecoverPWMessage" xml:space="preserve">
     <value>Check your email adress!</value>
   </data>
+  <data name="createQuestion" xml:space="preserve">
+    <value>Add question</value>
+  </data>
 </root>

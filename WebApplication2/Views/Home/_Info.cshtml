@@ -39,9 +39,6 @@
     }
 </style>
 
-@{
-    bool isVis = true;
-}
 
 <script>
 
@@ -54,8 +51,51 @@
         });
     }
 
-    function EditQuestion(index) {
+    function DeleteQuestion(index) {
+
         var container = $("#questionN_" + index);
+
+        document.getElementById('editBtn').style.display = 'block';
+
+        var cancelBtn = document.getElementById('cancelBtn');
+        cancelBtn.classList.remove('col-lg-12');
+        cancelBtn.classList.add('col-lg-3');
+
+        $.ajax({
+            url: '/Home/DeleteQuestion',
+            cache: false,
+            type: "DELETE",
+            data: JSON.stringify(container.find('#QuestionId').val()),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
+            },
+
+        });
+
+
+    }
+
+    function EditQuestion(index) {
+
+
+        var container = $("#questionN_" + index);
+
+
+        var questionCount = $('#questions-container .question').length;
+
+        if (questionCount > 1) {
+            // Ваш код для случая, когда найдено более одного вопроса
+            var removeQuestionButton = $(`<button type='button' style='width: 100%;' class='btn btn-danger waves-effect waves-light' onclick='DeleteQuestion(${index})'> <i class='uil-trash-alt'></i> @Localization.Delete</button>`);
+            container.prepend(removeQuestionButton);
+        }
+
+        document.getElementById('editBtn').style.display = 'none';
+
+        var cancelBtn = document.getElementById('cancelBtn');
+        cancelBtn.classList.remove('col-lg-3');
+        cancelBtn.classList.add('col-lg-12');
+
 
         var detailHide = container.find("#detail_" + index);
         detailHide.animate({
@@ -106,34 +146,45 @@
                 // Ваш код обработки события при нажатии на кнопку
 
                 var newInput = `<div class="answer" id='newAnswer'>
-                                                        <div class="form-group">
-                                                        <div class="row">
-                                        <div class="col-md-10">
-                                            <p>@Localization.AnswerText</p>
-                                                <input hidden id='newResponseId' value='0' />
-                                            <input type="text" id='response_' class="form-control mb-4" />
-
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                        </div>
-                                        </div>
-                                        </div>
-                                    </div>`;
+            <div class="form-group">
+                <div class="row align-items-center">
+                    <div class="col-lg-11">
+                        <p>@Localization.AnswerText</p>
+                        <input hidden id='newResponseId' value='0' />
+                        <input type="text" id='response_' class="form-control mb-4" />
+                    </div>
+                    <div class="col-lg-1">
+                        <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
 
                 // Вставляем новый input перед кнопкой
                 container.find("#answersContainer_" + index).append(newInput);
             });
 
+
             // Добавляем кнопку в форму
             container.append(addButton);
         }
 
+        container.on("click", ".btnremoveAnsw", function () {
+            //debugger
+            var $answer = $(this).closest('.answer');
+            $answer.remove();
+        });
 
         // Заменяем кнопку Edit на Save
         var saveButton = $("<a style='margin-top: 10px; width: 100%;' class='btn btn-success waves-effect waves-light save' title='Save'><i class='uil uil-file-alt me-1' ></i>@Localization.Save</a>").on("click", function () {
             container.find(".pencil").show();
+            container.find(".btnremove").hide();
 
+            document.getElementById('editBtn').style.display = 'block';
+
+            var cancelBtn = document.getElementById('cancelBtn');
+            cancelBtn.classList.remove('col-lg-12');
+            cancelBtn.classList.add('col-lg-3');
 
             var updatedTitle = titleInput.val();
             var updateComentary = comentaryInput.val();
@@ -200,7 +251,6 @@
                 data: JSON.stringify(upsertQuestionVM),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    @isVis = false;
                     drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
                 },
 
@@ -211,16 +261,197 @@
         // Добавляем текущую кнопку вызова редактирования в конец контейнера
         container.append(saveButton);
         // Убираем текущую кнопку Edit
-        container.find(".pencil").hide();
+        //container.find(".pencil").hide();
+        var elements = document.getElementsByClassName('pencil');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'none';
+        }
     }
 
     function CreateQuestion() {
 
+        var elements = document.getElementsByClassName('pencil');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'none';
+        }
+
+        document.getElementById('editBtn').style.display = 'none';
+
+        var cancelBtn = document.getElementById('cancelBtn');
+        cancelBtn.classList.remove('col-lg-3');
+        cancelBtn.classList.add('col-lg-12');
+
+        var questionHtml = `<div class="question" id="questionN_0">
+                    <div class="form-group">
+                        <input hidden id="QuestionId" value="0" />
+                        <h4>@Localization.QuestionText</h4>
+                            <input type='text' id='questionName_0' class='form-control' />
+                    </div>
+
+                    <div id="detail_0">
+                        <div class="form-group">
+                            <label>@Localization.GradingType</label>
+                            <select id="questionGradingType_0" class="form-select">
+                                <option value="1">@Localization.YesorNo</option>
+                                <option value="2">@Localization.Scorepoints</option>
+                                <option value="3">@Localization.Oneanswer</option>
+                                <option value="4">@Localization.Multianswer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>@Localization.Comment</label>
+                                <input type='text'  id='questionComentary_0' class='form-control' />
+                        </div>
+                            <div class="answers-container_0" id="answersContainer_0" style="display: none;">
+                            <br />
+                            <h4>@Localization.Responses</h4>
+                            <br />
+                        </div>
+                       <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
+                    </div>
+                </div>`;
+
+        // Добавляем вопрос в контейнер
+        $("#questions-container").append(questionHtml);
+
+
+
+        // Создаем saveButton
+        var saveButton = $("<a style='margin-top: 10px; width: 100%;' class='btn btn-success waves-effect waves-light save' title='Save'><i class='uil uil-file-alt me-1' ></i>@Localization.Save</a>").on("click", function () {
+            //container.find(".pencil").show();
+            $("#questionN_0").find(".save").hide();
+            $("#questionN_0").find(".btnremoveAnsw").hide();
+            $("#questionN_0").find("#add-answer").hide();
+            $("#questionN_0").find(".btnremoveQuestion").hide();
+            document.getElementById('editBtn').style.display = 'block';
+
+            var cancelBtn = document.getElementById('cancelBtn');
+            cancelBtn.classList.remove('col-lg-12');
+            cancelBtn.classList.add('col-lg-3');
+
+            var gradingTypeValue = $("#questionN_0").find("select[id*='questionGradingType_0']").val()
+
+            var responseVariants = [];
+
+            if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+                debugger
+                let divsSetQuestion = $("#questionN_0").find(`div[id*="answersContainer_0"]`);
+
+                divsSetQuestion.each(function (e, element) {
+                    let responses = $("#" + element.id).find("[id^='response_']");
+                    responses.each(function (index, responseElement) { //index - 0,1,2...
+                        debugger
+                        // Получаем значение из textarea
+                        let responseText = $(responseElement).val();
+                        if (responseText.length > 0) {
+                            responseVariants.push({ id: 0, questionId: 0, response: responseText });
+
+                        }
+                    });
+                });
+
+            }
+
+
+            //debugger
+            var upsertQuestionVM = {
+                id: 0,
+                questionnaireId: $('#mainId').val(),
+                question: $("#questionN_0").find("input[id*='questionName_0']").val(),
+                gradingType: gradingTypeValue,
+                comentary: $("#questionN_0").find("input[id*='questionComentary_0']").val(),
+                responseVariant: JSON.stringify({ responseVariants }),
+            };
+
+
+
+            $.ajax({
+                url: '/Home/UpsertQuestion',
+                cache: false,
+                type: "POST",
+                data: JSON.stringify(upsertQuestionVM),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
+                },
+
+            });
+
+
+        });
+        //var container = $("#questionN_0");
+
+
+        $("#questions-container").on("change", "select[id*='questionGradingType_0']", function () {
+            var answersContainer = $("#questionN_0").find(".answers-container_0");
+            var $answers = $("#questionN_0").find(".answer");
+
+            if ($(this).val() == "4" || $(this).val() == "3") {
+                $("#questionN_0").find("#add-answer").show();
+                answersContainer.show();
+            } else {
+                $answers.remove();
+                $("#questionN_0").find("#add-answer").hide();
+                answersContainer.hide();
+            }
+        });
+
+
+
+        // Обработчик события для кнопки (если необходимо)
+        $("#add-answer").on("click", function () {
+            // Ваш код обработки события при нажатии на кнопку
+
+            var newInput = `<div class="answer" id='newAnswer'>
+            <div class="form-group">
+                <div class="row align-items-center">
+                    <div class="col-lg-11">
+                        <p>@Localization.AnswerText</p>
+                        <input hidden id='newResponseId' value='0' />
+                        <input type="text" id='response_' class="form-control mb-4" />
+                    </div>
+                    <div class="col-lg-1">
+                             <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+            // Вставляем новый input перед кнопкой
+            $("#questionN_0").find(".answers-container_0").append(newInput);
+        });
+
+        $("#questionN_0").on("click", ".btnremoveAnsw", function () {
+            //debugger
+            var $answer = $(this).closest('.answer');
+            $answer.remove();
+        });
+        // Добавляем saveButton в контейнер с вопросом
+        $("#questionN_0").append(saveButton);
+
+
+        var removeQuestionButton = $(`<button type='button' style = 'width: 100%;' class='btn btn-danger waves-effect waves-light btnremoveQuestion'> <i class='uil-trash-alt'></i> @Localization.Delete</button >`);
+        $("#questionN_0").prepend(removeQuestionButton);
+
+
+        $("#questionN_0").on("click", ".btnremoveQuestion", function () {
+            document.getElementById('editBtn').style.display = 'block';
+
+            var cancelBtn = document.getElementById('cancelBtn');
+            cancelBtn.classList.remove('col-lg-12');
+            cancelBtn.classList.add('col-lg-3');
+
+            drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
+
+            $("#questionN_0").remove();
+        });
     }
 
 </script>
 
+
 <div class="form-container">
+
     <div class="row">
         <div class="col-lg-12">
 
@@ -243,25 +474,15 @@
 
 
             <h3>@Localization.Question</h3>
-            <span>
-                <button type="button" id="hideAll" class="btn btn-primary btn-rounded waves-effect waves-light">@Localization.HideAll (@Model.Questions.Count)</button>
-                <button type="button" id="showAll" class="btn btn-primary btn-rounded waves-effect waves-light">@Localization.ShowAll (@Model.Questions.Count)</button>
-            </span>
-
-
-            <br />
-
-            @if (isVis)//Remove this if
-            {
-                <div class="tab-pane active" id="about" role="tabpanel">
-                    <div id="questions"></div>
-                </div>
-            }
+            <div class="tab-pane active" id="about" role="tabpanel">
+                <div id="questions"></div>
+            </div>
+            
 
 
             <div class="row">
                 <div id="editBtn" class="col-lg-9">
-                    <a style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light" href="@Url.Action("Upsert", "Home", new {id = Model.oid})">@Localization.EditQ</a>
+                    <a style="margin-top: 10px; width: 100%;" class="btn btn-success waves-effect waves-light" onclick="CreateQuestion()">@Localization.createQuestion</a>
                 </div>
                 <div id="cancelBtn" class="col-lg-3">
                     <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">@Localization.Cancel</a>

@@ -4,14 +4,15 @@
 
 <div id="questions-container">
     @{
-        int i = 0;
+        int i = 1;
     }
-
     @foreach (var item in Model.questions.OrderBy(x => x.id))
     {
         <div class="question" id="questionN_@i">
 
-            <div class="pencil"><i class="fas fa-pencil-alt font-size-18" onclick="EditQuestion(@i)"></i></div>
+            <div class="pencil">
+                <i class="fas fa-pencil-alt btn btn-primary waves-effect waves-light" onclick="EditQuestion(@i)"></i>
+            </div>
 
             <div class="form-group">
                 <input hidden id="QuestionId" value="@item.id" />
@@ -72,14 +73,14 @@
                     @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                     {
                         <h4>@Localization.Responses</h4>
-                        if (item.responseVariants != null)
-                        {
+                        <br/>
+
                             foreach (var answ in item.responseVariants)
                             {
                                 <div class="answer" id="response_@j">
                                     <div class="form-group">
                                         <div class="row">
-                                            <p>@Localization.AnswerText</p>
+                                            @* <p>@Localization.AnswerText</p> *@
                                             <b>@answ.response</b>
                                         </div>
                                     </div>
@@ -87,13 +88,12 @@
 
                                 j++;
                             }
-                        }
+                        
                     }
                 </div>
             </div>
         </div>
         i++;
     }
-
 
 </div>

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Security.Cryptography;
 using System.Text;
 using WebApplication2.Interface;
 using WebApplication2.Models.API;
@@ -9,7 +10,29 @@ namespace WebApplication2.Repository
 {
     public class QuizRepository : IQuizRepository
     {
-        public async Task<BaseErrors> Delete(string token, int oid)
+        public async Task<BaseErrors> DeleteQuestion(string token, int id)
+        {
+            using (var httpClientForDeleteQuestion = new HttpClient())
+            {
+
+                var apiUrlDeleteQuestion = "https://dev.edi.md/ISNPSAPI/Web/DeleteQuestions?token=" + token + "&questionId=" + id;
+
+                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                httpClientForDeleteQuestion.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                var responseQuestion = await httpClientForDeleteQuestion.DeleteAsync(apiUrlDeleteQuestion);
+
+                if (responseQuestion.IsSuccessStatusCode)
+                {
+                    return await responseQuestion.Content.ReadAsAsync<BaseErrors>();
+
+                }
+                return new BaseErrors() { errorCode = -1 };
+            }
+        }
+
+        public async Task<BaseErrors> DeleteQuestionnaire(string token, int oid)
         {
             using (var httpClientForDeleteQuestionnaire = new HttpClient())
             {

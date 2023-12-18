@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 using WebApplication2.Filter;
 using WebApplication2.Interface;
 using WebApplication2.Models.API.Questionnaires;
@@ -116,53 +117,6 @@ namespace WebApplication2.Controllers
             return View();
         }
 
-        /*
-        [HttpGet]
-        public async Task<IActionResult> QuestionnaireResponses(int id)
-        {
-            string token = GetToken();
-            var questionnaireData = await _quizRepository.GetResponses(token, id);
-            if (questionnaireData.errorCode == 143)
-            {
-                await RefreshToken();
-                return await QuestionnaireResponses(id);
-            }
-            else if (questionnaireData.errorCode == 118)
-            {
-                return View("~/Views/Account/Login.cshtml");
-            }
-            else if (questionnaireData.errorCode == 0)
-            {
-                //return View("~/Views/Home/Detail.cshtml", id);
-                return PartialView("~/Views/Home/_Responses.cshtml", questionnaireData.responses);
-
-            }
-            return View("Error");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> QuestionnaireResponse(int id)
-        {
-            string token = GetToken();
-            var questionnaireData = await _quizRepository.GetResponse(token, id);
-            if (questionnaireData.errorCode == 143)
-            {
-                await RefreshToken();
-                return await QuestionnaireResponse(id);
-            }
-            else if (questionnaireData.errorCode == 118)
-            {
-                return View("~/Views/Account/Login.cshtml");
-            }
-            else if (questionnaireData.errorCode == 0)
-            {
-                //return View("~/Views/Home/Detail.cshtml", id);
-                return PartialView("~/Views/Home/_Response.cshtml", questionnaireData.responses);
-
-            }
-            return View("Error");
-        }
-        */
 
 
         [HttpPost]
@@ -336,7 +290,7 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> DeleteQuestionnaire([FromBody] int oid)
         {
             string token = GetToken();
-            var baseResponse = await _quizRepository.Delete(token, oid);
+            var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
             if (baseResponse.errorCode == 143)
             {
                 await RefreshToken();
@@ -351,6 +305,23 @@ namespace WebApplication2.Controllers
 
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteQuestion([FromBody] int id)
+        {
+            string token = GetToken();
+            var baseResponse = await _quizRepository.DeleteQuestion(token, id);
+            if (baseResponse.errorCode == 143)
+            {
+                await RefreshToken();
+                return await DeleteQuestion(id);
+            }
+            else if (baseResponse.errorCode == 118)
+                return View("~/Views/Account/Login.cshtml");
+            else if (baseResponse.errorCode == 0)
+                return Json(new { StatusCode = 200});
+            else
+                return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
+        }
 
     }
 }

@@ -205,6 +205,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Add question.
+        /// </summary>
+        public static string createQuestion {
+            get {
+                return ResourceManager.GetString("createQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Deactivate.
         /// </summary>
         public static string Deactivate {

@@ -369,4 +369,7 @@
   <data name="successRecoverPWMessage" xml:space="preserve">
     <value>Verifică-ți e-mail adresa!</value>
   </data>
+  <data name="createQuestion" xml:space="preserve">
+    <value>Adaugă o întrebare</value>
+  </data>
 </root>

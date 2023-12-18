@@ -11,6 +11,7 @@ namespace WebApplication2.Interface
         Task<DetailQuestions> GetQuestions(string token, int id);
         Task<QuestionnaireIdViewModel> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM);
         Task<BaseErrors> UpsertQuestions(UpsertQuestions upsertQuestionsVM);
-        Task<BaseErrors> Delete(string token, int oid);
+        Task<BaseErrors> DeleteQuestionnaire(string token, int oid);
+        Task<BaseErrors> DeleteQuestion(string token, int id);
     }
 }
