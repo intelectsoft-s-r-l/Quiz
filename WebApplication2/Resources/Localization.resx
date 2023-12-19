@@ -288,7 +288,7 @@
   <data name="quantityText" xml:space="preserve">
     <value>Input number</value>
   </data>
-  <data name="Question" xml:space="preserve">
+  <data name="Questions" xml:space="preserve">
     <value>Questions</value>
   </data>
   <data name="Questionnaires" xml:space="preserve">
@@ -371,5 +371,14 @@
   </data>
   <data name="createQuestion" xml:space="preserve">
     <value>Add question</value>
+  </data>
+  <data name="ComentaryTextValidation" xml:space="preserve">
+    <value>The comentary doesn't have to be empty</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="QuestionTextValidation" xml:space="preserve">
+    <value>The question doesn't have to be empty</value>
   </data>
 </root>

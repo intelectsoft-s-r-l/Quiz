@@ -5,9 +5,11 @@
 @model QuestionnaireViewModel
 
 
+<script src="~/js/Home/InfoQuestionnaire.js"></script>
+
 <style>
     body {
-        font-size: 16px; /* Исходный размер шрифта */
+        font-size: 19px; /* Исходный размер шрифта */
     }
 
     .form-group {
@@ -15,11 +17,11 @@
     }
 
     .question {
-        border: 1px solid #2c3036;
+        border: 1px solid #eceeef;
         border-radius: 10px;
-        padding: 10px;
+        padding: 20px;
         margin: 40px 0;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 10px 0px rgb(0 0 0 / 10%);
         position: relative;
     }
 
@@ -42,38 +44,44 @@
 
 <script>
 
-    function DetailMore(index) {
-        var detailId = "#detail_" + index;
+    function CustomValidator(index) {
 
-        // Анимированно скрываем или отображаем детали
-        $(detailId).animate({
-            height: 'toggle'
+        var ISValid = true;
+
+        if ($('#questionName_' + index).val() === "") {
+            debugger
+            if ($('#QuestionNameError').val() == null) {
+                $('#questionName_' + index).after('<label id="QuestionNameError" class="text-danger">@Localization.QuestionTextValidation</label>');
+            }
+            ISValid = false;
+        }
+
+        if ($('#questionComentary_' + index).val() === "") {
+            if ($('#QuestionComentaryError').val() == null) {
+                $('#questionComentary_' + index).after('<label id="QuestionComentaryError" class="text-danger">@Localization.ComentaryTextValidation</label>');
+            }
+            ISValid = false;
+        }
+
+/*
+        let divsSetQuestion = $("#questionN_" + index).find(`#answersContainer_${index}`);
+
+        divsSetQuestion.each(function (e, element) {
+            let responses = $("#" + element.id).find("[id^='response_']");
+            responses.each(function (index, responseElement) { //index - 0,1,2...
+                // Получаем значение из textarea
+                let responseText = $(responseElement).val();
+                if (responseText === "") {
+                    if ($('#ResponseError_' + index).val() == null) {
+                        $('#response_' + index).after(`<label id="ResponseError_${index}" class="text-danger">"Text"</label>`);
+                    }
+                    ISValid = false;
+                }
+            });
         });
-    }
+        */
 
-    function DeleteQuestion(index) {
-
-        var container = $("#questionN_" + index);
-
-        document.getElementById('editBtn').style.display = 'block';
-
-        var cancelBtn = document.getElementById('cancelBtn');
-        cancelBtn.classList.remove('col-lg-12');
-        cancelBtn.classList.add('col-lg-3');
-
-        $.ajax({
-            url: '/Home/DeleteQuestion',
-            cache: false,
-            type: "DELETE",
-            data: JSON.stringify(container.find('#QuestionId').val()),
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
-            },
-
-        });
-
-
+        return ISValid;
     }
 
     function EditQuestion(index) {
@@ -86,7 +94,7 @@
 
         if (questionCount > 1) {
             // Ваш код для случая, когда найдено более одного вопроса
-            var removeQuestionButton = $(`<button type='button' style='width: 100%;' class='btn btn-danger waves-effect waves-light' onclick='DeleteQuestion(${index})'> <i class='uil-trash-alt'></i> @Localization.Delete</button>`);
+            var removeQuestionButton = $(`<button type='button' style='width: 100%;' class='btn btn-danger waves-effect waves-light btnremoveQuestion' onclick='DeleteQuestion(${index}, ${@Model.oid})'> <i class='uil-trash-alt'></i> @Localization.Delete</button>`);
             container.prepend(removeQuestionButton);
         }
 
@@ -102,14 +110,14 @@
             height: 'show'
         });
 
-        var titleElement = container.find("#questionTitle_" + index);
+        var titleElement = container.find("#questionName_" + index);
         var comentaryElement = container.find("#questionComentary_" + index);
         var gradingTypeElement = container.find("#questionGradingType_" + index);
 
 
         // Создаем input для редактирования
-        var titleInput = $("<input type='text' class='form-control' value='" + titleElement.text() + "' />");
-        var comentaryInput = $("<input type='text' class='form-control' value='" + comentaryElement.text() + "' />");
+        var titleInput = $(`<input type='text' id='questionName_${index}' class='form-control' value='${titleElement.text()}' />`);
+        var comentaryInput = $(`<input type='text' id='questionComentary_${index}' class='form-control' value='${comentaryElement.text()}' />`);
         var gradingTypeValue = gradingTypeElement[0].value;
 
 
@@ -119,46 +127,28 @@
 
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
 
-            /*let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
-
-            divsSetQuestion.each(function (e, element) {
-                let responses = $("#" + element.id).find("[id^='response_']");
-                let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
-                btnDeleteAnsw.show();
-                responses.each(function (index, responseElement) {
-                    let responseText = $(responseElement).find("b").text();
-
-                    // Создаем новый input с текстом ответа
-                    let inputElement = $("<input type='text' class='form-control' id='response_' value='" + responseText + "' />");
-
-                    // Заменяем текущий элемент на новый input
-                    $(responseElement).replaceWith(inputElement);
-                });
-            });*/
-
-
             // Создаем кнопку
             var addButton = $("<button type='button' id='add-answer' style='width: 100%; margin-top: 10px;' class='btn btn-info waves-effect waves-light'><i class='mdi mdi-plus me-1'></i>@Localization.AddAnswer</button>");
 
-
+            var answersCount = $(`#questionN_${index} .answer`).length;
             // Обработчик события для кнопки (если необходимо)
             addButton.on("click", function () {
                 // Ваш код обработки события при нажатии на кнопку
-
+                answersCount++;
                 var newInput = `<div class="answer" id='newAnswer'>
-            <div class="form-group">
-                <div class="row align-items-center">
-                    <div class="col-lg-11">
-                        <p>@Localization.AnswerText</p>
-                        <input hidden id='newResponseId' value='0' />
-                        <input type="text" id='response_' class="form-control mb-4" />
-                    </div>
-                    <div class="col-lg-1">
-                        <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-lg-11">
+                            <p>@Localization.AnswerText</p>
+                            <input hidden id='newResponseId' value='0' />
+                                <input type="text" id='response_${answersCount}' class="form-control mb-4" />
+                        </div>
+                        <div class="col-lg-1">
+                            <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
 
                 // Вставляем новый input перед кнопкой
                 container.find("#answersContainer_" + index).append(newInput);
@@ -170,91 +160,98 @@
         }
 
         container.on("click", ".btnremoveAnsw", function () {
-            //debugger
             var $answer = $(this).closest('.answer');
             $answer.remove();
         });
 
         // Заменяем кнопку Edit на Save
         var saveButton = $("<a style='margin-top: 10px; width: 100%;' class='btn btn-success waves-effect waves-light save' title='Save'><i class='uil uil-file-alt me-1' ></i>@Localization.Save</a>").on("click", function () {
-            container.find(".pencil").show();
-            container.find(".btnremove").hide();
 
-            document.getElementById('editBtn').style.display = 'block';
+            var ISValid = CustomValidator(index);
 
-            var cancelBtn = document.getElementById('cancelBtn');
-            cancelBtn.classList.remove('col-lg-12');
-            cancelBtn.classList.add('col-lg-3');
+            if (ISValid == true) {
+                container.find(".pencil").show();
+                //container.find(".btnremove").hide();
+                container.find(".save").hide();
+                container.find(".btnremoveAnsw").hide();
+                container.find("#add-answer").hide();
+                container.find(".btnremoveQuestion").hide();
 
-            var updatedTitle = titleInput.val();
-            var updateComentary = comentaryInput.val();
+                document.getElementById('editBtn').style.display = 'block';
 
-            titleInput.replaceWith(`<h3 id="questionTitle_${index}"><strong>` + updatedTitle + `</strong></h3>`);
-            comentaryInput.replaceWith(`<p id="questionComentary_${index}"><b>` + updateComentary + "</b></p>");
+                var cancelBtn = document.getElementById('cancelBtn');
+                cancelBtn.classList.remove('col-lg-12');
+                cancelBtn.classList.add('col-lg-3');
 
-            var responseVariants = [];
+                var updatedTitle = titleInput.val();
+                var updateComentary = comentaryInput.val();
 
-            if (gradingTypeValue == '3' || gradingTypeValue == '4') {
-                let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
+                titleInput.replaceWith(`<p id="questionName_{index}">` + updatedTitle + `</p>`);
+                comentaryInput.replaceWith(`<p id="questionComentary_${index}">` + updateComentary + "</p>");
 
-                divsSetQuestion.each(function (e, element) {
-                    let responses = $("#" + element.id).find("[id^='response_']");
-                    let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
-                    btnDeleteAnsw.hide();
+                var responseVariants = [];
 
-                    responses.each(function (index, responseElement) { //index - 0,1,2...
-                        //debugger
-                        // Получаем значение из textarea
-                        let responseText = $(responseElement).val();
-                        let answerId = $("#" + element.id).find("input[id*='newResponseId']");
-                        if (responseText.length > 0) {
-                            responseVariants.push({ id: answerId[0].value, questionId: $('#QuestionId').val(), response: responseText });
+                if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+                    let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
 
-                        }
-                        // Создаем новый параграф с этим значением
-                        let newParagraph = $(`<div class="answer" id="response_" > <div class="row"><b>` + responseText + `</b></div></div>`);
+                    divsSetQuestion.each(function (e, element) {
+                        let responses = $("#" + element.id).find("[id^='response_']");
+                        let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
+                        btnDeleteAnsw.hide();
 
-                        // Заменяем текущий элемент на новый параграф
-                        $(responseElement).replaceWith(newParagraph);
+                        responses.each(function (index, responseElement) { //index - 0,1,2...
+                            // Получаем значение из textarea
+                            let responseText = $(responseElement).val();
+                            let answerId = $("#" + element.id).find("input[id*='newResponseId']");
+                            if (responseText.length > 0) {
+                                responseVariants.push({ id: answerId[0].value, questionId: $('#QuestionId').val(), response: responseText });
 
+                            }
+                            /*
+                            // Создаем новый параграф с этим значением
+                            let newParagraph = $(`<div class="answer" id="response_" > <div class="row"><b>` + responseText + `</b></div></div>`);
+    
+                            // Заменяем текущий элемент на новый параграф
+                            $(responseElement).replaceWith(newParagraph);
+                            */
+                        });
                     });
+
+                }
+
+
+
+
+
+                container.find(".save").hide();
+                container.find("#add-answer").remove();
+
+
+                var upsertQuestionVM = {
+                    id: container.find('#QuestionId').val(),
+                    questionnaireId: $('#mainId').val(),
+                    question: updatedTitle,
+                    gradingType: container.find('#questionGradingType_' + index).val(),
+                    comentary: updateComentary,
+                    responseVariant: JSON.stringify({ responseVariants }),
+                };
+
+
+                $.ajax({
+                    url: '/Home/UpsertQuestion',
+                    cache: false,
+                    type: "POST",
+                    data: JSON.stringify(upsertQuestionVM),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
+                    },
+
                 });
+            }
+            else {
 
             }
-
-
-
-
-
-            container.find(".save").hide();
-            container.find("#add-answer").remove();
-
-            if (updatedTitle.trim() === "") {
-                alert("Пожалуйста, введите непустое сообщение.");
-                return;
-            }
-
-            var upsertQuestionVM = {
-                id: container.find('#QuestionId').val(),
-                questionnaireId: $('#mainId').val(),
-                question: updatedTitle,
-                gradingType: container.find('#questionGradingType_' + index).val(),
-                comentary: updateComentary,
-                responseVariant: JSON.stringify({ responseVariants }),
-            };
-
-
-            $.ajax({
-                url: '/Home/UpsertQuestion',
-                cache: false,
-                type: "POST",
-                data: JSON.stringify(upsertQuestionVM),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
-                },
-
-            });
         });
 
 
@@ -282,35 +279,35 @@
         cancelBtn.classList.add('col-lg-12');
 
         var questionHtml = `<div class="question" id="questionN_0">
-                    <div class="form-group">
-                        <input hidden id="QuestionId" value="0" />
-                        <h4>@Localization.QuestionText</h4>
+                        <div class="form-group">
+                            <input hidden id="QuestionId" value="0" />
+                            <h4>@Localization.QuestionText</h4>
                             <input type='text' id='questionName_0' class='form-control' />
-                    </div>
-
-                    <div id="detail_0">
-                        <div class="form-group">
-                            <label>@Localization.GradingType</label>
-                            <select id="questionGradingType_0" class="form-select">
-                                <option value="1">@Localization.YesorNo</option>
-                                <option value="2">@Localization.Scorepoints</option>
-                                <option value="3">@Localization.Oneanswer</option>
-                                <option value="4">@Localization.Multianswer</option>
-                            </select>
                         </div>
 
-                        <div class="form-group">
-                            <label>@Localization.Comment</label>
-                                <input type='text'  id='questionComentary_0' class='form-control' />
+                        <div id="detail_0">
+                                <div class="form-group" id="SelectGradingType">
+                                <label>@Localization.GradingType</label>
+                                <select id="questionGradingType_0" class="form-select">
+                                    <option value="1">@Localization.YesorNo</option>
+                                    <option value="2">@Localization.Scorepoints</option>
+                                    <option value="3">@Localization.Oneanswer</option>
+                                    <option value="4">@Localization.Multianswer</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>@Localization.Comment</label>
+                                    <input type='text'  id='questionComentary_0' class='form-control' />
+                            </div>
+                                <div class="answers-container_0" id="answersContainer_0" style="display: none;">
+                                <br />
+                                <h4>@Localization.Responses</h4>
+                                <br />
+                            </div>
+                           <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
                         </div>
-                            <div class="answers-container_0" id="answersContainer_0" style="display: none;">
-                            <br />
-                            <h4>@Localization.Responses</h4>
-                            <br />
-                        </div>
-                       <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                    </div>
-                </div>`;
+                    </div>`;
 
         // Добавляем вопрос в контейнер
         $("#questions-container").append(questionHtml);
@@ -320,64 +317,70 @@
         // Создаем saveButton
         var saveButton = $("<a style='margin-top: 10px; width: 100%;' class='btn btn-success waves-effect waves-light save' title='Save'><i class='uil uil-file-alt me-1' ></i>@Localization.Save</a>").on("click", function () {
             //container.find(".pencil").show();
-            $("#questionN_0").find(".save").hide();
-            $("#questionN_0").find(".btnremoveAnsw").hide();
-            $("#questionN_0").find("#add-answer").hide();
-            $("#questionN_0").find(".btnremoveQuestion").hide();
-            document.getElementById('editBtn').style.display = 'block';
 
-            var cancelBtn = document.getElementById('cancelBtn');
-            cancelBtn.classList.remove('col-lg-12');
-            cancelBtn.classList.add('col-lg-3');
+            var ISValid = CustomValidator(0);
 
-            var gradingTypeValue = $("#questionN_0").find("select[id*='questionGradingType_0']").val()
+            if (ISValid == true) {
 
-            var responseVariants = [];
+                $("#questionN_0").find(".save").hide();
+                $("#questionN_0").find(".btnremoveAnsw").hide();
+                $("#questionN_0").find("#add-answer").hide();
+                $("#questionN_0").find(".btnremoveQuestion").hide();
+                document.getElementById('editBtn').style.display = 'block';
 
-            if (gradingTypeValue == '3' || gradingTypeValue == '4') {
-                debugger
-                let divsSetQuestion = $("#questionN_0").find(`div[id*="answersContainer_0"]`);
+                var cancelBtn = document.getElementById('cancelBtn');
+                cancelBtn.classList.remove('col-lg-12');
+                cancelBtn.classList.add('col-lg-3');
 
-                divsSetQuestion.each(function (e, element) {
-                    let responses = $("#" + element.id).find("[id^='response_']");
-                    responses.each(function (index, responseElement) { //index - 0,1,2...
-                        debugger
-                        // Получаем значение из textarea
-                        let responseText = $(responseElement).val();
-                        if (responseText.length > 0) {
-                            responseVariants.push({ id: 0, questionId: 0, response: responseText });
+                var gradingTypeValue = $("#questionN_0").find("select[id*='questionGradingType_0']").val()
 
-                        }
+                var responseVariants = [];
+
+                if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+
+                    let divsSetQuestion = $("#questionN_0").find(`div[id*="answersContainer_0"]`);
+
+                    divsSetQuestion.each(function (e, element) {
+                        let responses = $("#" + element.id).find("[id^='response_']");
+                        responses.each(function (index, responseElement) { //index - 0,1,2...
+                            // Получаем значение из textarea
+                            let responseText = $(responseElement).val();
+                            if (responseText.length > 0) {
+                                responseVariants.push({ id: 0, questionId: 0, response: responseText });
+
+                            }
+                        });
                     });
+
+                }
+
+
+                var upsertQuestionVM = {
+                    id: 0,
+                    questionnaireId: $('#mainId').val(),
+                    question: $("#questionN_0").find("input[id*='questionName_0']").val(),
+                    gradingType: gradingTypeValue,
+                    comentary: $("#questionN_0").find("input[id*='questionComentary_0']").val(),
+                    responseVariant: JSON.stringify({ responseVariants }),
+                };
+
+
+
+                $.ajax({
+                    url: '/Home/UpsertQuestion',
+                    cache: false,
+                    type: "POST",
+                    data: JSON.stringify(upsertQuestionVM),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
+                    },
+
                 });
-
             }
-
-
-            //debugger
-            var upsertQuestionVM = {
-                id: 0,
-                questionnaireId: $('#mainId').val(),
-                question: $("#questionN_0").find("input[id*='questionName_0']").val(),
-                gradingType: gradingTypeValue,
-                comentary: $("#questionN_0").find("input[id*='questionComentary_0']").val(),
-                responseVariant: JSON.stringify({ responseVariants }),
-            };
-
-
-
-            $.ajax({
-                url: '/Home/UpsertQuestion',
-                cache: false,
-                type: "POST",
-                data: JSON.stringify(upsertQuestionVM),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
-                },
-
-            });
-
+            else {
+                return;
+            }
 
         });
         //var container = $("#questionN_0");
@@ -398,40 +401,46 @@
         });
 
 
-
+        var answerIndex = 0;
         // Обработчик события для кнопки (если необходимо)
         $("#add-answer").on("click", function () {
             // Ваш код обработки события при нажатии на кнопку
 
             var newInput = `<div class="answer" id='newAnswer'>
-            <div class="form-group">
-                <div class="row align-items-center">
-                    <div class="col-lg-11">
-                        <p>@Localization.AnswerText</p>
-                        <input hidden id='newResponseId' value='0' />
-                        <input type="text" id='response_' class="form-control mb-4" />
+                    <div class="row align-items-center">
+                        <div class="col-lg-11">
+                            <p>@Localization.AnswerText</p>
+                            <input hidden id='newResponseId' value='0' />
+                            <input type="text" id='response_${answerIndex}' class="form-control mb-4" />
+                        </div>
+                        <div class="col-lg-1">
+                         <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                        </div>
                     </div>
-                    <div class="col-lg-1">
-                             <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>`;
+            </div>`;
+
             // Вставляем новый input перед кнопкой
             $("#questionN_0").find(".answers-container_0").append(newInput);
+            answerIndex++;
         });
 
+
+
         $("#questionN_0").on("click", ".btnremoveAnsw", function () {
-            //debugger
             var $answer = $(this).closest('.answer');
             $answer.remove();
         });
+
         // Добавляем saveButton в контейнер с вопросом
         $("#questionN_0").append(saveButton);
 
 
-        var removeQuestionButton = $(`<button type='button' style = 'width: 100%;' class='btn btn-danger waves-effect waves-light btnremoveQuestion'> <i class='uil-trash-alt'></i> @Localization.Delete</button >`);
-        $("#questionN_0").prepend(removeQuestionButton);
+        var questionCount = $('#questions-container .question').length;
+
+        if (questionCount > 1) {
+            var removeQuestionButton = $(`<button type='button' style = 'width: 100%;' class='btn btn-danger waves-effect waves-light btnremoveQuestion'> <i class='uil-trash-alt'></i> @Localization.Delete</button >`);
+            $("#questionN_0").prepend(removeQuestionButton);
+        }
 
 
         $("#questionN_0").on("click", ".btnremoveQuestion", function () {
@@ -455,17 +464,15 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <input type="hidden" asp-for="oid" id="mainId" />
+            <input type="hidden" asp-for="oid" id="mainId"/>
 
             <br />
 
-            <div class="row">
-                <div class="col-md-11">
-                    <div class="mb-4">
-                        <h1 class="text-center">@Model.Title</h1>
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <h1>@Model.Title</h1>
                 </div>
-                <div class="col-md-1">
+                <div class="col-auto">
                     <a class="btn btn-secondary waves-effect waves-light edit" title="Edit">
                         <i class="fas fa-pencil-alt font-size-18"></i>
                     </a>
@@ -473,11 +480,13 @@
             </div>
 
 
-            <h3>@Localization.Question</h3>
+
+            <h3>@Localization.Questions</h3>
+            
             <div class="tab-pane active" id="about" role="tabpanel">
                 <div id="questions"></div>
             </div>
-            
+
 
 
             <div class="row">
@@ -487,91 +496,15 @@
                 <div id="cancelBtn" class="col-lg-3">
                     <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">@Localization.Cancel</a>
                 </div>
-
             </div>
+
+
         </div>
     </div>
 </div>
 
+
+
 <script>
-    drawPatrialView("/Home/GetQuestions/" + @Model.oid, "questions");
-    $(document).ready(function () {
-
-        // Обработчик события для кнопки Edit
-        $(document).on("click", ".edit", function () {
-            var container = $(this).closest(".row");
-            var titleElement = container.find("h1");
-
-            // Создаем input для редактирования
-            var titleInput = $("<input type='text' class='form-control' id='defaultconfig' value='" + titleElement.text() + "' />");
-
-            // Заменяем h1 на input
-            titleElement.replaceWith(titleInput);
-
-            // Заменяем кнопку Edit на Save
-            var saveButton = $("<a class='btn btn-secondary  waves-effect waves-light save' title='Save'><i class='fas fa-save font-size-18'></i></a>").on("click", function () {
-                var updatedTitle = titleInput.val();
-
-                if (updatedTitle.trim() === "") {
-                    alert("Пожалуйста, введите непустое сообщение.");
-                    return;
-                }
-
-                var Quest = {
-                    oid: $('#mainId').val(),
-                    name: $('#defaultconfig').val(),
-                };
-                //debugger
-                $.ajax({
-                    url: '/Home/UpsertQuestionnaire',
-                    cache: false,
-                    type: "POST",
-                    data: JSON.stringify(Quest),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        if (data.statusCode === 200) {
-                            // Заменяем input на h3
-                            titleInput.replaceWith("<h1 class='text-center'>" + updatedTitle + "</h1>");
-
-                            // Заменяем кнопку Save на Edit
-                            saveButton.replaceWith("<a class='btn btn-secondary  waves-effect waves-light edit' title='Edit'><i class='fas fa-pencil-alt font-size-18'></i></a>");
-                        } else {
-
-                        }
-                    },
-
-                });
-
-            });
-
-            $(this).replaceWith(saveButton);
-        });
-
-
-        /* $("i[id^='Titlequestion_']").click(function () {
-             debugger
-             var questionId = $(this).attr('id');
-             var detailId = "#detail_" + questionId.split('_')[1];
-
-             // Анимированно скрываем или отображаем детали
-             $(detailId).animate({
-                 height: 'toggle'
-             });
-         });
-         */
-        $("#hideAll").click(function () {
-            $("[id^='detail_']").animate({
-                height: 'hide'
-            });
-        });
-
-        $("#showAll").click(function () {
-            $("[id^='detail_']").animate({
-                height: 'show'
-            });
-        });
-
-
-    });
-
+    drawPatrialViewWithLoad("/Home/GetQuestions/" + @Model.oid, "questions");
 </script>

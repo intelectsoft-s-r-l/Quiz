@@ -1,7 +1,8 @@
 ﻿@using WebApplication2.Models.API;
 @using WebApplication2.Models.API.Questionnaires;
 @using WebApplication2.Models.Enum;
-@model DetailQuestionnaire
+@using WebApplication2.ViewModels;
+@model QuestionnaireViewModel
 <style>
 
     .form-container {
@@ -25,16 +26,13 @@
                 </p>
                 <h2>@Localization.DetailQ</h2>
             </div><div class="form-container">
-                <h3 style="margin-top:20px;"><strong>@Localization.TitleQ:</strong> @Model.questionnaire.name</h3>
+                <h3 style="margin-top:20px;"><strong>@Localization.TitleQ:</strong> @Model.Title</h3>
                 <p><strong>@Localization.Question </strong></p>
-                @* <ol>
-                    @foreach (var question in Model.questionnaire.questions)
+                 <ol>
+                    @foreach (var question in Model.Questions)
                     {
                         <h5><li>@question.question</li></h5>
                         <p><strong>@Localization.Comment:</strong> @question.comentary</p>
-
-
-                        @*{*
 
                         string answerLocalization = question.gradingType switch
                         {
@@ -50,10 +48,12 @@
                         
                         @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
                         {
+                            <b>@Localization.Responses</b>
+                            <br/>
                             <ul>
-                                @foreach (var answer in question.answerVariants)
+                                @foreach (var answer in question.responseVariants)
                                 {
-                                    <li><p>@answer</p></li>
+                                    <li><p>@answer.response</p></li>
 
                                 }
                             </ul>
@@ -61,7 +61,7 @@
                         <br />
                         
                     }
-                </ol> *@
+                </ol> 
 
             </div>
         </div>
@@ -83,7 +83,7 @@
                 url: '../Home/DeleteQuestionnaire',
                 cache: false,
                 type: "POST",
-                data: JSON.stringify(@Model.questionnaire.oid),
+                data: JSON.stringify(@Model.oid),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     if (data.statusCode === 200) {

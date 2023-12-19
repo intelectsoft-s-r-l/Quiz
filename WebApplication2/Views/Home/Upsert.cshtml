@@ -49,14 +49,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        @if (Model.oid != 0)
-                        {
-                            <h2 class="text-center"><i class="bx bx-edit"></i> @Localization.EditQ</h2>
-                        }
-                        else
-                        {
-                            <h2 class="text-center"><i class="mdi mdi-plus me-1"></i> @Localization.CreateQ</h2>
-                        }
+                        <h2 class="text-center"><i class="mdi mdi-plus me-1"></i> @Localization.CreateQ</h2>
 
                         <input type="hidden" asp-for="oid" id="mainId" />
                         <br />
@@ -69,7 +62,7 @@
                             </div>
                             <div class="col-lg-10">
                                 <div class="mb-3 mb-4">
-                                    <input style="width: 100%;" type="text" name="Title" asp-for="Title" class="form-control" required maxlength="100" id="defaultconfig" />
+                                    <input style="width: 100%;" type="text" name="Title" class="form-control" required maxlength="100" id="defaultconfig" />
                                 </div>
                             </div>
                         </div>
@@ -80,85 +73,7 @@
 
                         <div id="questions-container">
 
-                            @foreach (var item in Model.Questions)
-                            {                                
-                                <div class="question" id="question_@i">
-                                    <input type="hidden" asp-for="@item.id" id="questionId_" />
-                                    @if (i > 0)
-                                    {
-                                        <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-
-                                        <br />
-                                        <br />
-                                    }
-
-                                    <div class="form-group">
-                                        <label asp-for="@item.question"><i class="uil-eye font-size-20" onclick="showHideDetail(@i)" style="cursor: pointer;"></i> @Localization.QuestionText</label>
-                                        <input type="text" name="@item.question" asp-for="@item.question" class=" form-control" required id="questionName_@i" />
-                                    </div>
-                                    <br />
-                                    <div id="otherDataQ_@i">
-                                        <div class="form-group">
-                                            <label asp-for="@item.gradingType">@Localization.GradingType</label>
-                                            <select id="questionGradingType_@i" name=".gradingType" class="form-select">
-                                                <option value="1" selected="@(item.gradingType == GradingType.YesNo)">@Localization.YesorNo</option>
-                                                <option value="2" selected="@(item.gradingType == GradingType.Point10Score)">@Localization.Scorepoints</option>
-                                                <option value="3" selected="@(item.gradingType == GradingType.SingleAnswerVariant)">@Localization.Oneanswer</option>
-                                                <option value="4" selected="@(item.gradingType == GradingType.MultipleAnswerVariant)">@Localization.Multianswer</option>
-                                            </select>
-                                        </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label asp-for="@item.comentary">@Localization.Comment</label>
-                                            <input type="text" name="@item.comentary" asp-for="@item.comentary" class="form-control" required id="questionComentary_@i" />
-                                        </div>
-                                        @* <div class="answers-container">
-                                            @{
-                                                int j = 0;
-                                            }
-                                            @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
-                                            {
-                                                <br />
-                                                <h4>@Localization.Responses</h4>
-                                                <br />
-
-                                                foreach (var answ in item.responseVariants)
-                                                {
-                                                    <div class="answer">
-                                                        <div class="form-group">
-                                                            <div class="row align-items-center">
-                                                                @if (j > 0)
-                                                                {
-                                                                    <div class="col-lg-11">
-                                                                        <label asp-for="@answ.response">@Localization.AnswerText</label>
-                                                                        <input type="text" asp-for="@answ" class="form-control mb-4" required id="answerVal_@i-@j" />
-                                                                    </div>
-                                                                    <div class="col-lg-1">
-
-                                                                        <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-
-                                                                    </div>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <div class="col-lg-12">
-                                                                        <label asp-for="@answ.response">@Localization.AnswerText</label>
-                                                                        <input type="text" asp-for="@answ" class="form-control mb-4" required id="answerVal_@i-@j" />
-                                                                    </div>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                    j++;
-                                                }
-                                            }
-                                        </div> *@
-                                        <button type="button" id="add-answer" style="width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                                    </div>
-                                </div>
-                                i++;
-                            }
+                           
                         </div>
 
                         <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">@Localization.AddQuestion</button>
@@ -214,7 +129,7 @@
                                             <br/>
                                             <div class="form-group">
                                                 <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
-                                                <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" required id="questionComentary_${questionIndex}" />
+                                                <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" id="questionComentary_${questionIndex}" />
                                             </div>
                                             <div class="answers-container" style="display: none;">
                                                 <br/>
@@ -235,7 +150,6 @@
             function addRemoveAction() {
                 $(".btnremove").each(function (index, item) {
                     $(item).click(function () {
-                        //debugger
                         var $question = $(this).closest('.question');
                         $question.remove();
                     });
@@ -245,7 +159,6 @@
 
             function addRemoveAnswerAction() {
                 $("#questions-container").on("click", "#btnremoveAnsw", function () {
-                    //debugger
                     var $answer = $(this).closest('.answer');
                     $answer.remove();
                 });
@@ -334,7 +247,7 @@
             // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(forms, function (form) {
                 form.addEventListener('submit', function (e) {
-                    // e.preventDefault();
+                    //e.preventDefault();
                     //e.stopPropagation();
                     if (form.checkValidity() === true) {
                         e.preventDefault();
@@ -344,7 +257,6 @@
                         let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
                         let tmpsss = $('#mainId').val();
                         divsSetQuestions.each(function (e, element) {
-                            //debugger
                             var answerRes = [];
                             let questionid = $("#" + element.id).find("input[id*='questionId_']");
                             let questionName = $("#" + element.id).find("input[id*='questionName_']");
@@ -365,7 +277,6 @@
                             Title: $('#defaultconfig').val(),
                             Questions: JSON.stringify({ questions }),
                         };
-                        //debugger
                         $.ajax({
                             url: '/Home/CreateQuestionnaire',
                             cache: false,

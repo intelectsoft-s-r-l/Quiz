@@ -188,25 +188,25 @@ namespace WebApplication2.Controllers
 
 
         //[HttpGet]
-        public async Task<IActionResult> CreateQuestionnaire(int id)
+        public IActionResult CreateQuestionnaire(/*int id*/)
         {
             var upsertVm = new QuestionnaireViewModel();
-            if (id != 0)
-            {
+            //if (id != 0)
+            //{
 
-                var questionnaireData = await QuestionnaireDetail(id);
-                var questionsData = await QuestionsDetail(id);
+            //    var questionnaireData = await QuestionnaireDetail(id);
+            //    var questionsData = await QuestionsDetail(id);
 
-                if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
-                {
-                    upsertVm.oid = id;
-                    upsertVm.Title = questionnaireData.questionnaire.name;
-                    upsertVm.Questions = questionsData.questions;
-                    return View("~/Views/Home/Upsert.cshtml", upsertVm);
-                }
+            //    if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
+            //    {
+            //        upsertVm.oid = id;
+            //        upsertVm.Title = questionnaireData.questionnaire.name;
+            //        upsertVm.Questions = questionsData.questions;
+            //        return View("~/Views/Home/Upsert.cshtml", upsertVm);
+            //    }
 
-            }
-            upsertVm.oid = id;
+            //}
+            upsertVm.oid = 0;
             upsertVm.Questions = new List<QuestionViewModel>();
             return View("~/Views/Home/Upsert.cshtml", upsertVm);
 
@@ -244,9 +244,12 @@ namespace WebApplication2.Controllers
                 };
 
 
-                // var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
+                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
 
                 var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
+
+                foreach(var item in questionsVM.questions) 
+                    item.questionnaireId = questionnaireBaseResponsed.questionnaireId;
 
                 UpsertQuestions questions = new UpsertQuestions();
                 questions.questions = questionsVM.questions;
@@ -255,13 +258,13 @@ namespace WebApplication2.Controllers
 
                 var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
-                if (questionsBaseResponsed.errorCode == 0)
+                if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
                 {
                     return Json(new { StatusCode = 200 });
                     //return RedirectToAction("Index");
                 }
             }
-            return View("Error");
+            return View();
 
         }
 
@@ -270,18 +273,17 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Delete(int id)
         {
 
-            string token = GetToken();
-            var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
-            if (questionnaireData.errorCode == 143)
-            {
-                await RefreshToken();
-                return await Delete(id);
-            }
-            else if (questionnaireData.errorCode == 118)
-                return View("~/Views/Account/Login.cshtml");
-            else if (questionnaireData.errorCode == 0)
-                return PartialView("~/Views/Home/Delete.cshtml", questionnaireData);
+            var deleteVm = new QuestionnaireViewModel();
+            var questionnaireData = await QuestionnaireDetail(id);
+            var questionsData = await QuestionsDetail(id);
 
+            if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
+            {
+                deleteVm.oid = id;
+                deleteVm.Title = questionnaireData.questionnaire.name;
+                deleteVm.Questions = questionsData.questions;
+                return PartialView("~/Views/Home/Delete.cshtml", deleteVm);
+            }
             return View("Error");
         }
 
@@ -318,7 +320,7 @@ namespace WebApplication2.Controllers
             else if (baseResponse.errorCode == 118)
                 return View("~/Views/Account/Login.cshtml");
             else if (baseResponse.errorCode == 0)
-                return Json(new { StatusCode = 200});
+                return Json(new { StatusCode = 200, oid = id });
             else
                 return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
         }

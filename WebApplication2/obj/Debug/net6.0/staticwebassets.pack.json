@@ -4561,6 +4561,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\js\\Home\\InfoQuestionnaire.js",
+      "PackagePath": "staticwebassets\\js\\Home\\InfoQuestionnaire.js"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\js\\app.js",
       "PackagePath": "staticwebassets\\js\\app.js"
     },

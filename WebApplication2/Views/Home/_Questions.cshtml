@@ -6,6 +6,7 @@
     @{
         int i = 1;
     }
+
     @foreach (var item in Model.questions.OrderBy(x => x.id))
     {
         <div class="question" id="questionN_@i">
@@ -16,11 +17,17 @@
 
             <div class="form-group">
                 <input hidden id="QuestionId" value="@item.id" />
-                <h4><i class="uil-eye font-size-24" onclick="DetailMore(@i)" style="cursor: pointer;"></i> @Localization.QuestionText</h4>
-                <h3 id="questionTitle_@i"><strong>@item.question</strong></h3>
+                <h4><strong>@Localization.Question №@i  </strong>  <i class="uil-eye font-size-24" onclick="DetailMore(@i)" style="cursor: pointer;"></i></h4>
+                <p id="questionName_@i">@item.question</p>
             </div>
 
             <div id="detail_@i">
+
+                <div class="form-group">
+                    <b>@Localization.Comment</b>
+                    <p id="questionComentary_@i">@item.comentary</p>
+                </div>
+
                 <div class="form-group">
                     @{
                         string answerLocalization = "";
@@ -56,13 +63,8 @@
                         }
                     }
                     <input hidden id="questionGradingType_@i" value="@convertToIntGradingType" />
-                    <label asp-for="@item.gradingType">@Localization.GradingType</label>
-                    <b>@answerLocalization</b>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="@item.comentary">@Localization.Comment</label>
-                    <p id="questionComentary_@i"><b>@item.comentary</b></p>
+                    <b>@Localization.GradingType</b>
+                    <p>@answerLocalization</p>
                 </div>
 
 
@@ -73,27 +75,31 @@
                     @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                     {
                         <h4>@Localization.Responses</h4>
-                        <br/>
-
-                            foreach (var answ in item.responseVariants)
+                        <br />
+                        <ul>
+                            @foreach (var answ in item.responseVariants)
                             {
-                                <div class="answer" id="response_@j">
-                                    <div class="form-group">
+                                <li>
+                                    <div class="answer" id="response_@j">
                                         <div class="row">
-                                            @* <p>@Localization.AnswerText</p> *@
-                                            <b>@answ.response</b>
+                                            <p>@answ.response</p>
                                         </div>
                                     </div>
-                                </div>
+                                </li>
+
 
                                 j++;
                             }
-                        
+                        </ul>
+
+
                     }
                 </div>
             </div>
         </div>
         i++;
     }
+
+
 
 </div>

@@ -288,7 +288,7 @@
   <data name="quantityText" xml:space="preserve">
     <value>Introduceți cantitatea</value>
   </data>
-  <data name="Question" xml:space="preserve">
+  <data name="Questions" xml:space="preserve">
     <value>Întrebări</value>
   </data>
   <data name="Questionnaires" xml:space="preserve">
@@ -371,5 +371,14 @@
   </data>
   <data name="createQuestion" xml:space="preserve">
     <value>Adaugă o întrebare</value>
+  </data>
+  <data name="ComentaryTextValidation" xml:space="preserve">
+    <value>Comentariul nu trebuie să fie gol</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Întrebare</value>
+  </data>
+  <data name="QuestionTextValidation" xml:space="preserve">
+    <value>Întrebarea nu trebuie să fie goală</value>
   </data>
 </root>

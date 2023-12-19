@@ -169,6 +169,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на The comentary doesn&apos;t have to be empty.
+        /// </summary>
+        public static string ComentaryTextValidation {
+            get {
+                return ResourceManager.GetString("ComentaryTextValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Commentary.
         /// </summary>
         public static string Comment {
@@ -583,7 +592,7 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Questions.
+        ///   Ищет локализованную строку, похожую на Question.
         /// </summary>
         public static string Question {
             get {
@@ -601,11 +610,29 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Questions.
+        /// </summary>
+        public static string Questions {
+            get {
+                return ResourceManager.GetString("Questions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Question Text.
         /// </summary>
         public static string QuestionText {
             get {
                 return ResourceManager.GetString("QuestionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The question doesn&apos;t have to be empty.
+        /// </summary>
+        public static string QuestionTextValidation {
+            get {
+                return ResourceManager.GetString("QuestionTextValidation", resourceCulture);
             }
         }
         

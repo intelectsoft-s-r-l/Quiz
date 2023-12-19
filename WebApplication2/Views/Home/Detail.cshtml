@@ -32,9 +32,9 @@
                     <div id="questionnaire"></div>
                 </div>
 
-                <div class="tab-pane" id="tasks" role="tabpanel">
+                @* <div class="tab-pane" id="tasks" role="tabpanel">
                     <div id="questionnaireResponses"></div>
-                </div>
+                </div> *@
 
 
             </div>
@@ -43,6 +43,6 @@
 </div>
 
 <script>
-    drawPatrialView("/Home/GetInfoQuestionnaire/" + @Model, "questionnaire");
+    drawPatrialViewWithLoad("/Home/GetInfoQuestionnaire/" + @Model, "questionnaire");
     // drawPatrialView("/Home/QuestionnaireResponses/" + @Model, "questionnaireResponses");
 </script>
