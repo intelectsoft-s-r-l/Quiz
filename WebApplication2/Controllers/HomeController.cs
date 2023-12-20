@@ -23,7 +23,7 @@ namespace WebApplication2.Controllers
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;
-            // _localizer = localizer;
+            //_localizer = localizer;
         }
 
         public async Task<IActionResult> Index()
@@ -258,11 +258,11 @@ namespace WebApplication2.Controllers
 
                 var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
-                if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
-                {
+                //if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
+                //{
                     return Json(new { StatusCode = 200 });
                     //return RedirectToAction("Index");
-                }
+                //}
             }
             return View();
 

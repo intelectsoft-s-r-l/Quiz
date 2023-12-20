@@ -109,11 +109,11 @@
             function addQuestion() {
                 var questionHtml = `<div class="question" id="question_${questionIndex}">
                                      <input type="hidden" value="0" id="questionId_" />
-                                                <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                          <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
                                             <div class="form-group">
                                             <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText</label>
 
-                                                <input type="text" name="Questions[${questionIndex}].question" class="form-control" required id="questionName_${questionIndex}" />
+                                             <input type="text" name="Questions[${questionIndex}].question" class="form-control" required maxlength='100' id="questionName_${questionIndex}" />
                                             </div>
                                                     <br/>
                                             <div id="otherDataQ_${questionIndex}">
@@ -129,7 +129,7 @@
                                             <br/>
                                             <div class="form-group">
                                                 <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
-                                                <input type="text" name="Questions[${questionIndex}].comentary" class="form-control" id="questionComentary_${questionIndex}" />
+                                                        <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' required class="form-control" id="questionComentary_${questionIndex}" />
                                             </div>
                                             <div class="answers-container" style="display: none;">
                                                 <br/>
@@ -218,12 +218,12 @@
                                             <div class="row align-items-center">
                                             <div class="col-lg-11">
                                                 <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
-                                                <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
+                                                <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
                                                 <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
                                            </div>
                                             <div class="col-lg-1">
                                                 <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
-                                                <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                                <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${answerIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
                                             </div>
                                         </div>
                                     </div>
