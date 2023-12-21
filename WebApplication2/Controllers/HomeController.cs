@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Security.Cryptography;
 using WebApplication2.Filter;
 using WebApplication2.Interface;
 using WebApplication2.Models.API.Questionnaires;
@@ -188,24 +187,9 @@ namespace WebApplication2.Controllers
 
 
         //[HttpGet]
-        public IActionResult CreateQuestionnaire(/*int id*/)
+        public IActionResult CreateQuestionnaire()
         {
             var upsertVm = new QuestionnaireViewModel();
-            //if (id != 0)
-            //{
-
-            //    var questionnaireData = await QuestionnaireDetail(id);
-            //    var questionsData = await QuestionsDetail(id);
-
-            //    if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
-            //    {
-            //        upsertVm.oid = id;
-            //        upsertVm.Title = questionnaireData.questionnaire.name;
-            //        upsertVm.Questions = questionsData.questions;
-            //        return View("~/Views/Home/Upsert.cshtml", upsertVm);
-            //    }
-
-            //}
             upsertVm.oid = 0;
             upsertVm.Questions = new List<QuestionViewModel>();
             return View("~/Views/Home/Upsert.cshtml", upsertVm);
@@ -239,8 +223,8 @@ namespace WebApplication2.Controllers
                     oid = upsertQuestionnaireVM.id,
                     name = upsertQuestionnaireVM.Title,
                     companyOid = userData.User.CompanyID,
-                    token = token,
-                    company = userData.User.Company
+                    company = userData.User.Company,
+                    token = token
                 };
 
 
@@ -248,8 +232,8 @@ namespace WebApplication2.Controllers
 
                 var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
 
-                foreach(var item in questionsVM.questions) 
-                    item.questionnaireId = questionnaireBaseResponsed.questionnaireId;
+                questionsVM.questions.ForEach(item => item.questionnaireId = questionnaireBaseResponsed.questionnaireId);
+
 
                 UpsertQuestions questions = new UpsertQuestions();
                 questions.questions = questionsVM.questions;
@@ -258,11 +242,11 @@ namespace WebApplication2.Controllers
 
                 var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
-                //if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
-                //{
+                if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
+                {
                     return Json(new { StatusCode = 200 });
                     //return RedirectToAction("Index");
-                //}
+                }
             }
             return View();
 

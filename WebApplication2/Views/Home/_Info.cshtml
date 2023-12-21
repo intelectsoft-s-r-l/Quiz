@@ -5,6 +5,7 @@
 @model QuestionnaireViewModel
 
 
+
 <script src="~/js/Home/InfoQuestionnaire.js"></script>
 
 <style>
@@ -62,25 +63,74 @@
             ISValid = false;
         }
 
-/*
-        let divsSetQuestion = $("#questionN_" + index).find(`#answersContainer_${index}`);
+        /*
+                let divsSetQuestion = $("#questionN_" + index).find(`#answersContainer_${index}`);
 
-        divsSetQuestion.each(function (e, element) {
-            let responses = $("#" + element.id).find("[id^='response_']");
-            responses.each(function (index, responseElement) { //index - 0,1,2...
-                // Получаем значение из textarea
-                let responseText = $(responseElement).val();
-                if (responseText === "") {
-                    if ($('#ResponseError_' + index).val() == null) {
-                        $('#response_' + index).after(`<label id="ResponseError_${index}" class="text-danger">"Text"</label>`);
-                    }
-                    ISValid = false;
-                }
-            });
-        });
-        */
+                divsSetQuestion.each(function (e, element) {
+                    let responses = $("#" + element.id).find("[id^='response_']");
+                    responses.each(function (index, responseElement) { //index - 0,1,2...
+                        // Получаем значение из textarea
+                        let responseText = $(responseElement).val();
+                        if (responseText === "") {
+                            if ($('#ResponseError_' + index).val() == null) {
+                                $('#response_' + index).after(`<label id="ResponseError_${index}" class="text-danger">"Text"</label>`);
+                            }
+                            ISValid = false;
+                        }
+                    });
+                });
+                */
 
         return ISValid;
+    }
+
+    function editTitleMain() {
+
+        var container = $('#titleContainer');
+        var titleElement = container.find("#mainTitleVal");
+
+        // Создаем input для редактирования
+        var titleInput = $("<input type='text'  class='form-control'  id='defaultconfig' style='width: 30vw;' value='" + titleElement.text() + "' maxlength='100'/>");
+
+        // Заменяем h1 на input
+        titleElement.replaceWith(titleInput);
+
+        // Заменяем кнопку Edit на Save
+        var saveButton = $("<a class='btn btn-secondary  waves-effect waves-light save' title='Save'><i class='fas fa-save font-size-18'></i></a>").on("click", function () {
+            var updatedTitle = titleInput.val();
+
+            if (updatedTitle.trim() === "") {
+                alert("Пожалуйста, введите непустое сообщение.");
+                return;
+            }
+
+            var Quest = {
+                oid: $('#mainId').val(),
+                name: $('#defaultconfig').val(),
+            };
+            $.ajax({
+                url: '/Home/UpsertQuestionnaire',
+                cache: false,
+                type: "POST",
+                data: JSON.stringify(Quest),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.statusCode === 200) {
+                        // Заменяем input на h3
+                        titleInput.replaceWith("<h1 id='mainTitleVal' >" + updatedTitle + "</h1>");
+
+                        // Заменяем кнопку Save на Edit
+                        saveButton.replaceWith("<a class='btn btn-secondary  waves-effect waves-light' id='editBtnTitle' onclick='editTitleMain()'><i class='fas fa-pencil-alt font-size-18'></i></a>");
+                    } else {
+
+                    }
+                },
+
+            });
+
+        });
+
+        container.find("#editBtnTitle").replaceWith(saveButton);
     }
 
     function EditQuestion(index) {
@@ -103,12 +153,12 @@
         cancelBtn.classList.remove('col-lg-3');
         cancelBtn.classList.add('col-lg-12');
 
-/*
-        var detailHide = container.find("#detail_" + index);
-        detailHide.animate({
-            height: 'show'
-        });
-        */
+        /*
+                var detailHide = container.find("#detail_" + index);
+                detailHide.animate({
+                    height: 'show'
+                });
+                */
         $('[id^="detail_"]').each(function () {
             $(this).animate({
                 height: 'show'
@@ -139,20 +189,21 @@
             addButton.on("click", function () {
                 // Ваш код обработки события при нажатии на кнопку
                 answersCount++;
+
                 var newInput = `<div class="answer" id='newAnswer'>
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <div class="col-lg-11">
-                            <p>@Localization.AnswerText</p>
-                            <input hidden id='newResponseId' value='0' />
-                            <input type="text" id='response_${answersCount}' class="form-control mb-4" maxlength='100' />
-                        </div>
-                        <div class="col-lg-1">
-                            <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                        </div>
+            <div class="form-group">
+                <p>@Localization.AnswerText</p>
+                <div class="row">
+                    <div class="col-md-11">
+                        <input hidden id='newResponseId' value='0' />
+                        <input type="text" id='response_${answersCount}' class="form-control mb-4" maxlength='100' />
+                    </div>
+                    <div class="col-md-1">
+                        <button type='button' style='width: 100%;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
                     </div>
                 </div>
-            </div>`;
+            </div>
+        </div>`;
 
                 // Вставляем новый input перед кнопкой
                 container.find("#answersContainer_" + index).append(newInput);
@@ -214,7 +265,7 @@
                             /*
                             // Создаем новый параграф с этим значением
                             let newParagraph = $(`<div class="answer" id="response_" > <div class="row"><b>` + responseText + `</b></div></div>`);
-    
+
                             // Заменяем текущий элемент на новый параграф
                             $(responseElement).replaceWith(newParagraph);
                             */
@@ -283,35 +334,34 @@
         cancelBtn.classList.add('col-lg-12');
 
         var questionHtml = `<div class="question" id="questionN_0">
-                        <div class="form-group">
-                            <input hidden id="QuestionId" value="0" />
-                            <h4>@Localization.QuestionText</h4>
-                            <input type='text' id='questionName_0' maxlength='100' class='form-control' />
-                        </div>
+                                    <div class="form-group">
+                                        <input hidden id="QuestionId" value="0" />
+                                        <h4>@Localization.QuestionText</h4>
+                                        <input type='text' id='questionName_0' maxlength='100' class='form-control' />
+                                    </div>
 
-                        <div id="detail_0">
-                                <div class="form-group" id="SelectGradingType">
-                                <label>@Localization.GradingType</label>
-                                <select id="questionGradingType_0" class="form-select">
-                                    <option value="1">@Localization.YesorNo</option>
-                                    <option value="2">@Localization.Scorepoints</option>
-                                    <option value="3">@Localization.Oneanswer</option>
-                                    <option value="4">@Localization.Multianswer</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>@Localization.Comment</label>
-                                <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
-                            </div>
-                                <div class="answers-container_0" id="answersContainer_0" style="display: none;">
-                                <br />
-                                <h4>@Localization.Responses</h4>
-                                <br />
-                            </div>
-                           <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                        </div>
-                    </div>`;
+                                    <div id="detail_0">
+                                        <div class="form-group">
+                                            <label>@Localization.Comment</label>
+                                            <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
+                                        </div>
+                                            <div class="form-group" id="SelectGradingType">
+                                                <label>@Localization.GradingType</label>
+                                                <select id="questionGradingType_0" class="form-select">
+                                                    <option value="1">@Localization.YesorNo</option>
+                                                    <option value="2">@Localization.Scorepoints</option>
+                                                    <option value="3">@Localization.Oneanswer</option>
+                                                    <option value="4">@Localization.Multianswer</option>
+                                                </select>
+                                            </div>
+                                            <div class="answers-container_0" id="answersContainer_0" style="display: none;">
+                                            <br />
+                                            <h4>@Localization.Responses</h4>
+                                            <br />
+                                        </div>
+                                       <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
+                                    </div>
+                                </div>`;
 
         // Добавляем вопрос в контейнер
         $("#questions-container").append(questionHtml);
@@ -410,17 +460,17 @@
             // Ваш код обработки события при нажатии на кнопку
 
             var newInput = `<div class="answer" id='newAnswer'>
-                    <div class="row align-items-center">
-                        <div class="col-lg-11">
-                            <p>@Localization.AnswerText</p>
-                            <input hidden id='newResponseId' value='0' />
-                            <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
-                        </div>
-                        <div class="col-lg-1">
-                         <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                        </div>
-                    </div>
-            </div>`;
+                                <div class="row align-items-center">
+                                    <div class="col-lg-11">
+                                        <p>@Localization.AnswerText</p>
+                                        <input hidden id='newResponseId' value='0' />
+                                        <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
+                                    </div>
+                                    <div class="col-lg-1">
+                                     <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                    </div>
+                                </div>
+                        </div>`;
 
             // Вставляем новый input перед кнопкой
             $("#questionN_0").find(".answers-container_0").append(newInput);
@@ -463,34 +513,27 @@
 
 
 <div class="form-container">
-
     <div class="row">
         <div class="col-lg-12">
 
-            <input type="hidden" asp-for="oid" id="mainId"/>
-
+            <input type="hidden" asp-for="oid" id="mainId" />
             <br />
 
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" id="titleContainer">
                 <div class="col-auto">
-                    <h1>@Model.Title</h1>
+                    <h1 id="mainTitleVal">@Model.Title</h1>
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-secondary waves-effect waves-light edit" title="Edit">
+                    <a class="btn btn-secondary waves-effect waves-light" id="editBtnTitle" onclick="editTitleMain()">
                         <i class="fas fa-pencil-alt font-size-18"></i>
                     </a>
                 </div>
             </div>
-
-
-
-            <h3>@Localization.Questions</h3>
             
+            <h3>@Localization.Questions</h3>
             <div class="tab-pane active" id="about" role="tabpanel">
                 <div id="questions"></div>
             </div>
-
-
 
             <div class="row">
                 <div id="editBtn" class="col-lg-9">
@@ -501,63 +544,10 @@
                 </div>
             </div>
 
-
         </div>
     </div>
 </div>
 
-
-
 <script>
     drawPatrialViewWithLoad("/Home/GetQuestions/" + @Model.oid, "questions");
-
-    $(document).on("click", ".edit", function () {
-        debugger
-        var container = $(this).closest(".row");
-        var titleElement = container.find("h1");
-
-        // Создаем input для редактирования
-        var titleInput = $("<input type='text'  class='form-control'  id='defaultconfig' style='width: 30vw;' value='" + titleElement.text() + "' maxlength='100'/>");
-
-        // Заменяем h1 на input
-        titleElement.replaceWith(titleInput);
-
-        // Заменяем кнопку Edit на Save
-        var saveButton = $("<a class='btn btn-secondary  waves-effect waves-light save' title='Save'><i class='fas fa-save font-size-18'></i></a>").on("click", function () {
-            var updatedTitle = titleInput.val();
-
-            if (updatedTitle.trim() === "") {
-                alert("Пожалуйста, введите непустое сообщение.");
-                return;
-            }
-
-            var Quest = {
-                oid: $('#mainId').val(),
-                name: $('#defaultconfig').val(),
-            };
-            $.ajax({
-                url: '/Home/UpsertQuestionnaire',
-                cache: false,
-                type: "POST",
-                data: JSON.stringify(Quest),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    if (data.statusCode === 200) {
-                        // Заменяем input на h3
-                        titleInput.replaceWith("<h1 class='text-center'>" + updatedTitle + "</h1>");
-
-                        // Заменяем кнопку Save на Edit
-                        saveButton.replaceWith("<a class='btn btn-secondary  waves-effect waves-light edit' title='Edit'><i class='fas fa-pencil-alt font-size-18'></i></a>");
-                    } else {
-
-                    }
-                },
-
-            });
-
-        });
-
-        $(this).replaceWith(saveButton);
-    });
-
 </script>

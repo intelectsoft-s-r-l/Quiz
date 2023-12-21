@@ -5,7 +5,7 @@ using WebApplication2.Common;
 using WebApplication2.Interface;
 using WebApplication2.Models.Interfaces;
 using WebApplication2.Repository;
-using WebApplication2.Volidator;
+using WebApplication2.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
 

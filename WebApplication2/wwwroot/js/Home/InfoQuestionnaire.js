@@ -1,3 +1,4 @@
+
 function DetailMore(index) {
     var detailId = "#detail_" + index;
 

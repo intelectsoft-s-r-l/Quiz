@@ -26,7 +26,7 @@ namespace WebApplication2.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-
+/*
             string languageFromCookie = GetLanguageCookie();
 
             if (string.IsNullOrEmpty(languageFromCookie))
@@ -35,6 +35,7 @@ namespace WebApplication2.Controllers
             }
             else
                 ViewBag.Language = languageFromCookie;
+*/
             return View("~/Views/Account/Login.cshtml");
         }
 
