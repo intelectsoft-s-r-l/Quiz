@@ -6,6 +6,7 @@ function DetailMore(index) {
     $(detailId).animate({
         height: 'toggle'
     });
+
 }
 
 function DeleteQuestion(index, oid) {

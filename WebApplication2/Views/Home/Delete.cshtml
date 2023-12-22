@@ -29,7 +29,7 @@
                 <h3 style="margin-top:20px;"><strong>@Localization.TitleQ:</strong> @Model.Title</h3>
                 <p><strong>@Localization.Question </strong></p>
                  <ol>
-                    @foreach (var question in Model.Questions)
+                    @foreach (var question in Model.Questions.OrderBy(x => x.id))
                     {
                         <h5><li>@question.question</li></h5>
                         <p><strong>@Localization.Comment:</strong> @question.comentary</p>

@@ -2,6 +2,22 @@
 @using WebApplication2.Models.Enum;
 @model DetailQuestions
 
+
+<script>
+
+    function smoothScrollTo(target) {
+        const offset = $(target).offset().top - 80; // учитываем отступ шторки
+        $('html, body').scrollTop(offset);
+    }
+
+    $('a[href^="#"]').on('click', function (event) {
+        const target = $(this).attr('href');
+        smoothScrollTo(target);
+        event.preventDefault(); // предотвращаем стандартное поведение перехода по ссылке
+    });
+
+</script>
+
 <div id="questions-container">
     @{
         int i = 1;
@@ -12,7 +28,7 @@
         <div class="question" id="questionN_@i">
 
             <div class="pencil">
-                <i class="fas fa-pencil-alt btn btn-primary waves-effect waves-light" onclick="EditQuestion(@i)"></i>
+                <a href="#questionN_@i"><i class="fas fa-pencil-alt btn btn-primary waves-effect waves-light" onclick="EditQuestion(@i)"></i></a>
             </div>
 
             <div class="form-group">
@@ -70,7 +86,7 @@
 
                 <div class="answers-container" id="answersContainer_@i">
                     @{
-                        int j = 0;
+                        int j = 1;
                     }
                     @if (item.gradingType == GradingType.SingleAnswerVariant || item.gradingType == GradingType.MultipleAnswerVariant)
                     {
@@ -82,7 +98,12 @@
                                 <li>
                                     <div class="answer" id="response_@j">
                                         <div class="row">
-                                            <p>@answ.response</p>
+                                            <div class="col-md-11">
+                                                <p>@answ.response</p>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type='button' style='width: 100%; display: none;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

@@ -124,6 +124,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на The response doesn&apos;t have to be empty.
+        /// </summary>
+        public static string AnswerTextValidation {
+            get {
+                return ResourceManager.GetString("AnswerTextValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Sign in.
         /// </summary>
         public static string autentificare {

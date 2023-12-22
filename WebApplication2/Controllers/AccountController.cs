@@ -51,7 +51,7 @@ namespace WebApplication2.Controllers
 
                 if (userData.ErrorCode == 0)
                 {
-                    List<Claim> userClaims = new List<Claim>();
+
 
 
                     switch (GetLanguageCookie())
@@ -78,14 +78,16 @@ namespace WebApplication2.Controllers
                         return View("Error");
                     }
 
-
-                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()));
-                    userClaims.Add(new Claim(ClaimTypes.Email, userData.User.Email));
-                    userClaims.Add(new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName));
-                    userClaims.Add(new Claim("Company", userData.User.Company));
-                    userClaims.Add(new Claim("PhoneNumber", userData.User.PhoneNumber));
-                    userClaims.Add(new Claim(".AspNetCore.Admin", userData.Token));
-                    userClaims.Add(new Claim("UiLanguage", GetLanguageCookie()));
+                    List<Claim> userClaims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()),
+                        new Claim(ClaimTypes.Email, userData.User.Email),
+                        new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName),
+                        new Claim("Company", userData.User.Company),
+                        new Claim("PhoneNumber", userData.User.PhoneNumber),
+                        new Claim(".AspNetCore.Admin", userData.Token),
+                        new Claim("UiLanguage", GetLanguageCookie())
+                    };
 
                     Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);

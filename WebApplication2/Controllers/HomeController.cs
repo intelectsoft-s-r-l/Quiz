@@ -25,6 +25,7 @@ namespace WebApplication2.Controllers
             //_localizer = localizer;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             string token = GetToken();
@@ -161,19 +162,21 @@ namespace WebApplication2.Controllers
         {
             string token = GetToken();
 
-            QuestionViewModel questionViewModel = new QuestionViewModel();
-            questionViewModel.id = upsertQuestionVM.id;
-            questionViewModel.question = upsertQuestionVM.question;
-            questionViewModel.questionnaireId = upsertQuestionVM.questionnaireId;
-            questionViewModel.comentary = upsertQuestionVM.comentary;
-            questionViewModel.gradingType = (GradingType)upsertQuestionVM.gradingType;
-            var tmp = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
-            questionViewModel.responseVariants = tmp.ResponseVariants;
-
+            var deserializeResponseData = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
 
             UpsertQuestions upsertQuestions = new UpsertQuestions();
-            upsertQuestions.questions = new List<QuestionViewModel>();
-            upsertQuestions.questions.Add(questionViewModel);
+            upsertQuestions.questions = new List<QuestionViewModel>
+            {
+                new QuestionViewModel
+                {
+                    id = upsertQuestionVM.id,
+                    question = upsertQuestionVM.question,
+                    questionnaireId = upsertQuestionVM.questionnaireId,
+                    comentary = upsertQuestionVM.comentary,
+                    gradingType = (GradingType)upsertQuestionVM.gradingType,
+                    responseVariants = deserializeResponseData.ResponseVariants
+                }
+            };
             upsertQuestions.token = token;
 
 
@@ -181,6 +184,11 @@ namespace WebApplication2.Controllers
             var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
             if (dataResponse.errorCode == 0)
                 return Json(new { StatusCode = 200 });
+            else if (dataResponse.errorCode == 143)
+            {
+                await RefreshToken();
+                return await UpsertQuestion(upsertQuestionVM);
+            }
 
             return View("Error");
         }
@@ -235,18 +243,20 @@ namespace WebApplication2.Controllers
                 questionsVM.questions.ForEach(item => item.questionnaireId = questionnaireBaseResponsed.questionnaireId);
 
 
-                UpsertQuestions questions = new UpsertQuestions();
-                questions.questions = questionsVM.questions;
-                questions.token = token;
+                UpsertQuestions questions = new UpsertQuestions()
+                {
+                    questions = questionsVM.questions,
+                    token = token
+                };
+
 
 
                 var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
                 if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
-                {
                     return Json(new { StatusCode = 200 });
                     //return RedirectToAction("Index");
-                }
+                
             }
             return View();
 

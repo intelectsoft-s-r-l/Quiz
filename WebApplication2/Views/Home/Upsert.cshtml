@@ -6,7 +6,7 @@
 
 @{
 
-    ViewBag.Title = (Model.oid == 0) ? Localization.CreateQ : Localization.EditQ;
+    ViewBag.Title = Localization.CreateQ;
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 
@@ -17,7 +17,7 @@
         border-radius: 10px;
         padding: 10px;
         margin: 20px 0;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
     }
 
     .btn-remove {
@@ -72,13 +72,11 @@
                         <h3>@Localization.Question</h3>
 
                         <div id="questions-container">
-
-                           
                         </div>
 
                         <button type="button" id="add-question" style="margin-top: 10px; width: 100%;" class="btn btn-primary waves-effect waves-light">@Localization.AddQuestion</button>
                         <button type="submit" style="margin-top: 10px; width: 100%;" class="btn btn-success waves-effect waves-light"><i class="uil uil-file-alt me-1"></i> @Localization.Save</button>
-                        
+
                         <a type="button" href="/" style="margin-top: 10px; width: 100%;" class="btn btn-secondary btn-soft-secondary waves-effect waves-light">@Localization.Cancel</a>
                     </div>
                 </div>
@@ -103,49 +101,44 @@
 @section scripts {
     <script>
         $(document).ready(function () {
-            
+
             var questionIndex = @i;
 
             function addQuestion() {
-                var questionHtml = `<div class="question" id="question_${questionIndex}">
-                                     <input type="hidden" value="0" id="questionId_" />
-                                          <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                            <div class="form-group">
-                                            <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText</label>
+                var questionHtml = `
+                            <div class="question" id="question_${questionIndex}">
+                            <input type="hidden" value="0" id="questionId_" />
+                            <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                            <div class="form-group">
+                                <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText</label>
 
-                                             <input type="text" name="Questions[${questionIndex}].question" class="form-control" required maxlength='100' id="questionName_${questionIndex}" />
-                                            </div>
-                                                    <br/>
-                                            <div id="otherDataQ_${questionIndex}">
-                                            
-                                            <div class="form-group">
-                                                <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
-                                                        <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' required class="form-control" id="questionComentary_${questionIndex}" />
-                                            </div>
-                                                    <div class="form-group">
-                                                        <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
-                                                        <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
-                                                            <option value="1">@Localization.YesorNo</option>
-                                                            <option value="2">@Localization.Scorepoints</option>
-                                                            <option value="3">@Localization.Oneanswer</option>
-                                                            <option value="4">@Localization.Multianswer</option>
-                                                        </select>
-                                                    </div>
-                                            <div class="answers-container" style="display: none;">
-                                                <br/>
-                                                <h4>@Localization.Responses</h4>
-                                                 <div class="answer">
-                                                    <div class="col-lg-12">
-                                                        <label for="Questions_${questionIndex}__Answers_0__Text">@Localization.AnswerText</label>
-                                                        <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-0" />
-                                                        <input type="hidden" value="0" id="answerId_${questionIndex}-0" />
-                                                    </div>
-                                            </div>
-                                                <br/>
-                                            </div>
-                                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                                        </div>
-                                        </div>`;
+                                <input type="text" name="Questions[${questionIndex}].question" class="form-control" required maxlength='100' id="questionName_${questionIndex}" />
+                            </div>
+                            <br />
+                            <div id="otherDataQ_${questionIndex}">
+
+                                <div class="form-group">
+                                    <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
+                                    <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' required class="form-control" id="questionComentary_${questionIndex}" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
+                                    <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
+                                        <option value="1">@Localization.YesorNo</option>
+                                        <option value="2">@Localization.Scorepoints</option>
+                                        <option value="3">@Localization.Oneanswer</option>
+                                        <option value="4">@Localization.Multianswer</option>
+                                    </select>
+                                </div>
+                                <div class="answers-container" style="display: none;">
+                                    <br />
+                                    <h4>@Localization.Responses</h4>
+                                    <br />
+                                </div>
+                                <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
+                            </div>
+                        </div>
+                                `;
 
                 $("#questions-container").append(questionHtml);
                 questionIndex++;
@@ -192,7 +185,6 @@
             });
 
 
-
             $("#questions-container").on("change", "select[id*='questionGradingType_']", function () {
                 var $question = $(this).closest(".question");
                 var $answersContainer = $question.find(".answers-container");
@@ -205,11 +197,31 @@
                     $answersContainer.show();
                     $addAnswerButton.show();
                     // $removeAnswerButton.show();
+
+                    // Проверка наличия div с классом "answer"
+                    if ($answers.length === 0) {
+                        var newDiv = $("<div>").addClass("answer");  // Создаем новый элемент div с классом "answer"
+
+                        // Добавляем содержимое в новый div
+                        newDiv.html(`
+                            <div class="col-lg-12">
+                                <label for="Questions_${questionIndex}__Answers_0__Text">@Localization.AnswerText</label>
+                                <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-0" />
+                                <input type="hidden" value="0" id="answerId_${questionIndex}-0" />
+                            </div>
+                        `);
+
+                        // Добавляем новый div внутрь существующего div
+                        $answersContainer.append(newDiv);
+                    }
+
+
                 }
                 else {
                     $answers.remove();
                     $answersContainer.hide();
                     $addAnswerButton.hide();
+
                 }
 
             });
@@ -220,21 +232,20 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
-                                        
-                                    <div class="form-group">
-                                            <div class="row align-items-center">
-                                            <div class="col-lg-11">
-                                                <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
-                                                <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
-                                                <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
-                                           </div>
-                                            <div class="col-lg-1">
-                                                <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
-                                                <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${answerIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`;
+                                                            <div class="form-group">
+                                                                    <div class="row align-items-center">
+                                                                    <div class="col-lg-11">
+                                                                        <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
+                                                                        <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
+                                                                        <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
+                                                                   </div>
+                                                                    <div class="col-lg-1">
+                                                                        <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
+                                                                        <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${answerIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>`;
 
                 $answersContainer.append(answerHtml);
                 addRemoveAnswerAction();
@@ -260,7 +271,7 @@
                         e.preventDefault();
                         var questions = [];
 
-                        
+
                         let divsSetQuestions = $('#questions-container').find('div[id*="question_"]');
                         let tmpsss = $('#mainId').val();
                         divsSetQuestions.each(function (e, element) {
@@ -273,7 +284,7 @@
                             if (answerVal.length > 0) {
                                 answerVal.each(function (e, answElement) {
                                     let answerid = $("#" + element.id).find("input[id*='answerId_']");
-                                    answerRes.push({ id: answerid[0].value, questionId: questionid[0].value, response: answElement.value});
+                                    answerRes.push({ id: answerid[0].value, questionId: questionid[0].value, response: answElement.value });
                                 });
                             }
                             questions.push({ id: questionid[0].value, questionnaireId: tmpsss, question: questionName[0].value, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, responseVariants: answerRes });

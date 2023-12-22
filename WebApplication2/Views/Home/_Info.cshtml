@@ -62,7 +62,15 @@
             }
             ISValid = false;
         }
-
+        var gradingTypeValue = $("#questionN_0").find("select[id*='questionGradingType_0']").val()
+        if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+            if ($('#response_0').val() === "") {
+                if ($('#ResponseError').val() == null) {
+                    $('#response_0').after('<label id="ResponseError" class="text-danger">@Localization.AnswerTextValidation</label>');
+                }
+                ISValid = false;
+            }
+        }
         /*
                 let divsSetQuestion = $("#questionN_" + index).find(`#answersContainer_${index}`);
 
@@ -181,6 +189,15 @@
 
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
 
+            /*
+            let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
+            divsSetQuestion.each(function (e, element) {
+                let responses = $("#" + element.id).find("[id^='response_']");
+                let btnDeleteAnsw = $("#" + element.id).find("[class='btn btn-danger btnremoveAnsw']");
+                btnDeleteAnsw.show();  // Показываем кнопку
+            });*/
+
+
             // Создаем кнопку
             var addButton = $("<button type='button' id='add-answer' style='width: 100%; margin-top: 10px;' class='btn btn-info waves-effect waves-light'><i class='mdi mdi-plus me-1'></i>@Localization.AddAnswer</button>");
 
@@ -191,19 +208,19 @@
                 answersCount++;
 
                 var newInput = `<div class="answer" id='newAnswer'>
-            <div class="form-group">
-                <p>@Localization.AnswerText</p>
-                <div class="row">
-                    <div class="col-md-11">
-                        <input hidden id='newResponseId' value='0' />
-                        <input type="text" id='response_${answersCount}' class="form-control mb-4" maxlength='100' />
+                    <div class="form-group">
+                        <p>@Localization.AnswerText</p>
+                        <div class="row">
+                            <div class="col-md-11">
+                                <input hidden id='newResponseId' value='0' />
+                                <input type="text" id='response_${answersCount}' class="form-control mb-4" maxlength='100' />
+                            </div>
+                            <div class="col-md-1">
+                                <button type='button' style='width: 100%;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-1">
-                        <button type='button' style='width: 100%;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>`;
+                </div>`;
 
                 // Вставляем новый input перед кнопкой
                 container.find("#answersContainer_" + index).append(newInput);
@@ -334,34 +351,41 @@
         cancelBtn.classList.add('col-lg-12');
 
         var questionHtml = `<div class="question" id="questionN_0">
-                                    <div class="form-group">
-                                        <input hidden id="QuestionId" value="0" />
-                                        <h4>@Localization.QuestionText</h4>
-                                        <input type='text' id='questionName_0' maxlength='100' class='form-control' />
-                                    </div>
-
-                                    <div id="detail_0">
-                                        <div class="form-group">
-                                            <label>@Localization.Comment</label>
-                                            <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
-                                        </div>
-                                            <div class="form-group" id="SelectGradingType">
-                                                <label>@Localization.GradingType</label>
-                                                <select id="questionGradingType_0" class="form-select">
-                                                    <option value="1">@Localization.YesorNo</option>
-                                                    <option value="2">@Localization.Scorepoints</option>
-                                                    <option value="3">@Localization.Oneanswer</option>
-                                                    <option value="4">@Localization.Multianswer</option>
-                                                </select>
+                                            <div class="form-group">
+                                                <input hidden id="QuestionId" value="0" />
+                                                <h4>@Localization.QuestionText</h4>
+                                                <input type='text' id='questionName_0' maxlength='100' class='form-control' />
                                             </div>
-                                            <div class="answers-container_0" id="answersContainer_0" style="display: none;">
-                                            <br />
-                                            <h4>@Localization.Responses</h4>
-                                            <br />
-                                        </div>
-                                       <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                                    </div>
-                                </div>`;
+
+                                            <div id="detail_0">
+                                                <div class="form-group">
+                                                    <label>@Localization.Comment</label>
+                                                    <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
+                                                </div>
+                                                    <div class="form-group" id="SelectGradingType">
+                                                        <label>@Localization.GradingType</label>
+                                                        <select id="questionGradingType_0" class="form-select">
+                                                            <option value="1">@Localization.YesorNo</option>
+                                                            <option value="2">@Localization.Scorepoints</option>
+                                                            <option value="3">@Localization.Oneanswer</option>
+                                                            <option value="4">@Localization.Multianswer</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="answers-container_0" id="answersContainer_0" style="display: none;">
+                                                    <br />
+                                                    <h4>@Localization.Responses</h4>
+                                                    <div class="answer" id='newAnswer'>
+                                                        <div class="col-lg-12">
+                                                            <p>@Localization.AnswerText</p>
+                                                            <input hidden id='newResponseId' value='0' />
+                                                            <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                               <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
+                                            </div>
+                                        </div>`;
 
         // Добавляем вопрос в контейнер
         $("#questions-container").append(questionHtml);
@@ -454,23 +478,23 @@
         });
 
 
-        var answerIndex = 0;
+        var answerIndex = 1;
         // Обработчик события для кнопки (если необходимо)
         $("#add-answer").on("click", function () {
             // Ваш код обработки события при нажатии на кнопку
 
             var newInput = `<div class="answer" id='newAnswer'>
-                                <div class="row align-items-center">
-                                    <div class="col-lg-11">
-                                        <p>@Localization.AnswerText</p>
-                                        <input hidden id='newResponseId' value='0' />
-                                        <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
-                                    </div>
-                                    <div class="col-lg-1">
-                                     <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                    </div>
-                                </div>
-                        </div>`;
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-11">
+                                                <p>@Localization.AnswerText</p>
+                                                <input hidden id='newResponseId' value='0' />
+                                                <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
+                                            </div>
+                                            <div class="col-lg-1">
+                                             <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                            </div>
+                                        </div>
+                                </div>`;
 
             // Вставляем новый input перед кнопкой
             $("#questionN_0").find(".answers-container_0").append(newInput);
@@ -529,7 +553,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <h3>@Localization.Questions</h3>
             <div class="tab-pane active" id="about" role="tabpanel">
                 <div id="questions"></div>
