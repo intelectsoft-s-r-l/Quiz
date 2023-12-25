@@ -100,6 +100,28 @@ namespace WebApplication2.Repository
             }
         }
 
+        public async Task<QuestionnaireStatisticResponse> GetQuestionnaireStatistic(string token, int id)
+        {
+            using (var httpClientForQuestionnaire = new HttpClient())
+            {
+
+                var apiUrlGetQuestionnaire = "https://dev.edi.md/ISNPSAPI/Web/QuestionnaireStatistic?token=" + token + "&id=" + id;
+
+                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+                httpClientForQuestionnaire.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+
+
+                var responseGetQuestionnaire = await httpClientForQuestionnaire.GetAsync(apiUrlGetQuestionnaire);
+
+                if (responseGetQuestionnaire.IsSuccessStatusCode)
+                {
+                    var questionnaireData = await responseGetQuestionnaire.Content.ReadAsAsync<QuestionnaireStatisticResponse>();
+                    return questionnaireData;
+                }
+                return new QuestionnaireStatisticResponse() { errorCode = -1 };
+            }
+        }
+
         public async Task<DetailQuestions> GetQuestions(string token, int id)
         {
             using (var httpClientForQuestions = new HttpClient())

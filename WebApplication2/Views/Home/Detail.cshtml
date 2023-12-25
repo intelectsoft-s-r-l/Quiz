@@ -21,7 +21,7 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#tasks" role="tab">
                         @* <i class="uil uil-tornado font-size-20"></i> *@
                         <i class="uil-info-circle font-size-20"></i>
-                        <span class="d-none d-sm-block">@Localization.Responses</span>
+                        <span class="d-none d-sm-block">@Localization.Results</span>
                     </a>
                 </li>
 
@@ -32,9 +32,9 @@
                     <div id="questionnaire"></div>
                 </div>
 
-                @* <div class="tab-pane" id="tasks" role="tabpanel">
+                 <div class="tab-pane" id="tasks" role="tabpanel">
                     <div id="questionnaireResponses"></div>
-                </div> *@
+                </div> 
 
 
             </div>
@@ -44,5 +44,5 @@
 
 <script>
     drawPatrialViewWithLoad("/Home/GetInfoQuestionnaire/" + @Model, "questionnaire");
-    // drawPatrialView("/Home/QuestionnaireResponses/" + @Model, "questionnaireResponses");
+    drawPatrialView("/Home/QuestionnaireStatistic/" + @Model, "questionnaireResponses");
 </script>

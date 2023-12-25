@@ -384,4 +384,7 @@
   <data name="AnswerTextValidation" xml:space="preserve">
     <value>The response doesn't have to be empty</value>
   </data>
+  <data name="Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
 </root>

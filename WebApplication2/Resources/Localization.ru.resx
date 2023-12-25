@@ -384,4 +384,7 @@
   <data name="AnswerTextValidation" xml:space="preserve">
     <value>Ответ не должен быть пустым</value>
   </data>
+  <data name="Results" xml:space="preserve">
+    <value>Результаты</value>
+  </data>
 </root>

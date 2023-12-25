@@ -118,6 +118,24 @@ namespace WebApplication2.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> QuestionnaireStatistic(int id)
+        {
+
+            string token = GetToken();
+
+            var statistic = await _quizRepository.GetQuestionnaireStatistic(token, id);
+
+            if (statistic.errorCode == 143)
+            {
+                await RefreshToken();
+                return await QuestionnaireStatistic(id);    
+            }
+            else if(statistic.errorCode == 0)
+                return PartialView("~/Views/Home/_Statistic.cshtml", statistic.questionnaireStatistic);
+            return View("Error");
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnaire upsertQuestionnaireVM)

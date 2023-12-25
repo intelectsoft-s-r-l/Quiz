@@ -49,6 +49,7 @@
 
         var ISValid = true;
 
+
         if ($('#questionName_' + index).val() === "") {
             if ($('#QuestionNameError').val() == null) {
                 $('#questionName_' + index).after('<label id="QuestionNameError" class="text-danger">@Localization.QuestionTextValidation</label>');
@@ -105,36 +106,42 @@
 
         // Заменяем кнопку Edit на Save
         var saveButton = $("<a class='btn btn-secondary  waves-effect waves-light save' title='Save'><i class='fas fa-save font-size-18'></i></a>").on("click", function () {
+            
             var updatedTitle = titleInput.val();
 
+            
+
             if (updatedTitle.trim() === "") {
-                alert("Пожалуйста, введите непустое сообщение.");
-                return;
+                if ($('#TitleNameError').val() == null) {
+                    titleElement.after('<label id="TitleNameError" class="text-danger">@Localization.QuestionTextValidation</label>');
+                }
             }
+            else {
+                var Quest = {
+                    oid: $('#mainId').val(),
+                    name: $('#defaultconfig').val(),
+                };
+                $.ajax({
+                    url: '/Home/UpsertQuestionnaire',
+                    cache: false,
+                    type: "POST",
+                    data: JSON.stringify(Quest),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.statusCode === 200) {
+                            // Заменяем input на h3
+                            titleInput.replaceWith("<h1 id='mainTitleVal' >" + updatedTitle + "</h1>");
 
-            var Quest = {
-                oid: $('#mainId').val(),
-                name: $('#defaultconfig').val(),
-            };
-            $.ajax({
-                url: '/Home/UpsertQuestionnaire',
-                cache: false,
-                type: "POST",
-                data: JSON.stringify(Quest),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    if (data.statusCode === 200) {
-                        // Заменяем input на h3
-                        titleInput.replaceWith("<h1 id='mainTitleVal' >" + updatedTitle + "</h1>");
+                            // Заменяем кнопку Save на Edit
+                            saveButton.replaceWith("<a class='btn btn-secondary  waves-effect waves-light' id='editBtnTitle' onclick='editTitleMain()'><i class='fas fa-pencil-alt font-size-18'></i></a>");
+                        } else {
 
-                        // Заменяем кнопку Save на Edit
-                        saveButton.replaceWith("<a class='btn btn-secondary  waves-effect waves-light' id='editBtnTitle' onclick='editTitleMain()'><i class='fas fa-pencil-alt font-size-18'></i></a>");
-                    } else {
+                        }
+                    },
 
-                    }
-                },
-
-            });
+                });
+            }
+            
 
         });
 
@@ -553,8 +560,9 @@
                     </a>
                 </div>
             </div>
-
+            <br />
             <h3>@Localization.Questions</h3>
+
             <div class="tab-pane active" id="about" role="tabpanel">
                 <div id="questions"></div>
             </div>

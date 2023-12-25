@@ -1,0 +1,100 @@
+﻿@using WebApplication2.Models.API.Questionnaires
+@model QuestionnaireStatistic
+
+<div class="row">
+    <div class="col-12">
+        <div id="chart"></div>
+    </div>
+</div>
+
+<!-- Подключение библиотеки ApexCharts -->
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+<!-- apexcharts init -->
+
+<script>
+    // Получаем данные из модели C# и передаем их в JavaScript переменные
+    var totalResponses = @Model.totalResponses;
+    var totalFalseResponses = @Model.totalFalseResponses;
+    var totalTrueResponses = @Model.totalTrueResponses;
+    var totalGradeLowerOrEqualThan6 = @Model.totalGradeLowerOrEqualThan6;
+    var totalGrade7 = @Model.totalGrade7;
+    var totalGrade8 = @Model.totalGrade8;
+    var totalGrade9 = @Model.totalGrade9;
+    var totalGrade10 = @Model.totalGrade10;
+
+    var options = {
+        chart: {
+            type: 'bar',
+            height: 450,
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,  // Сделать столбцы горизонтальными
+                columnWidth: '60%',  // Увеличиваем ширину столбцов
+                borderRadius: 5
+            },
+        },
+        colors: ['#FF5733', '#33FF57', '#3366FF', '#FF33A8', '#FF3366', '#33FFFF', '#FFA833'],  // Меняем цвета столбцов
+        dataLabels: {
+            enabled: false,  // Убираем надписи внутри столбцов
+        },
+        stroke: {
+            show: true,
+            width: 2,  // Увеличиваем толщину границы столбцов
+            colors: ['transparent']
+        },
+        series: [{
+            name: 'Statistic',
+            data: [
+                totalGrade10,
+                totalGrade9,
+                totalGrade8,
+                totalGrade7,
+                totalGradeLowerOrEqualThan6,
+                totalTrueResponses,
+                totalFalseResponses,
+                totalResponses
+            ]
+
+        }],
+        xaxis: {
+            categories: ['Grade 10', 'Grade 9', 'Grade 8', 'Grade 7', '<= 6', 'True', 'False', 'Total'],
+            labels: {
+                style: {
+                    fontSize: '14px'
+                }
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Number of Responses',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#333'
+                }
+            }
+        },
+        fill: {
+            type: 'solid',  // Изменяем тип заливки на 'solid'
+            colors: ['#FF5733', '#33FF57', '#3366FF', '#FF33A8', '#FF3366', '#33FFFF', '#FFA833'],  // Меняем цвета столбцов
+            opacity: 0.8  // Устанавливаем полную непрозрачность
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val + " responses"
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+
+
+</script>

@@ -384,4 +384,7 @@
   <data name="AnswerTextValidation" xml:space="preserve">
     <value>Răspunsul nu trebuie să fie gol</value>
   </data>
+  <data name="Results" xml:space="preserve">
+    <value>Rezultate</value>
+  </data>
 </root>
