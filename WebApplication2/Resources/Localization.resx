@@ -387,4 +387,19 @@
   <data name="Results" xml:space="preserve">
     <value>Results</value>
   </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Grade</value>
+  </data>
+  <data name="NumberOfResponses" xml:space="preserve">
+    <value>Number of Responses</value>
+  </data>
+  <data name="QuestionnaireTitleValidation" xml:space="preserve">
+    <value>The title doesn't have to be empty</value>
+  </data>
+  <data name="GlobalStatistic" xml:space="preserve">
+    <value>Global statistic</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
 </root>

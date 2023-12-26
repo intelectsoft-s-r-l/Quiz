@@ -1,10 +1,15 @@
 ﻿@using WebApplication2.Models.API.Questionnaires
 @model QuestionnaireStatistic
+<meta charset="utf-8">
 
-<div class="row">
-    <div class="col-12">
-        <div id="chart"></div>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <p class="card-title-desc">
+            @Localization.GlobalStatistic
+        </p>
     </div>
+        <div id="chart"></div>
+
 </div>
 
 <!-- Подключение библиотеки ApexCharts -->
@@ -12,6 +17,13 @@
 <!-- apexcharts init -->
 
 <script>
+
+    function decodeHtmlEntities(text) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = text;
+        return textArea.value;
+    }
+
     // Получаем данные из модели C# и передаем их в JavaScript переменные
     var totalResponses = @Model.totalResponses;
     var totalFalseResponses = @Model.totalFalseResponses;
@@ -21,6 +33,11 @@
     var totalGrade8 = @Model.totalGrade8;
     var totalGrade9 = @Model.totalGrade9;
     var totalGrade10 = @Model.totalGrade10;
+
+    var grade = decodeHtmlEntities('@Localization.Grade');
+
+
+
 
     var options = {
         chart: {
@@ -32,22 +49,29 @@
         },
         plotOptions: {
             bar: {
-                horizontal: true,  // Сделать столбцы горизонтальными
-                columnWidth: '60%',  // Увеличиваем ширину столбцов
-                borderRadius: 5
+                barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+                dataLabels: {
+                    position: 'bottom',
+                },
+                
+               
             },
         },
-        colors: ['#FF5733', '#33FF57', '#3366FF', '#FF33A8', '#FF3366', '#33FFFF', '#FFA833'],  // Меняем цвета столбцов
+        colors: ['#37AA0F', '#37AA0F', '#37AA0F', '#37AA0F', '#FF5733', '#FFA003', '#FFA003', '#3366FF'],  // Меняем цвета столбцов
         dataLabels: {
             enabled: false,  // Убираем надписи внутри столбцов
         },
+        legend: {
+            show: false,
+        },
         stroke: {
-            show: true,
-            width: 2,  // Увеличиваем толщину границы столбцов
-            colors: ['transparent']
+            width: 1,
+            colors: ['#fff']
         },
         series: [{
-            name: 'Statistic',
+            name: "@Localization.Responses ",
             data: [
                 totalGrade10,
                 totalGrade9,
@@ -61,7 +85,7 @@
 
         }],
         xaxis: {
-            categories: ['Grade 10', 'Grade 9', 'Grade 8', 'Grade 7', '<= 6', 'True', 'False', 'Total'],
+            categories: [grade + ' 10', grade + ' 9', grade + ' 8', grade + ' 7', '<= 6', 'True', 'False', decodeHtmlEntities('@Localization.Total')],
             labels: {
                 style: {
                     fontSize: '14px'
@@ -70,7 +94,7 @@
         },
         yaxis: {
             title: {
-                text: 'Number of Responses',
+                text: decodeHtmlEntities('@Localization.NumberOfResponses'),
                 style: {
                     fontSize: '16px',
                     fontWeight: 'bold',
@@ -80,13 +104,12 @@
         },
         fill: {
             type: 'solid',  // Изменяем тип заливки на 'solid'
-            colors: ['#FF5733', '#33FF57', '#3366FF', '#FF33A8', '#FF3366', '#33FFFF', '#FFA833'],  // Меняем цвета столбцов
             opacity: 0.8  // Устанавливаем полную непрозрачность
         },
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return val + " responses"
+                    return val
                 }
             }
         }

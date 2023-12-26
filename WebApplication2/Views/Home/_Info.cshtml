@@ -40,6 +40,11 @@
     .question:hover .pencil {
         display: block; /* Показать карандаш при наведении на div */
     }
+
+    #editBtnTitle {
+        background-color: #37AA0F;
+    }
+
 </style>
 
 
@@ -99,13 +104,13 @@
         var titleElement = container.find("#mainTitleVal");
 
         // Создаем input для редактирования
-        var titleInput = $("<input type='text'  class='form-control'  id='defaultconfig' style='width: 30vw;' value='" + titleElement.text() + "' maxlength='100'/>");
+        var titleInput = $("<input type='text' class='form-control' id='defaultconfig' style='width: 30vw;' value='" + titleElement.text() + "' maxlength='100'/>");
 
         // Заменяем h1 на input
         titleElement.replaceWith(titleInput);
 
         // Заменяем кнопку Edit на Save
-        var saveButton = $("<a class='btn btn-secondary  waves-effect waves-light save' title='Save'><i class='fas fa-save font-size-18'></i></a>").on("click", function () {
+        var saveButton = $("<a class='btn waves-light save' title='Save' style='background-color: #37AA0F; '><i class='fas fa-save font-size-18' style='color: white; '></i></a>").on("click", function () {
             
             var updatedTitle = titleInput.val();
 
@@ -113,7 +118,7 @@
 
             if (updatedTitle.trim() === "") {
                 if ($('#TitleNameError').val() == null) {
-                    titleElement.after('<label id="TitleNameError" class="text-danger">@Localization.QuestionTextValidation</label>');
+                    container.append('<label id="TitleNameError" class="text-danger text-center">@Localization.QuestionnaireTitleValidation</label>');
                 }
             }
             else {
@@ -133,7 +138,7 @@
                             titleInput.replaceWith("<h1 id='mainTitleVal' >" + updatedTitle + "</h1>");
 
                             // Заменяем кнопку Save на Edit
-                            saveButton.replaceWith("<a class='btn btn-secondary  waves-effect waves-light' id='editBtnTitle' onclick='editTitleMain()'><i class='fas fa-pencil-alt font-size-18'></i></a>");
+                            saveButton.replaceWith("<a class='btn waves-light' id='editBtnTitle' onclick='editTitleMain()'><i class='fas fa-pencil-alt font-size-18' style='color: white;'></i></a>");
                         } else {
 
                         }
@@ -555,9 +560,7 @@
                     <h1 id="mainTitleVal">@Model.Title</h1>
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-secondary waves-effect waves-light" id="editBtnTitle" onclick="editTitleMain()">
-                        <i class="fas fa-pencil-alt font-size-18"></i>
-                    </a>
+                    <a class='btn waves-light' id='editBtnTitle' onclick='editTitleMain()'><i class='fas fa-pencil-alt font-size-18' style='color: white;'></i></a>
                 </div>
             </div>
             <br />

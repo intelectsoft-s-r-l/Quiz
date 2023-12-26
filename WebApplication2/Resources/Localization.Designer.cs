@@ -358,6 +358,24 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Global statistic.
+        /// </summary>
+        public static string GlobalStatistic {
+            get {
+                return ResourceManager.GetString("GlobalStatistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Grade.
+        /// </summary>
+        public static string Grade {
+            get {
+                return ResourceManager.GetString("Grade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Grading Type.
         /// </summary>
         public static string GradingType {
@@ -511,6 +529,15 @@ namespace WebApplication2.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Number of Responses.
+        /// </summary>
+        public static string NumberOfResponses {
+            get {
+                return ResourceManager.GetString("NumberOfResponses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Old password.
         /// </summary>
         public static string OldPassword {
@@ -615,6 +642,15 @@ namespace WebApplication2.Resources {
         public static string Questionnaires {
             get {
                 return ResourceManager.GetString("Questionnaires", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The title doesn&apos;t have to be empty.
+        /// </summary>
+        public static string QuestionnaireTitleValidation {
+            get {
+                return ResourceManager.GetString("QuestionnaireTitleValidation", resourceCulture);
             }
         }
         
@@ -795,6 +831,15 @@ namespace WebApplication2.Resources {
         public static string TitleQ {
             get {
                 return ResourceManager.GetString("TitleQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Total.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

@@ -387,4 +387,16 @@
   <data name="Results" xml:space="preserve">
     <value>Rezultate</value>
   </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Notă</value>
+  </data>
+  <data name="NumberOfResponses" xml:space="preserve">
+    <value>Numărul de răspunsuri</value>
+  </data>
+  <data name="QuestionnaireTitleValidation" xml:space="preserve">
+    <value>Titlul nu trebuie să fie gol</value>
+  </data>
+  <data name="GlobalStatistic" xml:space="preserve">
+    <value>Statistica globală</value>
+  </data>
 </root>
