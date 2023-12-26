@@ -1,6 +1,6 @@
-﻿using WebApplication2.ViewModels;
+﻿using ISQuiz.ViewModels;
 
-namespace WebApplication2.Models.API.Questionnaires
+namespace ISQuiz.Models.API.Questionnaires
 {
     public class Questionnaire
     {

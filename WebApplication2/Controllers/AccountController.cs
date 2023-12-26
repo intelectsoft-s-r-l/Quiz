@@ -1,16 +1,16 @@
-﻿using WebApplication2.Filter;
+﻿using ISQuiz.Filter;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using WebApplication2.Interface;
-using WebApplication2.Models.Enum;
-using WebApplication2.Resources;
-using WebApplication2.ViewModels;
+using ISQuiz.Interface;
+using ISQuiz.Models.Enum;
+using ISQuiz.Resources;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Controllers
+namespace ISQuiz.Controllers
 {
     [Culture]
     public class AccountController : BaseController

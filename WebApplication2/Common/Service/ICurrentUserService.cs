@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.Common.Service
+﻿namespace ISQuiz.Common.Service
 {
     public interface ICurrentUserService
     {

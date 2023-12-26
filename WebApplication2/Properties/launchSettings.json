@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "WebApplication2": {
+    "ISQuiz": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

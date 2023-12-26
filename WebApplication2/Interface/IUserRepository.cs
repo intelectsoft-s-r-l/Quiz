@@ -1,7 +1,7 @@
-﻿using WebApplication2.Models;
-using WebApplication2.ViewModels;
+﻿using ISQuiz.Models;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Interface
+namespace ISQuiz.Interface
 {
     public interface IUserRepository
     {

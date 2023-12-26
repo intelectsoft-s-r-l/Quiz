@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using WebApplication2.Resources;
-using WebApplication2.ViewModels;
+using ISQuiz.Resources;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Validator
+namespace ISQuiz.Validator
 {
     public class ChangeConfirmPasswordViewModelValidator : AbstractValidator<ChangeConfirmPasswordViewModel>
     {

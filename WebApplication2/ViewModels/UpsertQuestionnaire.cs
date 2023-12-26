@@ -1,6 +1,6 @@
-﻿using WebApplication2.Models.API.Questionnaires;
+﻿using ISQuiz.Models.API.Questionnaires;
 
-namespace WebApplication2.ViewModels
+namespace ISQuiz.ViewModels
 {
     public class UpsertQuestionnaire : Questionnaire
     {

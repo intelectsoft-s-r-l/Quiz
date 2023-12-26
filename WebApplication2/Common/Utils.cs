@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.Common
+﻿namespace ISQuiz.Common
 {
     public static class Utils
     {

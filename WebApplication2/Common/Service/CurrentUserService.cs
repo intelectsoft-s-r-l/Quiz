@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace WebApplication2.Common.Service
+namespace ISQuiz.Common.Service
 {
     public class CurrentUserService : ICurrentUserService
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Globalization;
 using System.Web.Http.Filters;
-using WebApplication2.Controllers;
+using ISQuiz.Controllers;
 using IActionFilter = Microsoft.AspNetCore.Mvc.Filters.IActionFilter;
 
-namespace WebApplication2.Filter
+namespace ISQuiz.Filter
 {
     public class CultureAttribute : FilterAttribute, IActionFilter
     {

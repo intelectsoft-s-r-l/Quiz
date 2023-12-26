@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.Models.API.Questionnaires
+﻿namespace ISQuiz.Models.API.Questionnaires
 {
     public class DetailQuestionnaire : BaseErrors
     {

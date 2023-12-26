@@ -1,8 +1,8 @@
-﻿using WebApplication2.Models;
-using WebApplication2.Models.Enum;
-using WebApplication2.ViewModels;
+﻿using ISQuiz.Models;
+using ISQuiz.Models.Enum;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Interface
+namespace ISQuiz.Interface
 {
     public interface IAccountRepository
     {

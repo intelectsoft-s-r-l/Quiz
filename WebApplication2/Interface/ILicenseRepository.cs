@@ -1,8 +1,8 @@
-﻿using WebApplication2.Models.API;
-using WebApplication2.Models.API.License;
-using WebApplication2.ViewModels;
+﻿using ISQuiz.Models.API;
+using ISQuiz.Models.API.License;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Interface
+namespace ISQuiz.Interface
 {
     public interface ILicenseRepository
     {

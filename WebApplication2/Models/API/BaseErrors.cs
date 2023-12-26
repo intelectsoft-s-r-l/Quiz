@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.Models.API
+﻿namespace ISQuiz.Models.API
 {
     public class BaseErrors
     {

@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
-using WebApplication2.Interface;
-using WebApplication2.Models;
-using WebApplication2.Models.Enum;
-using WebApplication2.ViewModels;
+using ISQuiz.Interface;
+using ISQuiz.Models;
+using ISQuiz.Models.Enum;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Repository
+namespace ISQuiz.Repository
 {
     public class AccountRepository : IAccountRepository
     {

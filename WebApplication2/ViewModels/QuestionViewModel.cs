@@ -1,6 +1,6 @@
-﻿using WebApplication2.Models.Enum;
+﻿using ISQuiz.Models.Enum;
 
-namespace WebApplication2.ViewModels
+namespace ISQuiz.ViewModels
 {
     public class QuestionViewModel
     {

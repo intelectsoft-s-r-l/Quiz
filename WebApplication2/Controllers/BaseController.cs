@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using WebApplication2.Models;
-using WebApplication2.Models.Enum;
+using ISQuiz.Models;
+using ISQuiz.Models.Enum;
 
-namespace WebApplication2.Controllers
+namespace ISQuiz.Controllers
 {
     [Authorize]
     public class BaseController : Controller

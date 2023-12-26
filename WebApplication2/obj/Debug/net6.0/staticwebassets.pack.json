@@ -1,8 +1,8 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\WebApplication2.bundle.scp.css",
-      "PackagePath": "staticwebassets\\WebApplication2.bundle.scp.css"
+      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\ISQuiz.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ISQuiz.bundle.scp.css"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\css\\app-dark-rtl.min.css",
@@ -4569,20 +4569,20 @@
       "PackagePath": "staticwebassets\\js\\app.js"
     },
     {
-      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.WebApplication2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.ISQuiz.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
     {
-      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.WebApplication2.props",
-      "PackagePath": "build\\WebApplication2.props"
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.ISQuiz.props",
+      "PackagePath": "build\\ISQuiz.props"
     },
     {
-      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.WebApplication2.props",
-      "PackagePath": "buildMultiTargeting\\WebApplication2.props"
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.ISQuiz.props",
+      "PackagePath": "buildMultiTargeting\\ISQuiz.props"
     },
     {
-      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.WebApplication2.props",
-      "PackagePath": "buildTransitive\\WebApplication2.props"
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.ISQuiz.props",
+      "PackagePath": "buildTransitive\\ISQuiz.props"
     }
   ],
   "ElementsToRemove": []

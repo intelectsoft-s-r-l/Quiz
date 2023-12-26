@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using WebApplication2.Filter;
-using WebApplication2.Interface;
-using WebApplication2.Models.API.Questionnaires;
-using WebApplication2.Models.Enum;
-using WebApplication2.ViewModels;
+using ISQuiz.Filter;
+using ISQuiz.Interface;
+using ISQuiz.Models.API.Questionnaires;
+using ISQuiz.Models.Enum;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Controllers
+namespace ISQuiz.Controllers
 {
 
     [Authorize]

@@ -1,6 +1,6 @@
-﻿using WebApplication2.Models.Enum;
+﻿using ISQuiz.Models.Enum;
 
-namespace WebApplication2.Models.API.License
+namespace ISQuiz.Models.API.License
 {
     public class License
     {

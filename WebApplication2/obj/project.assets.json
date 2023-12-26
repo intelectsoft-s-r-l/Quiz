@@ -590,9 +590,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\WebApplication2.csproj",
-      "projectName": "WebApplication2",
-      "projectPath": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\WebApplication2.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\ISQuiz.csproj",
+      "projectName": "ISQuiz",
+      "projectPath": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\ISQuiz.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\",
       "projectStyle": "PackageReference",

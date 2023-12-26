@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication2.Interface;
-using WebApplication2.ViewModels;
+using ISQuiz.Interface;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Controllers
+namespace ISQuiz.Controllers
 {
     [Authorize]
     public class UserController : BaseController

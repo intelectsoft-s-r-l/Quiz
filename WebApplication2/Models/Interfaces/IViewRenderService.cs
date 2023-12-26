@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace WebApplication2.Models.Interfaces
+namespace ISQuiz.Models.Interfaces
 {
     public interface IViewRenderService
     {

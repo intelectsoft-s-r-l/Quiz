@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.Models
+﻿namespace ISQuiz.Models
 {
     public class ErrorViewModel
     {

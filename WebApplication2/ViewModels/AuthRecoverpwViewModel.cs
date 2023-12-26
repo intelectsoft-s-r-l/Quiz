@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.ViewModels
+﻿namespace ISQuiz.ViewModels
 {
     public class AuthRecoverpwViewModel
     {

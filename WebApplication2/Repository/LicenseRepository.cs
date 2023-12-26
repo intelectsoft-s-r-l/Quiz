@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System.Text;
-using WebApplication2.Interface;
-using WebApplication2.Models.API;
-using WebApplication2.Models.API.License;
-using WebApplication2.ViewModels;
+using ISQuiz.Interface;
+using ISQuiz.Models.API;
+using ISQuiz.Models.API.License;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Repository
+namespace ISQuiz.Repository
 {
     public class LicenseRepository : ILicenseRepository
     {

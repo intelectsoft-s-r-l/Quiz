@@ -1,6 +1,6 @@
-﻿using WebApplication2.Models.API;
+﻿using ISQuiz.Models.API;
 
-namespace WebApplication2.ViewModels
+namespace ISQuiz.ViewModels
 {
     public class QuestionnaireIdViewModel : BaseErrors
     {

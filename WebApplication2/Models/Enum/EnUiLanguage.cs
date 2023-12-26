@@ -1,4 +1,4 @@
-﻿namespace WebApplication2.Models.Enum
+﻿namespace ISQuiz.Models.Enum
 {
 
     public enum EnUiLanguage

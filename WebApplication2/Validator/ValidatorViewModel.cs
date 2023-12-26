@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using WebApplication2.ViewModels;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Validator
+namespace ISQuiz.Validator
 {
     public class ValidatorViewModel
     {

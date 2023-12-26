@@ -1,11 +1,9 @@
 using FluentValidation.AspNetCore;
+using ISQuiz.Common;
+using ISQuiz.Common.Service;
+using ISQuiz.Validator;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;
-using WebApplication2.Common;
-using WebApplication2.Interface;
-using WebApplication2.Models.Interfaces;
-using WebApplication2.Repository;
-using WebApplication2.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,12 +24,7 @@ builder.Services.AddControllers().AddFluentValidation(options =>
 
 ValidatorViewModel validatorViewModel = new ValidatorViewModel(builder.Services);
 
-builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
-
-builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
-builder.Services.AddScoped<IQuizRepository, QuizRepository>();
+ServicesScoped servicesScoped = new ServicesScoped(builder.Services);
 
 
 // Add services to the container.

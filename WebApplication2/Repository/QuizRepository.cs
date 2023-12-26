@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.Text;
-using WebApplication2.Interface;
-using WebApplication2.Models.API;
-using WebApplication2.Models.API.Questionnaires;
-using WebApplication2.ViewModels;
+using ISQuiz.Interface;
+using ISQuiz.Models.API;
+using ISQuiz.Models.API.Questionnaires;
+using ISQuiz.ViewModels;
 
-namespace WebApplication2.Repository
+namespace ISQuiz.Repository
 {
     public class QuizRepository : IQuizRepository
     {
