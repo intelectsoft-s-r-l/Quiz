@@ -4,6 +4,7 @@
 @using ISQuiz.ViewModels;
 @model QuestionnaireViewModel
 <style>
+
 /* 
     .form-container {
         margin: 20px auto;
@@ -27,7 +28,7 @@
                 <h2>@Localization.DetailQ</h2>
             </div><div class="form-container">
                 <h3 style="margin-top:20px;"><strong>@Localization.TitleQ:</strong> @Model.Title</h3>
-                <p><strong>@Localization.Question </strong></p>
+                <h4>@Localization.Questions</h4>
                  <ol>
                     @foreach (var question in Model.Questions.OrderBy(x => x.id))
                     {
