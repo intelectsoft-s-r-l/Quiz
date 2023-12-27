@@ -29,8 +29,7 @@ namespace ISQuiz.Controllers
 
                     if (nameClaim != null)
                     {
-                        var name = nameClaim.Value; // Получите значение Claim
-                        return name;
+                        return nameClaim.Value; // Получите значение Claim
                     }
 
 

@@ -232,20 +232,20 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
-                                                            <div class="form-group">
-                                                                    <div class="row align-items-center">
-                                                                    <div class="col-lg-11">
-                                                                        <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
-                                                                        <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
-                                                                        <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
-                                                                   </div>
-                                                                    <div class="col-lg-1">
-                                                                        <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
-                                                                        <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${answerIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>`;
+                                        <div class="form-group">
+                                                <div class="row align-items-center">
+                                                <div class="col-lg-10">
+                                                    <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
+                                                    <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
+                                                    <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
+                                                    <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${answerIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
 
                 $answersContainer.append(answerHtml);
                 addRemoveAnswerAction();
