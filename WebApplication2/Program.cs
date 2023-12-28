@@ -76,10 +76,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File(@"Logs\log.log", rollingInterval: RollingInterval.Day)
+    .WriteTo.File(@"Logs\log.log",
+                  rollingInterval: RollingInterval.Day,
+                  retainedFileCountLimit: 30,
+                  retainedFileTimeLimit: TimeSpan.FromDays(30))
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+
+
 
 
 
