@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "System.Net.Http.Formatting.Extension": {
               "target": "Package",
               "version": "[5.2.3, )"

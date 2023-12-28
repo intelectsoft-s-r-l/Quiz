@@ -12,7 +12,6 @@ namespace ISQuiz.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-
         public string GetToken()
         {
             try

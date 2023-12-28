@@ -4,11 +4,10 @@ using ISQuiz.Common.Service;
 using ISQuiz.Validator;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 
 builder.Services.AddControllersWithViews();//.AddFluentValidation();
 //builder.Services.AddTransient<IValidator<AuthRecoverpwViewModel>, AuthRecoverpwViewModelVolidator>();
@@ -75,7 +74,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File(@"Logs\log.log", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
+builder.Host.UseSerilog();
+
+
+
+builder.Host.UseSerilog();
+builder.Services.AddLogging();
 
 
 var app = builder.Build();

@@ -498,17 +498,17 @@
             // Ваш код обработки события при нажатии на кнопку
 
             var newInput = `<div class="answer" id='newAnswer'>
-                                            <div class="row">
-                                                <div class="col-lg-10">
-                                                    <p>@Localization.AnswerText</p>
-                                                    <input hidden id='newResponseId' value='0' />
-                                                    <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
-                                                </div>
-                                                <div class="col-lg-2">
-                                                 <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                                </div>
-                                            </div>
-                                    </div>`;
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <p>@Localization.AnswerText</p>
+                                        <input hidden id='newResponseId' value='0' />
+                                        <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;  margin-top:6px;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                    </div>
+                                </div>
+                            </div>`;
 
             // Вставляем новый input перед кнопкой
             $("#questionN_0").find(".answers-container_0").append(newInput);

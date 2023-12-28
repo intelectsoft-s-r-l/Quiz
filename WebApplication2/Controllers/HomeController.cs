@@ -16,38 +16,47 @@ namespace ISQuiz.Controllers
     {
         private readonly IQuizRepository _quizRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ILogger<HomeController> _logger;
         //private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IQuizRepository quizRepository, IUserRepository userRepository/*, IStringLocalizer<HomeController> localizer*/)
+        public HomeController(IQuizRepository quizRepository, IUserRepository userRepository, ILogger<HomeController> logger/*, IStringLocalizer<HomeController> localizer*/) 
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;
+            _logger = logger;
             //_localizer = localizer;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            string token = GetToken();
-            var questionnaireData = await _quizRepository.GetQuestionnaires(token);
-            if (questionnaireData.errorCode == 143)
-            {
-                await RefreshToken();
-                return await Index();
-            }
-            else if (questionnaireData.errorCode == 118)
-            {
-                return View("~/Views/Account/Login.cshtml");
-            }
-            else if (questionnaireData.errorCode == 0)
-            {
+            _logger.LogInformation("Index method called.");
 
+            try
+            {
+                string token = GetToken();
+
+                var questionnaireData = await _quizRepository.GetQuestionnaires(token);
+
+                if (questionnaireData.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await Index(); // В этом случае рекурсивный вызов не будет проблемой, так как мы теперь обрабатываем исключения корректно
+                }
+                else if (questionnaireData.errorCode != 0)
+                {
+                    _logger.LogError($"Received unknown errorCode: {questionnaireData.errorCode}");
+                    return View("~/Views/Account/Login.cshtml");
+                }
                 return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
             }
-            else
-                return View("Error");
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the Index method." + ex.Message);
+                throw;
+            }
         }
+
 
         [HttpGet]
         public IActionResult Detail(int id) => View("~/Views/Home/Detail.cshtml", id);
@@ -55,33 +64,53 @@ namespace ISQuiz.Controllers
 
         public async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
         {
-            string token = GetToken();
-            var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
-            if (questionnaireData.errorCode == 143)
+            _logger.LogInformation($"QuestionnaireDetail method called. Id = {id}");
+            try
             {
-                await RefreshToken();
-                return await QuestionnaireDetail(id);
-            }
-            else if (questionnaireData.errorCode == 0)
+                string token = GetToken();
+                var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
+                if (questionnaireData.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await QuestionnaireDetail(id);
+                }
+                else if (questionnaireData.errorCode != 0)
+                    _logger.LogError($"{questionnaireData}");
+                //if err == 0
                 return questionnaireData;
-            else
-                return new DetailQuestionnaire { errorCode = -1 };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the QuestionnaireDetail method." + ex.Message);
+                throw;
+            }
+
 
         }
 
         public async Task<DetailQuestions> QuestionsDetail(int id)
         {
-            string token = GetToken();
-            var questionsData = await _quizRepository.GetQuestions(token, id);
-            if (questionsData.errorCode == 143)
+
+            _logger.LogInformation($"QuestionsDetail method called. Id = {id}");
+            try
             {
-                await RefreshToken();
-                return await QuestionsDetail(id);
-            }
-            else if (questionsData.errorCode == 0)
+                string token = GetToken();
+                var questionsData = await _quizRepository.GetQuestions(token, id);
+                if (questionsData.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await QuestionsDetail(id);
+                }
+                else if (questionsData.errorCode != 0)
+                    _logger.LogError($"{questionsData}");
+                //if err == 0
                 return questionsData;
-            else
-                return new DetailQuestions { errorCode = -1 };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the QuestionsDetail method." + ex.Message);
+                throw;
+            }
         }
 
 
@@ -89,31 +118,53 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> GetInfoQuestionnaire(int id)
         {
 
-            var questionnaireData = await QuestionnaireDetail(id);
-            var questionsData = await QuestionsDetail(id);
+            _logger.LogInformation($"GetInfoQuestionnaire method called. Id = {id}");
 
-            if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
+            try
             {
-                var detailQuestionnaireVm = new QuestionnaireViewModel();
-                detailQuestionnaireVm.oid = id;
-                detailQuestionnaireVm.Title = questionnaireData.questionnaire.name;
-                detailQuestionnaireVm.Questions = questionsData.questions;
-                //return View("~/Views/Home/Detail.cshtml", id);
-                return PartialView("~/Views/Home/_Info.cshtml", detailQuestionnaireVm);
+                var questionnaireData = await QuestionnaireDetail(id);
+                var questionsData = await QuestionsDetail(id);
+
+                if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
+                {
+                    var detailQuestionnaireVm = new QuestionnaireViewModel();
+                    detailQuestionnaireVm.oid = id;
+                    detailQuestionnaireVm.Title = questionnaireData.questionnaire.name;
+                    detailQuestionnaireVm.Questions = questionsData.questions;
+                    //return View("~/Views/Home/Detail.cshtml", id);
+                    return PartialView("~/Views/Home/_Info.cshtml", detailQuestionnaireVm);
+                }
+                else
+                    _logger.LogError($"{questionnaireData} \n {questionsData}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the GetInfoQuestionnaire method." + ex.Message);
+                throw;
             }
             return View();
+
         }
 
         [HttpGet]
         public async Task<IActionResult> GetQuestions(int id)
         {
-
-            var questionsData = await QuestionsDetail(id);
-
-            if (questionsData.errorCode == 0)
+            _logger.LogInformation($"GetQuestions method called. Id = {id}");
+            try
             {
-                return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
+                var questionsData = await QuestionsDetail(id);
+
+                if (questionsData.errorCode == 0)
+                    return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
+                else
+                    _logger.LogError($"{questionsData}");
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the GetQuestions method." + ex.Message);
+                throw;
+            }
+
             return View();
         }
 
@@ -122,93 +173,134 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> QuestionnaireStatistic(int id)
         {
 
-            string token = GetToken();
-
-            var statistic = await _quizRepository.GetQuestionnaireStatistic(token, id);
-
-            if (statistic.errorCode == 143)
+            _logger.LogInformation($"QuestionnaireStatistic method called. Id = {id}");
+            try
             {
-                await RefreshToken();
-                return await QuestionnaireStatistic(id);    
+                string token = GetToken();
+
+                var statistic = await _quizRepository.GetQuestionnaireStatistic(token, id);
+
+                if (statistic.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await QuestionnaireStatistic(id);
+                }
+                else if (statistic.errorCode == 0)
+                    return PartialView("~/Views/Home/_Statistic.cshtml", statistic.questionnaireStatistic);
+                else
+                    _logger.LogError($"{statistic}");
             }
-            else if(statistic.errorCode == 0)
-                return PartialView("~/Views/Home/_Statistic.cshtml", statistic.questionnaireStatistic);
-            return View("Error");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the QuestionnaireStatistic method." + ex.Message);
+                throw;
+            }
+
+
+            return View();
         }
 
 
         [HttpPost]
         public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnaire upsertQuestionnaireVM)
         {
-            string token = GetToken();
 
-            var userData = await _userRepository.getProfileInfo(token);
+            _logger.LogInformation($"UpsertQuestionnaire method called.");
 
-            if (userData.ErrorCode == 143)
+            try
             {
-                await RefreshToken();
-                return await UpsertQuestionnaire(upsertQuestionnaireVM);
-            }
-            else if (userData.ErrorCode == 118)
-            {
-                return View("~/Views/Account/Login.cshtml");
-            }
-            else if (userData.ErrorCode == 0)
-            {
-                upsertQuestionnaireVM.companyOid = userData.User.CompanyID;
-                upsertQuestionnaireVM.company = userData.User.Company;
-                upsertQuestionnaireVM.token = token;
+                string token = GetToken();
 
-                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaireVM);
+                var userData = await _userRepository.getProfileInfo(token);
 
-                if (questionnaireBaseResponsed.errorCode == 143)
+                if (userData.ErrorCode == 143)
                 {
                     await RefreshToken();
-                    return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
+                    return await UpsertQuestionnaire(upsertQuestionnaireVM);
                 }
-                else if (questionnaireBaseResponsed.errorCode == 0)
+                else if (userData.ErrorCode == 118)
                 {
-                    return Json(new { StatusCode = 200 });
-                    //return RedirectToAction("Index");
+                    return View("~/Views/Account/Login.cshtml");
                 }
+                else if (userData.ErrorCode == 0)
+                {
+                    upsertQuestionnaireVM.companyOid = userData.User.CompanyID;
+                    upsertQuestionnaireVM.company = userData.User.Company;
+                    upsertQuestionnaireVM.token = token;
+
+                    var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaireVM);
+
+                    if (questionnaireBaseResponsed.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
+                    }
+                    else if (questionnaireBaseResponsed.errorCode == 0)
+                    {
+                        return Json(new { StatusCode = 200 });
+                        //return RedirectToAction("Index");
+                    }
+                    else
+                        _logger.LogError($"{upsertQuestionnaireVM}\n{questionnaireBaseResponsed}");
+                }
+                else
+                    _logger.LogError($"{userData.ErrorCode}");
             }
-            return View("Error");
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the UpsertQuestionnaire method." + ex.Message);
+                throw;
+            }
+
+            return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> UpsertQuestion([FromBody] UpsertQuestionsViewModel upsertQuestionVM)
         {
-            string token = GetToken();
-
-            var deserializeResponseData = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
-
-            UpsertQuestions upsertQuestions = new UpsertQuestions();
-            upsertQuestions.questions = new List<QuestionViewModel>
+            _logger.LogInformation($"UpsertQuestion method called.");
+            try
             {
-                new QuestionViewModel
+                string token = GetToken();
+
+                var deserializeResponseData = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
+
+                UpsertQuestions upsertQuestions = new UpsertQuestions();
+                upsertQuestions.questions = new List<QuestionViewModel>
                 {
-                    id = upsertQuestionVM.id,
-                    question = upsertQuestionVM.question,
-                    questionnaireId = upsertQuestionVM.questionnaireId,
-                    comentary = upsertQuestionVM.comentary,
-                    gradingType = (GradingType)upsertQuestionVM.gradingType,
-                    responseVariants = deserializeResponseData.ResponseVariants
+                    new QuestionViewModel
+                    {
+                        id = upsertQuestionVM.id,
+                        question = upsertQuestionVM.question,
+                        questionnaireId = upsertQuestionVM.questionnaireId,
+                        comentary = upsertQuestionVM.comentary,
+                        gradingType = (GradingType)upsertQuestionVM.gradingType,
+                        responseVariants = deserializeResponseData.ResponseVariants
+                    }
+                };
+                upsertQuestions.token = token;
+
+
+
+                var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
+                if (dataResponse.errorCode == 0)
+                    return Json(new { StatusCode = 200 });
+                else if (dataResponse.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await UpsertQuestion(upsertQuestionVM);
                 }
-            };
-            upsertQuestions.token = token;
-
-
-
-            var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
-            if (dataResponse.errorCode == 0)
-                return Json(new { StatusCode = 200 });
-            else if (dataResponse.errorCode == 143)
+                else
+                    _logger.LogError($"{dataResponse}");
+            }
+            catch (Exception ex)
             {
-                await RefreshToken();
-                return await UpsertQuestion(upsertQuestionVM);
+                _logger.LogError(ex, "An error occurred while processing the UpsertQuestionnaire method." + ex.Message);
+                throw;
             }
 
-            return View("Error");
+
+            return View();
         }
 
 
@@ -222,79 +314,97 @@ namespace ISQuiz.Controllers
 
         }
 
+
         [HttpPost]
         public async Task<IActionResult> CreateQuestionnaire([FromBody] UpsertQuestionnareViewModel upsertQuestionnaireVM)
         {
 
-            string token = GetToken();
+            _logger.LogInformation($"CreateQuestionnaire method called.");
 
-            var userData = await _userRepository.getProfileInfo(token);
+            try
+            {
+                string token = GetToken();
 
-            if (userData.ErrorCode == 143)
-            {
-                await RefreshToken();
-                return await CreateQuestionnaire(upsertQuestionnaireVM);
-            }
-            else if (userData.ErrorCode == 118)
-            {
-                return View("~/Views/Account/Login.cshtml");
-            }
-            else if (userData.ErrorCode == 0)
-            {
+                var userData = await _userRepository.getProfileInfo(token);
 
-                //Correct model for post
-                //Data from body(scritp post)
-                UpsertQuestionnaire upsertQuestionnaire = new UpsertQuestionnaire()
+                if (userData.ErrorCode == 143)
                 {
-                    oid = upsertQuestionnaireVM.id,
-                    name = upsertQuestionnaireVM.Title,
-                    companyOid = userData.User.CompanyID,
-                    company = userData.User.Company,
-                    token = token
-                };
-
-
-                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
-
-                var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
-
-                questionsVM.questions.ForEach(item => item.questionnaireId = questionnaireBaseResponsed.questionnaireId);
-
-
-                UpsertQuestions questions = new UpsertQuestions()
+                    await RefreshToken();
+                    return await CreateQuestionnaire(upsertQuestionnaireVM);
+                }
+                else if (userData.ErrorCode == 118)
                 {
-                    questions = questionsVM.questions,
-                    token = token
-                };
+                    return View("~/Views/Account/Login.cshtml");
+                }
+                else if (userData.ErrorCode == 0)
+                {
+
+                    //Correct model for post
+                    //Data from body(scritp post)
+                    UpsertQuestionnaire upsertQuestionnaire = new UpsertQuestionnaire()
+                    {
+                        oid = upsertQuestionnaireVM.id,
+                        name = upsertQuestionnaireVM.Title,
+                        companyOid = userData.User.CompanyID,
+                        company = userData.User.Company,
+                        token = token
+                    };
+
+
+                    var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
+
+                    var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
+
+                    questionsVM.questions.ForEach(item => item.questionnaireId = questionnaireBaseResponsed.questionnaireId);
+
+
+                    UpsertQuestions questions = new UpsertQuestions()
+                    {
+                        questions = questionsVM.questions,
+                        token = token
+                    };
 
 
 
-                var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
+                    var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
-                if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
-                    return Json(new { StatusCode = 200 });
+                    if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
+                        return Json(new { StatusCode = 200 });
                     //return RedirectToAction("Index");
-                
-            }
-            return View();
 
+                }
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the CreateQuestionnaire method.");
+                return View("Error");
+            }
         }
+
 
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-
-            var deleteVm = new QuestionnaireViewModel();
-            var questionnaireData = await QuestionnaireDetail(id);
-            var questionsData = await QuestionsDetail(id);
-
-            if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
+            _logger.LogInformation($"Delete methodGET called.");
+            try
             {
-                deleteVm.oid = id;
-                deleteVm.Title = questionnaireData.questionnaire.name;
-                deleteVm.Questions = questionsData.questions;
-                return PartialView("~/Views/Home/Delete.cshtml", deleteVm);
+                var deleteVm = new QuestionnaireViewModel();
+                var questionnaireData = await QuestionnaireDetail(id);
+                var questionsData = await QuestionsDetail(id);
+
+                if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
+                {
+                    deleteVm.oid = id;
+                    deleteVm.Title = questionnaireData.questionnaire.name;
+                    deleteVm.Questions = questionsData.questions;
+                    return PartialView("~/Views/Home/Delete.cshtml", deleteVm);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the Delete method.");
             }
             return View("Error");
         }
@@ -303,38 +413,59 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteQuestionnaire([FromBody] int oid)
         {
-            string token = GetToken();
-            var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
-            if (baseResponse.errorCode == 143)
+            _logger.LogInformation($"DeleteQuestionnaire methodPOST called.");
+            try
             {
-                await RefreshToken();
-                return await DeleteQuestionnaire(oid);
+                string token = GetToken();
+                var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
+                if (baseResponse.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await DeleteQuestionnaire(oid);
+                }
+                else if (baseResponse.errorCode == 118)
+                    return View("~/Views/Account/Login.cshtml");
+                else if (baseResponse.errorCode == 0)
+                    return Json(new { StatusCode = 200, Message = "Ok" });
+                else
+                    return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
             }
-            else if (baseResponse.errorCode == 118)
-                return View("~/Views/Account/Login.cshtml");
-            else if (baseResponse.errorCode == 0)
-                return Json(new { StatusCode = 200, Message = "Ok" });
-            else
-                return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the DeleteQuestionnaire method.");
+                return View("Error");
+            }
+
 
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteQuestion([FromBody] int id)
         {
-            string token = GetToken();
-            var baseResponse = await _quizRepository.DeleteQuestion(token, id);
-            if (baseResponse.errorCode == 143)
+            _logger.LogInformation($"DeleteQuestion method called.");
+            try
             {
-                await RefreshToken();
-                return await DeleteQuestion(id);
+                string token = GetToken();
+                var baseResponse = await _quizRepository.DeleteQuestion(token, id);
+                if (baseResponse.errorCode == 143)
+                {
+                    await RefreshToken();
+                    return await DeleteQuestion(id);
+                }
+                else if (baseResponse.errorCode == 118)
+                    return View("~/Views/Account/Login.cshtml");
+                else if (baseResponse.errorCode == 0)
+                    return Json(new { StatusCode = 200, oid = id });
+                else
+                    return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
             }
-            else if (baseResponse.errorCode == 118)
-                return View("~/Views/Account/Login.cshtml");
-            else if (baseResponse.errorCode == 0)
-                return Json(new { StatusCode = 200, oid = id });
-            else
-                return Json(new { StatusCode = 500, Message = baseResponse.errorMessage });
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the DeleteQuestion method.");
+                return View("Error");
+            }
+
+
         }
 
     }
