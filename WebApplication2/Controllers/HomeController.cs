@@ -30,7 +30,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            _logger.LogInformation("Index method called.");
+            _logger.LogInformation("Home.Index method called.");
 
             try
             {
@@ -52,7 +52,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while processing the Index method." + ex.Message);
+                _logger.LogError(ex, "An error occurred while processing the Home.Index method." + ex.Message);
                 throw;
             }
         }

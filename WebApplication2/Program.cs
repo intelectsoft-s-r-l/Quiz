@@ -75,6 +75,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 
 Log.Logger = new LoggerConfiguration()
+    //.MinimumLevel.Debug()
     .WriteTo.Console()
     .WriteTo.File(@"Logs\log.log",
                   rollingInterval: RollingInterval.Day,
@@ -85,12 +86,7 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 
-
-
-
-
-builder.Host.UseSerilog();
-builder.Services.AddLogging();
+//builder.Services.AddLogging();
 
 
 var app = builder.Build();

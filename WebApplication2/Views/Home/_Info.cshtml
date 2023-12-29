@@ -482,6 +482,18 @@
             if ($(this).val() == "4" || $(this).val() == "3") {
                 $("#questionN_0").find("#add-answer").show();
                 answersContainer.show();
+                if ($answers.length === 0) {
+                    var newDiv = `<div class="answer" id='newAnswer'>
+                                        <div class="col-lg-12">
+                                            <p>@Localization.AnswerText</p>
+                                            <input hidden id='newResponseId' value='0' />
+                                            <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                        </div>
+                                    </div>`;
+
+                    // Добавляем новый div внутрь существующего div
+                    $("#answersContainer_0").append(newDiv);
+                }
             } else {
                 $answers.remove(); //???!!/
                 $("#questionN_0").find("#add-answer").hide();

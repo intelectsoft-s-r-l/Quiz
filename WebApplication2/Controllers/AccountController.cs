@@ -16,26 +16,27 @@ namespace ISQuiz.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountRepository _accountRepository;
-
-        public AccountController(IAccountRepository accountRepository)
+        private readonly ILogger<AccountController> _logger;
+        public AccountController(IAccountRepository accountRepository, ILogger<AccountController> logger)
         {
             _accountRepository = accountRepository;
+            _logger = logger;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
         {
-/*
-            string languageFromCookie = GetLanguageCookie();
+            /*
+                        string languageFromCookie = GetLanguageCookie();
 
-            if (string.IsNullOrEmpty(languageFromCookie))
-            {
-                ViewBag.Language = "ru";
-            }
-            else
-                ViewBag.Language = languageFromCookie;
-*/
+                        if (string.IsNullOrEmpty(languageFromCookie))
+                        {
+                            ViewBag.Language = "ru";
+                        }
+                        else
+                            ViewBag.Language = languageFromCookie;
+            */
             return View("~/Views/Account/Login.cshtml");
         }
 
@@ -43,6 +44,7 @@ namespace ISQuiz.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthorizeViewModel loginVM)
         {
+            _logger.LogInformation($"Login method called.");
             if (!ModelState.IsValid)
                 return View("Login", loginVM);
             try
@@ -75,7 +77,7 @@ namespace ISQuiz.Controllers
                     }
                     else if (baseResponseData.ErrorCode != 0)
                     {
-                        return View("Error");
+                        _logger.LogError($"{baseResponseData}");
                     }
 
                     List<Claim> userClaims = new List<Claim>
@@ -106,7 +108,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync(ex.Message);
+                _logger.LogError(ex, "An error occurred while processing the Login method." + ex.Message);
                 throw;
             }
 
@@ -126,23 +128,32 @@ namespace ISQuiz.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AuthRecoverpw(AuthRecoverpwViewModel recoverpwVM)
         {
+            _logger.LogInformation($"AuthRecoverpw method called.");
             if (!ModelState.IsValid)
                 return View();
-
-            var baseResponseData = await _accountRepository.RecoverPassword(recoverpwVM);
-
-            if (baseResponseData.ErrorCode == 0)
+            try
             {
-                AuthorizeViewModel authorizeViewModel = new AuthorizeViewModel();
-                authorizeViewModel.Email = recoverpwVM.Email;
-                TempData["Success"] = Localization.successRecoverPWMessage;
-                return View("~/Views/Account/Login.cshtml", authorizeViewModel);
+                var baseResponseData = await _accountRepository.RecoverPassword(recoverpwVM);
+
+                if (baseResponseData.ErrorCode == 0)
+                {
+                    AuthorizeViewModel authorizeViewModel = new AuthorizeViewModel();
+                    authorizeViewModel.Email = recoverpwVM.Email;
+                    TempData["Success"] = Localization.successRecoverPWMessage;
+                    return View("~/Views/Account/Login.cshtml", authorizeViewModel);
+                }
+                else
+                {
+                    TempData["Error"] = baseResponseData.ErrorMessage ?? "Undefined";
+                    return View("~/Views/Account/AuthRecoverpw.cshtml");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                TempData["Error"] = baseResponseData.ErrorMessage ?? "Undefined";
-                return View("~/Views/Account/AuthRecoverpw.cshtml");
+                _logger.LogError(ex, "An error occurred while processing the AuthRecoverpw method." + ex.Message);
+                throw;
             }
+
 
         }
 
@@ -158,15 +169,25 @@ namespace ISQuiz.Controllers
         [AllowAnonymous]
         public IActionResult ChangeCultureLogin(string shortLang)
         {
-            List<string> cultures = new List<string>() { "en", "ro", "ru" };
-            if (!cultures.Contains(shortLang))
+            _logger.LogInformation($"ChangeCultureLogin method called.");
+            try
             {
-                shortLang = "ru";
+                List<string> cultures = new List<string>() { "en", "ro", "ru" };
+                if (!cultures.Contains(shortLang))
+                {
+                    shortLang = "ru";
+                }
+
+                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+
+                return RedirectToAction("Login");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the ChangeCultureLogin method." + ex.Message);
+                throw;
             }
 
-            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
-
-            return RedirectToAction("Login");
 
         }
 

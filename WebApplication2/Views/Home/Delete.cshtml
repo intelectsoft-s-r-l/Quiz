@@ -4,15 +4,17 @@
 @using ISQuiz.ViewModels;
 @model QuestionnaireViewModel
 <style>
-
-/* 
     .form-container {
-        margin: 20px auto;
+        font-size: 18px;
+    }
+
+
+    .question {
+        border: 1px solid #2c3036;
         padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    } */
+        margin-bottom: 40px;
+        position: relative;
+    }
 
 </style>
 
@@ -25,32 +27,43 @@
                 <p>
                     @Localization.Sure
                 </p>
-                <h2>@Localization.DetailQ</h2>
-            </div><div class="form-container">
-                <h3 style="margin-top:20px;"><strong>@Localization.TitleQ:</strong> @Model.Title</h3>
+                <h2>@Model.Title</h2>
+            </div>
+            <div class="form-container">
+                <br />
                 <h4>@Localization.Questions</h4>
-                 <ol>
-                    @foreach (var question in Model.Questions.OrderBy(x => x.id))
-                    {
-                        <h5><li>@question.question</li></h5>
-                        <p><strong>@Localization.Comment:</strong> @question.comentary</p>
+                <br />
+                @{
+                    int i = 1;
+                }
+                @foreach (var question in Model.Questions.OrderBy(x => x.id))
+                {
+                    <div class="question">
+                        <h4><strong>@Localization.Question №@i </strong></h4>
+                        <p>@question.question</p>
+                        @* <p><strong>@Localization.Comment:</strong> @question.comentary</p> *@
+                        <b>@Localization.Comment</b>
+                        <p>@question.comentary</p>
+                        @{
+                            string answerLocalization = question.gradingType switch
+                            {
+                                GradingType.YesNo => Localization.YesorNo,
+                                GradingType.Point10Score => Localization.Scorepoints,
+                                GradingType.SingleAnswerVariant => Localization.Oneanswer,
+                                GradingType.MultipleAnswerVariant => Localization.Multianswer,
+                                _ => question.gradingType.ToString()
+                            };
+                        }
 
-                        string answerLocalization = question.gradingType switch
-                        {
-                            GradingType.YesNo => Localization.YesorNo,
-                            GradingType.Point10Score => Localization.Scorepoints,
-                            GradingType.SingleAnswerVariant => Localization.Oneanswer,
-                            GradingType.MultipleAnswerVariant => Localization.Multianswer,
-                            _ => question.gradingType.ToString()
-                        };
 
 
-                        <p><strong>@Localization.GradingType:</strong> @answerLocalization</p>
-                        
+                        <b>@Localization.GradingType</b>
+                        <p>@answerLocalization</p>
+
                         @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
                         {
                             <b>@Localization.Responses</b>
-                            <br/>
+                            <br />
                             <ul>
                                 @foreach (var answer in question.responseVariants)
                                 {
@@ -59,10 +72,9 @@
                                 }
                             </ul>
                         }
-                        <br />
-                        
-                    }
-                </ol> 
+                    </div>
+                    i++;
+                }
 
             </div>
         </div>
