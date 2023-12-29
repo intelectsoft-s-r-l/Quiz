@@ -81,8 +81,6 @@ namespace ISQuiz.Controllers
                 throw;
             }
 
-
-
         }
 
 
