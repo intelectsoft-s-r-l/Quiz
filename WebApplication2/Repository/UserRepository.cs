@@ -1,49 +1,39 @@
-﻿using Newtonsoft.Json;
-using System.Text;
-using ISQuiz.Interface;
+﻿using ISQuiz.Interface;
 using ISQuiz.Models;
 using ISQuiz.ViewModels;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ISQuiz.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public async Task<BaseResponse> changePassword(ChangePasswordViewModel changePasswordVM)
+        private readonly HttpClient _httpClient;
+
+        public UserRepository()
         {
-            using (var httpClientForChangePW = new HttpClient())
-            {
-
-                var apiUrlForChangePW = "https://dev.edi.md/ISAuthService/json/ChangePassword";
-
-                var jsonContent = new StringContent(JsonConvert.SerializeObject(changePasswordVM), Encoding.UTF8, "application/json");
-
-                var responseChangePW = await httpClientForChangePW.PostAsync(apiUrlForChangePW, jsonContent);
-
-                if (responseChangePW.IsSuccessStatusCode)
-                {
-                    var baseResponseData = await responseChangePW.Content.ReadAsAsync<BaseResponse>();
-
-                    return baseResponseData;
-                }
-                return new BaseResponse() { ErrorCode = -1 };
-            }
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri("https://dev.edi.md/ISAuthService/json/");
         }
+
+        private async Task<T> SendPostRequest<T>(string endpoint, object data)
+        {
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(endpoint, jsonContent);
+            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
+        }
+
+        private async Task<T> SendGetRequest<T>(string endpoint)
+        {
+            var response = await _httpClient.GetAsync(endpoint);
+            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
+        }
+
+        public async Task<BaseResponse> changePassword(ChangePasswordViewModel changePasswordVM)
+            => await SendPostRequest<BaseResponse>("ChangePassword", changePasswordVM);
 
         public async Task<GetProfileInfo> getProfileInfo(string token)
-        {
-            using (var httpClientForProfileInfo = new HttpClient())
-            {
-                var apiUrlGetProfileInfo = "https://dev.edi.md/ISAuthService/json/GetProfileInfo?Token=" + token;
-
-                var responseGetProfileInfo = await httpClientForProfileInfo.GetAsync(apiUrlGetProfileInfo);
-
-                if (responseGetProfileInfo.IsSuccessStatusCode)
-                {
-                    var userData = await responseGetProfileInfo.Content.ReadAsAsync<GetProfileInfo>();
-                    return userData;
-                }
-                return new GetProfileInfo() { ErrorCode = -1 }; //
-            }
-        }
+            => await SendGetRequest<GetProfileInfo>($"GetProfileInfo?Token={token}");
     }
+
 }
