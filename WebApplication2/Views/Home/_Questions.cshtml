@@ -23,7 +23,7 @@
         int i = 1;
     }
 
-    @foreach (var item in Model.questions.OrderBy(x => x.id))
+    @foreach (var item in Model.questions.OrderBy(x => x.id)) // Был бы порядковый номер вопроса, а не id было бы лучше так что не смейтесь!
     {
         <div class="question" id="questionN_@i">
 
@@ -33,7 +33,12 @@
 
             <div class="form-group">
                 <input hidden id="QuestionId" value="@item.id" />
-                <h4><strong>@Localization.Question №@i  </strong>  <i class="uil-eye font-size-24" onclick="DetailMore(@i)" style="cursor: pointer;"></i></h4>
+                <h4>
+                    <strong>@Localization.Question №@i</strong><i class="uil-eye font-size-24"
+                                                                  data-status="open"
+                                                                  onclick="toggleEye(this); DetailMore(@i);"
+                                                                  style="cursor: pointer;"></i>
+                </h4>
                 <p id="questionName_@i">@item.question</p>
             </div>
 

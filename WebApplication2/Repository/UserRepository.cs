@@ -12,8 +12,10 @@ namespace ISQuiz.Repository
 
         public UserRepository()
         {
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://dev.edi.md/ISAuthService/json/");
+            _httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri("https://dev.edi.md/ISAuthService/json/")
+            };
         }
 
         private async Task<T> SendPostRequest<T>(string endpoint, object data)

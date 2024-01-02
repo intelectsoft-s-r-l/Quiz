@@ -3,6 +3,7 @@ using ISQuiz.Models.API;
 using ISQuiz.Models.API.Questionnaires;
 using ISQuiz.ViewModels;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace ISQuiz.Repository
@@ -13,10 +14,17 @@ namespace ISQuiz.Repository
 
         public QuizRepository()
         {
-            _httpClient = new HttpClient();
             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
-            _httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
-            _httpClient.BaseAddress = new Uri("https://dev.edi.md/ISNPSAPI/Web/");
+            _httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri("https://dev.edi.md/ISNPSAPI/Web/"),
+                DefaultRequestHeaders =
+                {
+                    Authorization = new AuthenticationHeaderValue("Basic", credentials)
+                }
+            };
+            //_httpClient.BaseAddress = new Uri("https://dev.edi.md/ISNPSAPI/Web/");
+            //_httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
 
         private async Task<T> SendRequest<T>(string endpoint)
@@ -24,13 +32,26 @@ namespace ISQuiz.Repository
             var response = await _httpClient.GetAsync(endpoint);
             return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
         }
+        private async Task<T> SendPostRequest<T>(string endpoint, object data)
+        {
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(endpoint, jsonContent);
+            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
+        }
+        private async Task<T> SendDeleteRequest<T>(string endpoint)
+        {
+            var response = await _httpClient.DeleteAsync(endpoint);
+            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
+        }
 
+        //Delete
         public async Task<BaseErrors> DeleteQuestion(string token, int id)
-            => await SendRequest<BaseErrors>($"DeleteQuestions?token={token}&questionId={id}");
+            => await SendDeleteRequest<BaseErrors>($"DeleteQuestions?token={token}&questionId={id}");
 
         public async Task<BaseErrors> DeleteQuestionnaire(string token, int oid)
-            => await SendRequest<BaseErrors>($"DeleteQuestionnaire?Token={token}&id={oid}");
+            => await SendDeleteRequest<BaseErrors>($"DeleteQuestionnaire?Token={token}&id={oid}");
 
+        //Get
         public async Task<DetailQuestionnaire> GetQuestionnaire(string token, int id)
             => await SendRequest<DetailQuestionnaire>($"GetQuestionnaire?Token={token}&id={id}");
 
@@ -43,13 +64,7 @@ namespace ISQuiz.Repository
         public async Task<DetailQuestions> GetQuestions(string token, int id)
             => await SendRequest<DetailQuestions>($"GetQuestions?token={token}&questionnaireId={id}");
 
-        private async Task<T> SendPostRequest<T>(string endpoint, object data)
-        {
-            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(endpoint, jsonContent);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-        }
-
+        //Post
         public async Task<QuestionnaireIdViewModel> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM)
             => await SendPostRequest<QuestionnaireIdViewModel>("UpsertQuestionnaire", upsertQuestionnaireVM);
 

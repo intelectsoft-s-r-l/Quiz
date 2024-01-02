@@ -9,6 +9,18 @@ function DetailMore(index) {
 
 }
 
+function toggleEye(icon) {
+    if (icon.getAttribute('data-status') === 'open') {
+        icon.classList.remove('uil-eye');
+        icon.classList.add('uil-eye-slash', 'uil-eye-closed');
+        icon.setAttribute('data-status', 'closed');
+    } else {
+        icon.classList.remove('uil-eye-slash', 'uil-eye-closed');
+        icon.classList.add('uil-eye');
+        icon.setAttribute('data-status', 'open');
+    }
+}
+
 function DeleteQuestion(index, oid) {
 
     var container = $("#questionN_" + index);

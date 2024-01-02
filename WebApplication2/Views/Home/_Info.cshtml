@@ -184,6 +184,12 @@
                 height: 'show'
             });
         });
+
+        $('.uil-eye-slash').each(function () {
+            if ($(this).attr('data-status') === 'closed') {
+                toggleEye(this);
+            }
+        });
         var titleElement = container.find("#questionName_" + index);
         var comentaryElement = container.find("#questionComentary_" + index);
         var gradingTypeElement = container.find("#questionGradingType_" + index);
