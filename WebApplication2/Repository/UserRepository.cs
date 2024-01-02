@@ -18,12 +18,6 @@ namespace ISQuiz.Repository
             };
         }
 
-        private async Task<T> SendPostRequest<T>(string endpoint, object data)
-        {
-            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(endpoint, jsonContent);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-        }
 
         private async Task<T> SendGetRequest<T>(string endpoint)
         {
@@ -31,11 +25,23 @@ namespace ISQuiz.Repository
             return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
         }
 
+        private async Task<T> SendPostRequest<T>(string endpoint, object data)
+        {
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(endpoint, jsonContent);
+            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
+        }
+
+
+        //GET
+        public async Task<GetProfileInfo> getProfileInfo(string token)
+            => await SendGetRequest<GetProfileInfo>($"GetProfileInfo?Token={token}");
+
+        //POST
         public async Task<BaseResponse> changePassword(ChangePasswordViewModel changePasswordVM)
             => await SendPostRequest<BaseResponse>("ChangePassword", changePasswordVM);
 
-        public async Task<GetProfileInfo> getProfileInfo(string token)
-            => await SendGetRequest<GetProfileInfo>($"GetProfileInfo?Token={token}");
+
     }
 
 }

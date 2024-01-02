@@ -9,53 +9,56 @@ namespace ISQuiz.Repository
 {
     public class AccountRepository : IAccountRepository
     {
-        public async Task<GetProfileInfo> AuthorizeUser(AuthorizeViewModel loginVM)
+        private readonly HttpClient _httpClient;
+
+        public AccountRepository()
         {
-            using (var httpClientForAuth = new HttpClient())
-            {
-                var apiUrlForAuth = "https://dev.edi.md/ISAuthService/json/AuthorizeUser";
-
-                var jsonContent = new StringContent(JsonConvert.SerializeObject(loginVM), Encoding.UTF8, "application/json");
-
-                var responseAuth = await httpClientForAuth.PostAsync(apiUrlForAuth, jsonContent);
-
-                if (responseAuth.IsSuccessStatusCode)
-                    return await responseAuth.Content.ReadAsAsync<GetProfileInfo>();
-
-                return new GetProfileInfo { ErrorCode = -1 };
-
-            }
+            _httpClient = CreateHttpClient();
         }
 
+        private HttpClient CreateHttpClient()
+        {
+            var httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri("https://dev.edi.md/ISAuthService/json/")
+            };
+            // Добавьте другие настройки, если они необходимы, например, таймауты, заголовки и т. д.
+            return httpClient;
+        }
+
+        private async Task<T> SendRequest<T>(HttpMethod method, string endpoint, object data = null)
+        {
+            var requestMessage = new HttpRequestMessage(method, endpoint);
+            if (data != null)
+            {
+                requestMessage.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            }
+
+            var response = await _httpClient.SendAsync(requestMessage);
+            if (!response.IsSuccessStatusCode)
+            {
+                // Здесь можно добавить логирование и более детальную обработку ошибок
+                throw new HttpRequestException($"Request failed with status code {response.StatusCode}");
+            }
+
+            return await response.Content.ReadAsAsync<T>();
+        }
+
+        // GET
         public async Task<BaseResponse> ChangeUILanguage(string token, EnUiLanguage uiLanguage)
         {
-            using (var httpClientForChangeLanguage = new HttpClient())
-            {
-                var apiUrlUserLanguage = "https://dev.edi.md/ISAuthService/json/ChangeUILanguage?Token=" + token + "&Language=" + uiLanguage;
-
-                var responseUserLanguage = await httpClientForChangeLanguage.GetAsync(apiUrlUserLanguage);
-                if (responseUserLanguage.IsSuccessStatusCode)
-                    return await responseUserLanguage.Content.ReadAsAsync<BaseResponse>();
-                return new BaseResponse { ErrorCode = -1 };
-            }
+            var endpoint = $"ChangeUILanguage?Token={token}&Language={uiLanguage}";
+            return await SendRequest<BaseResponse>(HttpMethod.Get, endpoint);
         }
+
+        // POST
+        public async Task<GetProfileInfo> AuthorizeUser(AuthorizeViewModel loginVM)
+            => await SendRequest<GetProfileInfo>(HttpMethod.Post, "AuthorizeUser", loginVM);
+        
 
         public async Task<BaseResponse> RecoverPassword(AuthRecoverpwViewModel recoverpwVM)
-        {
-            using (var httpClientForResetPW = new HttpClient())
-            {
-
-                var apiUrlForResetPW = "https://dev.edi.md/ISAuthService/json/ResetPassword";
-
-                var jsonContent = new StringContent(JsonConvert.SerializeObject(recoverpwVM), Encoding.UTF8, "application/json");
-
-                var response = await httpClientForResetPW.PostAsync(apiUrlForResetPW, jsonContent);
-
-                if (response.IsSuccessStatusCode)
-                    return await response.Content.ReadAsAsync<BaseResponse>();
-
-                return new BaseResponse() { ErrorCode = -1 };
-            }
-        }
+            => await SendRequest<BaseResponse>(HttpMethod.Post, "ResetPassword", recoverpwVM);
+        
     }
+
 }
