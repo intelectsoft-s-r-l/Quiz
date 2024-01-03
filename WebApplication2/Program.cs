@@ -15,15 +15,15 @@ builder.Services.AddControllersWithViews();//.AddFluentValidation();
 //Added fluent validation
 builder.Services.AddControllers().AddFluentValidation(options =>
 {
-    // Automatic registration of validators in assembly
+    //Automatic registration of validators in assembly
     //options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     options.RegisterValidatorsFromAssemblyContaining<Program>();
     options.LocalizationEnabled = true;
 });
 
-ValidatorViewModel validatorViewModel = new ValidatorViewModel(builder.Services);
+ValidatorViewModel validatorViewModel = new(builder.Services);
 
-ServicesScoped servicesScoped = new ServicesScoped(builder.Services);
+ServicesScoped servicesScoped = new(builder.Services);
 
 
 // Add services to the container.
@@ -76,7 +76,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 Log.Logger = new LoggerConfiguration()
     //.MinimumLevel.Debug()
-    .WriteTo.Console()
+    //.WriteTo.Console()
     .WriteTo.File(@"Logs\log.log",
                   rollingInterval: RollingInterval.Day,
                   retainedFileCountLimit: 30,

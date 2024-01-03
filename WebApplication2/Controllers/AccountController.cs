@@ -17,7 +17,8 @@ namespace ISQuiz.Controllers
     {
         private readonly IAccountRepository _accountRepository;
         private readonly ILogger<AccountController> _logger;
-        public AccountController(IAccountRepository accountRepository, ILogger<AccountController> logger)
+        public AccountController(IAccountRepository accountRepository, 
+                                 ILogger<AccountController> logger)
         {
             _accountRepository = accountRepository;
             _logger = logger;
@@ -56,19 +57,13 @@ namespace ISQuiz.Controllers
 
 
 
-                    switch (GetLanguageCookie())
+                    userData.User.UiLanguage = GetLanguageCookie() switch
                     {
-                        case "en":
-                            userData.User.UiLanguage = EnUiLanguage.EN; break;
-                        case "ro":
-                            userData.User.UiLanguage = EnUiLanguage.RO; break;
-                        case "ru":
-                            userData.User.UiLanguage = EnUiLanguage.RU; break;
-                        default:
-                            userData.User.UiLanguage = EnUiLanguage.RU; break;
-                    }
-
-
+                        "en" => EnUiLanguage.EN,
+                        "ro" => EnUiLanguage.RO,
+                        "ru" => EnUiLanguage.RU,
+                        _ => EnUiLanguage.RU,
+                    };
                     var baseResponseData = await _accountRepository.ChangeUILanguage(userData.Token, userData.User.UiLanguage);
                     if (baseResponseData.ErrorCode == 143)
                     {
@@ -80,7 +75,7 @@ namespace ISQuiz.Controllers
                         _logger.LogError($"{baseResponseData}");
                     }
 
-                    List<Claim> userClaims = new List<Claim>
+                    List<Claim> userClaims = new()
                     {
                         new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()),
                         new Claim(ClaimTypes.Email, userData.User.Email),
@@ -91,7 +86,9 @@ namespace ISQuiz.Controllers
                         new Claim("UiLanguage", GetLanguageCookie())
                     };
 
-                    Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+                    Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, 
+                                            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())), 
+                                                                                         new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
@@ -137,8 +134,10 @@ namespace ISQuiz.Controllers
 
                 if (baseResponseData.ErrorCode == 0)
                 {
-                    AuthorizeViewModel authorizeViewModel = new AuthorizeViewModel();
-                    authorizeViewModel.Email = recoverpwVM.Email;
+                    AuthorizeViewModel authorizeViewModel = new()
+                    {
+                        Email = recoverpwVM.Email
+                    };
                     TempData["Success"] = Localization.successRecoverPWMessage;
                     return View("~/Views/Account/Login.cshtml", authorizeViewModel);
                 }
@@ -172,13 +171,15 @@ namespace ISQuiz.Controllers
             _logger.LogInformation($"ChangeCultureLogin method called.");
             try
             {
-                List<string> cultures = new List<string>() { "en", "ro", "ru" };
+                List<string> cultures = new() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
                 {
                     shortLang = "ru";
                 }
 
-                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, 
+                                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)), 
+                                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
                 return RedirectToAction("Login");
             }

@@ -51,7 +51,7 @@ namespace ISQuiz.Controllers
         }
 
 
-        [HttpGet]   //!
+        [HttpGet] 
         public IActionResult ChangePassword() => PartialView("~/Views/User/_ChangePassword.cshtml");
 
 
@@ -78,7 +78,7 @@ namespace ISQuiz.Controllers
 
             string token = GetToken();
 
-            ChangePasswordViewModel changePassword = new ChangePasswordViewModel()
+            ChangePasswordViewModel changePassword = new()
             {
                 NewPassword = changepwVM.NewPassword,
                 OldPassword = changepwVM.OldPassword,

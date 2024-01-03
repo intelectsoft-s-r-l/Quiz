@@ -19,7 +19,10 @@ namespace ISQuiz.Controllers
         private readonly ILogger<HomeController> _logger;
         //private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IQuizRepository quizRepository, IUserRepository userRepository, ILogger<HomeController> logger/*, IStringLocalizer<HomeController> localizer*/) 
+        public HomeController(IQuizRepository quizRepository, 
+                             IUserRepository userRepository, 
+                             ILogger<HomeController> logger
+                             /*, IStringLocalizer<HomeController> localizer*/) 
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;
@@ -41,7 +44,7 @@ namespace ISQuiz.Controllers
                 if (questionnaireData.errorCode == 143)
                 {
                     await RefreshToken();
-                    return await Index(); // В этом случае рекурсивный вызов не будет проблемой, так как мы теперь обрабатываем исключения корректно
+                    return await Index();
                 }
                 else if (questionnaireData.errorCode != 0)
                 {
@@ -127,10 +130,12 @@ namespace ISQuiz.Controllers
 
                 if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
                 {
-                    var detailQuestionnaireVm = new QuestionnaireViewModel();
-                    detailQuestionnaireVm.oid = id;
-                    detailQuestionnaireVm.Title = questionnaireData.questionnaire.name;
-                    detailQuestionnaireVm.Questions = questionsData.questions;
+                    var detailQuestionnaireVm = new QuestionnaireViewModel
+                    {
+                        oid = id,
+                        Title = questionnaireData.questionnaire.name,
+                        Questions = questionsData.questions
+                    };
                     //return View("~/Views/Home/Detail.cshtml", id);
                     return PartialView("~/Views/Home/_Info.cshtml", detailQuestionnaireVm);
                 }
@@ -233,7 +238,7 @@ namespace ISQuiz.Controllers
                     if (questionnaireBaseResponsed.errorCode == 143)
                     {
                         await RefreshToken();
-                        return await UpsertQuestionnaire(upsertQuestionnaireVM); ///![Get data FromBody]
+                        return await UpsertQuestionnaire(upsertQuestionnaireVM);
                     }
                     else if (questionnaireBaseResponsed.errorCode == 0)
                     {
@@ -265,8 +270,9 @@ namespace ISQuiz.Controllers
 
                 var deserializeResponseData = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
 
-                UpsertQuestions upsertQuestions = new UpsertQuestions();
-                upsertQuestions.questions = new List<QuestionViewModel>
+                UpsertQuestions upsertQuestions = new()
+                {
+                    questions = new List<QuestionViewModel>
                 {
                     new QuestionViewModel
                     {
@@ -277,8 +283,9 @@ namespace ISQuiz.Controllers
                         gradingType = (GradingType)upsertQuestionVM.gradingType,
                         responseVariants = deserializeResponseData.ResponseVariants
                     }
+                },
+                    token = token
                 };
-                upsertQuestions.token = token;
 
 
 
@@ -307,9 +314,11 @@ namespace ISQuiz.Controllers
         //[HttpGet]
         public IActionResult CreateQuestionnaire()
         {
-            var upsertVm = new QuestionnaireViewModel();
-            upsertVm.oid = 0;
-            upsertVm.Questions = new List<QuestionViewModel>();
+            var upsertVm = new QuestionnaireViewModel
+            {
+                oid = 0,
+                Questions = new List<QuestionViewModel>()
+            };
             return View("~/Views/Home/Upsert.cshtml", upsertVm);
 
         }
@@ -341,7 +350,7 @@ namespace ISQuiz.Controllers
 
                     //Correct model for post
                     //Data from body(scritp post)
-                    UpsertQuestionnaire upsertQuestionnaire = new UpsertQuestionnaire()
+                    UpsertQuestionnaire upsertQuestionnaire = new()
                     {
                         oid = upsertQuestionnaireVM.id,
                         name = upsertQuestionnaireVM.Title,
@@ -358,13 +367,11 @@ namespace ISQuiz.Controllers
                     questionsVM.questions.ForEach(item => item.questionnaireId = questionnaireBaseResponsed.questionnaireId);
 
 
-                    UpsertQuestions questions = new UpsertQuestions()
+                    UpsertQuestions questions = new()
                     {
                         questions = questionsVM.questions,
                         token = token
                     };
-
-
 
                     var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 

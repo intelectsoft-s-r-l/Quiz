@@ -108,27 +108,19 @@ namespace ISQuiz.Controllers
             try
             {
                 var uiLanguage = EnUiLanguage.RU;
-                List<string> cultures = new List<string>() { "en", "ro", "ru" };
+                List<string> cultures = new() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
                 {
                     shortLang = "ru";
                 }
 
-                switch (shortLang)
+                uiLanguage = shortLang switch
                 {
-                    case "en":
-                        uiLanguage = EnUiLanguage.EN;
-                        break;
-                    case "ro":
-                        uiLanguage = EnUiLanguage.RO;
-                        break;
-                    case "ru":
-                        uiLanguage = EnUiLanguage.RU;
-                        break;
-                    default:
-                        uiLanguage = EnUiLanguage.RU;
-                        break;
-                }
+                    "en" => EnUiLanguage.EN,
+                    "ro" => EnUiLanguage.RO,
+                    "ru" => EnUiLanguage.RU,
+                    _ => EnUiLanguage.RU,
+                };
 
 
                 //var userClaims = GetUserClaims();
@@ -221,7 +213,7 @@ namespace ISQuiz.Controllers
             }
             else
             {
-                List<string> cultures = new List<string>() { "en", "ro", "ru" };
+                List<string> cultures = new() { "en", "ro", "ru" };
                 if (cultures.Contains(cookie.ToLower()))
                 {
                     return cookie.ToLower();

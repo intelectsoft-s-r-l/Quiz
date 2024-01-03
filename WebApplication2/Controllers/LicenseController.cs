@@ -12,7 +12,8 @@ namespace ISQuiz.Controllers
         private readonly ILicenseRepository _licenseRepository;
         private readonly ILogger<LicenseController> _logger;
 
-        public LicenseController(ILicenseRepository licenseRepository, ILogger<LicenseController> logger)
+        public LicenseController(ILicenseRepository licenseRepository, 
+                                 ILogger<LicenseController> logger)
         {
             _licenseRepository = licenseRepository;
             _logger = logger;
@@ -228,7 +229,7 @@ namespace ISQuiz.Controllers
                     if (postLicenseBaseResponse.errorCode == 143)
                     {
                         await RefreshToken();
-                        return await CreateLicence(generateLicenseVM); ///!
+                        return await CreateLicence(generateLicenseVM); 
                     }
                     else if (postLicenseBaseResponse.errorCode != 0)
                     {
