@@ -370,41 +370,41 @@
         cancelBtn.classList.add('col-lg-12');
 
         var questionHtml = `<div class="question" id="questionN_0">
-                                                <div class="form-group">
-                                                    <input hidden id="QuestionId" value="0" />
-                                                    <h4>@Localization.QuestionText</h4>
-                                                    <input type='text' id='questionName_0' maxlength='100' class='form-control' />
-                                                </div>
+                                <div class="form-group">
+                                    <input hidden id="QuestionId" value="0" />
+                                    <h4>@Localization.QuestionText</h4>
+                                    <input type='text' id='questionName_0' maxlength='100' class='form-control' />
+                                </div>
 
-                                                <div id="detail_0">
-                                                    <div class="form-group">
-                                                        <label>@Localization.Comment</label>
-                                                        <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
-                                                    </div>
-                                                        <div class="form-group" id="SelectGradingType">
-                                                            <label>@Localization.GradingType</label>
-                                                            <select id="questionGradingType_0" class="form-select">
-                                                                <option value="1">@Localization.YesorNo</option>
-                                                                <option value="2">@Localization.Scorepoints</option>
-                                                                <option value="3">@Localization.Oneanswer</option>
-                                                                <option value="4">@Localization.Multianswer</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="answers-container_0" id="answersContainer_0" style="display: none;">
-                                                        <br />
-                                                        <h4>@Localization.Responses</h4>
-                                                        <div class="answer" id='newAnswer'>
-                                                            <div class="col-lg-12">
-                                                                <p>@Localization.AnswerText</p>
-                                                                <input hidden id='newResponseId' value='0' />
-                                                                <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
-                                                            </div>
-                                                        </div>
-                                                        <br />
-                                                    </div>
-                                                   <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                                                </div>
-                                            </div>`;
+                                <div id="detail_0">
+                                    <div class="form-group">
+                                        <label>@Localization.Comment</label>
+                                        <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
+                                    </div>
+                                        <div class="form-group" id="SelectGradingType">
+                                            <label>@Localization.GradingType</label>
+                                            <select id="questionGradingType_0" class="form-select">
+                                                <option value="1">@Localization.YesorNo</option>
+                                                <option value="2">@Localization.Scorepoints</option>
+                                                <option value="3">@Localization.Oneanswer</option>
+                                                <option value="4">@Localization.Multianswer</option>
+                                            </select>
+                                        </div>
+                                        <div class="answers-container_0" id="answersContainer_0" style="display: none;">
+                                        <br />
+                                        <h4>@Localization.Responses</h4>
+                                        <div class="answer" id='newAnswer'>
+                                            <div class="col-lg-12">
+                                                <p>@Localization.AnswerText</p>
+                                                <input hidden id='newResponseId' value='0' />
+                                                <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                            </div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
+                                </div>
+                            </div>`;
 
         // Добавляем вопрос в контейнер
         $("#questions-container").append(questionHtml);

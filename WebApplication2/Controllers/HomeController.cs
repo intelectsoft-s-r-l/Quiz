@@ -67,7 +67,6 @@ namespace ISQuiz.Controllers
 
         public async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
         {
-            _logger.LogInformation($"QuestionnaireDetail method called. Id = {id}");
             try
             {
                 string token = GetToken();
@@ -93,8 +92,6 @@ namespace ISQuiz.Controllers
 
         public async Task<DetailQuestions> QuestionsDetail(int id)
         {
-
-            _logger.LogInformation($"QuestionsDetail method called. Id = {id}");
             try
             {
                 string token = GetToken();
@@ -126,21 +123,21 @@ namespace ISQuiz.Controllers
             try
             {
                 var questionnaireData = await QuestionnaireDetail(id);
-                var questionsData = await QuestionsDetail(id);
+                //var questionsData = await QuestionsDetail(id);
 
-                if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
+                if (questionnaireData.errorCode == 0 /*&& questionsData.errorCode == 0*/)
                 {
                     var detailQuestionnaireVm = new QuestionnaireViewModel
                     {
                         oid = id,
                         Title = questionnaireData.questionnaire.name,
-                        Questions = questionsData.questions
+                        //Questions = questionsData.questions
                     };
                     //return View("~/Views/Home/Detail.cshtml", id);
                     return PartialView("~/Views/Home/_Info.cshtml", detailQuestionnaireVm);
                 }
                 else
-                    _logger.LogError($"{questionnaireData} \n {questionsData}");
+                    _logger.LogError($"{questionnaireData} \n");
             }
             catch (Exception ex)
             {
@@ -348,8 +345,6 @@ namespace ISQuiz.Controllers
                 else if (userData.ErrorCode == 0)
                 {
 
-                    //Correct model for post
-                    //Data from body(scritp post)
                     UpsertQuestionnaire upsertQuestionnaire = new()
                     {
                         oid = upsertQuestionnaireVM.id,

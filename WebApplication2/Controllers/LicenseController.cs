@@ -47,9 +47,6 @@ namespace ISQuiz.Controllers
                 _logger.LogError(ex, "An error occurred while processing the License.Index method." + ex.Message);
                 throw;
             }
-
-
-
         }
 
 
@@ -134,6 +131,8 @@ namespace ISQuiz.Controllers
 
 
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> Activate(string oid)
@@ -237,7 +236,7 @@ namespace ISQuiz.Controllers
                         return View("~/Views/Account/Login.cshtml");
                     }
                     //return RedirectToAction(nameof(LicenseController.Index), "License");
-                    return Json(new { StatusCode = 200, Message = "Ok" });
+                    return Json(new { statusCode = 200});
                 }
             }
             catch (Exception ex)

@@ -31,13 +31,15 @@
                 success: function (data) {
                     $('#generateLicenseForm').find('.text-danger').remove();
                     if (data.statusCode === 200) {
-                        window.location.href = '/License/Index';
-                    } else if (data.statusCode === 500) {
+                        location.reload();
+                        //window.location.href = '/License/Index';
+                    }
+                    // } else if (data.statusCode === 500) {
 
-                    }
-                    else {
-                        $('#createlicense').html(data);
-                    }
+                    // }
+                    // else {
+                    //     $('#createlicense').html(data);
+                    // }
 
                 },
 
