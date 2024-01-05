@@ -1,14 +1,14 @@
 ﻿using ISQuiz.Filter;
+using ISQuiz.Interface;
+using ISQuiz.Models.Enum;
+using ISQuiz.Resources;
+using ISQuiz.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using ISQuiz.Interface;
-using ISQuiz.Models.Enum;
-using ISQuiz.Resources;
-using ISQuiz.ViewModels;
 
 namespace ISQuiz.Controllers
 {
@@ -17,7 +17,7 @@ namespace ISQuiz.Controllers
     {
         private readonly IAccountRepository _accountRepository;
         private readonly ILogger<AccountController> _logger;
-        public AccountController(IAccountRepository accountRepository, 
+        public AccountController(IAccountRepository accountRepository,
                                  ILogger<AccountController> logger)
         {
             _accountRepository = accountRepository;
@@ -29,14 +29,14 @@ namespace ISQuiz.Controllers
         public IActionResult Login()
         {
             /*
-                        string languageFromCookie = GetLanguageCookie();
+                string languageFromCookie = GetLanguageCookie();
 
-                        if (string.IsNullOrEmpty(languageFromCookie))
-                        {
-                            ViewBag.Language = "ru";
-                        }
-                        else
-                            ViewBag.Language = languageFromCookie;
+                if (string.IsNullOrEmpty(languageFromCookie))
+                {
+                    ViewBag.Language = "ru";
+                }
+                else
+                    ViewBag.Language = languageFromCookie;
             */
             return View("~/Views/Account/Login.cshtml");
         }
@@ -86,8 +86,8 @@ namespace ISQuiz.Controllers
                         new Claim("UiLanguage", GetLanguageCookie())
                     };
 
-                    Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, 
-                                            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())), 
+                    Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                                            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())),
                                                                                          new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -177,8 +177,8 @@ namespace ISQuiz.Controllers
                     shortLang = "ru";
                 }
 
-                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, 
-                                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)), 
+                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)),
                                         new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
                 return RedirectToAction("Login");

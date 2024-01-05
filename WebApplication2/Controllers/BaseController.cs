@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using ISQuiz.Models;
+using ISQuiz.Models.Enum;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using ISQuiz.Models;
-using ISQuiz.Models.Enum;
 
 namespace ISQuiz.Controllers
 {
@@ -56,38 +56,32 @@ namespace ISQuiz.Controllers
                              where c.Type == ".AspNetCore.Admin"
                              select c).FirstOrDefault();
 
-                using (var httpClientForRefreshToken = new HttpClient())
+                using var httpClientForRefreshToken = new HttpClient();
+
+                var apiUrlForRefreshToken = "https://dev.edi.md/ISAuthService/json/RefreshToken?Token=" + claim.Value;
+
+                var responseForRefreshToken = await httpClientForRefreshToken.GetAsync(apiUrlForRefreshToken);
+
+                if (responseForRefreshToken.IsSuccessStatusCode)
                 {
-                    // Замените URL на ссылку, с которой вы хотите получить данные.
-                    var apiUrlForRefreshToken = "https://dev.edi.md/ISAuthService/json/RefreshToken?Token=" + claim.Value;
-
-                    // Преобразуйте объект loginVM в JSON и отправьте его с помощью HttpContent.
-                    // var jsonContent = new StringContent(JsonConvert.SerializeObject(loginVM), Encoding.UTF8, "application/json");
-
-                    var responseForRefreshToken = await httpClientForRefreshToken.GetAsync(apiUrlForRefreshToken);
-
-                    if (responseForRefreshToken.IsSuccessStatusCode)
+                    // Чтение данных из HTTP-ответа.
+                    var userData = await responseForRefreshToken.Content.ReadAsAsync<GetProfileInfo>();
+                    if (!string.IsNullOrEmpty(userData.Token))
                     {
-                        // Чтение данных из HTTP-ответа.
-                        var userData = await responseForRefreshToken.Content.ReadAsAsync<GetProfileInfo>();
-                        if (!string.IsNullOrEmpty(userData.Token))
-                        {
 
-                            //SignOut to unlock claims for mananging them
-                            HttpContext.SignOutAsync();
+                        //SignOut to unlock claims for mananging them
+                        await HttpContext.SignOutAsync();
 
-                            //Creating new claim to change our token after refresh
-                            var claimNew = new Claim(".AspNetCore.Admin", userData.Token);
-                            //Try remove claim selected from claimIdentity
-                            //If we use RemoveClaim we can get excetion if claim can't be removed
-                            claimIdentity.TryRemoveClaim(claim);
-                            claimIdentity.AddClaim(claimNew);
-                            //Add new claim
-                            //SignIn to save claim principal
-                            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
+                        //Creating new claim to change our token after refresh
+                        var claimNew = new Claim(".AspNetCore.Admin", userData.Token);
+                        //Try remove claim selected from claimIdentity
+                        //If we use RemoveClaim we can get excetion if claim can't be removed
+                        claimIdentity.TryRemoveClaim(claim);
+                        claimIdentity.AddClaim(claimNew);
+                        //Add new claim
+                        //SignIn to save claim principal
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
 
-
-                        }
 
                     }
 
@@ -168,29 +162,27 @@ namespace ISQuiz.Controllers
             try
             {
                 var token = GetToken();
-                using (var httpClientForChangeLanguage = new HttpClient())
+                using var httpClientForChangeLanguage = new HttpClient();
+                var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISAuthService/json/ChangeUILanguage?Token=" + token + "&Language=" + lang;
+
+                var responseGetQuestionnaires = await httpClientForChangeLanguage.GetAsync(apiUrlGetQuestionnairesByToken);
+                if (responseGetQuestionnaires.IsSuccessStatusCode)
                 {
-                    var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISAuthService/json/ChangeUILanguage?Token=" + token + "&Language=" + lang;
-
-                    var responseGetQuestionnaires = await httpClientForChangeLanguage.GetAsync(apiUrlGetQuestionnairesByToken);
-                    if (responseGetQuestionnaires.IsSuccessStatusCode)
+                    var baseResponseData = await responseGetQuestionnaires.Content.ReadAsAsync<BaseResponse>();
+                    if (baseResponseData.ErrorCode == 143)
                     {
-                        var baseResponseData = await responseGetQuestionnaires.Content.ReadAsAsync<BaseResponse>();
-                        if (baseResponseData.ErrorCode == 143)
-                        {
-                            await RefreshToken();
-                            return await ChangeLanguage(lang, returnUrl);
-                        }
-                        else if (baseResponseData.ErrorCode == 118)
-                        {
-
-                        }
-                        else if (baseResponseData.ErrorCode != 0)
-                        {
-
-                        }
-                        return LocalRedirect(returnUrl ?? "/");
+                        await RefreshToken();
+                        return await ChangeLanguage(lang, returnUrl);
                     }
+                    else if (baseResponseData.ErrorCode == 118)
+                    {
+
+                    }
+                    else if (baseResponseData.ErrorCode != 0)
+                    {
+
+                    }
+                    return LocalRedirect(returnUrl ?? "/");
                 }
 
 

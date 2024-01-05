@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace ISQuiz.Models.API.License
+﻿namespace ISQuiz.Models.API.License
 {
     public class GetLicense : BaseErrors
     {

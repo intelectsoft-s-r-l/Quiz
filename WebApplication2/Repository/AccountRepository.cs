@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.Text;
-using ISQuiz.Interface;
+﻿using ISQuiz.Interface;
 using ISQuiz.Models;
 using ISQuiz.Models.Enum;
 using ISQuiz.ViewModels;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ISQuiz.Repository
 {
@@ -37,7 +37,7 @@ namespace ISQuiz.Repository
             var response = await _httpClient.SendAsync(requestMessage);
             if (!response.IsSuccessStatusCode)
             {
-                // Здесь можно добавить логирование и более детальную обработку ошибок
+                // добавить логирование и более детальную обработку ошибок
                 throw new HttpRequestException($"Request failed with status code {response.StatusCode}");
             }
 
@@ -54,11 +54,10 @@ namespace ISQuiz.Repository
         // POST
         public async Task<GetProfileInfo> AuthorizeUser(AuthorizeViewModel loginVM)
             => await SendRequest<GetProfileInfo>(HttpMethod.Post, "AuthorizeUser", loginVM);
-        
 
         public async Task<BaseResponse> RecoverPassword(AuthRecoverpwViewModel recoverpwVM)
             => await SendRequest<BaseResponse>(HttpMethod.Post, "ResetPassword", recoverpwVM);
-        
+
     }
 
 }

@@ -2,7 +2,7 @@
 {
     public class GetQuestionnairesInfo : BaseErrors
     {
-        public List<Questionnaire> questionnaires { get; set; } 
+        public List<Questionnaire> questionnaires { get; set; }
 
     }
 }

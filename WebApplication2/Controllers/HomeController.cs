@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using ISQuiz.Filter;
+﻿using ISQuiz.Filter;
 using ISQuiz.Interface;
 using ISQuiz.Models.API.Questionnaires;
 using ISQuiz.Models.Enum;
 using ISQuiz.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ISQuiz.Controllers
 {
@@ -19,10 +19,10 @@ namespace ISQuiz.Controllers
         private readonly ILogger<HomeController> _logger;
         //private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IQuizRepository quizRepository, 
-                             IUserRepository userRepository, 
+        public HomeController(IQuizRepository quizRepository,
+                             IUserRepository userRepository,
                              ILogger<HomeController> logger
-                             /*, IStringLocalizer<HomeController> localizer*/) 
+                             /*, IStringLocalizer<HomeController> localizer*/)
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;

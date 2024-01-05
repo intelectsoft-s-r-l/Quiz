@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ISQuiz.Interface;
+﻿using ISQuiz.Interface;
 using ISQuiz.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ISQuiz.Controllers
 {
@@ -12,12 +12,14 @@ namespace ISQuiz.Controllers
         private readonly ILicenseRepository _licenseRepository;
         private readonly ILogger<LicenseController> _logger;
 
-        public LicenseController(ILicenseRepository licenseRepository, 
+        public LicenseController(ILicenseRepository licenseRepository,
                                  ILogger<LicenseController> logger)
         {
             _licenseRepository = licenseRepository;
             _logger = logger;
         }
+
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -35,7 +37,6 @@ namespace ISQuiz.Controllers
                 }
                 else if (licenseData.errorCode == 0)
                     return View("~/Views/License/Index.cshtml", licenseData.licenses);
-
                 else
                 {/*if (licenseData.errorCode == 118)*/
                     _logger.LogError($"{licenseData}");
@@ -91,7 +92,7 @@ namespace ISQuiz.Controllers
                     return PartialView("~/Views/License/_Activate.cshtml", oid);
                 if (option == 2)
                     return PartialView("~/Views/License/_Deactivate.cshtml", oid);
-                if (option == 3)
+                if (option.Equals(3))
                     return PartialView("~/Views/License/_Release.cshtml", oid);
             }
 
@@ -132,7 +133,7 @@ namespace ISQuiz.Controllers
 
         }
 
-        
+
 
         [HttpGet]
         public async Task<IActionResult> Activate(string oid)
@@ -148,10 +149,7 @@ namespace ISQuiz.Controllers
                     return await Deactivate(oid);
                 }
                 else if (licenseResponse.errorCode == 0)
-                {
                     return Json(new { StatusCode = 200, Message = "Ok" });
-
-                }
                 else
                 {
                     _logger.LogError($"{licenseResponse}");
@@ -228,7 +226,7 @@ namespace ISQuiz.Controllers
                     if (postLicenseBaseResponse.errorCode == 143)
                     {
                         await RefreshToken();
-                        return await CreateLicence(generateLicenseVM); 
+                        return await CreateLicence(generateLicenseVM);
                     }
                     else if (postLicenseBaseResponse.errorCode != 0)
                     {
@@ -236,7 +234,7 @@ namespace ISQuiz.Controllers
                         return View("~/Views/Account/Login.cshtml");
                     }
                     //return RedirectToAction(nameof(LicenseController.Index), "License");
-                    return Json(new { statusCode = 200});
+                    return Json(new { statusCode = 200 });
                 }
             }
             catch (Exception ex)
@@ -244,7 +242,7 @@ namespace ISQuiz.Controllers
                 _logger.LogError(ex, "An error occurred while processing the License.CreateLicence method." + ex.Message);
                 throw;
             }
-            
+
         }
 
 
@@ -269,10 +267,7 @@ namespace ISQuiz.Controllers
                     return View("~/Views/Account/Login.cshtml");
                 }
                 else if (deleteLicenseBaseResponse.errorCode == 0)
-                {
                     return Json(new { StatusCode = 200, Message = "Ok" });
-
-                }
                 else
                 {
                     _logger.LogError($"{deleteLicenseBaseResponse}");

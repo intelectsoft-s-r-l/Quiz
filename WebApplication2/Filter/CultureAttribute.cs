@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using ISQuiz.Controllers;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Globalization;
 using System.Web.Http.Filters;
-using ISQuiz.Controllers;
 using IActionFilter = Microsoft.AspNetCore.Mvc.Filters.IActionFilter;
 
 namespace ISQuiz.Filter
@@ -24,7 +24,7 @@ namespace ISQuiz.Filter
             }
 
             // Список культур
-            List<string> cultures = new List<string>() { "en", "ro", "ru" };
+            List<string> cultures = new() { "en", "ro", "ru" };
             if (!cultures.Contains(cultureName))
             {
                 cultureName = "ru";

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ISQuiz.Interface;
+﻿using ISQuiz.Interface;
 using ISQuiz.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ISQuiz.Controllers
 {
@@ -29,8 +29,6 @@ namespace ISQuiz.Controllers
             }
             else
                 return View("~/Views/Account/Login.cshtml");
-
-
         }
 
 
@@ -51,12 +49,12 @@ namespace ISQuiz.Controllers
         }
 
 
-        [HttpGet] 
+        [HttpGet]
         public IActionResult ChangePassword() => PartialView("~/Views/User/_ChangePassword.cshtml");
 
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)   
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)
         {
 
             if (!ModelState.IsValid)

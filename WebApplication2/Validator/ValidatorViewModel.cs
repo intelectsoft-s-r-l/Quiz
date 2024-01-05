@@ -8,10 +8,10 @@ namespace ISQuiz.Validator
 
         public ValidatorViewModel(IServiceCollection services)
         {
-            services.AddTransient<IValidator<AuthRecoverpwViewModel>, AuthRecoverpwViewModelVolidator>();
-            services.AddTransient<IValidator<AuthorizeViewModel>, AuthorizeViewModelVolidator>();
+            services.AddTransient<IValidator<AuthRecoverpwViewModel>, AuthRecoverpwViewModelValidator>();
+            services.AddTransient<IValidator<AuthorizeViewModel>, AuthorizeViewModelValidator>();
             services.AddTransient<IValidator<ChangeConfirmPasswordViewModel>, ChangeConfirmPasswordViewModelValidator>();
-            services.AddTransient<IValidator<GenerateLicenseViewModel>, GenerateLicenseViewModelVolidator>();
+            services.AddTransient<IValidator<GenerateLicenseViewModel>, GenerateLicenseViewModelValidator>();
         }
     }
 }
