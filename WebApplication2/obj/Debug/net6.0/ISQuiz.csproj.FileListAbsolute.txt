@@ -247,3 +247,4 @@ C:\Users\User\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\refint\ISQuiz.dll
 C:\Users\User\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ISQuiz.pdb
 C:\Users\User\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ISQuiz.genruntimeconfig.cache
 C:\Users\User\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ref\ISQuiz.dll
+C:\Users\User\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ISQuiz.sourcelink.json
