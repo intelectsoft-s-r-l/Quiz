@@ -26,19 +26,19 @@ namespace ISQuiz.Repository
 
         private async Task<T> SendRequest<T>(string endpoint)
         {
-            var response = await _httpClient.GetAsync(endpoint);
+            using var response = await _httpClient.GetAsync(endpoint);
             return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
         }
 
         private async Task<T> SendPostRequest<T>(string endpoint, object data)
         {
             var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(endpoint, jsonContent);
+            using var response = await _httpClient.PostAsync(endpoint, jsonContent);
             return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
         }
         private async Task<T> SendDeleteRequest<T>(string endpoint)
         {
-            var response = await _httpClient.DeleteAsync(endpoint);
+            using var response = await _httpClient.DeleteAsync(endpoint);
             return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
         }
 

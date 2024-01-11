@@ -28,7 +28,7 @@ namespace ISQuiz.Repository
 
         private async Task<T> SendRequest<T>(HttpMethod method, string endpoint, object data = null)
         {
-            var requestMessage = new HttpRequestMessage(method, endpoint);
+            using var requestMessage = new HttpRequestMessage(method, endpoint);
             if (data != null)
             {
                 requestMessage.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");

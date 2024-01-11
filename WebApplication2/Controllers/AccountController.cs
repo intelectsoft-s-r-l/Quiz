@@ -26,37 +26,25 @@ namespace ISQuiz.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
-        {
-            /*
-                string languageFromCookie = GetLanguageCookie();
-
-                if (string.IsNullOrEmpty(languageFromCookie))
-                {
-                    ViewBag.Language = "ru";
-                }
-                else
-                    ViewBag.Language = languageFromCookie;
-            */
-            return View("~/Views/Account/Login.cshtml");
-        }
+        public IActionResult Login() => View("~/Views/Account/Login.cshtml");
+        
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthorizeViewModel loginVM)
         {
             _logger.LogInformation($"Login method called.");
+
             if (!ModelState.IsValid)
                 return View("Login", loginVM);
+
             try
             {
                 var userData = await _accountRepository.AuthorizeUser(loginVM);
 
                 if (userData.ErrorCode == 0)
                 {
-
-
-
+                    // Обработка смены языка
                     userData.User.UiLanguage = GetLanguageCookie() switch
                     {
                         "en" => EnUiLanguage.EN,
@@ -64,53 +52,62 @@ namespace ISQuiz.Controllers
                         "ru" => EnUiLanguage.RU,
                         _ => EnUiLanguage.RU,
                     };
-                    var baseResponseData = await _accountRepository.ChangeUILanguage(userData.Token, userData.User.UiLanguage);
-                    if (baseResponseData.ErrorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await Login(loginVM);
-                    }
-                    else if (baseResponseData.ErrorCode != 0)
-                    {
-                        _logger.LogError($"{baseResponseData}");
-                    }
+                    await HandleLanguageChange(userData.Token, userData.User.UiLanguage);
 
-                    List<Claim> userClaims = new()
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()),
-                        new Claim(ClaimTypes.Email, userData.User.Email),
-                        new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName),
-                        new Claim("Company", userData.User.Company),
-                        new Claim("PhoneNumber", userData.User.PhoneNumber),
-                        new Claim(".AspNetCore.Admin", userData.Token),
-                        new Claim("UiLanguage", GetLanguageCookie())
-                    };
+                    // Формирование списка утверждений (claims)
+                    var userClaims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()),
+                new Claim(ClaimTypes.Email, userData.User.Email),
+                new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName),
+                new Claim("Company", userData.User.Company),
+                new Claim("PhoneNumber", userData.User.PhoneNumber),
+                new Claim(".AspNetCore.Admin", userData.Token),
+                new Claim("UiLanguage", GetLanguageCookie())
+            };
 
+                    // Установка куки для выбранного языка
                     Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
-                                            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())),
-                                                                                         new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
-                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())),
+                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
+                    // Формирование идентификационного токена
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
+                    // Аутентификация пользователя
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
                 else
                 {
-                    TempData["Error"] = userData.ErrorMessage;
-                    return View(loginVM);
+                    // Обработка ошибок аутентификации
+                    return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while processing the Login method." + ex.Message);
+                // Логирование ошибок
+                _logger.LogError(ex, "An error occurred while processing the Login method. " + ex.Message);
                 throw;
             }
-
-
         }
+
+        private async Task HandleLanguageChange(string token, EnUiLanguage uiLanguage)
+        {
+            var baseResponseData = await _accountRepository.ChangeUILanguage(token, uiLanguage);
+            if (baseResponseData.ErrorCode == 143)
+            {
+                await RefreshToken();
+                await HandleLanguageChange(token, uiLanguage); // рекурсивный вызов
+            }
+            else if (baseResponseData.ErrorCode != 0)
+            {
+                _logger.LogError($"{baseResponseData}");
+            }
+        }
+
 
 
         [HttpGet]
