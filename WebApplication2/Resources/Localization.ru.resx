@@ -304,7 +304,7 @@
     <value>Пожалуйста, введите адрес электронной почты, который использовался при регистрации.</value>
   </data>
   <data name="Release" xml:space="preserve">
-    <value>Публикация</value>
+    <value>Реактивация</value>
   </data>
   <data name="Response" xml:space="preserve">
     <value>Ответ</value>

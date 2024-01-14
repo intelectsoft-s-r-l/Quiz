@@ -83,6 +83,7 @@ namespace ISQuiz.Controllers
                 else
                 {
                     // Обработка ошибок аутентификации
+                    TempData["Error"] = userData.ErrorMessage ?? "Undefined";
                     return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
                 }
             }

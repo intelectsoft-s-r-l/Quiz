@@ -700,7 +700,7 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Publication.
+        ///   Ищет локализованную строку, похожую на Reactivation.
         /// </summary>
         public static string Release {
             get {
