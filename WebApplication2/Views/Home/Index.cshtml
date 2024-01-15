@@ -7,7 +7,7 @@
     ViewBag.pageTitle = Localization.Questionnaires;
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/css/TableQ.css">
+
 
 
 @* <link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
@@ -70,8 +70,11 @@
                         @foreach (var questionnaire in Model)
                         {
                             <tr>
-                                <td class="ellipsis">@questionnaire.name</td>
-                                <td>
+                                <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@questionnaire.name">
+                                    @questionnaire.name
+                                </td>
+
+                                <td style="width: 7%!important;">
                                     @*style ="width: 10vw!important;"*@
                                     <a type="button" href="@Url.Action("Detail", "Home", new {id = questionnaire.oid})" class="px-3 text-info"><i class="uil-info-circle font-size-20"></i></a>
                                     <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/Delete/'+@questionnaire.oid, 'xlModalBody')"><i class="uil-trash-alt font-size-20"></i></a>

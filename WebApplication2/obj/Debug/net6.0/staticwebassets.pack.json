@@ -217,6 +217,18 @@
       "PackagePath": "staticwebassets\\assets\\images\\intelectsoft\\logo\\IS-small-green.svg"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\layouts\\layout-1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\layouts\\layout-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\layouts\\layout-2.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\layouts\\layout-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\images\\layouts\\layout-3.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\layouts\\layout-3.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\wwwroot\\assets\\js\\app.js",
       "PackagePath": "staticwebassets\\assets\\js\\app.js"
     },
