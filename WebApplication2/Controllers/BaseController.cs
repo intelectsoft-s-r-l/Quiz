@@ -101,11 +101,11 @@ namespace ISQuiz.Controllers
         {
             try
             {
-                var uiLanguage = EnUiLanguage.RU;
+                var uiLanguage = EnUiLanguage.EN;
                 List<string> cultures = new() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
                 {
-                    shortLang = "ru";
+                    shortLang = "en";
                 }
 
                 uiLanguage = shortLang switch
@@ -113,7 +113,7 @@ namespace ISQuiz.Controllers
                     "en" => EnUiLanguage.EN,
                     "ro" => EnUiLanguage.RO,
                     "ru" => EnUiLanguage.RU,
-                    _ => EnUiLanguage.RU,
+                    _ => EnUiLanguage.EN,
                 };
 
 
@@ -149,7 +149,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                var uiLanguage = EnUiLanguage.RU;
+                var uiLanguage = EnUiLanguage.EN;
                 return await ChangeLanguage((int)uiLanguage, returnUrl);
             }
         }
@@ -201,7 +201,7 @@ namespace ISQuiz.Controllers
             var cookie = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
             if (cookie == null)
             {
-                return "ru";
+                return "en";
             }
             else
             {
@@ -219,103 +219,6 @@ namespace ISQuiz.Controllers
                 }
             }
         }
-
-
-        /*
-                public string GetLanguageCookie()
-                {
-                    var cookie = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-                    if (cookie == null)
-                    {
-                        return "ru";
-                    }
-                    else
-                    {
-                        List<string> cultures = new List<string>() { "en", "ro", "ru" };
-                        if (cultures.Contains(cookie.ToLower()))
-                        {
-                            return cookie.ToLower();
-                        }
-                        else
-                        {
-                            var c_uic = cookie.Split('|');
-                            var culture = c_uic[0].Split("=");
-
-                            return culture[1];
-                        }
-                    }
-                }
-
-                public async Task<string> ChangeLanguageCookie(string language)
-                {
-                    EnUiLanguage uiLanguage = new EnUiLanguage();//
-                    switch (language)
-                    {
-                        case "en":
-                            uiLanguage = EnUiLanguage.EN; break;
-                        case "ru":
-                            uiLanguage = EnUiLanguage.RU; break;
-                        case "ro":
-                            uiLanguage = EnUiLanguage.RO; break;
-                        default:
-                            break;
-                    }
-
-                    string token = GetToken();
-
-
-
-                    using (var httpClientForChangePassword = new HttpClient())
-                    {
-                        var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISAuthService/json/ChangeUILanguage?Token=" + token + "&Language=" + uiLanguage;
-
-                        var responseGetQuestionnaires = await httpClientForChangePassword.GetAsync(apiUrlGetQuestionnairesByToken);
-                        if (responseGetQuestionnaires.IsSuccessStatusCode)
-                        {
-                            var baseResponseData = await responseGetQuestionnaires.Content.ReadAsAsync<BaseResponse>();
-                            if (baseResponseData.ErrorCode == 143)
-                            {
-                                await RefreshToken();
-                                return await ChangeLanguageCookie(language);
-                            }
-                            else if (baseResponseData.ErrorCode == 118)
-                            {
-
-                            }
-                            else if (baseResponseData.ErrorCode == 0)
-                            {
-                                var claimPrincipal = User as ClaimsPrincipal;
-                                //Getting claimIdentity from principalClaim
-                                var claimIdentity = claimPrincipal.Identity as ClaimsIdentity;
-                                //Finding claim we need to read or edit
-                                var claim = (from c in claimPrincipal.Claims
-                                             where c.Type == "UiLanguage"
-                                             select c).FirstOrDefault();
-
-                                //SignOut to unlock claims for mananging them
-                                HttpContext.SignOutAsync();
-
-                                //Creating new claim to change our token after refresh
-                                var claimNew = new Claim("UiLanguage", language);
-                                //Try remove claim selected from claimIdentity
-                                //If we use RemoveClaim we can get excetion if claim can't be removed
-                                claimIdentity.TryRemoveClaim(claim);
-                                claimIdentity.AddClaim(claimNew);
-                                //Add new claim
-                                //SignIn to save claim principal
-                                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
-                                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(language.ToString())), new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
-                            }
-
-                        }
-
-
-                    }
-
-
-                    return null;
-
-                }*/
 
 
     }

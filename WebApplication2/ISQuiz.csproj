@@ -77,7 +77,6 @@
     <Folder Include="wwwroot\assets\libs\datatables.net-buttons\node_modules\datatables.net\js\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-keytable\node_modules\datatables.net\js\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-responsive\node_modules\datatables.net\js\" />
-    <Folder Include="Logs\" />
   </ItemGroup>
 
   <ItemGroup>

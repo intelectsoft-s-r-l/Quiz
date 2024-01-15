@@ -9,151 +9,139 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ISQuiz
 build_property.RootNamespace = ISQuiz
-build_property.ProjectDir = C:\Users\BOSS\Desktop\Quiz\WebApplication2\
+build_property.ProjectDir = C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\BOSS\Desktop\Quiz\WebApplication2
+build_property.MSBuildProjectDirectory = C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Account/AuthRecoverpw.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Account/AuthRecoverpw.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBdXRoUmVjb3ZlcnB3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Account/Login.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Home/Delete.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Home/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Home/Detail.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Home/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Home/Index.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Home/Upsert.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Home/Upsert.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVcHNlcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Home/_Info.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Home/_Info.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Home/_Questions.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Home/_Questions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfUXVlc3Rpb25zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Home/_Statistic.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/Home/_Statistic.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfU3RhdGlzdGljLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/License/Delete.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/License/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/License/Detail.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/License/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/License/Index.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/License/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/License/_Activate.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/License/_Activate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfQWN0aXZhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/License/_CreateLicence.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/License/_CreateLicence.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfQ3JlYXRlTGljZW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/License/_Deactivate.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/License/_Deactivate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfRGVhY3RpdmF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/License/_Release.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/License/_Release.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGljZW5zZVxfUmVsZWFzZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/User/Settings.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/User/Settings.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxTZXR0aW5ncy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/User/_ChangePassword.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/User/_ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/Error.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_BlankLayout.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_BlankLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfQmxhbmtMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_footer.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfZm9vdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_head_css.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_head_css.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfaGVhZF9jc3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_Layout.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_Modals.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_Modals.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfTW9kYWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_page_title.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_page_title.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfcGFnZV90aXRsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_right_sidebar.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_right_sidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfcmlnaHRfc2lkZWJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_sidebar.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_sidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfc2lkZWJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_title_meta.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_title_meta.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfdGl0bGVfbWV0YS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_topbar.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_topbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfdG9wYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_Shared/_vendor_scripts.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_Shared/_vendor_scripts.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1NoYXJlZFxfdmVuZG9yX3NjcmlwdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_ViewImports.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/_ViewStart.cshtml]
+[C:/Users/User/Desktop/Новая папка/Quiz/WebApplication2/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/BOSS/Desktop/Quiz/WebApplication2/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-yetfszut7j

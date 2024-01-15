@@ -39,7 +39,7 @@ builder.Services.AddMvc()
 builder.Services.Configure<RequestLocalizationOptions>(opt =>
 {
     var supportedCultures = new[] { "en", "ro", "ru" };
-    opt.SetDefaultCulture(supportedCultures[2])
+    opt.SetDefaultCulture(supportedCultures[0])
         .AddSupportedCultures(supportedCultures)
         .AddSupportedUICultures(supportedCultures);
 });
@@ -91,7 +91,7 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 var supportedCultures = new[] { "en", "ro", "ru" };
-var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[2])
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
 .AddSupportedCultures(supportedCultures)
 .AddSupportedUICultures(supportedCultures);
 

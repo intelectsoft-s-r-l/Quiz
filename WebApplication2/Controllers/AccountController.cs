@@ -50,7 +50,7 @@ namespace ISQuiz.Controllers
                         "en" => EnUiLanguage.EN,
                         "ro" => EnUiLanguage.RO,
                         "ru" => EnUiLanguage.RU,
-                        _ => EnUiLanguage.RU,
+                        _ => EnUiLanguage.EN,
                     };
                     await HandleLanguageChange(userData.Token, userData.User.UiLanguage);
 
@@ -172,7 +172,7 @@ namespace ISQuiz.Controllers
                 List<string> cultures = new() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
                 {
-                    shortLang = "ru";
+                    shortLang = "en";
                 }
 
                 Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,

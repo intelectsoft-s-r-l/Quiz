@@ -1854,23 +1854,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\BOSS\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\BOSS\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\ISQuiz.csproj",
       "projectName": "ISQuiz",
-      "projectPath": "C:\\Users\\BOSS\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
-      "packagesPath": "C:\\Users\\BOSS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\BOSS\\Desktop\\Quiz\\WebApplication2\\obj\\",
+      "projectPath": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\ISQuiz.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\BOSS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1879,7 +1879,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1942,7 +1941,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   },
