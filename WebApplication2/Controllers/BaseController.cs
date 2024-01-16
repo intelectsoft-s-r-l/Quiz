@@ -12,10 +12,16 @@ namespace ISQuiz.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+        private readonly ILogger<BaseController> _logger;
+        public BaseController(ILogger<BaseController> logger)
+        {
+            _logger = logger;
+        }
         public string GetToken()
         {
             try
             {
+                _logger.LogInformation("GetToken BaseController");
                 var user = User;
                 // Проверьте, аутентифицирован ли пользователь
                 if (user.Identity.IsAuthenticated)
@@ -36,8 +42,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                //throw;
+                throw;
             }
             return null;
         }
@@ -47,6 +52,7 @@ namespace ISQuiz.Controllers
         {
             try
             {
+                _logger.LogInformation("RefreshToken BaseController");
                 //Getting principal claims that are read-only
                 var claimPrincipal = User as ClaimsPrincipal;
                 //Getting claimIdentity from principalClaim
@@ -89,7 +95,6 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-
                 //throw;
             }
 
@@ -101,6 +106,7 @@ namespace ISQuiz.Controllers
         {
             try
             {
+                _logger.LogInformation("ChangeCulture BaseController");
                 var uiLanguage = EnUiLanguage.EN;
                 List<string> cultures = new() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
@@ -161,6 +167,7 @@ namespace ISQuiz.Controllers
         {
             try
             {
+                _logger.LogInformation("ChangeLanguage BaseController");
                 var token = GetToken();
                 using var httpClientForChangeLanguage = new HttpClient();
                 var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISAuthService/json/ChangeUILanguage?Token=" + token + "&Language=" + lang;
@@ -189,8 +196,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                /*_logger.Error(ex, ex.Message);
-                return CreateJsonKo(Localization.NotSaved, true);*/
+                _logger.LogError(ex, "ChangeLanguage catch\n" + ex.Message);
                 return null;
             }
             return null;
@@ -198,6 +204,7 @@ namespace ISQuiz.Controllers
 
         public string GetLanguageCookie()
         {
+            _logger.LogInformation("GetLanguageCookie BaseController");
             var cookie = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
             if (cookie == null)
             {

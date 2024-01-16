@@ -18,7 +18,7 @@ namespace ISQuiz.Controllers
         private readonly IAccountRepository _accountRepository;
         private readonly ILogger<AccountController> _logger;
         public AccountController(IAccountRepository accountRepository,
-                                 ILogger<AccountController> logger)
+                                 ILogger<AccountController> logger) : base(logger)
         {
             _accountRepository = accountRepository;
             _logger = logger;

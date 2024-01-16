@@ -1,0 +1,630 @@
+2024-01-16 11:21:23.697 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-16 11:21:23.986 +02:00 [INF] Now listening on: https://localhost:7208
+2024-01-16 11:21:23.986 +02:00 [INF] Now listening on: http://localhost:5118
+2024-01-16 11:21:23.988 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-01-16 11:21:23.989 +02:00 [INF] Hosting environment: Development
+2024-01-16 11:21:23.989 +02:00 [INF] Content root path: C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\
+2024-01-16 11:21:27.462 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:21:27.607 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-01-16 11:21:27.618 +02:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-01-16 11:21:27.629 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 302 0 - 168.0230ms
+2024-01-16 11:21:27.635 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Account/Login?ReturnUrl=%2F - -
+2024-01-16 11:21:27.650 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:21:27.677 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-16 11:21:27.696 +02:00 [INF] Executing ViewResult, running view ~/Views/Account/Login.cshtml.
+2024-01-16 11:21:27.914 +02:00 [INF] Executed ViewResult - view ~/Views/Account/Login.cshtml executed in 218.6582ms.
+2024-01-16 11:21:27.917 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 239.6072ms
+2024-01-16 11:21:27.917 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:21:27.920 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Account/Login?ReturnUrl=%2F - - - 200 - text/html;+charset=utf-8 285.3773ms
+2024-01-16 11:21:27.928 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:21:27.928 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:21:27.931 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 2.9905ms
+2024-01-16 11:21:27.974 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 46.3171ms
+2024-01-16 11:21:28.746 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7208/Account/Login application/x-www-form-urlencoded 241
+2024-01-16 11:21:28.749 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:21:28.761 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ISQuiz.ViewModels.AuthorizeViewModel) on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-16 11:21:28.807 +02:00 [INF] Login method called.
+2024-01-16 11:21:29.093 +02:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-01-16 11:21:29.099 +02:00 [INF] Executing RedirectResult, redirecting to /.
+2024-01-16 11:21:29.100 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 338.536ms
+2024-01-16 11:21:29.101 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:21:29.103 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/Account/Login application/x-www-form-urlencoded 241 - 302 0 - 357.7145ms
+2024-01-16 11:21:29.105 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:21:29.110 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:21:29.112 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:21:29.114 +02:00 [INF] Home.Index method called.
+2024-01-16 11:21:29.114 +02:00 [INF] GetToken BaseController
+2024-01-16 11:21:29.145 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:21:29.178 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 33.0201ms.
+2024-01-16 11:21:29.178 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 65.25ms
+2024-01-16 11:21:29.178 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:21:29.179 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 73.4280ms
+2024-01-16 11:21:29.190 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:21:29.190 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.3482ms
+2024-01-16 11:21:29.207 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:21:29.219 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 11.9857ms
+2024-01-16 11:34:40.260 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-16 11:34:40.512 +02:00 [INF] Now listening on: https://localhost:7208
+2024-01-16 11:34:40.512 +02:00 [INF] Now listening on: http://localhost:5118
+2024-01-16 11:34:40.515 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-01-16 11:34:40.515 +02:00 [INF] Hosting environment: Development
+2024-01-16 11:34:40.515 +02:00 [INF] Content root path: C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\
+2024-01-16 11:34:43.900 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:34:44.047 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-01-16 11:34:44.059 +02:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-01-16 11:34:44.068 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 302 0 - 170.6865ms
+2024-01-16 11:34:44.073 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Account/Login?ReturnUrl=%2F - -
+2024-01-16 11:34:44.088 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:34:44.117 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-16 11:34:44.119 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:34:44.135 +02:00 [INF] Executing ViewResult, running view ~/Views/Account/Login.cshtml.
+2024-01-16 11:34:44.352 +02:00 [INF] Executed ViewResult - view ~/Views/Account/Login.cshtml executed in 216.7405ms.
+2024-01-16 11:34:44.355 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 238.1431ms
+2024-01-16 11:34:44.355 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:34:44.358 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Account/Login?ReturnUrl=%2F - - - 200 - text/html;+charset=utf-8 284.6355ms
+2024-01-16 11:34:44.367 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:34:44.367 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:34:44.371 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 4.0079ms
+2024-01-16 11:34:44.414 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 47.1226ms
+2024-01-16 11:34:45.329 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7208/Account/Login application/x-www-form-urlencoded 241
+2024-01-16 11:34:45.333 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:34:45.346 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ISQuiz.ViewModels.AuthorizeViewModel) on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-16 11:34:45.391 +02:00 [INF] Login method called.
+2024-01-16 11:34:45.695 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:34:45.713 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:34:45.714 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:34:45.716 +02:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-01-16 11:34:45.719 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:34:45.722 +02:00 [INF] Executing RedirectResult, redirecting to /.
+2024-01-16 11:34:45.723 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 377.6028ms
+2024-01-16 11:34:45.724 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:34:45.727 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/Account/Login application/x-www-form-urlencoded 241 - 302 0 - 397.4939ms
+2024-01-16 11:34:45.729 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:34:45.732 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:34:45.734 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:34:45.735 +02:00 [INF] Home.Index method called.
+2024-01-16 11:34:45.736 +02:00 [INF] GetToken BaseController
+2024-01-16 11:34:45.769 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:34:45.769 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:34:45.805 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 36.053ms.
+2024-01-16 11:34:45.805 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 70.8668ms
+2024-01-16 11:34:45.805 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:34:45.806 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 76.9848ms
+2024-01-16 11:34:45.815 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:34:45.815 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2749ms
+2024-01-16 11:34:45.833 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:34:45.843 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 9.3633ms
+2024-01-16 11:34:46.937 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License - -
+2024-01-16 11:34:46.938 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:34:46.940 +02:00 [INF] Route matched with {action = "Index", controller = "License"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:34:46.942 +02:00 [INF] License.Index method called.
+2024-01-16 11:34:46.942 +02:00 [INF] GetToken BaseController
+2024-01-16 11:34:46.966 +02:00 [INF] Executing ViewResult, running view ~/Views/License/Index.cshtml.
+2024-01-16 11:34:46.971 +02:00 [INF] Executed ViewResult - view ~/Views/License/Index.cshtml executed in 4.6232ms.
+2024-01-16 11:34:46.971 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.Index (ISQuiz) in 30.3256ms
+2024-01-16 11:34:46.971 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:34:46.971 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License - - - 200 - text/html;+charset=utf-8 34.0781ms
+2024-01-16 11:34:46.979 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:34:46.979 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:34:46.979 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2009ms
+2024-01-16 11:34:46.984 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 4.5111ms
+2024-01-16 11:34:46.996 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705397686991 - -
+2024-01-16 11:34:46.997 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:34:46.998 +02:00 [INF] Route matched with {action = "CreateLicence", controller = "License"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateLicence() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:34:46.999 +02:00 [INF] Executing PartialViewResult, running view ~/Views/License/_CreateLicence.cshtml.
+2024-01-16 11:34:47.018 +02:00 [INF] Executed PartialViewResult - view ~/Views/License/_CreateLicence.cshtml executed in 19.1644ms.
+2024-01-16 11:34:47.018 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz) in 20.1389ms
+2024-01-16 11:34:47.018 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:34:47.018 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705397686991 - - - 200 - text/html;+charset=utf-8 22.4165ms
+2024-01-16 11:34:53.449 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7208/License/CreateLicence application/json;+charset=UTF-8 16
+2024-01-16 11:34:53.451 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:34:53.453 +02:00 [INF] Route matched with {action = "CreateLicence", controller = "License"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateLicence(ISQuiz.ViewModels.GenerateLicenseViewModel) on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:34:53.476 +02:00 [INF] License.CreateLicence method called.
+2024-01-16 11:34:53.476 +02:00 [INF] GetToken BaseController
+2024-01-16 11:34:53.505 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType4`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-01-16 11:34:53.526 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz) in 73.0145ms
+2024-01-16 11:34:53.526 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:34:53.526 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/License/CreateLicence application/json;+charset=UTF-8 16 - 200 - application/json;+charset=utf-8 77.5330ms
+2024-01-16 11:34:53.531 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License - -
+2024-01-16 11:34:53.532 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:34:53.533 +02:00 [INF] Route matched with {action = "Index", controller = "License"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:34:53.533 +02:00 [INF] License.Index method called.
+2024-01-16 11:34:53.533 +02:00 [INF] GetToken BaseController
+2024-01-16 11:34:53.560 +02:00 [INF] Executing ViewResult, running view ~/Views/License/Index.cshtml.
+2024-01-16 11:34:53.561 +02:00 [INF] Executed ViewResult - view ~/Views/License/Index.cshtml executed in 0.918ms.
+2024-01-16 11:34:53.561 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.Index (ISQuiz) in 28.8198ms
+2024-01-16 11:34:53.561 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:34:53.562 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License - - - 200 - text/html;+charset=utf-8 30.5066ms
+2024-01-16 11:34:53.570 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:34:53.570 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:34:53.570 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2845ms
+2024-01-16 11:34:53.574 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 4.0776ms
+2024-01-16 11:34:53.587 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705397693583 - -
+2024-01-16 11:34:53.588 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:34:53.588 +02:00 [INF] Route matched with {action = "CreateLicence", controller = "License"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateLicence() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:34:53.588 +02:00 [INF] Executing PartialViewResult, running view ~/Views/License/_CreateLicence.cshtml.
+2024-01-16 11:34:53.589 +02:00 [INF] Executed PartialViewResult - view ~/Views/License/_CreateLicence.cshtml executed in 0.8225ms.
+2024-01-16 11:34:53.589 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz) in 0.9694ms
+2024-01-16 11:34:53.589 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:34:53.589 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705397693583 - - - 200 - text/html;+charset=utf-8 2.3409ms
+2024-01-16 11:35:01.633 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License/Action?oid=93f2b672-bfb0-487a-bb39-e8820561a08c&option=2&_=1705397693584 - -
+2024-01-16 11:35:01.635 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.Action (ISQuiz)'
+2024-01-16 11:35:01.636 +02:00 [INF] Route matched with {action = "Action", controller = "License"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Action(System.String, Int32) on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:35:01.637 +02:00 [INF] Executing PartialViewResult, running view ~/Views/License/_Deactivate.cshtml.
+2024-01-16 11:35:01.640 +02:00 [INF] Executed PartialViewResult - view ~/Views/License/_Deactivate.cshtml executed in 2.6822ms.
+2024-01-16 11:35:01.640 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.Action (ISQuiz) in 4.1625ms
+2024-01-16 11:35:01.640 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.Action (ISQuiz)'
+2024-01-16 11:35:01.640 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License/Action?oid=93f2b672-bfb0-487a-bb39-e8820561a08c&option=2&_=1705397693584 - - - 200 - text/html;+charset=utf-8 7.3936ms
+2024-01-16 11:44:02.100 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-16 11:44:02.395 +02:00 [INF] Now listening on: https://localhost:7208
+2024-01-16 11:44:02.395 +02:00 [INF] Now listening on: http://localhost:5118
+2024-01-16 11:44:02.398 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-01-16 11:44:02.398 +02:00 [INF] Hosting environment: Development
+2024-01-16 11:44:02.398 +02:00 [INF] Content root path: C:\Users\User\Desktop\Новая папка\Quiz\WebApplication2\
+2024-01-16 11:44:03.189 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:44:03.332 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-01-16 11:44:03.343 +02:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-01-16 11:44:03.352 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 302 0 - 165.7725ms
+2024-01-16 11:44:03.352 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Account/Login?ReturnUrl=%2F - -
+2024-01-16 11:44:03.373 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:44:03.401 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-16 11:44:03.404 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:03.420 +02:00 [INF] Executing ViewResult, running view ~/Views/Account/Login.cshtml.
+2024-01-16 11:44:03.648 +02:00 [INF] Executed ViewResult - view ~/Views/Account/Login.cshtml executed in 228.3674ms.
+2024-01-16 11:44:03.651 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 249.7737ms
+2024-01-16 11:44:03.651 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:44:03.654 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Account/Login?ReturnUrl=%2F - - - 200 - text/html;+charset=utf-8 302.3129ms
+2024-01-16 11:44:03.660 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:03.660 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:03.664 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 4.1602ms
+2024-01-16 11:44:03.706 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 46.3159ms
+2024-01-16 11:44:04.714 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7208/Account/Login application/x-www-form-urlencoded 241
+2024-01-16 11:44:04.719 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:44:04.731 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ISQuiz.ViewModels.AuthorizeViewModel) on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-16 11:44:04.776 +02:00 [INF] Login method called.
+2024-01-16 11:44:05.417 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:05.449 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:05.449 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:05.452 +02:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-01-16 11:44:05.455 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:05.458 +02:00 [INF] Executing RedirectResult, redirecting to /.
+2024-01-16 11:44:05.460 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 728.743ms
+2024-01-16 11:44:05.461 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-16 11:44:05.463 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/Account/Login application/x-www-form-urlencoded 241 - 302 0 - 749.4724ms
+2024-01-16 11:44:05.465 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:44:05.468 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:05.470 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:05.472 +02:00 [INF] Home.Index method called.
+2024-01-16 11:44:05.472 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:05.538 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:05.538 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:44:05.572 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 33.6091ms.
+2024-01-16 11:44:05.572 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 101.1696ms
+2024-01-16 11:44:05.572 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:05.572 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 107.2203ms
+2024-01-16 11:44:05.582 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:05.582 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.3865ms
+2024-01-16 11:44:05.611 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:05.626 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 15.8174ms
+2024-01-16 11:44:08.322 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Detail/52 - -
+2024-01-16 11:44:08.323 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Detail (ISQuiz)'
+2024-01-16 11:44:08.324 +02:00 [INF] Route matched with {action = "Detail", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Detail(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:08.325 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:08.326 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Detail.cshtml.
+2024-01-16 11:44:08.334 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Detail.cshtml executed in 8.8369ms.
+2024-01-16 11:44:08.334 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Detail (ISQuiz) in 9.9389ms
+2024-01-16 11:44:08.334 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Detail (ISQuiz)'
+2024-01-16 11:44:08.334 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Detail/52 - - - 200 - text/html;+charset=utf-8 12.7571ms
+2024-01-16 11:44:08.342 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:08.342 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:08.342 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2647ms
+2024-01-16 11:44:08.344 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1.9552ms
+2024-01-16 11:44:08.358 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/GetInfoQuestionnaire/52?_=1705398248341 - -
+2024-01-16 11:44:08.358 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/QuestionnaireStatistic/52?_=1705398248342 - -
+2024-01-16 11:44:08.363 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.QuestionnaireStatistic (ISQuiz)'
+2024-01-16 11:44:08.363 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.GetInfoQuestionnaire (ISQuiz)'
+2024-01-16 11:44:08.365 +02:00 [INF] Route matched with {action = "GetInfoQuestionnaire", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetInfoQuestionnaire(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:08.365 +02:00 [INF] Route matched with {action = "QuestionnaireStatistic", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] QuestionnaireStatistic(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:08.367 +02:00 [INF] GetInfoQuestionnaire method called. Id = 52
+2024-01-16 11:44:08.367 +02:00 [INF] QuestionnaireStatistic method called. Id = 52
+2024-01-16 11:44:08.367 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:08.368 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:08.387 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:08.388 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/_Info.cshtml.
+2024-01-16 11:44:08.389 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:08.390 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/_Statistic.cshtml.
+2024-01-16 11:44:08.393 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/_Statistic.cshtml executed in 3.3021ms.
+2024-01-16 11:44:08.393 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.QuestionnaireStatistic (ISQuiz) in 27.947ms
+2024-01-16 11:44:08.393 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.QuestionnaireStatistic (ISQuiz)'
+2024-01-16 11:44:08.393 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/QuestionnaireStatistic/52?_=1705398248342 - - - 200 - text/html;+charset=utf-8 34.8566ms
+2024-01-16 11:44:08.395 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/bootstrap.min.css - -
+2024-01-16 11:44:08.395 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/app.min.css - -
+2024-01-16 11:44:08.397 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/app.min.css - - - 404 0 - 1.7043ms
+2024-01-16 11:44:08.397 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/bootstrap.min.css - - - 404 0 - 1.8518ms
+2024-01-16 11:44:08.401 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/_Info.cshtml executed in 13.4682ms.
+2024-01-16 11:44:08.402 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.GetInfoQuestionnaire (ISQuiz) in 36.4958ms
+2024-01-16 11:44:08.402 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.GetInfoQuestionnaire (ISQuiz)'
+2024-01-16 11:44:08.402 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/GetInfoQuestionnaire/52?_=1705398248341 - - - 200 - text/html;+charset=utf-8 43.5299ms
+2024-01-16 11:44:08.440 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/GetQuestions/52?_=1705398248343 - -
+2024-01-16 11:44:08.441 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.GetQuestions (ISQuiz)'
+2024-01-16 11:44:08.443 +02:00 [INF] Route matched with {action = "GetQuestions", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetQuestions(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:08.444 +02:00 [INF] GetQuestions method called. Id = 52
+2024-01-16 11:44:08.445 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:08.506 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:08.506 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/_Questions.cshtml.
+2024-01-16 11:44:08.509 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/_Questions.cshtml executed in 3.2804ms.
+2024-01-16 11:44:08.509 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.GetQuestions (ISQuiz) in 66.0315ms
+2024-01-16 11:44:08.509 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.GetQuestions (ISQuiz)'
+2024-01-16 11:44:08.509 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/GetQuestions/52?_=1705398248343 - - - 200 - text/html;+charset=utf-8 69.5130ms
+2024-01-16 11:44:13.313 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:13.313 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2732ms
+2024-01-16 11:44:15.184 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License - -
+2024-01-16 11:44:15.186 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:44:15.188 +02:00 [INF] Route matched with {action = "Index", controller = "License"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:44:15.189 +02:00 [INF] License.Index method called.
+2024-01-16 11:44:15.189 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:15.225 +02:00 [INF] Executing ViewResult, running view ~/Views/License/Index.cshtml.
+2024-01-16 11:44:15.229 +02:00 [INF] Executed ViewResult - view ~/Views/License/Index.cshtml executed in 4.7003ms.
+2024-01-16 11:44:15.229 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.Index (ISQuiz) in 41.2916ms
+2024-01-16 11:44:15.229 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:44:15.229 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License - - - 200 - text/html;+charset=utf-8 44.7804ms
+2024-01-16 11:44:15.237 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:15.237 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:15.238 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2510ms
+2024-01-16 11:44:15.240 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.3484ms
+2024-01-16 11:44:15.254 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705398255237 - -
+2024-01-16 11:44:15.255 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:44:15.256 +02:00 [INF] Route matched with {action = "CreateLicence", controller = "License"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateLicence() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:44:15.257 +02:00 [INF] Executing PartialViewResult, running view ~/Views/License/_CreateLicence.cshtml.
+2024-01-16 11:44:15.271 +02:00 [INF] Executed PartialViewResult - view ~/Views/License/_CreateLicence.cshtml executed in 14.1994ms.
+2024-01-16 11:44:15.271 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz) in 14.4796ms
+2024-01-16 11:44:15.271 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:44:15.271 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705398255237 - - - 200 - text/html;+charset=utf-8 17.0477ms
+2024-01-16 11:44:16.345 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:44:16.346 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:16.346 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:16.346 +02:00 [INF] Home.Index method called.
+2024-01-16 11:44:16.347 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:16.395 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:16.395 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:44:16.396 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 0.8375ms.
+2024-01-16 11:44:16.396 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 49.5768ms
+2024-01-16 11:44:16.396 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:16.396 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 51.2266ms
+2024-01-16 11:44:16.404 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:16.404 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:16.405 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2366ms
+2024-01-16 11:44:16.406 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.0565ms
+2024-01-16 11:44:18.570 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/User/Settings - -
+2024-01-16 11:44:18.572 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.UserController.Settings (ISQuiz)'
+2024-01-16 11:44:18.574 +02:00 [INF] Route matched with {action = "Settings", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Settings() on controller ISQuiz.Controllers.UserController (ISQuiz).
+2024-01-16 11:44:18.575 +02:00 [INF] User.Settings method called.
+2024-01-16 11:44:18.575 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:18.640 +02:00 [INF] Executing ViewResult, running view ~/Views/User/Settings.cshtml.
+2024-01-16 11:44:18.652 +02:00 [INF] Executed ViewResult - view ~/Views/User/Settings.cshtml executed in 12.0676ms.
+2024-01-16 11:44:18.652 +02:00 [INF] Executed action ISQuiz.Controllers.UserController.Settings (ISQuiz) in 78.0369ms
+2024-01-16 11:44:18.652 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.UserController.Settings (ISQuiz)'
+2024-01-16 11:44:18.652 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/User/Settings - - - 200 - text/html;+charset=utf-8 82.5651ms
+2024-01-16 11:44:18.661 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:18.661 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:18.661 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.1937ms
+2024-01-16 11:44:18.663 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.0516ms
+2024-01-16 11:44:18.679 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/User/ChangePassword?_=1705398258660 - -
+2024-01-16 11:44:18.681 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.UserController.ChangePassword (ISQuiz)'
+2024-01-16 11:44:18.682 +02:00 [INF] Route matched with {action = "ChangePassword", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult ChangePassword() on controller ISQuiz.Controllers.UserController (ISQuiz).
+2024-01-16 11:44:18.682 +02:00 [INF] Executing PartialViewResult, running view ~/Views/User/_ChangePassword.cshtml.
+2024-01-16 11:44:18.699 +02:00 [INF] Executed PartialViewResult - view ~/Views/User/_ChangePassword.cshtml executed in 17.1524ms.
+2024-01-16 11:44:18.699 +02:00 [INF] Executed action ISQuiz.Controllers.UserController.ChangePassword (ISQuiz) in 17.3943ms
+2024-01-16 11:44:18.699 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.UserController.ChangePassword (ISQuiz)'
+2024-01-16 11:44:18.699 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/User/ChangePassword?_=1705398258660 - - - 200 - text/html;+charset=utf-8 20.5917ms
+2024-01-16 11:44:18.719 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/User/assets/css/bootstrap.min.css - -
+2024-01-16 11:44:18.719 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/User/assets/css/app.min.css - -
+2024-01-16 11:44:18.720 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/User/assets/css/app.min.css - - - 404 0 - 0.5869ms
+2024-01-16 11:44:18.720 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/User/assets/css/bootstrap.min.css - - - 404 0 - 0.6001ms
+2024-01-16 11:44:20.841 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:44:20.842 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:20.842 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:20.842 +02:00 [INF] Home.Index method called.
+2024-01-16 11:44:20.842 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:20.912 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:20.912 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:44:20.914 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 1.2153ms.
+2024-01-16 11:44:20.914 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 71.5017ms
+2024-01-16 11:44:20.914 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:20.914 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 73.1421ms
+2024-01-16 11:44:20.922 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:20.922 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:20.923 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.3514ms
+2024-01-16 11:44:20.924 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.2580ms
+2024-01-16 11:44:21.665 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:44:21.666 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:21.667 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:21.667 +02:00 [INF] Home.Index method called.
+2024-01-16 11:44:21.667 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:21.816 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:21.817 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:44:21.817 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 0.774ms.
+2024-01-16 11:44:21.817 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 150.8136ms
+2024-01-16 11:44:21.817 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:21.817 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 152.5675ms
+2024-01-16 11:44:21.825 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:21.825 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:21.826 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.3265ms
+2024-01-16 11:44:21.827 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1.9685ms
+2024-01-16 11:44:43.281 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Delete/52?_=1705398261824 - -
+2024-01-16 11:44:43.285 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Delete (ISQuiz)'
+2024-01-16 11:44:43.287 +02:00 [INF] Route matched with {action = "Delete", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:43.288 +02:00 [INF] Delete methodGET called.
+2024-01-16 11:44:43.288 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:43.302 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:43.310 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:43.311 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/Delete.cshtml.
+2024-01-16 11:44:43.314 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/Delete.cshtml executed in 3.4493ms.
+2024-01-16 11:44:43.314 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Delete (ISQuiz) in 26.3347ms
+2024-01-16 11:44:43.314 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Delete (ISQuiz)'
+2024-01-16 11:44:43.314 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Delete/52?_=1705398261824 - - - 200 - text/html;+charset=utf-8 32.9405ms
+2024-01-16 11:44:46.807 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Delete/51?_=1705398261825 - -
+2024-01-16 11:44:46.808 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Delete (ISQuiz)'
+2024-01-16 11:44:46.808 +02:00 [INF] Route matched with {action = "Delete", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:46.808 +02:00 [INF] Delete methodGET called.
+2024-01-16 11:44:46.808 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:46.848 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:46.866 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:46.866 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/Delete.cshtml.
+2024-01-16 11:44:46.867 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/Delete.cshtml executed in 0.7644ms.
+2024-01-16 11:44:46.867 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Delete (ISQuiz) in 58.7783ms
+2024-01-16 11:44:46.867 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Delete (ISQuiz)'
+2024-01-16 11:44:46.867 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Delete/51?_=1705398261825 - - - 200 - text/html;+charset=utf-8 60.0559ms
+2024-01-16 11:44:51.047 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7208/Home/DeleteQuestionnaire application/json;+charset=UTF-8 2
+2024-01-16 11:44:51.047 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.DeleteQuestionnaire (ISQuiz)'
+2024-01-16 11:44:51.049 +02:00 [INF] Route matched with {action = "DeleteQuestionnaire", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteQuestionnaire(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:51.064 +02:00 [INF] DeleteQuestionnaire methodPOST called.
+2024-01-16 11:44:51.064 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:51.092 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:51.093 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType2`2[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-01-16 11:44:51.118 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.DeleteQuestionnaire (ISQuiz) in 68.1921ms
+2024-01-16 11:44:51.118 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.DeleteQuestionnaire (ISQuiz)'
+2024-01-16 11:44:51.118 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/Home/DeleteQuestionnaire application/json;+charset=UTF-8 2 - 200 - application/json;+charset=utf-8 71.1205ms
+2024-01-16 11:44:51.123 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:44:51.124 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:51.124 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:51.124 +02:00 [INF] Home.Index method called.
+2024-01-16 11:44:51.124 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:51.143 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:51.143 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:44:51.144 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 0.7984ms.
+2024-01-16 11:44:51.144 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 20.2578ms
+2024-01-16 11:44:51.144 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:51.144 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 21.7647ms
+2024-01-16 11:44:51.153 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:51.153 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2000ms
+2024-01-16 11:44:51.160 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:51.162 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.2232ms
+2024-01-16 11:44:56.032 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License - -
+2024-01-16 11:44:56.036 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:44:56.036 +02:00 [INF] Route matched with {action = "Index", controller = "License"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:44:56.037 +02:00 [INF] License.Index method called.
+2024-01-16 11:44:56.037 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:56.055 +02:00 [INF] Executing ViewResult, running view ~/Views/License/Index.cshtml.
+2024-01-16 11:44:56.055 +02:00 [INF] Executed ViewResult - view ~/Views/License/Index.cshtml executed in 0.8947ms.
+2024-01-16 11:44:56.055 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.Index (ISQuiz) in 19.4645ms
+2024-01-16 11:44:56.055 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:44:56.056 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License - - - 200 - text/html;+charset=utf-8 23.4080ms
+2024-01-16 11:44:56.064 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:56.064 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:56.064 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.3577ms
+2024-01-16 11:44:56.066 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1.9933ms
+2024-01-16 11:44:56.083 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705398296065 - -
+2024-01-16 11:44:56.086 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:44:56.086 +02:00 [INF] Route matched with {action = "CreateLicence", controller = "License"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateLicence() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:44:56.086 +02:00 [INF] Executing PartialViewResult, running view ~/Views/License/_CreateLicence.cshtml.
+2024-01-16 11:44:56.087 +02:00 [INF] Executed PartialViewResult - view ~/Views/License/_CreateLicence.cshtml executed in 0.7057ms.
+2024-01-16 11:44:56.087 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz) in 0.7908ms
+2024-01-16 11:44:56.087 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:44:56.087 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705398296065 - - - 200 - text/html;+charset=utf-8 3.6863ms
+2024-01-16 11:44:57.217 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License - -
+2024-01-16 11:44:57.218 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:44:57.218 +02:00 [INF] Route matched with {action = "Index", controller = "License"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:44:57.218 +02:00 [INF] License.Index method called.
+2024-01-16 11:44:57.218 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:57.241 +02:00 [INF] Executing ViewResult, running view ~/Views/License/Index.cshtml.
+2024-01-16 11:44:57.242 +02:00 [INF] Executed ViewResult - view ~/Views/License/Index.cshtml executed in 1.1865ms.
+2024-01-16 11:44:57.242 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.Index (ISQuiz) in 23.9574ms
+2024-01-16 11:44:57.242 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.Index (ISQuiz)'
+2024-01-16 11:44:57.242 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License - - - 200 - text/html;+charset=utf-8 25.5352ms
+2024-01-16 11:44:57.251 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:57.252 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2365ms
+2024-01-16 11:44:57.259 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:57.261 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1.9734ms
+2024-01-16 11:44:57.273 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705398297256 - -
+2024-01-16 11:44:57.274 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:44:57.274 +02:00 [INF] Route matched with {action = "CreateLicence", controller = "License"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateLicence() on controller ISQuiz.Controllers.LicenseController (ISQuiz).
+2024-01-16 11:44:57.274 +02:00 [INF] Executing PartialViewResult, running view ~/Views/License/_CreateLicence.cshtml.
+2024-01-16 11:44:57.275 +02:00 [INF] Executed PartialViewResult - view ~/Views/License/_CreateLicence.cshtml executed in 0.8806ms.
+2024-01-16 11:44:57.275 +02:00 [INF] Executed action ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz) in 0.9727ms
+2024-01-16 11:44:57.275 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.LicenseController.CreateLicence (ISQuiz)'
+2024-01-16 11:44:57.275 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/License/CreateLicence?_=1705398297256 - - - 200 - text/html;+charset=utf-8 2.2609ms
+2024-01-16 11:44:58.881 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/ - -
+2024-01-16 11:44:58.882 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:58.882 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:44:58.882 +02:00 [INF] Home.Index method called.
+2024-01-16 11:44:58.882 +02:00 [INF] GetToken BaseController
+2024-01-16 11:44:58.897 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:44:58.897 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:44:58.898 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 0.7571ms.
+2024-01-16 11:44:58.898 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 15.55ms
+2024-01-16 11:44:58.898 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:44:58.898 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/ - - - 200 - text/html;+charset=utf-8 17.1312ms
+2024-01-16 11:44:58.907 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:44:58.907 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:44:58.907 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.3190ms
+2024-01-16 11:44:58.908 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.0110ms
+2024-01-16 11:45:00.296 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/CreateQuestionnaire - -
+2024-01-16 11:45:00.297 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.CreateQuestionnaire (ISQuiz)'
+2024-01-16 11:45:00.298 +02:00 [INF] Route matched with {action = "CreateQuestionnaire", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateQuestionnaire() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:00.298 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:00.299 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Upsert.cshtml.
+2024-01-16 11:45:00.311 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Upsert.cshtml executed in 12.0367ms.
+2024-01-16 11:45:00.311 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.CreateQuestionnaire (ISQuiz) in 12.3428ms
+2024-01-16 11:45:00.311 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.CreateQuestionnaire (ISQuiz)'
+2024-01-16 11:45:00.311 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/CreateQuestionnaire - - - 200 - text/html;+charset=utf-8 14.7666ms
+2024-01-16 11:45:00.320 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/libs/select2/js/select2.min.js - -
+2024-01-16 11:45:00.320 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/libs/spectrum-colorpicker2/spectrum.min.js - -
+2024-01-16 11:45:00.327 +02:00 [INF] The file /assets/libs/spectrum-colorpicker2/spectrum.min.js was not modified
+2024-01-16 11:45:00.327 +02:00 [INF] The file /assets/libs/select2/js/select2.min.js was not modified
+2024-01-16 11:45:00.327 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/libs/spectrum-colorpicker2/spectrum.min.js - - - 304 - application/javascript 6.5869ms
+2024-01-16 11:45:00.327 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/libs/select2/js/select2.min.js - - - 304 - application/javascript 6.9917ms
+2024-01-16 11:45:00.334 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:45:00.335 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2782ms
+2024-01-16 11:45:00.335 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js - -
+2024-01-16 11:45:00.335 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js - -
+2024-01-16 11:45:00.335 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js - -
+2024-01-16 11:45:00.335 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/libs/chenfengyuan/datepicker/datepicker.min.js - -
+2024-01-16 11:45:00.336 +02:00 [INF] The file /assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js was not modified
+2024-01-16 11:45:00.336 +02:00 [INF] The file /assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js was not modified
+2024-01-16 11:45:00.336 +02:00 [INF] The file /assets/libs/chenfengyuan/datepicker/datepicker.min.js was not modified
+2024-01-16 11:45:00.336 +02:00 [INF] The file /assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js was not modified
+2024-01-16 11:45:00.336 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:45:00.336 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js - - - 304 - application/javascript 1.0937ms
+2024-01-16 11:45:00.336 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js - - - 304 - application/javascript 1.4604ms
+2024-01-16 11:45:00.336 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/libs/chenfengyuan/datepicker/datepicker.min.js - - - 304 - application/javascript 1.1295ms
+2024-01-16 11:45:00.336 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js - - - 304 - application/javascript 1.3483ms
+2024-01-16 11:45:00.343 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/js/pages/form-validation.init.js - -
+2024-01-16 11:45:00.343 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/assets/js/pages/form-advanced.init.js - -
+2024-01-16 11:45:00.345 +02:00 [INF] The file /assets/js/pages/form-validation.init.js was not modified
+2024-01-16 11:45:00.345 +02:00 [INF] The file /assets/js/pages/form-advanced.init.js was not modified
+2024-01-16 11:45:00.346 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/js/pages/form-advanced.init.js - - - 304 - application/javascript 3.1156ms
+2024-01-16 11:45:00.346 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/assets/js/pages/form-validation.init.js - - - 304 - application/javascript 3.9924ms
+2024-01-16 11:45:00.347 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 10.9814ms
+2024-01-16 11:45:00.377 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/assets/css/app.min.css - -
+2024-01-16 11:45:00.377 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/assets/css/bootstrap.min.css - -
+2024-01-16 11:45:00.377 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/assets/css/app.min.css - - - 404 0 - 0.5989ms
+2024-01-16 11:45:00.377 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/assets/css/bootstrap.min.css - - - 404 0 - 0.5929ms
+2024-01-16 11:45:05.944 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7208/Home/CreateQuestionnaire application/json;+charset=UTF-8 180
+2024-01-16 11:45:05.944 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.CreateQuestionnaire (ISQuiz)'
+2024-01-16 11:45:05.946 +02:00 [INF] Route matched with {action = "CreateQuestionnaire", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateQuestionnaire(ISQuiz.ViewModels.UpsertQuestionnareViewModel) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:05.953 +02:00 [INF] CreateQuestionnaire method called.
+2024-01-16 11:45:05.953 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:05.974 +02:00 [INF] RefreshToken BaseController
+2024-01-16 11:45:06.017 +02:00 [INF] AuthenticationScheme: Cookies signed out.
+2024-01-16 11:45:06.018 +02:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-01-16 11:45:06.018 +02:00 [INF] CreateQuestionnaire method called.
+2024-01-16 11:45:06.018 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:06.094 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:06.095 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType1`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-01-16 11:45:06.095 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.CreateQuestionnaire (ISQuiz) in 148.944ms
+2024-01-16 11:45:06.095 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.CreateQuestionnaire (ISQuiz)'
+2024-01-16 11:45:06.095 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/Home/CreateQuestionnaire application/json;+charset=UTF-8 180 - 200 - application/json;+charset=utf-8 151.5694ms
+2024-01-16 11:45:06.100 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Index - -
+2024-01-16 11:45:06.101 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:45:06.102 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:06.102 +02:00 [INF] Home.Index method called.
+2024-01-16 11:45:06.102 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:06.124 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:06.124 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:45:06.125 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 0.9792ms.
+2024-01-16 11:45:06.125 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 23.6197ms
+2024-01-16 11:45:06.125 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:45:06.125 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Index - - - 200 - text/html;+charset=utf-8 25.1580ms
+2024-01-16 11:45:06.134 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:45:06.134 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:45:06.134 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2620ms
+2024-01-16 11:45:06.136 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.0380ms
+2024-01-16 11:45:06.225 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/assets/css/bootstrap.min.css - -
+2024-01-16 11:45:06.225 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/assets/css/app.min.css - -
+2024-01-16 11:45:06.225 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/assets/css/app.min.css - - - 404 0 - 0.4664ms
+2024-01-16 11:45:06.225 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/assets/css/bootstrap.min.css - - - 404 0 - 0.5995ms
+2024-01-16 11:45:08.161 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Delete/53?_=1705398306146 - -
+2024-01-16 11:45:08.162 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Delete (ISQuiz)'
+2024-01-16 11:45:08.162 +02:00 [INF] Route matched with {action = "Delete", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:08.162 +02:00 [INF] Delete methodGET called.
+2024-01-16 11:45:08.162 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:08.188 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:08.195 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:08.195 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/Delete.cshtml.
+2024-01-16 11:45:08.195 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/Delete.cshtml executed in 0.3249ms.
+2024-01-16 11:45:08.195 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Delete (ISQuiz) in 33.0799ms
+2024-01-16 11:45:08.195 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Delete (ISQuiz)'
+2024-01-16 11:45:08.195 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Delete/53?_=1705398306146 - - - 200 - text/html;+charset=utf-8 34.3867ms
+2024-01-16 11:45:09.462 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7208/Home/DeleteQuestionnaire application/json;+charset=UTF-8 2
+2024-01-16 11:45:09.463 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.DeleteQuestionnaire (ISQuiz)'
+2024-01-16 11:45:09.463 +02:00 [INF] Route matched with {action = "DeleteQuestionnaire", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteQuestionnaire(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:09.463 +02:00 [INF] DeleteQuestionnaire methodPOST called.
+2024-01-16 11:45:09.463 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:09.494 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:09.494 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType2`2[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-01-16 11:45:09.494 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.DeleteQuestionnaire (ISQuiz) in 31.5758ms
+2024-01-16 11:45:09.494 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.DeleteQuestionnaire (ISQuiz)'
+2024-01-16 11:45:09.494 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/Home/DeleteQuestionnaire application/json;+charset=UTF-8 2 - 200 - application/json;+charset=utf-8 32.1696ms
+2024-01-16 11:45:09.499 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Index - -
+2024-01-16 11:45:09.500 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:45:09.501 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:09.501 +02:00 [INF] Home.Index method called.
+2024-01-16 11:45:09.501 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:09.514 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:09.514 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Index.cshtml.
+2024-01-16 11:45:09.515 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Index.cshtml executed in 0.7589ms.
+2024-01-16 11:45:09.515 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Index (ISQuiz) in 14.2314ms
+2024-01-16 11:45:09.515 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Index (ISQuiz)'
+2024-01-16 11:45:09.515 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Index - - - 200 - text/html;+charset=utf-8 15.7514ms
+2024-01-16 11:45:09.523 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:45:09.523 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:45:09.523 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2466ms
+2024-01-16 11:45:09.525 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.0229ms
+2024-01-16 11:45:09.607 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/assets/css/bootstrap.min.css - -
+2024-01-16 11:45:09.607 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/assets/css/app.min.css - -
+2024-01-16 11:45:09.608 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/assets/css/app.min.css - - - 404 0 - 0.4920ms
+2024-01-16 11:45:09.608 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/assets/css/bootstrap.min.css - - - 404 0 - 0.4940ms
+2024-01-16 11:45:35.376 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Detail/52 - -
+2024-01-16 11:45:35.378 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.Detail (ISQuiz)'
+2024-01-16 11:45:35.378 +02:00 [INF] Route matched with {action = "Detail", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Detail(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:35.378 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:35.378 +02:00 [INF] Executing ViewResult, running view ~/Views/Home/Detail.cshtml.
+2024-01-16 11:45:35.379 +02:00 [INF] Executed ViewResult - view ~/Views/Home/Detail.cshtml executed in 0.8545ms.
+2024-01-16 11:45:35.379 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.Detail (ISQuiz) in 1.1638ms
+2024-01-16 11:45:35.379 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.Detail (ISQuiz)'
+2024-01-16 11:45:35.379 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Detail/52 - - - 200 - text/html;+charset=utf-8 2.9638ms
+2024-01-16 11:45:35.391 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-16 11:45:35.391 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 0.2116ms
+2024-01-16 11:45:35.404 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/_vs/browserLink - -
+2024-01-16 11:45:35.406 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 2.0890ms
+2024-01-16 11:45:35.411 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/GetInfoQuestionnaire/52?_=1705398335407 - -
+2024-01-16 11:45:35.411 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/QuestionnaireStatistic/52?_=1705398335408 - -
+2024-01-16 11:45:35.416 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.QuestionnaireStatistic (ISQuiz)'
+2024-01-16 11:45:35.416 +02:00 [INF] Route matched with {action = "QuestionnaireStatistic", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] QuestionnaireStatistic(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:35.416 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.GetInfoQuestionnaire (ISQuiz)'
+2024-01-16 11:45:35.416 +02:00 [INF] Route matched with {action = "GetInfoQuestionnaire", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetInfoQuestionnaire(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:35.416 +02:00 [INF] QuestionnaireStatistic method called. Id = 52
+2024-01-16 11:45:35.416 +02:00 [INF] GetInfoQuestionnaire method called. Id = 52
+2024-01-16 11:45:35.416 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:35.416 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:35.432 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:35.432 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/_Info.cshtml.
+2024-01-16 11:45:35.432 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/_Info.cshtml executed in 0.3896ms.
+2024-01-16 11:45:35.432 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.GetInfoQuestionnaire (ISQuiz) in 16.4589ms
+2024-01-16 11:45:35.432 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.GetInfoQuestionnaire (ISQuiz)'
+2024-01-16 11:45:35.432 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/GetInfoQuestionnaire/52?_=1705398335407 - - - 200 - text/html;+charset=utf-8 21.1538ms
+2024-01-16 11:45:35.437 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:35.437 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/_Statistic.cshtml.
+2024-01-16 11:45:35.437 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/_Statistic.cshtml executed in 0.3431ms.
+2024-01-16 11:45:35.437 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.QuestionnaireStatistic (ISQuiz) in 21.5359ms
+2024-01-16 11:45:35.437 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.QuestionnaireStatistic (ISQuiz)'
+2024-01-16 11:45:35.437 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/QuestionnaireStatistic/52?_=1705398335408 - - - 200 - text/html;+charset=utf-8 26.0036ms
+2024-01-16 11:45:35.450 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/GetQuestions/52?_=1705398335409 - -
+2024-01-16 11:45:35.452 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.HomeController.GetQuestions (ISQuiz)'
+2024-01-16 11:45:35.452 +02:00 [INF] Route matched with {action = "GetQuestions", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetQuestions(Int32) on controller ISQuiz.Controllers.HomeController (ISQuiz).
+2024-01-16 11:45:35.452 +02:00 [INF] GetQuestions method called. Id = 52
+2024-01-16 11:45:35.452 +02:00 [INF] GetToken BaseController
+2024-01-16 11:45:35.458 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/bootstrap.min.css - -
+2024-01-16 11:45:35.458 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/app.min.css - -
+2024-01-16 11:45:35.459 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/app.min.css - - - 404 0 - 0.4545ms
+2024-01-16 11:45:35.459 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/Detail/assets/css/bootstrap.min.css - - - 404 0 - 0.5862ms
+2024-01-16 11:45:35.521 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-16 11:45:35.522 +02:00 [INF] Executing PartialViewResult, running view ~/Views/Home/_Questions.cshtml.
+2024-01-16 11:45:35.522 +02:00 [INF] Executed PartialViewResult - view ~/Views/Home/_Questions.cshtml executed in 0.2819ms.
+2024-01-16 11:45:35.522 +02:00 [INF] Executed action ISQuiz.Controllers.HomeController.GetQuestions (ISQuiz) in 69.8212ms
+2024-01-16 11:45:35.522 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.HomeController.GetQuestions (ISQuiz)'
+2024-01-16 11:45:35.522 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7208/Home/GetQuestions/52?_=1705398335409 - - - 200 - text/html;+charset=utf-8 71.7686ms

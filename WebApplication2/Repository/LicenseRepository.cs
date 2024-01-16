@@ -1,4 +1,5 @@
-﻿using ISQuiz.Interface;
+﻿using ISQuiz.Helper;
+using ISQuiz.Interface;
 using ISQuiz.Models.API;
 using ISQuiz.Models.API.License;
 using ISQuiz.ViewModels;
@@ -11,12 +12,14 @@ namespace ISQuiz.Repository
     public class LicenseRepository : ILicenseRepository
     {
         private readonly HttpClient _httpClient;
+        private readonly GlobalConfiguration _globalConfig = new GlobalConfiguration();
+
         public LicenseRepository()
         {
-            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(_globalConfig.Credentials()));
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("https://dev.edi.md/ISNPSAPI/Web/"),
+                BaseAddress = new Uri(_globalConfig.StartUriForQuiz()),
                 DefaultRequestHeaders =
                 {
                     Authorization = new AuthenticationHeaderValue("Basic", credentials)

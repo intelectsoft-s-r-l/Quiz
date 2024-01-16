@@ -22,7 +22,7 @@ namespace ISQuiz.Controllers
         public HomeController(IQuizRepository quizRepository,
                              IUserRepository userRepository,
                              ILogger<HomeController> logger
-                             /*, IStringLocalizer<HomeController> localizer*/)
+                             /*, IStringLocalizer<HomeController> localizer*/) : base(logger)
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;
@@ -41,17 +41,21 @@ namespace ISQuiz.Controllers
 
                 var questionnaireData = await _quizRepository.GetQuestionnaires(token);
 
-                if (questionnaireData.errorCode == 143)
+                if (questionnaireData != null)
                 {
-                    await RefreshToken();
-                    return await Index();
+                    if (questionnaireData.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Index();
+                    }
+                    else if (questionnaireData.errorCode != 0)
+                    {
+                        _logger.LogError($"Received unknown errorCode: {questionnaireData.errorCode}");
+                        return View("~/Views/Account/Login.cshtml");
+                    }
+                    return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
                 }
-                else if (questionnaireData.errorCode != 0)
-                {
-                    _logger.LogError($"Received unknown errorCode: {questionnaireData.errorCode}");
-                    return View("~/Views/Account/Login.cshtml");
-                }
-                return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
+                return View("Error");
             }
             catch (Exception ex)
             {
@@ -71,13 +75,17 @@ namespace ISQuiz.Controllers
             {
                 string token = GetToken();
                 var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
-                if (questionnaireData.errorCode == 143)
+
+                if (questionnaireData != null)
                 {
-                    await RefreshToken();
-                    return await QuestionnaireDetail(id);
+                    if (questionnaireData.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await QuestionnaireDetail(id);
+                    }
+                    else if (questionnaireData.errorCode != 0)
+                        _logger.LogError($"{questionnaireData}");
                 }
-                else if (questionnaireData.errorCode != 0)
-                    _logger.LogError($"{questionnaireData}");
                 //if err == 0
                 return questionnaireData;
             }
@@ -96,13 +104,17 @@ namespace ISQuiz.Controllers
             {
                 string token = GetToken();
                 var questionsData = await _quizRepository.GetQuestions(token, id);
-                if (questionsData.errorCode == 143)
+
+                if (questionsData != null)
                 {
-                    await RefreshToken();
-                    return await QuestionsDetail(id);
+                    if (questionsData.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await QuestionsDetail(id);
+                    }
+                    else if (questionsData.errorCode != 0)
+                        _logger.LogError($"{questionsData}");
                 }
-                else if (questionsData.errorCode != 0)
-                    _logger.LogError($"{questionsData}");
                 //if err == 0
                 return questionsData;
             }
@@ -124,6 +136,7 @@ namespace ISQuiz.Controllers
             {
                 var questionnaireData = await QuestionnaireDetail(id);
                 //var questionsData = await QuestionsDetail(id);
+                if(questionnaireData == null) return View("Error");
 
                 if (questionnaireData.errorCode == 0 /*&& questionsData.errorCode == 0*/)
                 {
@@ -156,6 +169,8 @@ namespace ISQuiz.Controllers
             {
                 var questionsData = await QuestionsDetail(id);
 
+                if (questionsData == null) return View("Error");
+
                 if (questionsData.errorCode == 0)
                     return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
                 else
@@ -181,6 +196,8 @@ namespace ISQuiz.Controllers
                 string token = GetToken();
 
                 var statistic = await _quizRepository.GetQuestionnaireStatistic(token, id);
+
+                if (statistic == null) return View("Error");
 
                 if (statistic.errorCode == 143)
                 {
@@ -214,6 +231,8 @@ namespace ISQuiz.Controllers
                 string token = GetToken();
 
                 var userData = await _userRepository.getProfileInfo(token);
+
+                if (userData == null) return View("Error");
 
                 if (userData.ErrorCode == 143)
                 {
@@ -287,6 +306,9 @@ namespace ISQuiz.Controllers
 
 
                 var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
+
+                if (dataResponse == null) return View("Error");
+
                 if (dataResponse.errorCode == 0)
                     return Json(new { StatusCode = 200 });
                 else if (dataResponse.errorCode == 143)
@@ -333,6 +355,8 @@ namespace ISQuiz.Controllers
 
                 var userData = await _userRepository.getProfileInfo(token);
 
+                if (userData == null) return View("Error");
+
                 if (userData.ErrorCode == 143)
                 {
                     await RefreshToken();
@@ -370,6 +394,8 @@ namespace ISQuiz.Controllers
 
                     var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
+                    if (questionsBaseResponsed == null) return View("Error");
+
                     if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
                         return Json(new { StatusCode = 200 });
                     //return RedirectToAction("Index");
@@ -396,6 +422,8 @@ namespace ISQuiz.Controllers
                 var questionnaireData = await QuestionnaireDetail(id);
                 var questionsData = await QuestionsDetail(id);
 
+                if (questionsData == null || questionnaireData is null) return View("Error");
+
                 if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
                 {
                     deleteVm.oid = id;
@@ -419,7 +447,11 @@ namespace ISQuiz.Controllers
             try
             {
                 string token = GetToken();
+                
                 var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
+
+                if (baseResponse == null) return View("Error");
+
                 if (baseResponse.errorCode == 143)
                 {
                     await RefreshToken();
@@ -449,6 +481,9 @@ namespace ISQuiz.Controllers
             {
                 string token = GetToken();
                 var baseResponse = await _quizRepository.DeleteQuestion(token, id);
+
+                if (baseResponse == null) return View("Error");
+
                 if (baseResponse.errorCode == 143)
                 {
                     await RefreshToken();

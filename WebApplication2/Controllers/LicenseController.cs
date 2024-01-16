@@ -13,7 +13,7 @@ namespace ISQuiz.Controllers
         private readonly ILogger<LicenseController> _logger;
 
         public LicenseController(ILicenseRepository licenseRepository,
-                                 ILogger<LicenseController> logger)
+                                 ILogger<LicenseController> logger) : base(logger)
         {
             _licenseRepository = licenseRepository;
             _logger = logger;
@@ -30,18 +30,24 @@ namespace ISQuiz.Controllers
 
                 var licenseData = await _licenseRepository.GetLicenseList(token);
 
-                if (licenseData.errorCode == 143)
+                if (licenseData is null)
                 {
-                    await RefreshToken();
-                    return await Index();
-                }
-                else if (licenseData.errorCode == 0)
-                    return View("~/Views/License/Index.cshtml", licenseData.licenses);
-                else
-                {/*if (licenseData.errorCode == 118)*/
                     _logger.LogError($"{licenseData}");
                     return View("~/Views/Account/Login.cshtml");
                 }
+                else
+                {
+                    if (licenseData.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Index();
+                    }
+                    else if (licenseData.errorCode == 0)
+                        return View("~/Views/License/Index.cshtml", licenseData.licenses);
+                    else
+                        return View("~/Views/Account/Login.cshtml");
+                }
+
             }
             catch (Exception ex)
             {
@@ -59,19 +65,23 @@ namespace ISQuiz.Controllers
             {
                 string token = GetToken();
                 var licenseData = await _licenseRepository.GetLicense(token, id);
-                if (licenseData.errorCode == 143)
+                if (licenseData != null)
                 {
-                    await RefreshToken();
-                    return await Detail(id);
+                    if (licenseData.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Detail(id);
+                    }
+                    else if (licenseData.errorCode == 0)
+                        return PartialView("~/Views/License/Detail.cshtml", licenseData.license);
+                    else
+                    {
+                        _logger.LogError($"{licenseData}");
+                        return View("~/Views/Account/Login.cshtml");
+                    }
                 }
-                else if (licenseData.errorCode == 0)
-                    return PartialView("~/Views/License/Detail.cshtml", licenseData.license);
-                else
-                {
-                    _logger.LogError($"{licenseData}");
-                    return View("~/Views/Account/Login.cshtml");
 
-                }
+                return View("Error");
 
             }
             catch (Exception ex)
@@ -108,21 +118,27 @@ namespace ISQuiz.Controllers
                 string token = GetToken();
 
                 var licenseResponse = await _licenseRepository.DeactivateLicense(token, oid);
-                if (licenseResponse.errorCode == 143)
+
+                if (licenseResponse != null)
                 {
-                    await RefreshToken();
-                    return await Deactivate(oid);
-                }
-                else if (licenseResponse.errorCode == 0)
-                    return Json(new { StatusCode = 200, Message = "Ok" });
-                else
-                {
-                    _logger.LogError($"{licenseResponse}");
-                    return View("~/Views/Account/Login.cshtml");
+                    if (licenseResponse.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Deactivate(oid);
+                    }
+                    else if (licenseResponse.errorCode == 0)
+                        return Json(new { StatusCode = 200, Message = "Ok" });
+                    else
+                    {
+                        _logger.LogError($"{licenseResponse}");
+                        return View("~/Views/Account/Login.cshtml");
+                    }
                 }
                 /* else
                      return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
                 */
+
+                return View("Error");
             }
             catch (Exception ex)
             {
@@ -143,18 +159,22 @@ namespace ISQuiz.Controllers
             {
                 string token = GetToken();
                 var licenseResponse = await _licenseRepository.ActivateLicense(token, oid);
-                if (licenseResponse.errorCode == 143)
+                if (licenseResponse != null)
                 {
-                    await RefreshToken();
-                    return await Deactivate(oid);
+                    if (licenseResponse.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Deactivate(oid);
+                    }
+                    else if (licenseResponse.errorCode == 0)
+                        return Json(new { StatusCode = 200, Message = "Ok" });
+                    else
+                    {
+                        _logger.LogError($"{licenseResponse}");
+                        return View("~/Views/Account/Login.cshtml");
+                    }
                 }
-                else if (licenseResponse.errorCode == 0)
-                    return Json(new { StatusCode = 200, Message = "Ok" });
-                else
-                {
-                    _logger.LogError($"{licenseResponse}");
-                    return View("~/Views/Account/Login.cshtml");
-                }
+                return View("Error");
                 //else
                 //{
                 //    return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
@@ -178,21 +198,27 @@ namespace ISQuiz.Controllers
             {
                 string token = GetToken();
                 var licenseResponse = await _licenseRepository.ReleaseLicense(token, oid);
-                if (licenseResponse.errorCode == 143)
+                if (licenseResponse != null)
                 {
-                    await RefreshToken();
-                    return await Deactivate(oid);
-                }
-                else if (licenseResponse.errorCode == 0)
-                {
-                    return Json(new { StatusCode = 200, Message = "Ok" });
 
+
+                    if (licenseResponse.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await Deactivate(oid);
+                    }
+                    else if (licenseResponse.errorCode == 0)
+                    {
+                        return Json(new { StatusCode = 200, Message = "Ok" });
+
+                    }
+                    else
+                    {
+                        _logger.LogError($"{licenseResponse}");
+                        return View("~/Views/Account/Login.cshtml");
+                    }
                 }
-                else
-                {
-                    _logger.LogError($"{licenseResponse}");
-                    return View("~/Views/Account/Login.cshtml");
-                }
+                return View("Error");
             }
             catch (Exception ex)
             {
@@ -223,18 +249,22 @@ namespace ISQuiz.Controllers
                     string token = GetToken();
                     generateLicenseVM.token = token;
                     var postLicenseBaseResponse = await _licenseRepository.GenerateLicense(generateLicenseVM);
-                    if (postLicenseBaseResponse.errorCode == 143)
+                    if (postLicenseBaseResponse != null)
                     {
-                        await RefreshToken();
-                        return await CreateLicence(generateLicenseVM);
+                        if (postLicenseBaseResponse.errorCode == 143)
+                        {
+                            await RefreshToken();
+                            return await CreateLicence(generateLicenseVM);
+                        }
+                        else if (postLicenseBaseResponse.errorCode != 0)
+                        {
+                            _logger.LogError($"{postLicenseBaseResponse}");
+                            return View("~/Views/Account/Login.cshtml");
+                        }
+                        //return RedirectToAction(nameof(LicenseController.Index), "License");
+                        return Json(new { statusCode = 200 });
                     }
-                    else if (postLicenseBaseResponse.errorCode != 0)
-                    {
-                        _logger.LogError($"{postLicenseBaseResponse}");
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    //return RedirectToAction(nameof(LicenseController.Index), "License");
-                    return Json(new { statusCode = 200 });
+                    return View("Error");
                 }
             }
             catch (Exception ex)
@@ -257,23 +287,28 @@ namespace ISQuiz.Controllers
             {
                 string token = GetToken();
                 var deleteLicenseBaseResponse = await _licenseRepository.Delete(token, oid);
-                if (deleteLicenseBaseResponse.errorCode == 143)
+                if (deleteLicenseBaseResponse != null)
                 {
-                    await RefreshToken();
-                    return await DeleteLicense(oid);
+                    if (deleteLicenseBaseResponse.errorCode == 143)
+                    {
+                        await RefreshToken();
+                        return await DeleteLicense(oid);
+                    }
+                    else if (deleteLicenseBaseResponse.errorCode == 118)
+                    {
+                        return View("~/Views/Account/Login.cshtml");
+                    }
+                    else if (deleteLicenseBaseResponse.errorCode == 0)
+                        return Json(new { StatusCode = 200, Message = "Ok" });
+                    else
+                    {
+                        _logger.LogError($"{deleteLicenseBaseResponse}");
+                        return View("~/Views/Account/Login.cshtml");
+                        //return Json(new { StatusCode = 500, Message = deleteLicenseBaseResponse.errorMessage });
+                    }
                 }
-                else if (deleteLicenseBaseResponse.errorCode == 118)
-                {
-                    return View("~/Views/Account/Login.cshtml");
-                }
-                else if (deleteLicenseBaseResponse.errorCode == 0)
-                    return Json(new { StatusCode = 200, Message = "Ok" });
-                else
-                {
-                    _logger.LogError($"{deleteLicenseBaseResponse}");
-                    return View("~/Views/Account/Login.cshtml");
-                    //return Json(new { StatusCode = 500, Message = deleteLicenseBaseResponse.errorMessage });
-                }
+
+                return View("Error");
             }
             catch (Exception ex)
             {

@@ -5,6 +5,7 @@
    <!-- <Nullable>enable</Nullable>-->
     <ImplicitUsings>enable</ImplicitUsings>
 	<SatelliteResourceLanguages>ru;en;ro</SatelliteResourceLanguages>
+	<Configurations>Debug;Release;</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

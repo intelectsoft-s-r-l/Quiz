@@ -1,4 +1,5 @@
-﻿using ISQuiz.Interface;
+﻿using ISQuiz.Helper;
+using ISQuiz.Interface;
 using ISQuiz.Models.API;
 using ISQuiz.Models.API.Questionnaires;
 using ISQuiz.ViewModels;
@@ -11,20 +12,20 @@ namespace ISQuiz.Repository
     public class QuizRepository : IQuizRepository
     {
         private readonly HttpClient _httpClient;
+        private readonly GlobalConfiguration _globalConfiguration;
 
-        public QuizRepository(/*IConfiguration configuration*/)
+        public QuizRepository()
         {
-            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("uSr_nps:V8-}W31S!l'D"));
+            _globalConfiguration = new GlobalConfiguration();
+            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(_globalConfiguration.Credentials()));
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("https://dev.edi.md/ISNPSAPI/Web/"),
+                BaseAddress = new Uri(_globalConfiguration.StartUriForQuiz()),
                 DefaultRequestHeaders =
                 {
                     Authorization = new AuthenticationHeaderValue("Basic", credentials)
                 }
             };
-            //_httpClient.BaseAddress = new Uri("https://dev.edi.md/ISNPSAPI/Web/");
-            //_httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
 
         private async Task<T> SendGetRequest<T>(string endpoint)
