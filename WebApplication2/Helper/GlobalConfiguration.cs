@@ -4,11 +4,11 @@
     {
         public string Credentials()
         {
-#if (DEBUG)
-           return "uSr_nps:V8-}W31S!l'D";
+#if (RELEASE)
+            return "uSr_nps:V8-}W31S!l'D";
 #endif
-#if RELEASE
-           return "uSr_nps:V8-}W31S!l'D";
+#if DEBUG
+           return "nspapi_usr:4b3pY6<mY)+F";
 #endif
         }
 
@@ -16,11 +16,11 @@
 
         public string StartUriForQuiz()
         {
-#if (DEBUG)
-           return "https://dev.edi.md/ISNPSAPI/Web/";
+#if (RELEASE)
+            return "https://dev.edi.md/ISNPSAPI/Web/";
 #endif
-#if RELEASE
-           return "https://dev.edi.md/ISNPSAPI/Web/";
+#if DEBUG
+           return "https://survey.eservicii.md/ISNPSAPI/Web/";
 #endif
         }
 

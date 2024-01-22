@@ -51,7 +51,7 @@ namespace ISQuiz.Controllers
                     else if (questionnaireData.errorCode != 0)
                     {
                         _logger.LogError($"Received unknown errorCode: {questionnaireData.errorCode}");
-                        return View("~/Views/Account/Login.cshtml");
+                        return RedirectToAction(nameof(AccountController.Login), "Account");
                     }
                     return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
                 }

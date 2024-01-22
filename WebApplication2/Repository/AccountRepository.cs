@@ -22,7 +22,7 @@ namespace ISQuiz.Repository
             {
                 BaseAddress = new Uri("https://dev.edi.md/ISAuthService/json/")
             };
-            // Добавьте другие настройки, если они необходимы, например, таймауты, заголовки и т. д.
+
             return httpClient;
         }
 

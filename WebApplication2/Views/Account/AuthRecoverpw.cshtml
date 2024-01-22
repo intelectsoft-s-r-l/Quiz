@@ -11,10 +11,10 @@
 
             <div class="col-md-8 col-lg-6 col-xl-5">
                 <div>
-
-                    <a href=@Url.Action("Index", "index") class="mb-5 d-block auth-logo">
-                        <img src="~/assets/images/intelectsoft/logo/IS-long-green.svg" alt="" height="125" style="margin-top: -36px; margin-bottom: -40px; margin-left: -15px;">
+                    <a href=@Url.Action("Login", "Account") class="d-block auth-logo">
+                        <img src="~/assets/images/intelectsoft/logo/IS-long-green.svg" alt="" height="220" class="logo logo-dark">
                     </a>
+
                     <div class="card">
                         <!-- Вывод сообщения об ошибке (если есть) -->
                         @if (TempData["Error"] != null)
