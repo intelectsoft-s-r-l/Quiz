@@ -17,17 +17,16 @@ namespace ISQuiz.Controllers
         private readonly IQuizRepository _quizRepository;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<HomeController> _logger;
-        //private readonly IStringLocalizer<HomeController> _localizer;
+
 
         public HomeController(IQuizRepository quizRepository,
                              IUserRepository userRepository,
                              ILogger<HomeController> logger
-                             /*, IStringLocalizer<HomeController> localizer*/) : base(logger)
+                             ) : base(logger)
         {
             _quizRepository = quizRepository;
             _userRepository = userRepository;
             _logger = logger;
-            //_localizer = localizer;
         }
 
         [HttpGet]
@@ -136,7 +135,7 @@ namespace ISQuiz.Controllers
             {
                 var questionnaireData = await QuestionnaireDetail(id);
                 //var questionsData = await QuestionsDetail(id);
-                if(questionnaireData == null) return View("Error");
+                if (questionnaireData == null) return View("Error");
 
                 if (questionnaireData.errorCode == 0 /*&& questionsData.errorCode == 0*/)
                 {
@@ -447,7 +446,7 @@ namespace ISQuiz.Controllers
             try
             {
                 string token = GetToken();
-                
+
                 var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
 
                 if (baseResponse == null) return View("Error");

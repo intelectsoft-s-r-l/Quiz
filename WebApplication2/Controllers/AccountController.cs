@@ -27,7 +27,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login() => View("~/Views/Account/Login.cshtml");
-        
+
 
         [HttpPost]
         [AllowAnonymous]

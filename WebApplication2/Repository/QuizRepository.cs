@@ -1,76 +1,138 @@
-﻿using ISQuiz.Helper;
-using ISQuiz.Interface;
+﻿using ISQuiz.Interface;
 using ISQuiz.Models.API;
 using ISQuiz.Models.API.Questionnaires;
 using ISQuiz.ViewModels;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Text;
+using ISQuizBLL.Queries;
+using ISQuizBLL.URLs;
 
 namespace ISQuiz.Repository
 {
     public class QuizRepository : IQuizRepository
     {
-        private readonly HttpClient _httpClient;
-        private readonly GlobalConfiguration _globalConfiguration;
-
-        public QuizRepository()
-        {
-            _globalConfiguration = new GlobalConfiguration();
-            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(_globalConfiguration.Credentials()));
-            _httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri(_globalConfiguration.StartUriForQuiz()),
-                DefaultRequestHeaders =
-                {
-                    Authorization = new AuthenticationHeaderValue("Basic", credentials)
-                }
-            };
-        }
-
-        private async Task<T> SendGetRequest<T>(string endpoint)
-        {
-            using var response = await _httpClient.GetAsync(endpoint);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-        }
-        private async Task<T> SendPostRequest<T>(string endpoint, object data)
-        {
-            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            using var response = await _httpClient.PostAsync(endpoint, jsonContent);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-        }
-        private async Task<T> SendDeleteRequest<T>(string endpoint)
-        {
-            using var response = await _httpClient.DeleteAsync(endpoint);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-        }
+        private readonly QuizURLs quizURLs = new QuizURLs();
+        private readonly GlobalQuery GlobalQuery = new GlobalQuery();
 
         //GET
         public async Task<DetailQuestionnaire> GetQuestionnaire(string token, int id)
-            => await SendGetRequest<DetailQuestionnaire>($"GetQuestionnaire?Token={token}&id={id}");
+        {
+            var url = quizURLs.GetQuestionnaire(token, id);
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Get,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<DetailQuestionnaire>(queryData);
+        }
+
 
         public async Task<GetQuestionnairesInfo> GetQuestionnaires(string token)
-            => await SendGetRequest<GetQuestionnairesInfo>($"GetQuestionnaires?token={token}");
+        {
+            var url = quizURLs.GetQuestionnaires(token);
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Get,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<GetQuestionnairesInfo>(queryData);
+        }
+
 
         public async Task<QuestionnaireStatisticResponse> GetQuestionnaireStatistic(string token, int id)
-            => await SendGetRequest<QuestionnaireStatisticResponse>($"QuestionnaireStatistic?token={token}&id={id}");
+        {
+            var url = quizURLs.QuestionnaireStatistic(token, id);
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Get,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<QuestionnaireStatisticResponse>(queryData);
+        }
+
 
         public async Task<DetailQuestions> GetQuestions(string token, int id)
-            => await SendGetRequest<DetailQuestions>($"GetQuestions?token={token}&questionnaireId={id}");
+        {
+            var url = quizURLs.GetQuestions(token, id);
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Get,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<DetailQuestions>(queryData);
+        }
+
 
         //POST(Upsert)
         public async Task<QuestionnaireIdViewModel> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM)
-            => await SendPostRequest<QuestionnaireIdViewModel>("UpsertQuestionnaire", upsertQuestionnaireVM);
+        {
+            var url = quizURLs.UpsertQuestionnaire();
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Post,
+                endpoint = url,
+                Credentials = credentials,
+                data = upsertQuestionnaireVM
+            };
+            return await GlobalQuery.SendRequest<QuestionnaireIdViewModel>(queryData);
+        }
+
 
         public async Task<BaseErrors> UpsertQuestions(UpsertQuestions upsertQuestionsVM)
-            => await SendPostRequest<BaseErrors>("UpsertQuestions", upsertQuestionsVM);
+        {
+            var url = quizURLs.UpsertQuestions();
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Post,
+                endpoint = url,
+                Credentials = credentials,
+                data = upsertQuestionsVM
+            };
+            return await GlobalQuery.SendRequest<BaseErrors>(queryData);
+        }
 
         //DELETE
         public async Task<BaseErrors> DeleteQuestion(string token, int id)
-            => await SendDeleteRequest<BaseErrors>($"DeleteQuestions?token={token}&questionId={id}");
+        {
+            var url = quizURLs.DeleteQuestions(token, id);
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Delete,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<BaseErrors>(queryData);
+        }
 
         public async Task<BaseErrors> DeleteQuestionnaire(string token, int oid)
-            => await SendDeleteRequest<BaseErrors>($"DeleteQuestionnaire?Token={token}&id={oid}");
+        {
+            var url = quizURLs.DeleteQuestionnaire(token, oid);
+            var credentials = quizURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Delete,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<BaseErrors>(queryData);
+        }
     }
 
 }
