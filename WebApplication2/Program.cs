@@ -1,6 +1,6 @@
 using FluentValidation.AspNetCore;
 using ISQuiz.Common;
-using ISQuiz.Common.Service;
+using ISQuiz.Repository;
 using ISQuiz.Validator;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Razor;

@@ -81,6 +81,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ISQuizBLL\ISQuizBLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources\Localization.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

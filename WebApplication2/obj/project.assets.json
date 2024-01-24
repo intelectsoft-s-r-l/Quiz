@@ -717,6 +717,20 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "ISQuizBLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3",
+          "System.Net.Http.Formatting.Extension": "5.2.3"
+        },
+        "compile": {
+          "bin/placeholder/ISQuizBLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ISQuizBLL.dll": {}
+        }
       }
     }
   },
@@ -1841,11 +1855,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ISQuizBLL/1.0.0": {
+      "type": "project",
+      "path": "../ISQuizBLL/ISQuizBLL.csproj",
+      "msbuildProject": "../ISQuizBLL/ISQuizBLL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "FluentValidation.AspNetCore >= 11.3.0",
+      "ISQuizBLL >= 1.0.0",
       "Microsoft.AspNet.Mvc >= 5.3.0",
       "Microsoft.AspNet.WebApi.Core >= 5.3.0",
       "Newtonsoft.Json >= 13.0.3",
@@ -1861,11 +1881,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\ISQuiz.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
       "projectName": "ISQuiz",
-      "projectPath": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\ISQuiz.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\Новая папка\\Quiz\\WebApplication2\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
@@ -1888,7 +1908,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

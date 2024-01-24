@@ -1,45 +1,47 @@
 ﻿using ISQuiz.Interface;
 using ISQuiz.Models;
 using ISQuiz.ViewModels;
-using Newtonsoft.Json;
-using System.Text;
+using ISQuizBLL.Queries;
+using ISQuizBLL.URLs;
 
 namespace ISQuiz.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly HttpClient _httpClient;
-
-        public UserRepository()
-        {
-            _httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri("https://dev.edi.md/ISAuthService/json/")
-            };
-        }
-
-
-        private async Task<T> SendGetRequest<T>(string endpoint)
-        {
-            using var response = await _httpClient.GetAsync(endpoint);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-        }
-
-        private async Task<T> SendPostRequest<T>(string endpoint, object data)
-        {
-            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            using var response = await _httpClient.PostAsync(endpoint, jsonContent);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-        }
+        private readonly AuthURLs authURLs = new AuthURLs();
+        private readonly GlobalQuery GlobalQuery = new GlobalQuery();
 
 
         //GET
         public async Task<GetProfileInfo> getProfileInfo(string token)
-            => await SendGetRequest<GetProfileInfo>($"GetProfileInfo?Token={token}");
+        {
+            var url = authURLs.GetProfileInfo(token);
+            var credentials = authURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Get,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<GetProfileInfo>(queryData);
+        }
 
         //POST
         public async Task<BaseResponse> changePassword(ChangePasswordViewModel changePasswordVM)
-            => await SendPostRequest<BaseResponse>("ChangePassword", changePasswordVM);
+        {
+            var url = authURLs.ChangePassword();
+            var credentials = authURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Post,
+                endpoint = url,
+                Credentials = credentials,
+                data = changePasswordVM
+            };
+            return await GlobalQuery.SendRequest<BaseResponse>(queryData);
+        }
 
 
     }
