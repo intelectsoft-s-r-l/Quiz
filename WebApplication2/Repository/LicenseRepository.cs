@@ -94,7 +94,7 @@ namespace ISQuiz.Repository
 
             QueryData queryData = new QueryData()
             {
-                method = HttpMethod.Get,
+                method = HttpMethod.Post,
                 endpoint = url,
                 Credentials = credentials,
                 data = generateLicenseVM
