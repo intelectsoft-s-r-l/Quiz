@@ -1,8 +1,7 @@
 ﻿using ISQuiz.Interface;
 using ISQuiz.Models.Interfaces;
-using ISQuiz.Repository;
 
-namespace ISQuiz.Common.Service
+namespace ISQuiz.Repository
 {
     public class ServicesScoped
     {
