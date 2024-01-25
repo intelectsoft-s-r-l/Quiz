@@ -17,7 +17,7 @@ namespace ISQuiz.Validator
                 .NotEmpty()
                 .MinimumLength(8)
                 .MaximumLength(20)
-                //.Matches(passwordPattern)
+                .Matches(passwordPattern)
                 .WithName(Localization.NewPassword);
 
             RuleFor(x => x.ConfirmPassword)
