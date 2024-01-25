@@ -11,7 +11,7 @@ namespace ISQuiz.Repository
         private string BaseURI = "https://dev.edi.md";
 #endif
 #if RELEASE
-        private string BaseURI = "https://api.eservicii.md"; //Prod = https://dev.edi.md or https://api.eservicii.md    ?
+        private string BaseURI = "https://api.eservicii.md";
 #endif
 
         public async Task<T> SendRequest<T>(QueryData queryData)
