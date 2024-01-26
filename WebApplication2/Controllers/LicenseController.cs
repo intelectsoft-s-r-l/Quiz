@@ -10,85 +10,32 @@ namespace ISQuiz.Controllers
     public class LicenseController : BaseController
     {
         private readonly ILicenseRepository _licenseRepository;
-        private readonly ILogger<LicenseController> _logger;
 
-        public LicenseController(ILicenseRepository licenseRepository,
-                                 ILogger<LicenseController> logger) : base(logger)
+        public LicenseController(ILicenseRepository licenseRepository)
         {
             _licenseRepository = licenseRepository;
-            _logger = logger;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            _logger.LogInformation($"License.Index method called.");
-            try
-            {
-                string token = GetToken();
+            string token = GetToken();
 
-                var licenseData = await _licenseRepository.GetLicenseList(token);
+            var licenseData = await _licenseRepository.GetLicenseList(token);
+            return View("~/Views/License/Index.cshtml", licenseData.licenses);
 
-                if (licenseData is null)
-                {
-                    _logger.LogError($"{licenseData}");
-                    return View("~/Views/Account/Login.cshtml");
-                }
-                else
-                {
-                    if (licenseData.errorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await Index();
-                    }
-                    else if (licenseData.errorCode == 0)
-                        return View("~/Views/License/Index.cshtml", licenseData.licenses);
-                    else
-                        return View("~/Views/Account/Login.cshtml");
-                }
 
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while processing the License.Index method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Detail(string id)
         {
-            _logger.LogInformation($"License.Detail method called.");
-            try
-            {
-                string token = GetToken();
-                var licenseData = await _licenseRepository.GetLicense(token, id);
-                if (licenseData != null)
-                {
-                    if (licenseData.errorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await Detail(id);
-                    }
-                    else if (licenseData.errorCode == 0)
-                        return PartialView("~/Views/License/Detail.cshtml", licenseData.license);
-                    else
-                    {
-                        _logger.LogError($"{licenseData}");
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                }
 
-                return PartialView("~/Views/_Shared/Error.cshtml");
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while processing the License.Detail method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
+            string token = GetToken();
+            var licenseData = await _licenseRepository.GetLicense(token, id);
+            return PartialView("~/Views/License/Detail.cshtml", licenseData.license);
 
         }
 
@@ -112,39 +59,11 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Deactivate(string oid)
         {
-            _logger.LogInformation($"License.Deactivate method called.");
-            try
-            {
-                string token = GetToken();
 
-                var licenseResponse = await _licenseRepository.DeactivateLicense(token, oid);
+            string token = GetToken();
 
-                if (licenseResponse != null)
-                {
-                    if (licenseResponse.errorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await Deactivate(oid);
-                    }
-                    else if (licenseResponse.errorCode == 0)
-                        return Json(new { StatusCode = 200, Message = "Ok" });
-                    else
-                    {
-                        _logger.LogError($"{licenseResponse}");
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                }
-                /* else
-                     return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
-                */
-
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while processing the License.Deactivate method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
+            var licenseResponse = await _licenseRepository.DeactivateLicense(token, oid);
+            return Json(new { StatusCode = 200, Message = "Ok" });
 
 
         }
@@ -154,37 +73,10 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Activate(string oid)
         {
-            _logger.LogInformation($"License.Activate method called.");
-            try
-            {
-                string token = GetToken();
-                var licenseResponse = await _licenseRepository.ActivateLicense(token, oid);
-                if (licenseResponse != null)
-                {
-                    if (licenseResponse.errorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await Deactivate(oid);
-                    }
-                    else if (licenseResponse.errorCode == 0)
-                        return Json(new { StatusCode = 200, Message = "Ok" });
-                    else
-                    {
-                        _logger.LogError($"{licenseResponse}");
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                }
-                return PartialView("~/Views/_Shared/Error.cshtml");
-                //else
-                //{
-                //    return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
-                //}
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while processing the License.Activate method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
+
+            string token = GetToken();
+            var licenseResponse = await _licenseRepository.ActivateLicense(token, oid);
+            return Json(new { StatusCode = 200, Message = "Ok" });
 
 
 
@@ -193,38 +85,11 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Release(string oid)
         {
-            _logger.LogInformation($"License.Release method called.");
-            try
-            {
-                string token = GetToken();
-                var licenseResponse = await _licenseRepository.ReleaseLicense(token, oid);
-                if (licenseResponse != null)
-                {
 
+            string token = GetToken();
+            var licenseResponse = await _licenseRepository.ReleaseLicense(token, oid);
+            return Json(new { StatusCode = 200, Message = "Ok" });
 
-                    if (licenseResponse.errorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await Deactivate(oid);
-                    }
-                    else if (licenseResponse.errorCode == 0)
-                    {
-                        return Json(new { StatusCode = 200, Message = "Ok" });
-
-                    }
-                    else
-                    {
-                        _logger.LogError($"{licenseResponse}");
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                }
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while processing the License.Release method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
 
 
         }
@@ -237,41 +102,19 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLicence([FromBody] GenerateLicenseViewModel generateLicenseVM)
         {
-            _logger.LogInformation($"License.CreateLicence method called.");
-            try
+
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return PartialView("~/Views/License/_CreateLicence.cshtml", generateLicenseVM);
-                }
-                else
-                {
-                    string token = GetToken();
-                    generateLicenseVM.token = token;
-                    var postLicenseBaseResponse = await _licenseRepository.GenerateLicense(generateLicenseVM);
-                    if (postLicenseBaseResponse != null)
-                    {
-                        if (postLicenseBaseResponse.errorCode == 143)
-                        {
-                            await RefreshToken();
-                            return await CreateLicence(generateLicenseVM);
-                        }
-                        else if (postLicenseBaseResponse.errorCode != 0)
-                        {
-                            _logger.LogError($"{postLicenseBaseResponse}");
-                            return View("~/Views/Account/Login.cshtml");
-                        }
-                        //return RedirectToAction(nameof(LicenseController.Index), "License");
-                        return Json(new { statusCode = 200 });
-                    }
-                    return PartialView("~/Views/_Shared/Error.cshtml");
-                }
+                return PartialView("~/Views/License/_CreateLicence.cshtml", generateLicenseVM);
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError(ex, "An error occurred while processing the License.CreateLicence method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                string token = GetToken();
+                generateLicenseVM.token = token;
+                var postLicenseBaseResponse = await _licenseRepository.GenerateLicense(generateLicenseVM);
+                return Json(new { statusCode = 200 });
             }
+
 
         }
 
@@ -282,39 +125,10 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteLicense(string oid)
         {
-            _logger.LogInformation($"License.DeleteLicense method called.");
-            try
-            {
-                string token = GetToken();
-                var deleteLicenseBaseResponse = await _licenseRepository.Delete(token, oid);
-                if (deleteLicenseBaseResponse != null)
-                {
-                    if (deleteLicenseBaseResponse.errorCode == 143)
-                    {
-                        await RefreshToken();
-                        return await DeleteLicense(oid);
-                    }
-                    else if (deleteLicenseBaseResponse.errorCode == 118)
-                    {
-                        return View("~/Views/Account/Login.cshtml");
-                    }
-                    else if (deleteLicenseBaseResponse.errorCode == 0)
-                        return Json(new { StatusCode = 200, Message = "Ok" });
-                    else
-                    {
-                        _logger.LogError($"{deleteLicenseBaseResponse}");
-                        return View("~/Views/Account/Login.cshtml");
-                        //return Json(new { StatusCode = 500, Message = deleteLicenseBaseResponse.errorMessage });
-                    }
-                }
+            string token = GetToken();
+            var deleteLicenseBaseResponse = await _licenseRepository.Delete(token, oid);
+            return Json(new { StatusCode = 200, Message = "Ok" });
 
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while processing the License.DeleteLicense method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
-            }
 
 
 
