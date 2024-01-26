@@ -1,10 +1,14 @@
 ﻿using ISQuiz.Models;
 using ISQuiz.Models.Enum;
+using ISQuiz.Repository;
+using ISQuizBLL.Queries;
+using ISQuizBLL.URLs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Security.Claims;
 
 namespace ISQuiz.Controllers
@@ -13,6 +17,9 @@ namespace ISQuiz.Controllers
     public class BaseController : Controller
     {
         private readonly ILogger<BaseController> _logger;
+        private readonly AuthURLs authURLs = new AuthURLs();
+        private readonly GlobalQuery GlobalQuery = new GlobalQuery();
+
         public BaseController(ILogger<BaseController> logger)
         {
             _logger = logger;
@@ -62,36 +69,40 @@ namespace ISQuiz.Controllers
                              where c.Type == ".AspNetCore.Admin"
                              select c).FirstOrDefault();
 
-                using var httpClientForRefreshToken = new HttpClient();
 
-                var apiUrlForRefreshToken = "https://dev.edi.md/ISAuthService/json/RefreshToken?Token=" + claim.Value;
 
-                var responseForRefreshToken = await httpClientForRefreshToken.GetAsync(apiUrlForRefreshToken);
+                var url = authURLs.RefreshToken(claim.Value);
+                var credentials = authURLs.Credentials();
 
-                if (responseForRefreshToken.IsSuccessStatusCode)
+                QueryData queryData = new QueryData()
                 {
-                    // Чтение данных из HTTP-ответа.
-                    var userData = await responseForRefreshToken.Content.ReadAsAsync<GetProfileInfo>();
-                    if (!string.IsNullOrEmpty(userData.Token))
-                    {
-
-                        //SignOut to unlock claims for mananging them
-                        await HttpContext.SignOutAsync();
-
-                        //Creating new claim to change our token after refresh
-                        var claimNew = new Claim(".AspNetCore.Admin", userData.Token);
-                        //Try remove claim selected from claimIdentity
-                        //If we use RemoveClaim we can get excetion if claim can't be removed
-                        claimIdentity.TryRemoveClaim(claim);
-                        claimIdentity.AddClaim(claimNew);
-                        //Add new claim
-                        //SignIn to save claim principal
-                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
+                    method = HttpMethod.Get,
+                    endpoint = url,
+                    Credentials = credentials,
+                };
+                var userData = await GlobalQuery.SendRequest<GetProfileInfo>(queryData);
 
 
-                    }
+                if (!string.IsNullOrEmpty(userData.Token))
+                {
+
+                    //SignOut to unlock claims for mananging them
+                    await HttpContext.SignOutAsync();
+
+                    //Creating new claim to change our token after refresh
+                    var claimNew = new Claim(".AspNetCore.Admin", userData.Token);
+                    //Try remove claim selected from claimIdentity
+                    //If we use RemoveClaim we can get excetion if claim can't be removed
+                    claimIdentity.TryRemoveClaim(claim);
+                    claimIdentity.AddClaim(claimNew);
+                    //Add new claim
+                    //SignIn to save claim principal
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
+
 
                 }
+
+                
             }
             catch (Exception ex)
             {
