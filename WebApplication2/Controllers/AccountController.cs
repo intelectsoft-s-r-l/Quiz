@@ -78,7 +78,8 @@ namespace ISQuiz.Controllers
                 else
                 {
                     TempData["Error"] = userData.ErrorMessage ?? "Undefined";
-                    return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
+                    //return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
+                    return View(loginVM);
                 }
             }
             catch (Exception ex)
