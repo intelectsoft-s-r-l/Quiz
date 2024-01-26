@@ -37,10 +37,9 @@ namespace ISQuiz.Repository
             }
 
             using var requestMessage = new HttpRequestMessage(queryData.method, queryData.endpoint);
-            if (queryData.data != null)
-            {
+            if (queryData.data != null) 
                 requestMessage.Content = new StringContent(JsonConvert.SerializeObject(queryData.data), Encoding.UTF8, "application/json");
-            }
+            
 
             var response = await _httpClient.SendAsync(requestMessage);
             if (!response.IsSuccessStatusCode)

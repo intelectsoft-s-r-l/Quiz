@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj": {}
+    "C:\\Users\\ADavid\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj": {
+    "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
+        "projectUniqueName": "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
         "projectName": "ISQuizBLL",
-        "projectPath": "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\obj\\",
+        "projectPath": "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
+        "packagesPath": "C:\\Users\\ADavid\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADavid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -76,21 +76,21 @@
         }
       }
     },
-    "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj": {
+    "C:\\Users\\ADavid\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
+        "projectUniqueName": "C:\\Users\\ADavid\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
         "projectName": "ISQuiz",
-        "projectPath": "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\Quiz\\WebApplication2\\obj\\",
+        "projectPath": "C:\\Users\\ADavid\\Desktop\\Quiz\\WebApplication2\\ISQuiz.csproj",
+        "packagesPath": "C:\\Users\\ADavid\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ADavid\\Desktop\\Quiz\\WebApplication2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADavid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -107,8 +107,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj": {
-                "projectPath": "C:\\Users\\User\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj"
+              "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj": {
+                "projectPath": "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj"
               }
             }
           }
@@ -142,10 +142,6 @@
             "Serilog.AspNetCore": {
               "target": "Package",
               "version": "[8.0.0, )"
-            },
-            "System.Net.Http.Formatting.Extension": {
-              "target": "Package",
-              "version": "[5.2.3, )"
             }
           },
           "imports": [

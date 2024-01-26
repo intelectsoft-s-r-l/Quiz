@@ -44,7 +44,6 @@ namespace ISQuiz.Controllers
 
                 if (userData.ErrorCode == 0)
                 {
-                    // Обработка смены языка
                     userData.User.UiLanguage = GetLanguageCookie() switch
                     {
                         "en" => EnUiLanguage.EN,
@@ -54,44 +53,38 @@ namespace ISQuiz.Controllers
                     };
                     await HandleLanguageChange(userData.Token, userData.User.UiLanguage);
 
-                    // Формирование списка утверждений (claims)
                     var userClaims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()),
-                new Claim(ClaimTypes.Email, userData.User.Email),
-                new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName),
-                new Claim("Company", userData.User.Company),
-                new Claim("PhoneNumber", userData.User.PhoneNumber),
-                new Claim(".AspNetCore.Admin", userData.Token),
-                new Claim("UiLanguage", GetLanguageCookie())
-            };
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()),
+                        new Claim(ClaimTypes.Email, userData.User.Email),
+                        new Claim("FullName", userData.User.FirstName + " " + userData.User.LastName),
+                        new Claim("Company", userData.User.Company),
+                        new Claim("PhoneNumber", userData.User.PhoneNumber),
+                        new Claim(".AspNetCore.Admin", userData.Token),
+                        new Claim("UiLanguage", GetLanguageCookie())
+                    };
 
-                    // Установка куки для выбранного языка
                     Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
                         CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())),
                         new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
-                    // Формирование идентификационного токена
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
-                    // Аутентификация пользователя
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
                 else
                 {
-                    // Обработка ошибок аутентификации
                     TempData["Error"] = userData.ErrorMessage ?? "Undefined";
                     return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
                 }
             }
             catch (Exception ex)
             {
-                // Логирование ошибок
                 _logger.LogError(ex, "An error occurred while processing the Login method. " + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
 
@@ -148,7 +141,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the AuthRecoverpw method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
@@ -184,7 +177,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the ChangeCultureLogin method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 

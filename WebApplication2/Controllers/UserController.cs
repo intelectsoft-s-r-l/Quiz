@@ -40,7 +40,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred in the ProfileInfo method.");
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
 
@@ -67,7 +67,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred in the Settings method.");
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
 

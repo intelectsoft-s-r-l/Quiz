@@ -52,7 +52,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the License.Index method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
 
@@ -81,13 +81,13 @@ namespace ISQuiz.Controllers
                     }
                 }
 
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the License.Detail method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
         }
@@ -106,7 +106,7 @@ namespace ISQuiz.Controllers
                     return PartialView("~/Views/License/_Release.cshtml", oid);
             }
 
-            return View("Error");
+            return PartialView("~/Views/_Shared/Error.cshtml");
         }
 
         [HttpGet]
@@ -138,12 +138,12 @@ namespace ISQuiz.Controllers
                      return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
                 */
 
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the License.Deactivate method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
@@ -174,7 +174,7 @@ namespace ISQuiz.Controllers
                         return View("~/Views/Account/Login.cshtml");
                     }
                 }
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
                 //else
                 //{
                 //    return Json(new { StatusCode = 500, Message = licenseResponse.errorMessage });
@@ -183,7 +183,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the License.Activate method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
@@ -218,12 +218,12 @@ namespace ISQuiz.Controllers
                         return View("~/Views/Account/Login.cshtml");
                     }
                 }
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the License.Release method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
@@ -264,13 +264,13 @@ namespace ISQuiz.Controllers
                         //return RedirectToAction(nameof(LicenseController.Index), "License");
                         return Json(new { statusCode = 200 });
                     }
-                    return View("Error");
+                    return PartialView("~/Views/_Shared/Error.cshtml");
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the License.CreateLicence method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
         }
@@ -308,12 +308,12 @@ namespace ISQuiz.Controllers
                     }
                 }
 
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the License.DeleteLicense method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 

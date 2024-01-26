@@ -54,12 +54,12 @@ namespace ISQuiz.Controllers
                     }
                     return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
                 }
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the Home.Index method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
 
@@ -135,7 +135,7 @@ namespace ISQuiz.Controllers
             {
                 var questionnaireData = await QuestionnaireDetail(id);
                 //var questionsData = await QuestionsDetail(id);
-                if (questionnaireData == null) return View("Error");
+                if (questionnaireData == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (questionnaireData.errorCode == 0 /*&& questionsData.errorCode == 0*/)
                 {
@@ -154,7 +154,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the GetInfoQuestionnaire method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
             return View();
 
@@ -168,7 +168,7 @@ namespace ISQuiz.Controllers
             {
                 var questionsData = await QuestionsDetail(id);
 
-                if (questionsData == null) return View("Error");
+                if (questionsData == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (questionsData.errorCode == 0)
                     return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
@@ -178,7 +178,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the GetQuestions method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
             return View();
@@ -196,7 +196,7 @@ namespace ISQuiz.Controllers
 
                 var statistic = await _quizRepository.GetQuestionnaireStatistic(token, id);
 
-                if (statistic == null) return View("Error");
+                if (statistic == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (statistic.errorCode == 143)
                 {
@@ -211,7 +211,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the QuestionnaireStatistic method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
@@ -231,7 +231,7 @@ namespace ISQuiz.Controllers
 
                 var userData = await _userRepository.getProfileInfo(token);
 
-                if (userData == null) return View("Error");
+                if (userData == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (userData.ErrorCode == 143)
                 {
@@ -269,7 +269,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the UpsertQuestionnaire method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
             return View();
@@ -306,7 +306,7 @@ namespace ISQuiz.Controllers
 
                 var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
 
-                if (dataResponse == null) return View("Error");
+                if (dataResponse == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (dataResponse.errorCode == 0)
                     return Json(new { StatusCode = 200 });
@@ -321,7 +321,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the UpsertQuestionnaire method." + ex.Message);
-                throw;
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
@@ -354,7 +354,7 @@ namespace ISQuiz.Controllers
 
                 var userData = await _userRepository.getProfileInfo(token);
 
-                if (userData == null) return View("Error");
+                if (userData == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (userData.ErrorCode == 143)
                 {
@@ -393,7 +393,7 @@ namespace ISQuiz.Controllers
 
                     var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
 
-                    if (questionsBaseResponsed == null) return View("Error");
+                    if (questionsBaseResponsed == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                     if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
                         return Json(new { StatusCode = 200 });
@@ -405,7 +405,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the CreateQuestionnaire method.");
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
 
@@ -421,7 +421,7 @@ namespace ISQuiz.Controllers
                 var questionnaireData = await QuestionnaireDetail(id);
                 var questionsData = await QuestionsDetail(id);
 
-                if (questionsData == null || questionnaireData is null) return View("Error");
+                if (questionsData == null || questionnaireData is null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (questionnaireData.errorCode == 0 && questionsData.errorCode == 0)
                 {
@@ -435,7 +435,7 @@ namespace ISQuiz.Controllers
             {
                 _logger.LogError(ex, "An error occurred while processing the Delete method.");
             }
-            return View("Error");
+            return PartialView("~/Views/_Shared/Error.cshtml");
         }
 
         //[HttpDelete, ActionName("Delete")]
@@ -449,7 +449,7 @@ namespace ISQuiz.Controllers
 
                 var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
 
-                if (baseResponse == null) return View("Error");
+                if (baseResponse == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (baseResponse.errorCode == 143)
                 {
@@ -466,7 +466,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the DeleteQuestionnaire method.");
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
@@ -481,7 +481,7 @@ namespace ISQuiz.Controllers
                 string token = GetToken();
                 var baseResponse = await _quizRepository.DeleteQuestion(token, id);
 
-                if (baseResponse == null) return View("Error");
+                if (baseResponse == null) return PartialView("~/Views/_Shared/Error.cshtml");
 
                 if (baseResponse.errorCode == 143)
                 {
@@ -498,10 +498,20 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing the DeleteQuestion method.");
-                return View("Error");
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
 
+        }
+
+
+
+        [Route("/404")]
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> NotFound()
+        {
+            return PartialView("~/Views/_Shared/_NotFound.cshtml");
         }
 
     }

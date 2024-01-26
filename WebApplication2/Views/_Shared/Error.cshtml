@@ -1,13 +1,26 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/_Shared/_BlankLayout.cshtml";
+}
+<div class="my-5 pt-sm-5">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center">
+                    <h4 class="text-uppercase mt-4">Error</h4>
+                    <div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-10">
+                                <div class="error-img">
+                                    <img src="~/assets/images/error.png" alt="" class="img-fluid mx-auto d-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

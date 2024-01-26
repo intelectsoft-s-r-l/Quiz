@@ -1457,3 +1457,131 @@ DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
 2024-01-25 09:43:35.556 +02:00 [INF] Executed action ISQuiz.Controllers.UserController.ChangePassword (ISQuiz) in 19.1356ms
 2024-01-25 09:43:35.556 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.UserController.ChangePassword (ISQuiz)'
 2024-01-25 09:43:35.556 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7208/User/ChangePassword application/json;+charset=UTF-8 56 - 200 - text/html;+charset=utf-8 22.3098ms
+2024-01-25 17:44:26.402 +02:00 [INF] User profile is available. Using 'C:\Users\ADavid\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-25 17:44:47.586 +02:00 [INF] User profile is available. Using 'C:\Users\ADavid\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-25 17:45:16.438 +02:00 [INF] User profile is available. Using 'C:\Users\ADavid\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-25 17:45:32.955 +02:00 [INF] User profile is available. Using 'C:\Users\ADavid\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-25 17:45:33.262 +02:00 [INF] Now listening on: http://localhost:7208
+2024-01-25 17:45:33.262 +02:00 [INF] Now listening on: http://localhost:5118
+2024-01-25 17:45:33.265 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-01-25 17:45:33.265 +02:00 [INF] Hosting environment: Development
+2024-01-25 17:45:33.265 +02:00 [INF] Content root path: C:\Users\ADavid\Desktop\Quiz\WebApplication2\
+2024-01-25 17:45:33.573 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/ - -
+2024-01-25 17:45:33.749 +02:00 [WRN] Failed to determine the https port for redirect.
+2024-01-25 17:45:33.789 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-01-25 17:45:33.802 +02:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-01-25 17:45:33.808 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/ - - - 302 0 - 241.2265ms
+2024-01-25 17:45:33.817 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/Account/Login?ReturnUrl=%2F - -
+2024-01-25 17:45:33.833 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-25 17:45:33.873 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-25 17:45:33.917 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-25 17:45:33.934 +02:00 [INF] Executing ViewResult, running view ~/Views/Account/Login.cshtml.
+2024-01-25 17:45:34.180 +02:00 [INF] Executed ViewResult - view ~/Views/Account/Login.cshtml executed in 245.5848ms.
+2024-01-25 17:45:34.182 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 308.7169ms
+2024-01-25 17:45:34.183 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-25 17:45:34.185 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/Account/Login?ReturnUrl=%2F - - - 200 - text/html;+charset=utf-8 368.2010ms
+2024-01-25 17:45:34.212 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-25 17:45:34.212 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/_vs/browserLink - -
+2024-01-25 17:45:34.215 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 3.3802ms
+2024-01-25 17:45:36.033 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1820.6669ms
+2024-01-25 17:54:59.069 +02:00 [INF] User profile is available. Using 'C:\Users\ADavid\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-01-25 17:54:59.276 +02:00 [INF] Now listening on: http://localhost:7208
+2024-01-25 17:54:59.276 +02:00 [INF] Now listening on: http://localhost:5118
+2024-01-25 17:54:59.279 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-01-25 17:54:59.279 +02:00 [INF] Hosting environment: Development
+2024-01-25 17:54:59.279 +02:00 [INF] Content root path: C:\Users\ADavid\Desktop\Quiz\WebApplication2\
+2024-01-25 17:55:02.039 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/ - -
+2024-01-25 17:55:02.194 +02:00 [WRN] Failed to determine the https port for redirect.
+2024-01-25 17:55:02.252 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-01-25 17:55:02.269 +02:00 [INF] AuthenticationScheme: Cookies was challenged.
+2024-01-25 17:55:02.275 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/ - - - 302 0 - 240.0977ms
+2024-01-25 17:55:02.283 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/Account/Login?ReturnUrl=%2F - -
+2024-01-25 17:55:02.302 +02:00 [INF] Executing endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-25 17:55:02.336 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller ISQuiz.Controllers.AccountController (ISQuiz).
+2024-01-25 17:55:02.345 +02:00 [INF] GetLanguageCookie BaseController
+2024-01-25 17:55:02.362 +02:00 [INF] Executing ViewResult, running view ~/Views/Account/Login.cshtml.
+2024-01-25 17:55:02.650 +02:00 [INF] Executed ViewResult - view ~/Views/Account/Login.cshtml executed in 280.8968ms.
+2024-01-25 17:55:02.664 +02:00 [INF] Executed action ISQuiz.Controllers.AccountController.Login (ISQuiz) in 328.2165ms
+2024-01-25 17:55:02.665 +02:00 [INF] Executed endpoint 'ISQuiz.Controllers.AccountController.Login (ISQuiz)'
+2024-01-25 17:55:02.666 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/css/icons.min.css - -
+2024-01-25 17:55:02.678 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/css/bootstrap.min.css - -
+2024-01-25 17:55:02.703 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/css/bootstrap.css - -
+2024-01-25 17:55:02.704 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/css/app.css - -
+2024-01-25 17:55:02.710 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/Account/Login?ReturnUrl=%2F - - - 200 - text/html;+charset=utf-8 426.9803ms
+2024-01-25 17:55:02.710 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/css/app.min.css - -
+2024-01-25 17:55:02.710 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css - -
+2024-01-25 17:55:02.758 +02:00 [INF] Sending file. Request path: '/assets/css/icons.min.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\css\icons.min.css'
+2024-01-25 17:55:02.758 +02:00 [INF] Sending file. Request path: '/assets/css/app.min.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\css\app.min.css'
+2024-01-25 17:55:02.758 +02:00 [INF] Sending file. Request path: '/assets/css/bootstrap.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\css\bootstrap.css'
+2024-01-25 17:55:02.758 +02:00 [INF] Sending file. Request path: '/assets/css/app.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\css\app.css'
+2024-01-25 17:55:02.758 +02:00 [INF] Sending file. Request path: '/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\datatables.net-bs4\css\dataTables.bootstrap4.min.css'
+2024-01-25 17:55:02.758 +02:00 [INF] Sending file. Request path: '/assets/css/bootstrap.min.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\css\bootstrap.min.css'
+2024-01-25 17:55:02.759 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css - - - 200 5396 text/css 48.3662ms
+2024-01-25 17:55:02.759 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css - -
+2024-01-25 17:55:02.762 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/css/app.css - - - 200 102814 text/css 60.0601ms
+2024-01-25 17:55:02.762 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/css/bootstrap.css - - - 200 266688 text/css 61.1038ms
+2024-01-25 17:55:02.762 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/bootstrap/js/bootstrap.bundle.min.js - -
+2024-01-25 17:55:02.762 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/images/flags/russia.jpg - -
+2024-01-25 17:55:02.762 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/css/bootstrap.min.css - - - 200 201648 text/css 84.5921ms
+2024-01-25 17:55:02.762 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/css/icons.min.css - - - 200 385352 text/css 96.2005ms
+2024-01-25 17:55:02.763 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css - -
+2024-01-25 17:55:02.763 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/images/intelectsoft/logo/IS-long-green.svg - -
+2024-01-25 17:55:02.762 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/css/app.min.css - - - 200 79409 text/css 52.1502ms
+2024-01-25 17:55:02.763 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/images/flags/ro.png - -
+2024-01-25 17:55:02.769 +02:00 [INF] Sending file. Request path: '/assets/images/flags/ro.png'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\images\flags\ro.png'
+2024-01-25 17:55:02.770 +02:00 [INF] Sending file. Request path: '/assets/images/flags/russia.jpg'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\images\flags\russia.jpg'
+2024-01-25 17:55:02.770 +02:00 [INF] Sending file. Request path: '/assets/images/intelectsoft/logo/IS-long-green.svg'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\images\intelectsoft\logo\IS-long-green.svg'
+2024-01-25 17:55:02.770 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/images/flags/ro.png - - - 200 335 image/png 6.9074ms
+2024-01-25 17:55:02.770 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/images/flags/russia.jpg - - - 200 633 image/jpeg 7.5043ms
+2024-01-25 17:55:02.770 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/images/intelectsoft/logo/IS-long-green.svg - - - 200 5654 image/svg+xml 7.3791ms
+2024-01-25 17:55:02.770 +02:00 [INF] Sending file. Request path: '/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\datatables.net-buttons-bs4\css\buttons.bootstrap4.min.css'
+2024-01-25 17:55:02.770 +02:00 [INF] Sending file. Request path: '/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\datatables.net-responsive-bs4\css\responsive.bootstrap4.min.css'
+2024-01-25 17:55:02.770 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css - - - 200 3496 text/css 10.8342ms
+2024-01-25 17:55:02.770 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css - - - 200 4163 text/css 7.5985ms
+2024-01-25 17:55:02.771 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/images/flags/us.jpg - -
+2024-01-25 17:55:02.771 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/metismenu/metisMenu.min.js - -
+2024-01-25 17:55:02.772 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/simplebar/simplebar.min.js - -
+2024-01-25 17:55:02.772 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/node-waves/waves.min.js - -
+2024-01-25 17:55:02.773 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/waypoints/lib/jquery.waypoints.min.js - -
+2024-01-25 17:55:02.778 +02:00 [INF] Sending file. Request path: '/assets/images/flags/us.jpg'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\images\flags\us.jpg'
+2024-01-25 17:55:02.778 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/images/flags/us.jpg - - - 200 1242 image/jpeg 7.4280ms
+2024-01-25 17:55:02.779 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/jquery.counterup/jquery.counterup.min.js - -
+2024-01-25 17:55:02.790 +02:00 [INF] Sending file. Request path: '/assets/libs/metismenu/metisMenu.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\metismenu\metisMenu.min.js'
+2024-01-25 17:55:02.790 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/metismenu/metisMenu.min.js - - - 200 4800 application/javascript 19.3763ms
+2024-01-25 17:55:02.791 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net/js/jquery.dataTables.min.js - -
+2024-01-25 17:55:02.793 +02:00 [INF] Sending file. Request path: '/assets/libs/node-waves/waves.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\node-waves\waves.min.js'
+2024-01-25 17:55:02.793 +02:00 [INF] Sending file. Request path: '/assets/libs/waypoints/lib/jquery.waypoints.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\waypoints\lib\jquery.waypoints.min.js'
+2024-01-25 17:55:02.793 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/node-waves/waves.min.js - - - 200 6330 application/javascript 20.7326ms
+2024-01-25 17:55:02.793 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/waypoints/lib/jquery.waypoints.min.js - - - 200 9034 application/javascript 20.4204ms
+2024-01-25 17:55:02.794 +02:00 [INF] Sending file. Request path: '/assets/libs/jquery.counterup/jquery.counterup.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\jquery.counterup\jquery.counterup.min.js'
+2024-01-25 17:55:02.794 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js - -
+2024-01-25 17:55:02.794 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/jquery.counterup/jquery.counterup.min.js - - - 200 2183 application/javascript 15.4274ms
+2024-01-25 17:55:02.795 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js - -
+2024-01-25 17:55:02.795 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js - -
+2024-01-25 17:55:02.804 +02:00 [INF] Sending file. Request path: '/assets/libs/bootstrap/js/bootstrap.bundle.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\bootstrap\js\bootstrap.bundle.min.js'
+2024-01-25 17:55:02.805 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/bootstrap/js/bootstrap.bundle.min.js - - - 200 80827 application/javascript 42.1327ms
+2024-01-25 17:55:02.806 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/libs/parsleyjs/parsley.min.js - -
+2024-01-25 17:55:02.808 +02:00 [INF] Sending file. Request path: '/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js'
+2024-01-25 17:55:02.808 +02:00 [INF] Sending file. Request path: '/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js'
+2024-01-25 17:55:02.808 +02:00 [INF] Sending file. Request path: '/assets/libs/simplebar/simplebar.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\simplebar\simplebar.min.js'
+2024-01-25 17:55:02.808 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/simplebar/simplebar.min.js - - - 200 46373 application/javascript 36.0495ms
+2024-01-25 17:55:02.808 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js - - - 200 2102 application/javascript 13.7938ms
+2024-01-25 17:55:02.808 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js - - - 200 1250 application/javascript 12.6794ms
+2024-01-25 17:55:02.809 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/js/app.js - -
+2024-01-25 17:55:02.809 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/_framework/aspnetcore-browser-refresh.js - -
+2024-01-25 17:55:02.810 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/_vs/browserLink - -
+2024-01-25 17:55:02.814 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/_framework/aspnetcore-browser-refresh.js - - - 200 13748 application/javascript;+charset=utf-8 5.0331ms
+2024-01-25 17:55:02.823 +02:00 [INF] Sending file. Request path: '/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\datatables.net-responsive\js\dataTables.responsive.min.js'
+2024-01-25 17:55:02.823 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js - - - 200 14000 application/javascript 28.6423ms
+2024-01-25 17:55:02.832 +02:00 [INF] Sending file. Request path: '/assets/js/app.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\js\app.js'
+2024-01-25 17:55:02.833 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/js/app.js - - - 200 10211 application/javascript 23.9959ms
+2024-01-25 17:55:02.848 +02:00 [INF] Sending file. Request path: '/assets/libs/parsleyjs/parsley.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\parsleyjs\parsley.min.js'
+2024-01-25 17:55:02.849 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/parsleyjs/parsley.min.js - - - 200 42775 application/javascript 42.5023ms
+2024-01-25 17:55:02.862 +02:00 [INF] Sending file. Request path: '/assets/libs/datatables.net/js/jquery.dataTables.min.js'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\libs\datatables.net\js\jquery.dataTables.min.js'
+2024-01-25 17:55:02.863 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/libs/datatables.net/js/jquery.dataTables.min.js - - - 200 108211 application/javascript 71.8663ms
+2024-01-25 17:55:02.889 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 78.9507ms
+2024-01-25 17:55:03.144 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:7208/assets/images/LOGO.png - -
+2024-01-25 17:55:03.150 +02:00 [INF] Sending file. Request path: '/assets/images/LOGO.png'. Physical path: 'C:\Users\ADavid\Desktop\Quiz\WebApplication2\wwwroot\assets\images\LOGO.png'
+2024-01-25 17:55:03.151 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:7208/assets/images/LOGO.png - - - 200 9286 image/png 6.2839ms
