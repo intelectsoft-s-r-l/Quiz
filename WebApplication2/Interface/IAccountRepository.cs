@@ -9,6 +9,6 @@ namespace ISQuiz.Interface
         Task<BaseResponse> RecoverPassword(AuthRecoverpwViewModel recoverpwVM);
         Task<GetProfileInfo> AuthorizeUser(AuthorizeViewModel loginVM);
         Task<BaseResponse> ChangeUILanguage(string token, EnUiLanguage uiLanguage);
-
+        Task<GetProfileInfo> RefreshToken(string token);
     }
 }

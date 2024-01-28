@@ -1,6 +1,9 @@
-﻿using ISQuiz.Models;
+﻿using ISQuiz.Interface;
+using ISQuiz.Models;
 using ISQuiz.Models.Enum;
+using ISQuiz.Models.Interfaces;
 using ISQuiz.Repository;
+using ISQuiz.Resources;
 using ISQuizBLL.Queries;
 using ISQuizBLL.URLs;
 using Microsoft.AspNetCore.Authentication;
@@ -10,51 +13,27 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Security.Claims;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ISQuiz.Controllers
 {
     [Authorize]
     public class BaseController : Controller
     {
-        private readonly AuthURLs authURLs = new AuthURLs();
-        private readonly GlobalQuery GlobalQuery = new GlobalQuery();
+        private readonly IAccountRepository _accountRepository = new AccountRepository();
+        public static string refreshedToken = "";
+        public static object __refreshTokenLock = new object();
+        private IViewRenderService _viewRenderService;
+        protected IViewRenderService ViewRenderService => _viewRenderService ??= HttpContext.RequestServices.GetService<IViewRenderService>();
 
-        public string GetToken()
+
+        public async Task<bool> RefreshToken()
         {
+            bool retObject = true;
+
             try
             {
-                
-                var user = User;
-                // Проверьте, аутентифицирован ли пользователь
-                if (user.Identity.IsAuthenticated)
-                {
-                    // Получите все Claim-ы пользователя
-                    var claims = user.Claims;
-
-                    // Получите конкретный Claim по типу
-                    var nameClaim = user.FindFirst(".AspNetCore.Admin");    //token
-
-                    if (nameClaim != null)
-                    {
-                        return nameClaim.Value; // Получите значение Claim
-                    }
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return null;
-        }
-
-
-        public async Task RefreshToken()
-        {
-            try
-            {
-                
+                //Monitor.Enter(__refreshTokenLock);
                 //Getting principal claims that are read-only
                 var claimPrincipal = User as ClaimsPrincipal;
                 //Getting claimIdentity from principalClaim
@@ -64,25 +43,15 @@ namespace ISQuiz.Controllers
                              where c.Type == ".AspNetCore.Admin"
                              select c).FirstOrDefault();
 
-
-
-                var url = authURLs.RefreshToken(claim.Value);
-                var credentials = authURLs.Credentials();
-
-                QueryData queryData = new QueryData()
-                {
-                    method = HttpMethod.Get,
-                    endpoint = url,
-                    Credentials = credentials,
-                };
-                var userData = await GlobalQuery.SendRequest<GetProfileInfo>(queryData);
-
+                var userData = await _accountRepository.RefreshToken(Uri.EscapeDataString(claim.Value));
+               
 
                 if (!string.IsNullOrEmpty(userData.Token))
                 {
+                    refreshedToken = userData.Token;
 
                     //SignOut to unlock claims for mananging them
-                    await HttpContext.SignOutAsync();
+                    HttpContext.SignOutAsync();
 
                     //Creating new claim to change our token after refresh
                     var claimNew = new Claim(".AspNetCore.Admin", userData.Token);
@@ -92,41 +61,70 @@ namespace ISQuiz.Controllers
                     claimIdentity.AddClaim(claimNew);
                     //Add new claim
                     //SignIn to save claim principal
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
-
-
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
                 }
-
-                
+                else
+                {
+                    retObject = false;
+                }
+                return retObject;
             }
             catch (Exception ex)
             {
-                //throw;
+                //_logger.Error(ex, ex.Message);
+                retObject = false;
+                return retObject;
             }
-
-
+            //finally { Monitor.Exit(__refreshTokenLock); }
         }
+
+        public string GetToken()
+        {
+            try
+            {
+                Monitor.Enter(__refreshTokenLock);
+                //Getting principal claims that are read-only
+                var claimPrincipal = User as ClaimsPrincipal;
+                //Getting claimIdentity from principalClaim
+                var claimIdentity = claimPrincipal.Identity as ClaimsIdentity;
+                //Finding claim we need to read or edit
+                var claim = (from c in claimPrincipal.Claims
+                             where c.Type == ".AspNetCore.Admin"
+                             select c).FirstOrDefault();
+                //returning claimValue that is our token for service requests
+                return Uri.EscapeDataString(claim.Value.ToString());
+            }
+            finally { Monitor.Exit(__refreshTokenLock); }
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> ChangeCulture(string shortLang, string returnUrl)
         {
             try
             {
-                
-                var uiLanguage = EnUiLanguage.EN;
-                List<string> cultures = new() { "en", "ro", "ru" };
+                var uiLanguage = EnUiLanguage.RU;
+                List<string> cultures = new List<string>() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
                 {
-                    shortLang = "en";
+                    shortLang = "ru";
                 }
 
-                uiLanguage = shortLang switch
+                switch (shortLang)
                 {
-                    "en" => EnUiLanguage.EN,
-                    "ro" => EnUiLanguage.RO,
-                    "ru" => EnUiLanguage.RU,
-                    _ => EnUiLanguage.EN,
-                };
+                    case "en":
+                        uiLanguage = EnUiLanguage.EN;
+                        break;
+                    case "ro":
+                        uiLanguage = EnUiLanguage.RO;
+                        break;
+                    case "ru":
+                        uiLanguage = EnUiLanguage.RU;
+                        break;
+                    default:
+                        uiLanguage = EnUiLanguage.RU;
+                        break;
+                }
 
 
                 //var userClaims = GetUserClaims();
@@ -161,78 +159,52 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                var uiLanguage = EnUiLanguage.EN;
+                var uiLanguage = EnUiLanguage.RU;
                 return await ChangeLanguage((int)uiLanguage, returnUrl);
             }
         }
 
 
-        //serice query for change language
         [HttpGet]
         public async Task<IActionResult> ChangeLanguage(int lang, string returnUrl)
         {
             try
             {
-                
                 var token = GetToken();
-                using var httpClientForChangeLanguage = new HttpClient();
-                var apiUrlGetQuestionnairesByToken = "https://dev.edi.md/ISAuthService/json/ChangeUILanguage?Token=" + token + "&Language=" + lang;
 
-                var responseGetQuestionnaires = await httpClientForChangeLanguage.GetAsync(apiUrlGetQuestionnairesByToken);
-                if (responseGetQuestionnaires.IsSuccessStatusCode)
+                var response = await _accountRepository.ChangeUILanguage(token, (EnUiLanguage)lang);
+
+                if (response.ErrorCode == EnErrorCode.Expired_token)
                 {
-                    var baseResponseData = await responseGetQuestionnaires.Content.ReadAsAsync<BaseResponse>();
-                    if (baseResponseData.ErrorCode == 143)
+                    if (await RefreshToken())
                     {
-                        await RefreshToken();
                         return await ChangeLanguage(lang, returnUrl);
                     }
-                    else if (baseResponseData.ErrorCode == 118)
-                    {
-
-                    }
-                    else if (baseResponseData.ErrorCode != 0)
-                    {
-
-                    }
-                    return LocalRedirect(returnUrl ?? "/");
                 }
-
-
+                return LocalRedirect(returnUrl ?? "/");
             }
             catch (Exception ex)
             {
-                
-                return null;
+                //_logger.Error(ex, ex.Message);
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
-            return null;
         }
 
         public string GetLanguageCookie()
         {
-            
             var cookie = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
             if (cookie == null)
             {
-                return "en";
+                return "ru";
             }
             else
             {
-                List<string> cultures = new() { "en", "ro", "ru" };
-                if (cultures.Contains(cookie.ToLower()))
-                {
-                    return cookie.ToLower();
-                }
-                else
-                {
-                    var c_uic = cookie.Split('|');
-                    var culture = c_uic[0].Split("=");
+                var c_uic = cookie.Split('|');
+                var culture = c_uic[0].Split("=");
 
-                    return culture[1];
-                }
+                return culture[1];
             }
         }
-
 
     }
 }

@@ -24,3 +24,16 @@ C:\Users\ADavid\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.dll
 C:\Users\ADavid\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\refint\ISQuizBLL.dll
 C:\Users\ADavid\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.pdb
 C:\Users\ADavid\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ref\ISQuizBLL.dll
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\bin\Debug\net6.0\ISQuizBLL.deps.json
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\bin\Debug\net6.0\ISQuizBLL.dll
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\bin\Debug\net6.0\ISQuizBLL.pdb
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.csproj.AssemblyReference.cache
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.AssemblyInfoInputs.cache
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.AssemblyInfo.cs
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.csproj.CoreCompileInputs.cache
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.sourcelink.json
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.dll
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\refint\ISQuizBLL.dll
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.pdb
+C:\Users\BOSS\Desktop\Quiz\ISQuizBLL\obj\Debug\net6.0\ref\ISQuizBLL.dll

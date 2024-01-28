@@ -1,8 +1,10 @@
-﻿namespace ISQuiz.Models
+﻿using ISQuiz.Models.Enum;
+
+namespace ISQuiz.Models
 {
     public class BaseResponse
     {
-        public int ErrorCode { get; set; } //////
+        public EnErrorCode ErrorCode { get; set; } 
         public string ErrorMessage { get; set; }
     }
 }

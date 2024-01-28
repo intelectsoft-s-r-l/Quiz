@@ -6,6 +6,7 @@ using ISQuiz.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace ISQuiz.Controllers
 {
@@ -30,11 +31,32 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try
+            {
+                string token = GetToken();
 
-            string token = GetToken();
+                var questionnaireData = await _quizRepository.GetQuestionnaires(token);
 
-            var questionnaireData = await _quizRepository.GetQuestionnaires(token);
-            return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
+                if (questionnaireData.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await Index();
+                }
+                else if (questionnaireData.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(questionnaireData.errorMessage);
+                }
+                /*else if (questionnaireData.errorCode != 0)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }*/
+                return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
+
+            }
+            catch (Exception ex)
+            {
+
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
         }
 
 
@@ -42,21 +64,55 @@ namespace ISQuiz.Controllers
         public IActionResult Detail(int id) => View("~/Views/Home/Detail.cshtml", id);
 
 
-        public async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
+        private async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
         {
 
-            string token = GetToken();
-            var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
-            return questionnaireData;
+            try
+            {
+                string token = GetToken();
+                var questionnaireData = await _quizRepository.GetQuestionnaire(token, id);
 
+                if (questionnaireData.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await QuestionnaireDetail(id);
+                }
+                else if (questionnaireData.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(questionnaireData.errorMessage);
+                }
+                return questionnaireData;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
 
         }
 
-        public async Task<DetailQuestions> QuestionsDetail(int id)
+        private async Task<DetailQuestions> QuestionsDetail(int id)
         {
-            string token = GetToken();
-            var questionsData = await _quizRepository.GetQuestions(token, id);
-            return questionsData;
+            try
+            {
+                string token = GetToken();
+                var questionsData = await _quizRepository.GetQuestions(token, id);
+
+                if (questionsData.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await QuestionsDetail(id);
+                }
+                else if (questionsData.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(questionsData.errorMessage);
+                }
+                //if err == 0
+                return questionsData;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
 
 
         }
@@ -66,24 +122,57 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> GetInfoQuestionnaire(int id)
         {
 
-            var questionnaireData = await QuestionnaireDetail(id);
-            var detailQuestionnaireVm = new QuestionnaireViewModel
+            try
             {
-                oid = id,
-                Title = questionnaireData.questionnaire.name,
-                //Questions = questionsData.questions
-            };
-            //return View("~/Views/Home/Detail.cshtml", id);
-            return PartialView("~/Views/Home/_Info.cshtml", detailQuestionnaireVm);
+                var questionnaireData = await QuestionnaireDetail(id);
+                if (questionnaireData.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await GetInfoQuestionnaire(id);
+                }
+                else if (questionnaireData.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(questionnaireData.errorMessage);
+                }
+
+                var detailQuestionnaireVm = new QuestionnaireViewModel
+                {
+                    oid = id,
+                    Title = questionnaireData.questionnaire.name
+                };
+
+                return PartialView("~/Views/Home/_Info.cshtml", detailQuestionnaireVm);
+
+
+            }
+            catch (Exception ex)
+            {
+
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
 
         [HttpGet]
         public async Task<IActionResult> GetQuestions(int id)
         {
-            var questionsData = await QuestionsDetail(id);
+            try
+            {
+                var questionsData = await QuestionsDetail(id);
+                if (questionsData.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await GetQuestions(id);
+                }
+                else if (questionsData.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(questionsData.errorMessage);
+                }
 
-            return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
+                return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
+            }
+            catch (Exception ex)
+            {
+                return View("~/Views/_Shared/Error.cshtml");
+            }
         }
 
 
@@ -91,11 +180,28 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> QuestionnaireStatistic(int id)
         {
 
+            try
+            {
+                string token = GetToken();
 
-            string token = GetToken();
+                var statistic = await _quizRepository.GetQuestionnaireStatistic(token, id);
 
-            var statistic = await _quizRepository.GetQuestionnaireStatistic(token, id);
-            return PartialView("~/Views/Home/_Statistic.cshtml", statistic.questionnaireStatistic);
+                if (statistic.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await QuestionnaireStatistic(id);
+                }
+                else if (statistic.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(statistic.errorMessage);
+                }
+
+                return PartialView("~/Views/Home/_Statistic.cshtml", statistic.questionnaireStatistic);
+            }
+            catch (Exception ex)
+            {
+
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
 
@@ -105,16 +211,46 @@ namespace ISQuiz.Controllers
         {
 
 
+            try
+            {
+                string token = GetToken();
 
-            string token = GetToken();
+                var userData = await _userRepository.getProfileInfo(token);
 
-            var userData = await _userRepository.getProfileInfo(token);
-            upsertQuestionnaireVM.companyOid = userData.User.CompanyID;
-            upsertQuestionnaireVM.company = userData.User.Company;
-            upsertQuestionnaireVM.token = token;
+                if (userData.ErrorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await UpsertQuestionnaire(upsertQuestionnaireVM);
+                }
+                else if (userData.ErrorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(userData.ErrorMessage);
+                }
 
-            var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaireVM);
-            return Json(new { StatusCode = 200 });
+                upsertQuestionnaireVM.companyOid = userData.User.CompanyID;
+                upsertQuestionnaireVM.company = userData.User.Company;
+                upsertQuestionnaireVM.token = token;
+
+                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaireVM);
+
+                if (userData.ErrorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await UpsertQuestionnaire(upsertQuestionnaireVM);
+                }
+                else if (userData.ErrorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(userData.ErrorMessage);
+                }
+
+                return Json(new { StatusCode = 200 });
+
+
+            }
+            catch (Exception ex)
+            {
+
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
+
 
 
         }
@@ -123,35 +259,49 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> UpsertQuestion([FromBody] UpsertQuestionsViewModel upsertQuestionVM)
         {
 
-            string token = GetToken();
-
-            var deserializeResponseData = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
-
-            UpsertQuestions upsertQuestions = new()
+            try
             {
-                questions = new List<QuestionViewModel>
+                string token = GetToken();
+
+                var deserializeResponseData = JsonConvert.DeserializeObject<ResponseObject>(upsertQuestionVM.responseVariant);
+
+                UpsertQuestions upsertQuestions = new()
                 {
-                    new QuestionViewModel
+                    questions = new List<QuestionViewModel>
                     {
-                        id = upsertQuestionVM.id,
-                        question = upsertQuestionVM.question,
-                        questionnaireId = upsertQuestionVM.questionnaireId,
-                        comentary = upsertQuestionVM.comentary,
-                        gradingType = (GradingType)upsertQuestionVM.gradingType,
-                        responseVariants = deserializeResponseData.ResponseVariants
-                    }
-                },
-                token = token
-            };
+                        new QuestionViewModel
+                        {
+                            id = upsertQuestionVM.id,
+                            question = upsertQuestionVM.question,
+                            questionnaireId = upsertQuestionVM.questionnaireId,
+                            comentary = upsertQuestionVM.comentary,
+                            gradingType = (GradingType)upsertQuestionVM.gradingType,
+                            responseVariants = deserializeResponseData.ResponseVariants
+                        }
+                    },
+                    token = token
+                };
 
 
 
-            var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
-            return Json(new { StatusCode = 200 });
+                var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
+                if (dataResponse.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await UpsertQuestion(upsertQuestionVM);
+                }
+                else if (dataResponse.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(dataResponse.errorMessage);
+                }
+                return Json(new { StatusCode = 200 });
+            }
+            catch (Exception ex)
+            {
 
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
-
 
         //[HttpGet]
         public IActionResult CreateQuestionnaire()
@@ -171,37 +321,60 @@ namespace ISQuiz.Controllers
         {
 
 
-            string token = GetToken();
 
-            var userData = await _userRepository.getProfileInfo(token);
-
-
-            UpsertQuestionnaire upsertQuestionnaire = new()
+            try
             {
-                oid = upsertQuestionnaireVM.id,
-                name = upsertQuestionnaireVM.Title,
-                companyOid = userData.User.CompanyID,
-                company = userData.User.Company,
-                token = token
-            };
+                string token = GetToken();
+
+                var userData = await _userRepository.getProfileInfo(token);
+
+                if (userData.ErrorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await CreateQuestionnaire(upsertQuestionnaireVM);
+                }
+                else if (userData.ErrorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(userData.ErrorMessage);
+                }
+
+                UpsertQuestionnaire upsertQuestionnaire = new()
+                {
+                    oid = upsertQuestionnaireVM.id,
+                    name = upsertQuestionnaireVM.Title,
+                    companyOid = userData.User.CompanyID,
+                    company = userData.User.Company,
+                    token = token
+                };
 
 
-            var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
+                var questionnaireBaseResponsed = await _quizRepository.UpsertQuestionnaire(upsertQuestionnaire);
 
-            var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
+                var questionsVM = JsonConvert.DeserializeObject<QuestionsViewModel>(upsertQuestionnaireVM.Questions);
 
-            questionsVM.questions.ForEach(item => item.questionnaireId = questionnaireBaseResponsed.questionnaireId);
+                questionsVM.questions.ForEach(item => item.questionnaireId = questionnaireBaseResponsed.questionnaireId);
 
 
-            UpsertQuestions questions = new()
+                UpsertQuestions questions = new()
+                {
+                    questions = questionsVM.questions,
+                    token = token
+                };
+
+                var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
+
+                if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
+                    return Json(new { StatusCode = 200 });
+                else
+                {
+                    throw new Exception(questionnaireBaseResponsed.errorMessage + " ||| " + questionsBaseResponsed.errorMessage);
+                }
+                //return RedirectToAction("Index");
+            }
+            catch (Exception ex)
             {
-                questions = questionsVM.questions,
-                token = token
-            };
 
-            var questionsBaseResponsed = await _quizRepository.UpsertQuestions(questions);
-
-            return Json(new { StatusCode = 200 });
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
 
@@ -210,15 +383,27 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteVm = new QuestionnaireViewModel();
-            var questionnaireData = await QuestionnaireDetail(id);
-            var questionsData = await QuestionsDetail(id);
-            deleteVm.oid = id;
-            deleteVm.Title = questionnaireData.questionnaire.name;
-            deleteVm.Questions = questionsData.questions;
-            return PartialView("~/Views/Home/Delete.cshtml", deleteVm);
+            try
+            {
+                var deleteVm = new QuestionnaireViewModel();
+                var questionnaireData = await QuestionnaireDetail(id);
+                var questionsData = await QuestionsDetail(id);
 
-
+                if (questionnaireData.errorCode == EnErrorCode.NoError && questionsData.errorCode == EnErrorCode.NoError)
+                {
+                    deleteVm.oid = id;
+                    deleteVm.Title = questionnaireData.questionnaire.name;
+                    deleteVm.Questions = questionsData.questions;
+                    return PartialView("~/Views/Home/Delete.cshtml", deleteVm);
+                }
+                else
+                    throw new Exception(questionnaireData.errorMessage + " ||| " + questionsData.errorMessage);
+                
+            }
+            catch (Exception ex)
+            {
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
         }
 
         //[HttpDelete, ActionName("Delete")]
@@ -226,21 +411,53 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> DeleteQuestionnaire([FromBody] int oid)
         {
 
-            string token = GetToken();
+            try
+            {
+                string token = GetToken();
 
-            var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
+                var baseResponse = await _quizRepository.DeleteQuestionnaire(token, oid);
 
-            return Json(new { StatusCode = 200, Message = "Ok" });
+                if (baseResponse.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await DeleteQuestionnaire(oid);
+                }
+                else if (baseResponse.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(baseResponse.errorMessage);
+                }
+                return Json(new { StatusCode = 200, Message = "Ok" });
+
+            }
+            catch (Exception ex)
+            {
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteQuestion([FromBody] int id)
         {
-            string token = GetToken();
-            var baseResponse = await _quizRepository.DeleteQuestion(token, id);
-            return Json(new { StatusCode = 200, oid = id });
+            try
+            {
+                string token = GetToken();
+                var baseResponse = await _quizRepository.DeleteQuestion(token, id);
 
+                if (baseResponse.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await DeleteQuestion(id);
+                }
+                else if (baseResponse.errorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(baseResponse.errorMessage);
+                }
+                return Json(new { StatusCode = 200, oid = id });
+            }
+            catch (Exception ex)
+            {
+                
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
 

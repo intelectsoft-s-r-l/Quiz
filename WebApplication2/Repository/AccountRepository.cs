@@ -4,6 +4,7 @@ using ISQuiz.Models.Enum;
 using ISQuiz.ViewModels;
 using ISQuizBLL.Queries;
 using ISQuizBLL.URLs;
+using System.Security.Claims;
 
 namespace ISQuiz.Repository
 {
@@ -58,6 +59,19 @@ namespace ISQuiz.Repository
             return await GlobalQuery.SendRequest<BaseResponse>(queryData);
         }
 
+        public async Task<GetProfileInfo> RefreshToken(string token)
+        {
+            var url = authURLs.RefreshToken(token);
+            var credentials = authURLs.Credentials();
+
+            QueryData queryData = new QueryData()
+            {
+                method = HttpMethod.Get,
+                endpoint = url,
+                Credentials = credentials,
+            };
+            return await GlobalQuery.SendRequest<GetProfileInfo>(queryData);
+        }
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using ISQuiz.Interface;
+using ISQuiz.Models.Enum;
 using ISQuiz.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,27 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileInfo()
         {
+            try
+            {
+                string token = GetToken();
+                var UserData = await _userRepository.getProfileInfo(token);
 
+                if (UserData.ErrorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await ProfileInfo();
+                }
+                else if (UserData.ErrorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(UserData.ErrorMessage);
+                }
 
+                return View("~/Views/User/ProfileInfo.cshtml", UserData.User);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
-            string token = GetToken();
-            var UserData = await _userRepository.getProfileInfo(token);
-
-            return View("~/Views/User/ProfileInfo.cshtml", UserData.User);
 
         }
 
@@ -32,13 +47,28 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> Settings()
         {
 
+            try
+            {
+
+                string token = GetToken();
+                var UserData = await _userRepository.getProfileInfo(token);
 
 
-            string token = GetToken();
-            var UserData = await _userRepository.getProfileInfo(token);
+                if (UserData.ErrorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await Settings();
+                }
+                else if (UserData.ErrorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(UserData.ErrorMessage);
+                }
 
-
-            return View("~/Views/User/Settings.cshtml", UserData.User);
+                return View("~/Views/User/Settings.cshtml", UserData.User);
+            }
+            catch (Exception)
+            {
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
 
@@ -48,21 +78,35 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)
         {
-
-            if (!ModelState.IsValid)
-                return PartialView("~/Views/User/_ChangePassword.cshtml", changepwVM);
-
-            string token = GetToken();
-
-            ChangePasswordViewModel changePassword = new()
+            try
             {
-                NewPassword = changepwVM.NewPassword,
-                OldPassword = changepwVM.OldPassword,
-                Token = token
-            };
+                if (!ModelState.IsValid)
+                    return PartialView("~/Views/User/_ChangePassword.cshtml", changepwVM);
 
-            var baseResponseData = await _userRepository.changePassword(changePassword);
-            return Json(new { StatusCode = 200/*, Message = "Password changed successfully" */});
+                string token = GetToken();
+
+                ChangePasswordViewModel changePassword = new()
+                {
+                    NewPassword = changepwVM.NewPassword,
+                    OldPassword = changepwVM.OldPassword,
+                    Token = token
+                };
+
+                var baseResponseData = await _userRepository.changePassword(changePassword);
+                if (baseResponseData.ErrorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken()) return await ChangePassword(changepwVM);
+                }
+                else if (baseResponseData.ErrorCode != EnErrorCode.NoError)
+                {
+                    throw new Exception(baseResponseData.ErrorMessage);
+                }
+                return Json(new { StatusCode = 200/*, Message = "Password changed successfully" */});
+            }
+            catch (Exception ex)
+            {
+                return PartialView("~/Views/_Shared/Error.cshtml");
+            }
 
         }
 

@@ -21,32 +21,56 @@ namespace ISQuiz.Controllers
             _accountRepository = accountRepository;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login() => View("~/Views/Account/Login.cshtml");
 
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            var language = GetLanguageCookie();
+            if (string.IsNullOrEmpty(language))
+            {
+                ViewBag.Language = "ru";
+            }
+            else
+            {
+                ViewBag.Language = language.ToLower();
+            }
+
+
+            if (TempData["InvalidToken"] != null)
+            {
+                ViewBag.InvalidToken = TempData["InvalidToken"];
+                TempData.Remove("InvalidToken");
+            }
+
+            return View("~/Views/Account/Login.cshtml");
+        }
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthorizeViewModel loginVM)
         {
+            //_logger.LogInformation($"Login method called.");
+
             if (!ModelState.IsValid)
                 return View("Login", loginVM);
 
-            var userData = await _accountRepository.AuthorizeUser(loginVM);
-
-            if (userData.ErrorCode == 0)
+            try
             {
-                userData.User.UiLanguage = GetLanguageCookie() switch
-                {
-                    "en" => EnUiLanguage.EN,
-                    "ro" => EnUiLanguage.RO,
-                    "ru" => EnUiLanguage.RU,
-                    _ => EnUiLanguage.EN,
-                };
-                await HandleLanguageChange(userData.Token, userData.User.UiLanguage);
+                var userData = await _accountRepository.AuthorizeUser(loginVM);
 
-                var userClaims = new List<Claim>
+                if (userData.ErrorCode == EnErrorCode.NoError)
+                {
+                    userData.User.UiLanguage = GetLanguageCookie() switch
+                    {
+                        "en" => EnUiLanguage.EN,
+                        "ro" => EnUiLanguage.RO,
+                        "ru" => EnUiLanguage.RU,
+                        _ => EnUiLanguage.EN,
+                    };
+                    await HandleLanguageChange(userData.Token, userData.User.UiLanguage);
+
+                    var userClaims = new List<Claim>
                     {
                         new Claim(ClaimTypes.NameIdentifier, userData.User.ID.ToString()),
                         new Claim(ClaimTypes.Email, userData.User.Email),
@@ -57,30 +81,35 @@ namespace ISQuiz.Controllers
                         new Claim("UiLanguage", GetLanguageCookie())
                     };
 
-                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
-                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())),
-                    new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+                    Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(GetLanguageCookie().ToString())),
+                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
-                var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                else
+                {
+                    TempData["Error"] = userData.ErrorMessage;
+                    //return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
+                    return View("~/Views/Account/Login.cshtml", loginVM);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                TempData["Error"] = userData.ErrorMessage ?? "Undefined";
-                //return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
-                return View(loginVM);
+                //_logger.LogError(ex, "An error occurred while processing the Login method. " + ex.Message);
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
-
         }
 
         private async Task HandleLanguageChange(string token, EnUiLanguage uiLanguage)
         {
             var baseResponseData = await _accountRepository.ChangeUILanguage(token, uiLanguage);
-            if (baseResponseData.ErrorCode == 143)
+            if (baseResponseData.ErrorCode == EnErrorCode.Expired_token)
             {
                 await RefreshToken();
                 await HandleLanguageChange(token, uiLanguage);
