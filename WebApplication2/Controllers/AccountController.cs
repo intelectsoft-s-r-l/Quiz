@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Security.Claims;
 
 namespace ISQuiz.Controllers
@@ -26,6 +27,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
+            Log.Information("Into Account.Login | Get");
             var language = GetLanguageCookie();
             if (string.IsNullOrEmpty(language))
             {
@@ -50,7 +52,7 @@ namespace ISQuiz.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthorizeViewModel loginVM)
         {
-            //_logger.LogInformation($"Login method called.");
+            Log.Information("Into Account.Login | Post");
 
             if (!ModelState.IsValid)
                 return View("Login", loginVM);
@@ -95,13 +97,14 @@ namespace ISQuiz.Controllers
                 else
                 {
                     TempData["Error"] = userData.ErrorMessage;
+                    Log.Information("Response => {@userData}", userData);
                     //return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
                     return View("~/Views/Account/Login.cshtml", loginVM);
                 }
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, "An error occurred while processing the Login method. " + ex.Message);
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
@@ -128,28 +131,34 @@ namespace ISQuiz.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AuthRecoverpw(AuthRecoverpwViewModel recoverpwVM)
         {
-
-            if (!ModelState.IsValid)
-                return View();
-
-            var baseResponseData = await _accountRepository.RecoverPassword(recoverpwVM);
-
-            if (baseResponseData.ErrorCode == 0)
+            try
             {
-                AuthorizeViewModel authorizeViewModel = new()
+                if (!ModelState.IsValid)
+                    return View();
+
+                var baseResponseData = await _accountRepository.RecoverPassword(recoverpwVM);
+
+                if (baseResponseData.ErrorCode == 0)
                 {
-                    Email = recoverpwVM.Email
-                };
-                TempData["Success"] = Localization.successRecoverPWMessage;
-                return View("~/Views/Account/Login.cshtml", authorizeViewModel);
+                    AuthorizeViewModel authorizeViewModel = new()
+                    {
+                        Email = recoverpwVM.Email
+                    };
+                    TempData["Success"] = Localization.successRecoverPWMessage;
+                    return View("~/Views/Account/Login.cshtml", authorizeViewModel);
+                }
+                else
+                {
+                    TempData["Error"] = baseResponseData.ErrorMessage;
+                    Log.Information("Response => {@baseResponseData}", baseResponseData);
+                    return View("~/Views/Account/AuthRecoverpw.cshtml");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                TempData["Error"] = baseResponseData.ErrorMessage ?? "Undefined";
-                return View("~/Views/Account/AuthRecoverpw.cshtml");
+                Log.Error(ex, ex.Message);
+                return PartialView("~/Views/_Shared/Error.cshtml");
             }
-
-
 
         }
 

@@ -6,7 +6,7 @@ using ISQuiz.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Security.Cryptography;
+using Serilog;
 
 namespace ISQuiz.Controllers
 {
@@ -31,30 +31,35 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            Log.Information("Into Home.Index");
             try
             {
                 string token = GetToken();
 
-                var questionnaireData = await _quizRepository.GetQuestionnaires(token);
+                var questionnairesData = await _quizRepository.GetQuestionnaires(token);
 
-                if (questionnaireData.errorCode == EnErrorCode.Expired_token)
+                if (questionnairesData.errorCode == EnErrorCode.Expired_token)
                 {
                     if (await RefreshToken()) return await Index();
                 }
-                else if (questionnaireData.errorCode != EnErrorCode.NoError)
+                else if (questionnairesData.errorCode != EnErrorCode.NoError)
                 {
-                    throw new Exception(questionnaireData.errorMessage);
+                    Log.Information("Response => {@questionnairesData}", questionnairesData);
+                    throw new Exception(questionnairesData.errorMessage);
                 }
+
+                return View("~/Views/Home/Index.cshtml", questionnairesData.questionnaires);
+
                 /*else if (questionnaireData.errorCode != 0)
                 {
                     return RedirectToAction(nameof(AccountController.Login), "Account");
                 }*/
-                return View("~/Views/Home/Index.cshtml", questionnaireData.questionnaires);
+
 
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
@@ -66,7 +71,7 @@ namespace ISQuiz.Controllers
 
         private async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
         {
-
+            Log.Information("Into Home.QuestionnaireDetail");
             try
             {
                 string token = GetToken();
@@ -78,13 +83,14 @@ namespace ISQuiz.Controllers
                 }
                 else if (questionnaireData.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@questionnaireData}", questionnaireData);
                     throw new Exception(questionnaireData.errorMessage);
                 }
                 return questionnaireData;
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 throw;
             }
 
@@ -92,6 +98,7 @@ namespace ISQuiz.Controllers
 
         private async Task<DetailQuestions> QuestionsDetail(int id)
         {
+            Log.Information("Into Home.QuestionsDetail");
             try
             {
                 string token = GetToken();
@@ -103,6 +110,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (questionsData.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@questionsData}", questionsData);
                     throw new Exception(questionsData.errorMessage);
                 }
                 //if err == 0
@@ -110,7 +118,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 throw;
             }
 
@@ -121,7 +129,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> GetInfoQuestionnaire(int id)
         {
-
+            Log.Information("Into Home.GetInfoQuestionnaire");
             try
             {
                 var questionnaireData = await QuestionnaireDetail(id);
@@ -131,6 +139,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (questionnaireData.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@questionnaireData}", questionnaireData);
                     throw new Exception(questionnaireData.errorMessage);
                 }
 
@@ -146,7 +155,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -155,6 +164,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> GetQuestions(int id)
         {
+            Log.Information("Into Home.GetQuestions");
             try
             {
                 var questionsData = await QuestionsDetail(id);
@@ -164,6 +174,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (questionsData.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@questionsData}", questionsData);
                     throw new Exception(questionsData.errorMessage);
                 }
 
@@ -171,6 +182,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return View("~/Views/_Shared/Error.cshtml");
             }
         }
@@ -179,7 +191,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> QuestionnaireStatistic(int id)
         {
-
+            Log.Information("Into Home.QuestionnaireStatistic");
             try
             {
                 string token = GetToken();
@@ -192,6 +204,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (statistic.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@statistic}", statistic);
                     throw new Exception(statistic.errorMessage);
                 }
 
@@ -199,7 +212,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -210,7 +223,7 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnaire upsertQuestionnaireVM)
         {
 
-
+            Log.Information("Into Home.UpsertQuestionnaire");
             try
             {
                 string token = GetToken();
@@ -223,6 +236,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (userData.ErrorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@userData}", userData);
                     throw new Exception(userData.ErrorMessage);
                 }
 
@@ -247,7 +261,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -258,7 +272,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> UpsertQuestion([FromBody] UpsertQuestionsViewModel upsertQuestionVM)
         {
-
+            Log.Information("Into Home.UpsertQuestion");
             try
             {
                 string token = GetToken();
@@ -291,13 +305,14 @@ namespace ISQuiz.Controllers
                 }
                 else if (dataResponse.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@dataResponse}", dataResponse);
                     throw new Exception(dataResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200 });
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -306,6 +321,7 @@ namespace ISQuiz.Controllers
         //[HttpGet]
         public IActionResult CreateQuestionnaire()
         {
+            Log.Information("Into Home.CreateQuestionnaire");
             var upsertVm = new QuestionnaireViewModel
             {
                 oid = 0,
@@ -320,7 +336,7 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> CreateQuestionnaire([FromBody] UpsertQuestionnareViewModel upsertQuestionnaireVM)
         {
 
-
+            Log.Information("Into Home.CreateQuestionnaire |Post");
 
             try
             {
@@ -334,6 +350,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (userData.ErrorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@userData}", userData);
                     throw new Exception(userData.ErrorMessage);
                 }
 
@@ -366,13 +383,16 @@ namespace ISQuiz.Controllers
                     return Json(new { StatusCode = 200 });
                 else
                 {
+                    Log.Information("Response => " +
+                        "questionsBaseResponsed: {@questionsBaseResponsed} ||| " +
+                        "questionsBaseResponsed: {@questionsBaseResponsed}", questionsBaseResponsed, questionsBaseResponsed);
                     throw new Exception(questionnaireBaseResponsed.errorMessage + " ||| " + questionsBaseResponsed.errorMessage);
                 }
                 //return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -383,6 +403,8 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            Log.Information("Into Home.Delete");
+
             try
             {
                 var deleteVm = new QuestionnaireViewModel();
@@ -397,11 +419,16 @@ namespace ISQuiz.Controllers
                     return PartialView("~/Views/Home/Delete.cshtml", deleteVm);
                 }
                 else
+                {
+                    Log.Information("Response => questionnaireData: {@questionnaireData}, questionsData: {@questionsData}", questionnaireData, questionsData);
                     throw new Exception(questionnaireData.errorMessage + " ||| " + questionsData.errorMessage);
-                
+                }
+
+
             }
             catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
@@ -410,7 +437,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteQuestionnaire([FromBody] int oid)
         {
-
+            Log.Information("Into Home.DeleteQuestionnaire");
             try
             {
                 string token = GetToken();
@@ -423,6 +450,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (baseResponse.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@baseResponse}", baseResponse);
                     throw new Exception(baseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
@@ -430,6 +458,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -438,6 +467,7 @@ namespace ISQuiz.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteQuestion([FromBody] int id)
         {
+            Log.Information("Into Home.DeleteQuestion");
             try
             {
                 string token = GetToken();
@@ -449,13 +479,14 @@ namespace ISQuiz.Controllers
                 }
                 else if (baseResponse.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@baseResponse}", baseResponse);
                     throw new Exception(baseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, oid = id });
             }
             catch (Exception ex)
             {
-                
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 

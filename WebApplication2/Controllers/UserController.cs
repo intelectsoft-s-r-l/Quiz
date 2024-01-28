@@ -3,6 +3,7 @@ using ISQuiz.Models.Enum;
 using ISQuiz.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace ISQuiz.Controllers
 {
@@ -19,6 +20,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileInfo()
         {
+            Log.Information("Into User.ProfileInfo");
             try
             {
                 string token = GetToken();
@@ -30,6 +32,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (UserData.ErrorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@UserData}", UserData);
                     throw new Exception(UserData.ErrorMessage);
                 }
 
@@ -37,6 +40,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -46,10 +50,9 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Settings()
         {
-
+            Log.Information("Into User.Settings");
             try
             {
-
                 string token = GetToken();
                 var UserData = await _userRepository.getProfileInfo(token);
 
@@ -60,13 +63,15 @@ namespace ISQuiz.Controllers
                 }
                 else if (UserData.ErrorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@UserData}", UserData);
                     throw new Exception(UserData.ErrorMessage);
                 }
 
                 return View("~/Views/User/Settings.cshtml", UserData.User);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -78,6 +83,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)
         {
+            Log.Information("Into User.ChangePassword");
             try
             {
                 if (!ModelState.IsValid)
@@ -99,13 +105,16 @@ namespace ISQuiz.Controllers
                 }
                 else if (baseResponseData.ErrorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@baseResponseData}", baseResponseData);
                     throw new Exception(baseResponseData.ErrorMessage);
                 }
                 return Json(new { StatusCode = 200/*, Message = "Password changed successfully" */});
             }
             catch (Exception ex)
             {
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                Log.Error(ex, ex.Message); 
+                return Json(new { StatusCode = 500, Message = ex.Message});
+                //return View("~/Views/_Shared/Error.cshtml");
             }
 
         }

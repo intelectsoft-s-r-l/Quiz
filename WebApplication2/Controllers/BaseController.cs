@@ -1,19 +1,13 @@
 ﻿using ISQuiz.Interface;
-using ISQuiz.Models;
 using ISQuiz.Models.Enum;
-using ISQuiz.Models.Interfaces;
 using ISQuiz.Repository;
-using ISQuiz.Resources;
-using ISQuizBLL.Queries;
-using ISQuizBLL.URLs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
+using Serilog;
 using System.Security.Claims;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace ISQuiz.Controllers
 {
@@ -23,8 +17,8 @@ namespace ISQuiz.Controllers
         private readonly IAccountRepository _accountRepository = new AccountRepository();
         public static string refreshedToken = "";
         public static object __refreshTokenLock = new object();
-        private IViewRenderService _viewRenderService;
-        protected IViewRenderService ViewRenderService => _viewRenderService ??= HttpContext.RequestServices.GetService<IViewRenderService>();
+        //private IViewRenderService _viewRenderService;
+        //protected IViewRenderService ViewRenderService => _viewRenderService ??= HttpContext.RequestServices.GetService<IViewRenderService>();
 
 
         public async Task<bool> RefreshToken()
@@ -33,6 +27,7 @@ namespace ISQuiz.Controllers
 
             try
             {
+                Log.Information("Try RefreshToken");
                 //Monitor.Enter(__refreshTokenLock);
                 //Getting principal claims that are read-only
                 var claimPrincipal = User as ClaimsPrincipal;
@@ -44,7 +39,7 @@ namespace ISQuiz.Controllers
                              select c).FirstOrDefault();
 
                 var userData = await _accountRepository.RefreshToken(Uri.EscapeDataString(claim.Value));
-               
+
 
                 if (!string.IsNullOrEmpty(userData.Token))
                 {
@@ -71,17 +66,19 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.Error(ex, ex.Message);
+                Log.Error(ex, ex.Message);
                 retObject = false;
                 return retObject;
             }
             //finally { Monitor.Exit(__refreshTokenLock); }
         }
 
+        //Monitor.Enter(
         public string GetToken()
         {
             try
             {
+                Log.Information("GetToken");
                 Monitor.Enter(__refreshTokenLock);
                 //Getting principal claims that are read-only
                 var claimPrincipal = User as ClaimsPrincipal;
@@ -103,6 +100,7 @@ namespace ISQuiz.Controllers
         {
             try
             {
+                Log.Information($"ChangeCulture | {shortLang}");
                 var uiLanguage = EnUiLanguage.RU;
                 List<string> cultures = new List<string>() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
@@ -170,6 +168,7 @@ namespace ISQuiz.Controllers
         {
             try
             {
+                Log.Information("ChangeLanguage");
                 var token = GetToken();
 
                 var response = await _accountRepository.ChangeUILanguage(token, (EnUiLanguage)lang);
@@ -185,7 +184,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.Error(ex, ex.Message);
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }

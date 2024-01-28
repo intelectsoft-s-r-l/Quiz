@@ -3,7 +3,7 @@ using ISQuiz.Models.Enum;
 using ISQuiz.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
+using Serilog;
 
 namespace ISQuiz.Controllers
 {
@@ -22,6 +22,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            Log.Information("Into License.Index");
             try
             {
                 string token = GetToken();
@@ -34,6 +35,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (licenseData.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@licenseData}", licenseData);
                     throw new Exception(licenseData.errorMessage);
                 }
 
@@ -43,6 +45,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -53,6 +56,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(string id)
         {
+            Log.Information("Into License.Detail");
             try
             {
                 string token = GetToken();
@@ -65,6 +69,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (licenseData.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@licenseData}", licenseData);
                     throw new Exception(licenseData.errorMessage);
                 }
 
@@ -74,7 +79,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -100,7 +105,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Deactivate(string oid)
         {
-
+            Log.Information("Into License.Deactivate");
             try
             {
                 string token = GetToken();
@@ -113,6 +118,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (licenseResponse.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@licenseResponse}", licenseResponse);
                     throw new Exception(licenseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
@@ -120,7 +126,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -132,6 +138,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Activate(string oid)
         {
+            Log.Information("Into License.Activate");
             try
             {
 
@@ -143,13 +150,14 @@ namespace ISQuiz.Controllers
                 }
                 else if (licenseResponse.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@licenseResponse}", licenseResponse);
                     throw new Exception(licenseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
             }
             catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -158,6 +166,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Release(string oid)
         {
+            Log.Information("Into License.Release");
             try
             {
                 string token = GetToken();
@@ -169,12 +178,14 @@ namespace ISQuiz.Controllers
                 }
                 else if (licenseResponse.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@licenseResponse}", licenseResponse);
                     throw new Exception(licenseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
 
@@ -191,6 +202,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLicence([FromBody] GenerateLicenseViewModel generateLicenseVM)
         {
+            Log.Information("Into License.CreateLicence");
             try
             {
                 if (!ModelState.IsValid)
@@ -208,15 +220,16 @@ namespace ISQuiz.Controllers
                     }
                     else if (postLicenseBaseResponse.errorCode != EnErrorCode.NoError)
                     {
+                        Log.Information("Response => {@postLicenseBaseResponse}", postLicenseBaseResponse);
                         throw new Exception(postLicenseBaseResponse.errorMessage);
                     }
 
                     return Json(new { statusCode = 200 });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
@@ -228,6 +241,7 @@ namespace ISQuiz.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteLicense(string oid)
         {
+            Log.Information("Into License.DeleteLicense");
             try
             {
                 string token = GetToken();
@@ -238,6 +252,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (deleteLicenseBaseResponse.errorCode != EnErrorCode.NoError)
                 {
+                    Log.Information("Response => {@deleteLicenseBaseResponse}", deleteLicenseBaseResponse);
                     throw new Exception(deleteLicenseBaseResponse.errorMessage);
                 }
 
@@ -247,7 +262,7 @@ namespace ISQuiz.Controllers
             }
             catch (Exception ex)
             {
-                
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
