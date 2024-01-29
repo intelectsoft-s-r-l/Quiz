@@ -22,7 +22,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            Log.Information("Into License.Index");
+            //Log.Information("Into License.Index");
             try
             {
                 string token = GetToken();
@@ -56,7 +56,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(string id)
         {
-            Log.Information("Into License.Detail");
+            //Log.Information("Into License.Detail");
             try
             {
                 string token = GetToken();
@@ -105,7 +105,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Deactivate(string oid)
         {
-            Log.Information("Into License.Deactivate");
+            //Log.Information("Into License.Deactivate");
             try
             {
                 string token = GetToken();
@@ -138,7 +138,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Activate(string oid)
         {
-            Log.Information("Into License.Activate");
+            //Log.Information("Into License.Activate");
             try
             {
 
@@ -166,7 +166,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Release(string oid)
         {
-            Log.Information("Into License.Release");
+            //Log.Information("Into License.Release");
             try
             {
                 string token = GetToken();
@@ -202,7 +202,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLicence([FromBody] GenerateLicenseViewModel generateLicenseVM)
         {
-            Log.Information("Into License.CreateLicence");
+            //Log.Information("Into License.CreateLicence");
             try
             {
                 if (!ModelState.IsValid)
@@ -241,7 +241,7 @@ namespace ISQuiz.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteLicense(string oid)
         {
-            Log.Information("Into License.DeleteLicense");
+            //Log.Information("Into License.DeleteLicense");
             try
             {
                 string token = GetToken();

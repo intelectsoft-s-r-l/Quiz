@@ -20,7 +20,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileInfo()
         {
-            Log.Information("Into User.ProfileInfo");
+            //Log.Information("Into User.ProfileInfo");
             try
             {
                 string token = GetToken();
@@ -50,7 +50,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Settings()
         {
-            Log.Information("Into User.Settings");
+            //Log.Information("Into User.Settings");
             try
             {
                 string token = GetToken();
@@ -83,7 +83,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeConfirmPasswordViewModel changepwVM)
         {
-            Log.Information("Into User.ChangePassword");
+            //Log.Information("Into User.ChangePassword");
             try
             {
                 if (!ModelState.IsValid)

@@ -31,7 +31,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            Log.Information("Into Home.Index");
+            //Log.Information("Into Home.Index");
             try
             {
                 string token = GetToken();
@@ -71,7 +71,7 @@ namespace ISQuiz.Controllers
 
         private async Task<DetailQuestionnaire> QuestionnaireDetail(int id)
         {
-            Log.Information("Into Home.QuestionnaireDetail");
+            //Log.Information("Into Home.QuestionnaireDetail");
             try
             {
                 string token = GetToken();
@@ -98,7 +98,7 @@ namespace ISQuiz.Controllers
 
         private async Task<DetailQuestions> QuestionsDetail(int id)
         {
-            Log.Information("Into Home.QuestionsDetail");
+            //Log.Information("Into Home.QuestionsDetail");
             try
             {
                 string token = GetToken();
@@ -129,7 +129,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> GetInfoQuestionnaire(int id)
         {
-            Log.Information("Into Home.GetInfoQuestionnaire");
+            //Log.Information("Into Home.GetInfoQuestionnaire");
             try
             {
                 var questionnaireData = await QuestionnaireDetail(id);
@@ -164,7 +164,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> GetQuestions(int id)
         {
-            Log.Information("Into Home.GetQuestions");
+            //Log.Information("Into Home.GetQuestions");
             try
             {
                 var questionsData = await QuestionsDetail(id);
@@ -191,7 +191,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> QuestionnaireStatistic(int id)
         {
-            Log.Information("Into Home.QuestionnaireStatistic");
+            //Log.Information("Into Home.QuestionnaireStatistic");
             try
             {
                 string token = GetToken();
@@ -223,7 +223,7 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnaire upsertQuestionnaireVM)
         {
 
-            Log.Information("Into Home.UpsertQuestionnaire");
+            //Log.Information("Into Home.UpsertQuestionnaire");
             try
             {
                 string token = GetToken();
@@ -272,7 +272,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> UpsertQuestion([FromBody] UpsertQuestionsViewModel upsertQuestionVM)
         {
-            Log.Information("Into Home.UpsertQuestion");
+            //Log.Information("Into Home.UpsertQuestion");
             try
             {
                 string token = GetToken();
@@ -321,7 +321,7 @@ namespace ISQuiz.Controllers
         //[HttpGet]
         public IActionResult CreateQuestionnaire()
         {
-            Log.Information("Into Home.CreateQuestionnaire");
+            //Log.Information("Into Home.CreateQuestionnaire");
             var upsertVm = new QuestionnaireViewModel
             {
                 oid = 0,
@@ -336,7 +336,7 @@ namespace ISQuiz.Controllers
         public async Task<IActionResult> CreateQuestionnaire([FromBody] UpsertQuestionnareViewModel upsertQuestionnaireVM)
         {
 
-            Log.Information("Into Home.CreateQuestionnaire |Post");
+            //Log.Information("Into Home.CreateQuestionnaire |Post");
 
             try
             {
@@ -403,7 +403,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            Log.Information("Into Home.Delete");
+            //Log.Information("Into Home.Delete");
 
             try
             {
@@ -437,7 +437,7 @@ namespace ISQuiz.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteQuestionnaire([FromBody] int oid)
         {
-            Log.Information("Into Home.DeleteQuestionnaire");
+            //Log.Information("Into Home.DeleteQuestionnaire");
             try
             {
                 string token = GetToken();
@@ -467,7 +467,7 @@ namespace ISQuiz.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteQuestion([FromBody] int id)
         {
-            Log.Information("Into Home.DeleteQuestion");
+            //Log.Information("Into Home.DeleteQuestion");
             try
             {
                 string token = GetToken();

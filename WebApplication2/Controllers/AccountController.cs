@@ -27,7 +27,7 @@ namespace ISQuiz.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
-            Log.Information("Into Account.Login | Get");
+            //Log.Information("Into Account.Login | Get");
             var language = GetLanguageCookie();
             if (string.IsNullOrEmpty(language))
             {
@@ -52,7 +52,7 @@ namespace ISQuiz.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthorizeViewModel loginVM)
         {
-            Log.Information("Into Account.Login | Post");
+            //Log.Information("Into Account.Login | Post");
 
             if (!ModelState.IsValid)
                 return View("Login", loginVM);

@@ -27,7 +27,7 @@ namespace ISQuiz.Controllers
 
             try
             {
-                Log.Information("Try RefreshToken");
+                //Log.Information("Try RefreshToken");
                 //Monitor.Enter(__refreshTokenLock);
                 //Getting principal claims that are read-only
                 var claimPrincipal = User as ClaimsPrincipal;
@@ -78,7 +78,7 @@ namespace ISQuiz.Controllers
         {
             try
             {
-                Log.Information("GetToken");
+                //Log.Information("GetToken");
                 Monitor.Enter(__refreshTokenLock);
                 //Getting principal claims that are read-only
                 var claimPrincipal = User as ClaimsPrincipal;
@@ -100,12 +100,12 @@ namespace ISQuiz.Controllers
         {
             try
             {
-                Log.Information($"ChangeCulture | {shortLang}");
+                //Log.Information($"ChangeCulture | {shortLang}");
                 var uiLanguage = EnUiLanguage.RU;
                 List<string> cultures = new List<string>() { "en", "ro", "ru" };
                 if (!cultures.Contains(shortLang))
                 {
-                    shortLang = "ru";
+                    shortLang = "en";
                 }
 
                 switch (shortLang)
@@ -120,7 +120,7 @@ namespace ISQuiz.Controllers
                         uiLanguage = EnUiLanguage.RU;
                         break;
                     default:
-                        uiLanguage = EnUiLanguage.RU;
+                        uiLanguage = EnUiLanguage.EN;
                         break;
                 }
 
@@ -168,7 +168,7 @@ namespace ISQuiz.Controllers
         {
             try
             {
-                Log.Information("ChangeLanguage");
+                //Log.Information("ChangeLanguage");
                 var token = GetToken();
 
                 var response = await _accountRepository.ChangeUILanguage(token, (EnUiLanguage)lang);
@@ -194,7 +194,7 @@ namespace ISQuiz.Controllers
             var cookie = Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
             if (cookie == null)
             {
-                return "ru";
+                return "en";
             }
             else
             {
