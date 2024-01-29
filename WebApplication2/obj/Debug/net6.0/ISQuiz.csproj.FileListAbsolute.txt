@@ -238,9 +238,7 @@ C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\staticwebassets\msbu
 C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.ISQuiz.props
 C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.ISQuiz.props
 C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\staticwebassets.pack.json
-C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\scopedcss\bundle\ISQuiz.styles.css
-C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\scopedcss\projectbundle\ISQuiz.bundle.scp.css
 C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ISQuiz.csproj.CopyComplete
 C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ISQuiz.dll
 C:\Users\BOSS\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\refint\ISQuiz.dll
@@ -415,3 +413,5 @@ C:\Users\ADavid\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\refint\ISQuiz.dll
 C:\Users\ADavid\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ISQuiz.pdb
 C:\Users\ADavid\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ISQuiz.genruntimeconfig.cache
 C:\Users\ADavid\Desktop\Quiz\WebApplication2\obj\Debug\net6.0\ref\ISQuiz.dll
+C:\Users\BOSS\Desktop\Quiz\WebApplication2\bin\Debug\net6.0\ISQuizBLL.dll
+C:\Users\BOSS\Desktop\Quiz\WebApplication2\bin\Debug\net6.0\ISQuizBLL.pdb

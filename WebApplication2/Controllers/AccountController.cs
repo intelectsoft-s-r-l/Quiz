@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System.Security.Claims;
 
 namespace ISQuiz.Controllers
@@ -16,24 +17,42 @@ namespace ISQuiz.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountRepository _accountRepository;
-        private readonly ILogger<AccountController> _logger;
-        public AccountController(IAccountRepository accountRepository,
-                                 ILogger<AccountController> logger) : base(logger)
+        public AccountController(IAccountRepository accountRepository)
         {
             _accountRepository = accountRepository;
-            _logger = logger;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login() => View("~/Views/Account/Login.cshtml");
 
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            //Log.Information("Into Account.Login | Get");
+            var language = GetLanguageCookie();
+            if (string.IsNullOrEmpty(language))
+            {
+                ViewBag.Language = "ru";
+            }
+            else
+            {
+                ViewBag.Language = language.ToLower();
+            }
+
+
+            if (TempData["InvalidToken"] != null)
+            {
+                ViewBag.InvalidToken = TempData["InvalidToken"];
+                TempData.Remove("InvalidToken");
+            }
+
+            return View("~/Views/Account/Login.cshtml");
+        }
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthorizeViewModel loginVM)
         {
-            _logger.LogInformation($"Login method called.");
+            //Log.Information("Into Account.Login | Post");
 
             if (!ModelState.IsValid)
                 return View("Login", loginVM);
@@ -42,7 +61,7 @@ namespace ISQuiz.Controllers
             {
                 var userData = await _accountRepository.AuthorizeUser(loginVM);
 
-                if (userData.ErrorCode == 0)
+                if (userData.ErrorCode == EnErrorCode.NoError)
                 {
                     userData.User.UiLanguage = GetLanguageCookie() switch
                     {
@@ -77,14 +96,15 @@ namespace ISQuiz.Controllers
                 }
                 else
                 {
-                    TempData["Error"] = userData.ErrorMessage ?? "Undefined";
+                    TempData["Error"] = userData.ErrorMessage;
+                    Log.Information("Response => {@userData}", userData);
                     //return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
-                    return View(loginVM);
+                    return View("~/Views/Account/Login.cshtml", loginVM);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while processing the Login method. " + ex.Message);
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
         }
@@ -92,14 +112,10 @@ namespace ISQuiz.Controllers
         private async Task HandleLanguageChange(string token, EnUiLanguage uiLanguage)
         {
             var baseResponseData = await _accountRepository.ChangeUILanguage(token, uiLanguage);
-            if (baseResponseData.ErrorCode == 143)
+            if (baseResponseData.ErrorCode == EnErrorCode.Expired_token)
             {
                 await RefreshToken();
-                await HandleLanguageChange(token, uiLanguage); // рекурсивный вызов
-            }
-            else if (baseResponseData.ErrorCode != 0)
-            {
-                _logger.LogError($"{baseResponseData}");
+                await HandleLanguageChange(token, uiLanguage);
             }
         }
 
@@ -107,21 +123,19 @@ namespace ISQuiz.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult AuthRecoverpw()
-        {
-            return View();
-        }
+        public IActionResult AuthRecoverpw() => View();
+
 
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> AuthRecoverpw(AuthRecoverpwViewModel recoverpwVM)
         {
-            _logger.LogInformation($"AuthRecoverpw method called.");
-            if (!ModelState.IsValid)
-                return View();
             try
             {
+                if (!ModelState.IsValid)
+                    return View();
+
                 var baseResponseData = await _accountRepository.RecoverPassword(recoverpwVM);
 
                 if (baseResponseData.ErrorCode == 0)
@@ -135,16 +149,16 @@ namespace ISQuiz.Controllers
                 }
                 else
                 {
-                    TempData["Error"] = baseResponseData.ErrorMessage ?? "Undefined";
+                    TempData["Error"] = baseResponseData.ErrorMessage;
+                    Log.Information("Response => {@baseResponseData}", baseResponseData);
                     return View("~/Views/Account/AuthRecoverpw.cshtml");
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while processing the AuthRecoverpw method." + ex.Message);
+                Log.Error(ex, ex.Message);
                 return PartialView("~/Views/_Shared/Error.cshtml");
             }
-
 
         }
 
@@ -160,26 +174,20 @@ namespace ISQuiz.Controllers
         [AllowAnonymous]
         public IActionResult ChangeCultureLogin(string shortLang)
         {
-            _logger.LogInformation($"ChangeCultureLogin method called.");
-            try
-            {
-                List<string> cultures = new() { "en", "ro", "ru" };
-                if (!cultures.Contains(shortLang))
-                {
-                    shortLang = "en";
-                }
 
-                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
-                                        CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)),
-                                        new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
-                return RedirectToAction("Login");
-            }
-            catch (Exception ex)
+            List<string> cultures = new() { "en", "ro", "ru" };
+            if (!cultures.Contains(shortLang))
             {
-                _logger.LogError(ex, "An error occurred while processing the ChangeCultureLogin method." + ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                shortLang = "en";
             }
+
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(shortLang)),
+                                    new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+
+            return RedirectToAction("Login");
+
 
 
         }

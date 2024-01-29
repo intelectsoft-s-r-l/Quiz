@@ -76,14 +76,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 Log.Logger = new LoggerConfiguration()
     //.MinimumLevel.Debug()
-    //.WriteTo.Console()
-    .WriteTo.File(@"Logs\log.log",
+    .WriteTo.Console()
+    .MinimumLevel.Information()
+    .WriteTo.File(@"Logs\ISQuiz-log.log",
                   rollingInterval: RollingInterval.Day,
                   retainedFileCountLimit: 30,
                   retainedFileTimeLimit: TimeSpan.FromDays(30))
     .CreateLogger();
 
-builder.Host.UseSerilog();
+//builder.Host.UseSerilog();
 
 
 //builder.Services.AddLogging();

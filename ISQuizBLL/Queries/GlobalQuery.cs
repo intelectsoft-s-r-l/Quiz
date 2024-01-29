@@ -1,5 +1,6 @@
 ﻿using ISQuizBLL.Queries;
 using Newtonsoft.Json;
+using Serilog;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -16,38 +17,52 @@ namespace ISQuiz.Repository
 
         public async Task<T> SendRequest<T>(QueryData queryData)
         {
-            if (queryData.endpoint.Contains("ISNPSAPI"))
+            try
             {
+                if (queryData.endpoint.Contains("ISNPSAPI"))
+                {
 #if DEBUG
-                BaseURI = "https://dev.edi.md";
+                    BaseURI = "https://dev.edi.md";
 #elif RELEASE
             BaseURI = "https://survey.eservicii.md";
 #endif
+                }
+
+                using var httpClient = new HttpClient
+                {
+                    BaseAddress = new Uri(BaseURI + queryData.endpoint),
+                };
+
+                if (!string.IsNullOrEmpty(queryData.Credentials))
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+                        Convert.ToBase64String(Encoding.UTF8.GetBytes(queryData.Credentials)));
+                }
+
+                using var requestMessage = new HttpRequestMessage(queryData.method, queryData.endpoint);
+                if (queryData.data != null)
+                    requestMessage.Content = new StringContent(JsonConvert.SerializeObject(queryData.data), Encoding.UTF8, "application/json");
+
+                var response = await httpClient.SendAsync(requestMessage);
+                response.EnsureSuccessStatusCode(); // This will throw an exception if the response status code is not success.
+
+                return await response.Content.ReadAsAsync<T>();
+
+
             }
-
-            using var _httpClient = new HttpClient
+            catch (HttpRequestException ex)
             {
-                BaseAddress = new Uri(BaseURI + queryData.endpoint),
-            };
 
-            if (!string.IsNullOrEmpty(queryData.Credentials))
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-                    Convert.ToBase64String(Encoding.UTF8.GetBytes(queryData.Credentials)));
+                Log.Error(ex, $"HttpRequestException: {ex.Message}");
+                throw;
             }
-
-            using var requestMessage = new HttpRequestMessage(queryData.method, queryData.endpoint);
-            if (queryData.data != null) 
-                requestMessage.Content = new StringContent(JsonConvert.SerializeObject(queryData.data), Encoding.UTF8, "application/json");
-            
-
-            var response = await _httpClient.SendAsync(requestMessage);
-            if (!response.IsSuccessStatusCode)
+            catch (Exception ex)
             {
-                throw new HttpRequestException($"Request failed with status code {response.StatusCode}");
+                // Handle other exceptions, log, or rethrow as needed.
+                Log.Error(ex, ex.Message);
+                throw;
             }
-            //return response.IsSuccessStatusCode ? await response.Content.ReadAsAsync<T>() : default;
-            return await response.Content.ReadAsAsync<T>();
         }
+
     }
 }
