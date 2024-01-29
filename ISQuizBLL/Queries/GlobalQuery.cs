@@ -43,7 +43,7 @@ namespace ISQuiz.Repository
                 if (queryData.data != null)
                     requestMessage.Content = new StringContent(JsonConvert.SerializeObject(queryData.data), Encoding.UTF8, "application/json");
 
-                var response = await httpClient.SendAsync(requestMessage);
+                using var response = await httpClient.SendAsync(requestMessage);
                 response.EnsureSuccessStatusCode(); // This will throw an exception if the response status code is not success.
 
                 return await response.Content.ReadAsAsync<T>();

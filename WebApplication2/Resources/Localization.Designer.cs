@@ -862,6 +862,15 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на User name not found or incorrect password.
+        /// </summary>
+        public static string UserLoginNotFount {
+            get {
+                return ResourceManager.GetString("UserLoginNotFount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на View.
         /// </summary>
         public static string View {

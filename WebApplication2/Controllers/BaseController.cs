@@ -39,8 +39,6 @@ namespace ISQuiz.Controllers
                              select c).FirstOrDefault();
 
                 var userData = await _accountRepository.RefreshToken(Uri.EscapeDataString(claim.Value));
-
-
                 if (!string.IsNullOrEmpty(userData.Token))
                 {
                     refreshedToken = userData.Token;
@@ -59,6 +57,10 @@ namespace ISQuiz.Controllers
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
                 }
                 else
+                {
+                    retObject = false;
+                }
+                if (userData.ErrorCode == EnErrorCode.Incorrect_refresh_token)
                 {
                     retObject = false;
                 }
@@ -185,7 +187,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
         }
 

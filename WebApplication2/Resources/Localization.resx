@@ -402,4 +402,7 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="UserLoginNotFount" xml:space="preserve">
+    <value>User name not found or incorrect password</value>
+  </data>
 </root>

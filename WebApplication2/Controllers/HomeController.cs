@@ -40,12 +40,19 @@ namespace ISQuiz.Controllers
 
                 if (questionnairesData.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await Index();
+                    if (await RefreshToken())
+                    {
+                        return await Index();
+                    }
+                }
+                else if (questionnairesData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (questionnairesData.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@questionnairesData}", questionnairesData);
-                    throw new Exception(questionnairesData.errorMessage);
+                    throw new Exception(questionnairesData.errorName + "|||" + questionnairesData.errorMessage);
                 }
 
                 return View("~/Views/Home/Index.cshtml", questionnairesData.questionnaires);
@@ -60,7 +67,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
         }
 
@@ -79,12 +86,19 @@ namespace ISQuiz.Controllers
 
                 if (questionnaireData.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await QuestionnaireDetail(id);
+                    if (await RefreshToken())
+                    {
+                        return await QuestionnaireDetail(id);
+                    }
+                }
+                else if (questionnaireData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return new DetailQuestionnaire { errorCode = EnErrorCode.Invalid_token, errorMessage = questionnaireData.errorMessage};
                 }
                 else if (questionnaireData.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@questionnaireData}", questionnaireData);
-                    throw new Exception(questionnaireData.errorMessage);
+                    throw new Exception(questionnaireData.errorName + "|||" + questionnaireData.errorMessage);
                 }
                 return questionnaireData;
             }
@@ -106,12 +120,19 @@ namespace ISQuiz.Controllers
 
                 if (questionsData.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await QuestionsDetail(id);
+                    if (await RefreshToken())
+                    {
+                        return await QuestionsDetail(id);
+                    }
+                }
+                else if (questionsData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return new DetailQuestions { errorCode = EnErrorCode.Invalid_token, errorMessage = questionsData.errorMessage };
                 }
                 else if (questionsData.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@questionsData}", questionsData);
-                    throw new Exception(questionsData.errorMessage);
+                    throw new Exception(questionsData.errorName + "|||" + questionsData.errorMessage);
                 }
                 //if err == 0
                 return questionsData;
@@ -135,12 +156,19 @@ namespace ISQuiz.Controllers
                 var questionnaireData = await QuestionnaireDetail(id);
                 if (questionnaireData.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await GetInfoQuestionnaire(id);
+                    if (await RefreshToken())
+                    {
+                        return await GetInfoQuestionnaire(id);
+                    }
+                }
+                else if (questionnaireData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (questionnaireData.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@questionnaireData}", questionnaireData);
-                    throw new Exception(questionnaireData.errorMessage);
+                    throw new Exception(questionnaireData.errorName + "|||" + questionnaireData.errorMessage);
                 }
 
                 var detailQuestionnaireVm = new QuestionnaireViewModel
@@ -156,7 +184,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -170,12 +198,19 @@ namespace ISQuiz.Controllers
                 var questionsData = await QuestionsDetail(id);
                 if (questionsData.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await GetQuestions(id);
+                    if (await RefreshToken())
+                    {
+                        return await GetQuestions(id);
+                    }
+                }
+                else if (questionsData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (questionsData.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@questionsData}", questionsData);
-                    throw new Exception(questionsData.errorMessage);
+                    throw new Exception(questionsData.errorName + "|||" + questionsData.errorMessage);
                 }
 
                 return PartialView("~/Views/Home/_Questions.cshtml", questionsData);
@@ -183,7 +218,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return View("~/Views/_Shared/Error.cshtml");
+                return View("~/Views/_Shared/Error.cshtml", ex);
             }
         }
 
@@ -200,12 +235,19 @@ namespace ISQuiz.Controllers
 
                 if (statistic.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await QuestionnaireStatistic(id);
+                    if (await RefreshToken())
+                    {
+                        return await QuestionnaireStatistic(id);
+                    }
+                }
+                else if (statistic.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (statistic.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@statistic}", statistic);
-                    throw new Exception(statistic.errorMessage);
+                    throw new Exception(statistic.errorName + "|||" + statistic.errorMessage);
                 }
 
                 return PartialView("~/Views/Home/_Statistic.cshtml", statistic.questionnaireStatistic);
@@ -213,7 +255,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -232,7 +274,14 @@ namespace ISQuiz.Controllers
 
                 if (userData.ErrorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await UpsertQuestionnaire(upsertQuestionnaireVM);
+                    if (await RefreshToken())
+                    {
+                        return await UpsertQuestionnaire(upsertQuestionnaireVM);
+                    }
+                }
+                else if (userData.ErrorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (userData.ErrorCode != EnErrorCode.NoError)
                 {
@@ -248,7 +297,14 @@ namespace ISQuiz.Controllers
 
                 if (userData.ErrorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await UpsertQuestionnaire(upsertQuestionnaireVM);
+                    if (await RefreshToken())
+                    {
+                        return await UpsertQuestionnaire(upsertQuestionnaireVM);
+                    }
+                }
+                else if (userData.ErrorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (userData.ErrorCode != EnErrorCode.NoError)
                 {
@@ -262,7 +318,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
 
@@ -301,19 +357,26 @@ namespace ISQuiz.Controllers
                 var dataResponse = await _quizRepository.UpsertQuestions(upsertQuestions);
                 if (dataResponse.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await UpsertQuestion(upsertQuestionVM);
+                    if (await RefreshToken())
+                    {
+                        return await UpsertQuestion(upsertQuestionVM);
+                    }
+                }
+                else if (dataResponse.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (dataResponse.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@dataResponse}", dataResponse);
-                    throw new Exception(dataResponse.errorMessage);
+                    throw new Exception(dataResponse.errorName + "|||" + dataResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200 });
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -346,7 +409,14 @@ namespace ISQuiz.Controllers
 
                 if (userData.ErrorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await CreateQuestionnaire(upsertQuestionnaireVM);
+                    if (await RefreshToken())
+                    {
+                        return await CreateQuestionnaire(upsertQuestionnaireVM);
+                    }
+                }
+                else if (userData.ErrorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (userData.ErrorCode != EnErrorCode.NoError)
                 {
@@ -381,6 +451,10 @@ namespace ISQuiz.Controllers
 
                 if (questionnaireBaseResponsed.errorCode == 0 && questionsBaseResponsed.errorCode == 0)
                     return Json(new { StatusCode = 200 });
+                else if (questionnaireBaseResponsed.errorCode == EnErrorCode.Invalid_token || questionsBaseResponsed.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
                 else
                 {
                     Log.Information("Response => " +
@@ -393,7 +467,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -418,6 +492,10 @@ namespace ISQuiz.Controllers
                     deleteVm.Questions = questionsData.questions;
                     return PartialView("~/Views/Home/Delete.cshtml", deleteVm);
                 }
+                else if (questionnaireData.errorCode == EnErrorCode.Invalid_token || questionnaireData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
                 else
                 {
                     Log.Information("Response => questionnaireData: {@questionnaireData}, questionsData: {@questionsData}", questionnaireData, questionsData);
@@ -429,7 +507,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
         }
 
@@ -446,12 +524,19 @@ namespace ISQuiz.Controllers
 
                 if (baseResponse.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await DeleteQuestionnaire(oid);
+                    if (await RefreshToken())
+                    {
+                        return await DeleteQuestionnaire(oid);
+                    }
+                }
+                else if (baseResponse.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (baseResponse.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@baseResponse}", baseResponse);
-                    throw new Exception(baseResponse.errorMessage);
+                    throw new Exception(baseResponse.errorName + "|||" + baseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
 
@@ -459,7 +544,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -475,19 +560,26 @@ namespace ISQuiz.Controllers
 
                 if (baseResponse.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await DeleteQuestion(id);
+                    if (await RefreshToken())
+                    {
+                        return await DeleteQuestion(id);
+                    }
+                }
+                else if (baseResponse.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (baseResponse.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@baseResponse}", baseResponse);
-                    throw new Exception(baseResponse.errorMessage);
+                    throw new Exception(baseResponse.errorName + "|||" + baseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, oid = id });
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ISQuizBLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e97f6500b934ce7535f57160b3e053eac7b99d48")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8c60ff249a636b42d58214f5fec6e018e0184d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("ISQuizBLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ISQuizBLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

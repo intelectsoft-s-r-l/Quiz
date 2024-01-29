@@ -28,7 +28,14 @@ namespace ISQuiz.Controllers
 
                 if (UserData.ErrorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await ProfileInfo();
+                    if (await RefreshToken())
+                    {
+                        return await ProfileInfo();
+                    }
+                }
+                else if (UserData.ErrorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (UserData.ErrorCode != EnErrorCode.NoError)
                 {
@@ -41,7 +48,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
 
@@ -59,7 +66,14 @@ namespace ISQuiz.Controllers
 
                 if (UserData.ErrorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await Settings();
+                    if (await RefreshToken())
+                    {
+                        return await Settings();
+                    }
+                }
+                else if (UserData.ErrorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (UserData.ErrorCode != EnErrorCode.NoError)
                 {
@@ -72,7 +86,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -101,7 +115,14 @@ namespace ISQuiz.Controllers
                 var baseResponseData = await _userRepository.changePassword(changePassword);
                 if (baseResponseData.ErrorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await ChangePassword(changepwVM);
+                    if (await RefreshToken())
+                    {
+                        return await ChangePassword(changepwVM);
+                    }
+                }
+                else if (baseResponseData.ErrorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (baseResponseData.ErrorCode != EnErrorCode.NoError)
                 {
@@ -114,7 +135,7 @@ namespace ISQuiz.Controllers
             {
                 Log.Error(ex, ex.Message); 
                 return Json(new { StatusCode = 500, Message = ex.Message});
-                //return View("~/Views/_Shared/Error.cshtml");
+                //return View("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }

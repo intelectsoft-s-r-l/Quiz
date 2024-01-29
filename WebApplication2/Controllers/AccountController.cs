@@ -45,7 +45,7 @@ namespace ISQuiz.Controllers
                 TempData.Remove("InvalidToken");
             }
 
-            return View("~/Views/Account/Login.cshtml");
+            return View();
         }
 
         [HttpPost]
@@ -94,18 +94,24 @@ namespace ISQuiz.Controllers
 
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
+                if(userData.ErrorCode == EnErrorCode.User_name_not_found_or_incorrect_password)
+                {
+                    TempData["Error"] = Localization.UserLoginNotFount;
+                    return View("Login", loginVM);
+                }
                 else
                 {
                     TempData["Error"] = userData.ErrorMessage;
                     Log.Information("Response => {@userData}", userData);
                     //return RedirectToAction(nameof(Login), new { error = userData.ErrorMessage });
-                    return View("~/Views/Account/Login.cshtml", loginVM);
+                    //return View("~/Views/Account/Login.cshtml", loginVM);
+                    return View("Login", loginVM);
                 }
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
         }
 
@@ -138,7 +144,7 @@ namespace ISQuiz.Controllers
 
                 var baseResponseData = await _accountRepository.RecoverPassword(recoverpwVM);
 
-                if (baseResponseData.ErrorCode == 0)
+                if (baseResponseData.ErrorCode == EnErrorCode.NoError)
                 {
                     AuthorizeViewModel authorizeViewModel = new()
                     {
@@ -151,13 +157,13 @@ namespace ISQuiz.Controllers
                 {
                     TempData["Error"] = baseResponseData.ErrorMessage;
                     Log.Information("Response => {@baseResponseData}", baseResponseData);
-                    return View("~/Views/Account/AuthRecoverpw.cshtml");
+                    return View("~/Views/Account/AuthRecoverpw.cshtml", recoverpwVM);
                 }
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }

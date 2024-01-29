@@ -11,10 +11,7 @@
           "FluentValidation.AspNetCore": "11.3.0",
           "ISQuizBLL": "1.0.0",
           "Microsoft.AspNet.Mvc": "5.3.0",
-          "Microsoft.AspNet.WebApi.Core": "5.3.0",
-          "Newtonsoft.Json": "13.0.3",
-          "Serilog.AspNetCore": "8.0.0",
-          "System.Net.Http.Formatting.Extension": "5.2.3"
+          "Microsoft.AspNet.WebApi.Core": "5.3.0"
         },
         "runtime": {
           "ISQuiz.dll": {}
@@ -478,6 +475,7 @@
       "ISQuizBLL/1.0.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
+          "Serilog.AspNetCore": "8.0.0",
           "System.Net.Http.Formatting.Extension": "5.2.3"
         },
         "runtime": {

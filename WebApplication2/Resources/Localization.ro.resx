@@ -399,4 +399,7 @@
   <data name="GlobalStatistic" xml:space="preserve">
     <value>Statistica globală</value>
   </data>
+  <data name="UserLoginNotFount" xml:space="preserve">
+    <value>Numele de utilizator nu a fost găsit sau parola incorectă</value>
+  </data>
 </root>

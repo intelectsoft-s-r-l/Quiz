@@ -1,4 +1,5 @@
 ﻿using ISQuiz.Interface;
+using ISQuiz.Models;
 using ISQuiz.Models.Enum;
 using ISQuiz.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -31,12 +32,19 @@ namespace ISQuiz.Controllers
 
                 if (licenseData.errorCode == EnErrorCode.Expired_token)
                 {
-                    if (await RefreshToken()) return await Index();
+                    if (await RefreshToken())
+                    {
+                        return await Index();
+                    }
+                }
+                else if (licenseData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
                 }
                 else if (licenseData.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@licenseData}", licenseData);
-                    throw new Exception(licenseData.errorMessage);
+                    throw new Exception(licenseData.errorName + "|||" + licenseData.errorMessage);
                 }
 
                 return View("~/Views/License/Index.cshtml", licenseData.licenses);
@@ -46,7 +54,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
 
@@ -67,10 +75,14 @@ namespace ISQuiz.Controllers
                 {
                     if (await RefreshToken()) return await Detail(id);
                 }
+                else if (licenseData.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
                 else if (licenseData.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@licenseData}", licenseData);
-                    throw new Exception(licenseData.errorMessage);
+                    throw new Exception(licenseData.errorName + "|||" + licenseData.errorMessage);
                 }
 
 
@@ -80,7 +92,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -116,10 +128,14 @@ namespace ISQuiz.Controllers
                 {
                     if (await RefreshToken()) return await Deactivate(oid);
                 }
+                else if (licenseResponse.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
                 else if (licenseResponse.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@licenseResponse}", licenseResponse);
-                    throw new Exception(licenseResponse.errorMessage);
+                    throw new Exception(licenseResponse.errorName + "|||" + licenseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
 
@@ -127,7 +143,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
 
@@ -148,17 +164,21 @@ namespace ISQuiz.Controllers
                 {
                     if (await RefreshToken()) return await Activate(oid);
                 }
+                else if (licenseResponse.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
                 else if (licenseResponse.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@licenseResponse}", licenseResponse);
-                    throw new Exception(licenseResponse.errorMessage);
+                    throw new Exception(licenseResponse.errorName + "|||" + licenseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
         }
@@ -176,17 +196,21 @@ namespace ISQuiz.Controllers
                 {
                     if (await RefreshToken()) return await Release(oid);
                 }
+                else if (licenseResponse.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
                 else if (licenseResponse.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@licenseResponse}", licenseResponse);
-                    throw new Exception(licenseResponse.errorMessage);
+                    throw new Exception(licenseResponse.errorName + "|||" + licenseResponse.errorMessage);
                 }
                 return Json(new { StatusCode = 200, Message = "Ok" });
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
 
 
@@ -218,10 +242,14 @@ namespace ISQuiz.Controllers
                     {
                         if (await RefreshToken()) return await CreateLicence(generateLicenseVM);
                     }
+                    else if (postLicenseBaseResponse.errorCode == EnErrorCode.Invalid_token)
+                    {
+                        return RedirectToAction(nameof(AccountController.Login), "Account");
+                    }
                     else if (postLicenseBaseResponse.errorCode != EnErrorCode.NoError)
                     {
                         Log.Information("Response => {@postLicenseBaseResponse}", postLicenseBaseResponse);
-                        throw new Exception(postLicenseBaseResponse.errorMessage);
+                        throw new Exception(postLicenseBaseResponse.errorName + "|||" + postLicenseBaseResponse.errorMessage);
                     }
 
                     return Json(new { statusCode = 200 });
@@ -230,7 +258,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
         }
 
@@ -250,10 +278,14 @@ namespace ISQuiz.Controllers
                 {
                     if (await RefreshToken()) return await DeleteLicense(oid);
                 }
+                else if (deleteLicenseBaseResponse.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
                 else if (deleteLicenseBaseResponse.errorCode != EnErrorCode.NoError)
                 {
                     Log.Information("Response => {@deleteLicenseBaseResponse}", deleteLicenseBaseResponse);
-                    throw new Exception(deleteLicenseBaseResponse.errorMessage);
+                    throw new Exception(deleteLicenseBaseResponse.errorName + "|||" + deleteLicenseBaseResponse.errorMessage);
                 }
 
                 return Json(new { StatusCode = 200, Message = "Ok" });
@@ -263,7 +295,7 @@ namespace ISQuiz.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return PartialView("~/Views/_Shared/Error.cshtml");
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
             }
         }
 
