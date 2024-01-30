@@ -46,7 +46,14 @@
                         <p>@question.question</p>
                         @* <p><strong>@Localization.Comment:</strong> @question.comentary</p> *@
                         <b>@Localization.Comment</b>
-                        <p>@question.comentary</p>
+                        @if (!string.IsNullOrEmpty(question.comentary))
+                        {
+                            <p>@question.comentary</p>
+                        }
+                        else
+                        {
+                            <p> *@Localization.SkipCommentMessage</p>
+                        }
                         @{
                             string answerLocalization = question.gradingType switch
                             {
@@ -68,7 +75,7 @@
                             <b>@Localization.Responses</b>
                             <br />
                             <ul>
-                                @foreach (var answer in question.responseVariants)
+                                @foreach (var answer in question.responseVariants.OrderBy(x => x.id))
                                 {
                                     <li><p>@answer.response</p></li>
 

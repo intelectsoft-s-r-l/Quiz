@@ -63,12 +63,12 @@
             ISValid = false;
         }
 
-        if ($('#questionComentary_' + index).val() === "") {
-            if ($('#QuestionComentaryError').val() == null) {
-                $('#questionComentary_' + index).after('<label id="QuestionComentaryError" class="text-danger">@Localization.ComentaryTextValidation</label>');
-            }
-            ISValid = false;
-        }
+        // if ($('#questionComentary_' + index).val() === "") {
+        //     if ($('#QuestionComentaryError').val() == null) {
+        //         $('#questionComentary_' + index).after('<label id="QuestionComentaryError" class="text-danger">@Localization.ComentaryTextValidation</label>');
+        //     }
+        //     ISValid = false;
+        // }
         var gradingTypeValue = $("#questionN_0").find("select[id*='questionGradingType_0']").val()
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
             if ($('#response_0').val() === "") {
@@ -198,7 +198,13 @@
 
         // Создаем input для редактирования
         var titleInput = $(`<input type='text' id='questionName_${index}' class='form-control' value='${titleElement.text()}' maxlength='100' />`);
-        var comentaryInput = $(`<input type='text' id='questionComentary_${index}' class='form-control' value='${comentaryElement.text()}' maxlength='100' />`);
+        if (comentaryElement.attr('data-status') === 'withComent') {
+            var comentaryInput = $(`<input type='text' id='questionComentary_${index}' class='form-control' value='${comentaryElement.text()}' maxlength='100' />`);
+        }
+        else
+        {
+            var comentaryInput = $(`<input type='text' id='questionComentary_${index}' class='form-control' value='' maxlength='100' />`);
+        }
         var gradingTypeValue = gradingTypeElement[0].value;
 
 

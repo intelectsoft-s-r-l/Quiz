@@ -790,6 +790,15 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Comment skipped.
+        /// </summary>
+        public static string SkipCommentMessage {
+            get {
+                return ResourceManager.GetString("SkipCommentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Status.
         /// </summary>
         public static string Status {

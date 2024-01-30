@@ -405,4 +405,7 @@
   <data name="UserLoginNotFount" xml:space="preserve">
     <value>User name not found or incorrect password</value>
   </data>
+  <data name="SkipCommentMessage" xml:space="preserve">
+    <value>Comment skipped</value>
+  </data>
 </root>

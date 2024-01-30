@@ -405,4 +405,7 @@
   <data name="UserLoginNotFount" xml:space="preserve">
     <value>Имя пользователя не найдено или неверный пароль</value>
   </data>
+  <data name="SkipCommentMessage" xml:space="preserve">
+    <value>Комментарий пропущен</value>
+  </data>
 </root>

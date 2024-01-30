@@ -25,28 +25,8 @@ namespace ISQuiz.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Login()
-        {
-            //Log.Information("Into Account.Login | Get");
-            var language = GetLanguageCookie();
-            if (string.IsNullOrEmpty(language))
-            {
-                ViewBag.Language = "ru";
-            }
-            else
-            {
-                ViewBag.Language = language.ToLower();
-            }
-
-
-            if (TempData["InvalidToken"] != null)
-            {
-                ViewBag.InvalidToken = TempData["InvalidToken"];
-                TempData.Remove("InvalidToken");
-            }
-
-            return View();
-        }
+        public IActionResult Login() => View();
+        
 
         [HttpPost]
         [AllowAnonymous]
@@ -94,7 +74,7 @@ namespace ISQuiz.Controllers
 
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
-                if(userData.ErrorCode == EnErrorCode.User_name_not_found_or_incorrect_password)
+                else if(userData.ErrorCode == EnErrorCode.User_name_not_found_or_incorrect_password)
                 {
                     TempData["Error"] = Localization.UserLoginNotFount;
                     return View("Login", loginVM);
@@ -120,8 +100,10 @@ namespace ISQuiz.Controllers
             var baseResponseData = await _accountRepository.ChangeUILanguage(token, uiLanguage);
             if (baseResponseData.ErrorCode == EnErrorCode.Expired_token)
             {
-                await RefreshToken();
-                await HandleLanguageChange(token, uiLanguage);
+                if (await RefreshToken())
+                {
+                    await HandleLanguageChange(token, uiLanguage);
+                }
             }
         }
 

@@ -402,4 +402,7 @@
   <data name="UserLoginNotFount" xml:space="preserve">
     <value>Numele de utilizator nu a fost găsit sau parola incorectă</value>
   </data>
+  <data name="SkipCommentMessage" xml:space="preserve">
+    <value>Comentariu omis</value>
+  </data>
 </root>

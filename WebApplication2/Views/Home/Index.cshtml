@@ -8,44 +8,6 @@
     Layout = "~/Views/_Shared/_Layout.cshtml";
 }
 
-
-
-@* <link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-
-<script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
-<script>
-    function MySweet() {
-        Swal.fire({
-            title: "Submit email to run ajax request",
-            input: "email",
-            showCancelButton: true,
-            confirmButtonText: "Submit",
-            showLoaderOnConfirm: true,
-            confirmButtonColor: "#5b73e8",
-            cancelButtonColor: "#f46a6a",
-            preConfirm: function (email) {
-                return new Promise(function (resolve, reject) {
-                    setTimeout(function () {
-                        if ("taken@example.com" === email) {
-                            reject("This email is already taken.");
-                        } else {
-                            resolve();
-                        }
-                    }, 2000);
-                });
-            },
-            allowOutsideClick: false
-        }).then(function (result) {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Ajax request finished!",
-                    html: "Submitted email: " + result.value
-                });
-            }
-        });
-    }
-</script> *@
 <div class="row">
     <div class="col-xl-12">
         <div class="button-items">
