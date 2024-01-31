@@ -315,7 +315,7 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="Scorepoints" xml:space="preserve">
+  <data name="Score10points" xml:space="preserve">
     <value>Score 10 points</value>
   </data>
   <data name="Search" xml:space="preserve">
@@ -407,5 +407,8 @@
   </data>
   <data name="SkipCommentMessage" xml:space="preserve">
     <value>Comment skipped</value>
+  </data>
+  <data name="Score5points" xml:space="preserve">
+    <value>Score 5 points</value>
   </data>
 </root>

@@ -747,9 +747,18 @@ namespace ISQuiz.Resources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Score 10 points.
         /// </summary>
-        public static string Scorepoints {
+        public static string Score10points {
             get {
-                return ResourceManager.GetString("Scorepoints", resourceCulture);
+                return ResourceManager.GetString("Score10points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Score 5 points.
+        /// </summary>
+        public static string Score5points {
+            get {
+                return ResourceManager.GetString("Score5points", resourceCulture);
             }
         }
         

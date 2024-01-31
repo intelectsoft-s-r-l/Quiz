@@ -315,8 +315,8 @@
   <data name="Save" xml:space="preserve">
     <value>Salvează</value>
   </data>
-  <data name="Scorepoints" xml:space="preserve">
-    <value>Scor 10 puncte</value>
+  <data name="Score10points" xml:space="preserve">
+    <value>Scor de 10 puncte</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Căutare</value>
@@ -404,5 +404,8 @@
   </data>
   <data name="SkipCommentMessage" xml:space="preserve">
     <value>Comentariu omis</value>
+  </data>
+  <data name="Score5points" xml:space="preserve">
+    <value>Scor de 5 puncte</value>
   </data>
 </root>

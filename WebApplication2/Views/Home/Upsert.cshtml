@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3 mb-4">
-                                    <label asp-for="Title" class="form-label"><h4>@Localization.TitleQ</h4></label>
+                                    <label asp-for="Title" class="form-label"><h4>@Localization.TitleQ*</h4></label>
                                 </div>
                             </div>
                             <div class="col-lg-10">
@@ -110,7 +110,7 @@
                             <input type="hidden" value="0" id="questionId_" />
                             <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
                             <div class="form-group">
-                                <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText</label>
+                                <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText*</label>
 
                                 <input type="text" name="Questions[${questionIndex}].question" class="form-control" required maxlength='100' id="questionName_${questionIndex}" />
                             </div>
@@ -125,7 +125,8 @@
                                     <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
                                     <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
                                         <option value="1">@Localization.YesorNo</option>
-                                        <option value="2">@Localization.Scorepoints</option>
+                                        <option value="5">@Localization.Score5points</option>
+                                        <option value="2">@Localization.Score10points</option>
                                         <option value="3">@Localization.Oneanswer</option>
                                         <option value="4">@Localization.Multianswer</option>
                                     </select>
@@ -205,7 +206,7 @@
                         // Добавляем содержимое в новый div
                         newDiv.html(`
                             <div class="col-lg-12">
-                                <label for="Questions_${questionIndex}__Answers_0__Text">@Localization.AnswerText</label>
+                                <label for="Questions_${questionIndex}__Answers_0__Text">@Localization.AnswerText*</label>
                                 <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-0" />
                                 <input type="hidden" value="0" id="answerId_${questionIndex}-0" />
                             </div>
@@ -235,7 +236,7 @@
                                         <div class="form-group">
                                                 <div class="row align-items-center">
                                                 <div class="col-lg-10">
-                                                    <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText</label>
+                                                    <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText*</label>
                                                     <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" required id="answerVal_${questionIndex}-${answerIndex}" />
                                                     <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
                                                 </div>

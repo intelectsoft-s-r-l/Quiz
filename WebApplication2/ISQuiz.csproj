@@ -71,7 +71,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Logs\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-autofill\node_modules\datatables.net\js\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-buttons\node_modules\datatables.net\js\" />
     <Folder Include="wwwroot\assets\libs\datatables.net-keytable\node_modules\datatables.net\js\" />
