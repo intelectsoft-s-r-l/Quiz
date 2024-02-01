@@ -495,9 +495,9 @@ namespace ISQuiz.Resources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Multi answer variant.
         /// </summary>
-        public static string Multianswer {
+        public static string MultipleAnswerVariant {
             get {
-                return ResourceManager.GetString("Multianswer", resourceCulture);
+                return ResourceManager.GetString("MultipleAnswerVariant", resourceCulture);
             }
         }
         
@@ -547,15 +547,6 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на One answer variant.
-        /// </summary>
-        public static string Oneanswer {
-            get {
-                return ResourceManager.GetString("Oneanswer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на OS version.
         /// </summary>
         public static string osVersion {
@@ -579,6 +570,24 @@ namespace ISQuiz.Resources {
         public static string phone {
             get {
                 return ResourceManager.GetString("phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Score 10 points.
+        /// </summary>
+        public static string Point10Score {
+            get {
+                return ResourceManager.GetString("Point10Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Score 5 points.
+        /// </summary>
+        public static string Point5Score {
+            get {
+                return ResourceManager.GetString("Point5Score", resourceCulture);
             }
         }
         
@@ -745,24 +754,6 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Score 10 points.
-        /// </summary>
-        public static string Score10points {
-            get {
-                return ResourceManager.GetString("Score10points", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Score 5 points.
-        /// </summary>
-        public static string Score5points {
-            get {
-                return ResourceManager.GetString("Score5points", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Search.
         /// </summary>
         public static string Search {
@@ -795,6 +786,15 @@ namespace ISQuiz.Resources {
         public static string SignOut {
             get {
                 return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на One answer variant.
+        /// </summary>
+        public static string SingleAnswerVariant {
+            get {
+                return ResourceManager.GetString("SingleAnswerVariant", resourceCulture);
             }
         }
         
@@ -927,9 +927,9 @@ namespace ISQuiz.Resources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на YES or NO.
         /// </summary>
-        public static string YesorNo {
+        public static string YesNo {
             get {
-                return ResourceManager.GetString("YesorNo", resourceCulture);
+                return ResourceManager.GetString("YesNo", resourceCulture);
             }
         }
         

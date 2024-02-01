@@ -54,22 +54,9 @@
                         {
                             <p> *@Localization.SkipCommentMessage</p>
                         }
-                        @{
-                            string answerLocalization = question.gradingType switch
-                            {
-                                GradingType.YesNo => Localization.YesorNo,
-                                GradingType.Point5Score => Localization.Score5points,
-                                GradingType.Point10Score => Localization.Score10points,
-                                GradingType.SingleAnswerVariant => Localization.Oneanswer,
-                                GradingType.MultipleAnswerVariant => Localization.Multianswer,
-                                _ => question.gradingType.ToString()
-                            };
-                        }
-
-
 
                         <b>@Localization.GradingType</b>
-                        <p>@answerLocalization</p>
+                        <p>@Localization.ResourceManager.GetString(question.gradingType.ToString())</p>
 
                         @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
                         {

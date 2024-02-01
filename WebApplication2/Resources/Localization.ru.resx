@@ -246,7 +246,7 @@
   <data name="logIn" xml:space="preserve">
     <value>Войти</value>
   </data>
-  <data name="Multianswer" xml:space="preserve">
+  <data name="MultipleAnswerVariant" xml:space="preserve">
     <value>Несколько вариантов ответа</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
@@ -261,7 +261,7 @@
   <data name="OldPassword" xml:space="preserve">
     <value>Старый пароль</value>
   </data>
-  <data name="Oneanswer" xml:space="preserve">
+  <data name="SingleAnswerVariant" xml:space="preserve">
     <value>Один вариан ответа</value>
   </data>
   <data name="osVersion" xml:space="preserve">
@@ -315,7 +315,7 @@
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
-  <data name="Score10points" xml:space="preserve">
+  <data name="Point10Score" xml:space="preserve">
     <value>Шкала из 10 пунктов</value>
   </data>
   <data name="Search" xml:space="preserve">
@@ -360,7 +360,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Да</value>
   </data>
-  <data name="YesorNo" xml:space="preserve">
+  <data name="YesNo" xml:space="preserve">
     <value>ДА или НЕТ</value>
   </data>
   <data name="zeroRecords" xml:space="preserve">
@@ -408,7 +408,7 @@
   <data name="SkipCommentMessage" xml:space="preserve">
     <value>Комментарий пропущен</value>
   </data>
-  <data name="Score5points" xml:space="preserve">
+  <data name="Point5Score" xml:space="preserve">
     <value>Шкала из 5 пунктов</value>
   </data>
 </root>

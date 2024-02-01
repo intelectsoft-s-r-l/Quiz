@@ -58,47 +58,12 @@
 
                 <div class="form-group">
                     @{
-                        string answerLocalization = "";
-                        int convertToIntGradingType = 0;
-                        switch (item.gradingType)
-                        {
-                            case GradingType.YesNo:
-                                {
-                                    answerLocalization = Localization.YesorNo;
-                                    convertToIntGradingType = 1;
-                                    break;
-                                }
-                            case GradingType.Point5Score:
-                                {
-                                    answerLocalization = Localization.Score5points;
-                                    convertToIntGradingType = 5;
-                                    break;
-                                }
-                            case GradingType.Point10Score:
-                                {
-                                    answerLocalization = Localization.Score10points;
-                                    convertToIntGradingType = 2;
-                                    break;
-                                }
-                            case GradingType.SingleAnswerVariant:
-                                {
-                                    answerLocalization = Localization.Oneanswer;
-                                    convertToIntGradingType = 3;
-                                    break;
-                                }
-                            case GradingType.MultipleAnswerVariant:
-                                {
-                                    answerLocalization = Localization.Multianswer;
-                                    convertToIntGradingType = 4;
-                                    break;
-                                }
-                            default:
-                                answerLocalization = item.gradingType.ToString(); break;
-                        }
+                        //var gradingTypes = Enum.GetValues(typeof(GradingType)).Cast<GradingType>().Select(v => v.ToString()).ToArray();
+                        //var tmp = Enum.GetValues(typeof(GradingType));
                     }
-                    <input hidden id="questionGradingType_@i" value="@convertToIntGradingType" />
+                    <input hidden id="questionGradingType_@i" value="@Convert.ToInt32(item.gradingType)" />
                     <b>@Localization.GradingType</b>
-                    <p>@answerLocalization</p>
+                    <p>@Localization.ResourceManager.GetString(item.gradingType.ToString())</p>
                 </div>
 
 

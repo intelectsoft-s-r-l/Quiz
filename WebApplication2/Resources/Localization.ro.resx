@@ -246,7 +246,7 @@
   <data name="logIn" xml:space="preserve">
     <value>Intrare</value>
   </data>
-  <data name="Multianswer" xml:space="preserve">
+  <data name="MultipleAnswerVariant" xml:space="preserve">
     <value>Variantă cu răspuns multiplu</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
@@ -261,7 +261,7 @@
   <data name="OldPassword" xml:space="preserve">
     <value>Parola veche</value>
   </data>
-  <data name="Oneanswer" xml:space="preserve">
+  <data name="SingleAnswerVariant" xml:space="preserve">
     <value>Variantă cu un singur răspuns</value>
   </data>
   <data name="osVersion" xml:space="preserve">
@@ -315,7 +315,7 @@
   <data name="Save" xml:space="preserve">
     <value>Salvează</value>
   </data>
-  <data name="Score10points" xml:space="preserve">
+  <data name="Point10Score" xml:space="preserve">
     <value>Scor de 10 puncte</value>
   </data>
   <data name="Search" xml:space="preserve">
@@ -360,7 +360,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Da</value>
   </data>
-  <data name="YesorNo" xml:space="preserve">
+  <data name="YesNo" xml:space="preserve">
     <value>DA sau NU</value>
   </data>
   <data name="zeroRecords" xml:space="preserve">
@@ -405,7 +405,7 @@
   <data name="SkipCommentMessage" xml:space="preserve">
     <value>Comentariu omis</value>
   </data>
-  <data name="Score5points" xml:space="preserve">
+  <data name="Point5Score" xml:space="preserve">
     <value>Scor de 5 puncte</value>
   </data>
 </root>
