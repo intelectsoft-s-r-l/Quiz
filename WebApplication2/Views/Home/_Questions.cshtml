@@ -1,7 +1,11 @@
 ﻿@using ISQuiz.Models.API.Questionnaires;
 @using ISQuiz.Models.Enum;
+@using Newtonsoft.Json
 @model DetailQuestions
 
+@{
+    string currentSelectedLanguage = "";
+}
 
 <script>
 
@@ -14,6 +18,39 @@
         const target = $(this).attr('href');
         smoothScrollTo(target);
         event.preventDefault(); // предотвращаем стандартное поведение перехода по ссылке
+    });
+
+
+    //debugger
+
+    function setInputVisibility(selectedLanguage) {
+        // Hide all language-specific input elements
+        $("p[id*='questionName']").addClass("hidden");
+        // $("p[id*='questionName']").prop("required", false);
+
+        // Show the input element corresponding to the selected language
+        if (selectedLanguage === "RU") {
+            $("p[id*='questionNameRU']").removeClass("hidden");
+            //$("input[id*='questionNameRU']").prop("required", true);
+        } else if (selectedLanguage === "RO") {
+            $("p[id*='questionNameRO']").removeClass("hidden");
+            //$("input[id*='questionNameRO']").prop("required", true);
+        } else if (selectedLanguage === "EN") {
+            $("p[id*='questionNameEN']").removeClass("hidden");
+            //$("input[id*='questionNameEN']").prop("required", true);
+        }
+    }
+
+    var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
+
+    // Call the function to set input visibility based on the selected language
+    setInputVisibility(selectedLanguage);
+    $(".row").on("change", "select[id*='uiLanguageSelect']", function () {
+        // Get the selected language when the dropdown changes
+        var selectedLanguage = $(this).val();
+
+        // Call the function to set input visibility based on the selected language
+        setInputVisibility(selectedLanguage);
     });
 
 </script>
@@ -39,7 +76,36 @@
                                                                   onclick="toggleEye(this); DetailMore(@i);"
                                                                   style="cursor: pointer;"></i>
                 </h4>
-                <p id="questionName_@i">@item.question</p>
+                @{
+                    var tmp = JsonConvert.DeserializeObject<Dictionary<string, string>>(item.question);
+                }
+                @if (!string.IsNullOrEmpty(tmp["EN"]))
+                {
+                    <p id="questionNameEN_@i" data-status="withText">@tmp["EN"]</p>
+                }
+                else
+                {
+                    <p id="questionNameEN_@i" data-status="noComent"> *enS</p>
+                }
+                @if (!string.IsNullOrEmpty(tmp["RO"]))
+                {
+                    <p id="questionNameRO_@i" data-status="withText">@tmp["RO"]</p>
+                }
+                else
+                {
+                    <p id="questionNameRO_@i" data-status="noComent"> *RO</p>
+                }
+                @if (!string.IsNullOrEmpty(tmp["RU"]))
+                {
+                    <p id="questionNameRU_@i" data-status="withText">@tmp["RU"]</p>
+                }
+                else
+                {
+                    <p id="questionNameRU_@i" data-status="noComent"> *ru</p>
+                }
+
+
+
             </div>
 
             <div id="detail_@i">
@@ -48,7 +114,7 @@
                     <b>@Localization.Comment</b>
                     @if (!string.IsNullOrEmpty(item.comentary))
                     {
-                        <p id="questionComentary_@i" data-status="withComent">@item.comentary</p>
+                        <p id="questionComentary_@i" data-status="withText">@item.comentary</p>
                     }
                     else
                     {

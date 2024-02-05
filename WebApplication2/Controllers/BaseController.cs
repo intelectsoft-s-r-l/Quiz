@@ -16,7 +16,7 @@ namespace ISQuiz.Controllers
     {
         private readonly IAccountRepository _accountRepository = new AccountRepository();
         public static string refreshedToken = "";
-        public static object __refreshTokenLock = new object();
+        public static object __refreshTokenLock = new();
         //private IViewRenderService _viewRenderService;
         //protected IViewRenderService ViewRenderService => _viewRenderService ??= HttpContext.RequestServices.GetService<IViewRenderService>();
 
@@ -44,7 +44,7 @@ namespace ISQuiz.Controllers
                     refreshedToken = userData.Token;
 
                     //SignOut to unlock claims for mananging them
-                    HttpContext.SignOutAsync();
+                    await HttpContext.SignOutAsync();
 
                     //Creating new claim to change our token after refresh
                     var claimNew = new Claim(".AspNetCore.Admin", userData.Token);
@@ -54,10 +54,11 @@ namespace ISQuiz.Controllers
                     claimIdentity.AddClaim(claimNew);
                     //Add new claim
                     //SignIn to save claim principal
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
                 }
                 else
                 {
+                    Log.Information("Refresh method. Response => {@userData}", userData);
                     retObject = false;
                 }
                 if (userData.ErrorCode == EnErrorCode.Incorrect_refresh_token)

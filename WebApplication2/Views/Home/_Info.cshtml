@@ -191,14 +191,34 @@
                 toggleEye(this);
             }
         });
-        var titleElement = container.find("#questionName_" + index);
+        var titleElementRU = container.find("#questionNameRU_" + index);
+        var titleElementRO = container.find("#questionNameRO_" + index);
+        var titleElementEN = container.find("#questionNameEN_" + index);
+
         var comentaryElement = container.find("#questionComentary_" + index);
         var gradingTypeElement = container.find("#questionGradingType_" + index);
 
 
         // Создаем input для редактирования
-        var titleInput = $(`<input type='text' id='questionName_${index}' class='form-control' value='${titleElement.text()}' maxlength='100' />`);
-        if (comentaryElement.attr('data-status') === 'withComent') {
+        if (titleElementRU.attr('data-status') === 'withText') {
+            var titleInputRU = $(`<input type='text' id='questionNameRU_${index}' class='form-control' value='${titleElementRU.text()}' maxlength='100' />`);
+        }
+        else {
+            var titleInputRU = $(`<input type='text' id='questionNameRU_${index}' class='form-control' value='' maxlength='100' />`);
+        }
+        if (titleElementRO.attr('data-status') === 'withText') {
+            var titleInputRO = $(`<input type='text' id='questionNameRO_${index}' class='form-control' value='${titleElementRO.text()}' maxlength='100' />`);
+        }
+        else {
+            var titleInputRO = $(`<input type='text' id='questionNameRO_${index}' class='form-control' value='' maxlength='100' />`);
+        }
+        if (titleElementEN.attr('data-status') === 'withText') {
+            var titleInputEN = $(`<input type='text' id='questionNameEN_${index}' class='form-control' value='${titleElementEN.text()}' maxlength='100' />`);
+        }
+        else {
+            var titleInputEN = $(`<input type='text' id='questionNameEN_${index}' class='form-control' value='' maxlength='100' />`);
+        }
+        if (comentaryElement.attr('data-status') === 'withText') {
             var comentaryInput = $(`<input type='text' id='questionComentary_${index}' class='form-control' value='${comentaryElement.text()}' maxlength='100' />`);
         }
         else
@@ -209,8 +229,41 @@
 
 
         // Заменяем на input
-        titleElement.replaceWith(titleInput);
+        titleElementRU.replaceWith(titleInputRU);
+        titleElementRO.replaceWith(titleInputRO);
+        titleElementEN.replaceWith(titleInputEN);
         comentaryElement.replaceWith(comentaryInput);
+
+
+        function setInputVisibility(selectedLanguage) {
+            // Hide all language-specific input elements
+            $("input[id*='questionName']").addClass("hidden");
+            //$("input[id*='questionName']").prop("required", false);
+
+            // Show the input element corresponding to the selected language
+            if (selectedLanguage === "RU") {
+                $("input[id*='questionNameRU']").removeClass("hidden");
+                //$("input[id*='questionNameRU']").prop("required", true);
+            } else if (selectedLanguage === "RO") {
+                $("input[id*='questionNameRO']").removeClass("hidden");
+                //$("input[id*='questionNameRO']").prop("required", true);
+            } else if (selectedLanguage === "EN") {
+                $("input[id*='questionNameEN']").removeClass("hidden");
+               // $("input[id*='questionNameEN']").prop("required", true);
+            }
+        }
+
+        var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
+
+        // Call the function to set input visibility based on the selected language
+        setInputVisibility(selectedLanguage);
+        $(".row").on("change", "select[id*='uiLanguageSelect']", function () {
+            // Get the selected language when the dropdown changes
+            var selectedLanguage = $(this).val();
+
+            // Call the function to set input visibility based on the selected language
+            setInputVisibility(selectedLanguage);
+        });
 
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
 
@@ -280,10 +333,32 @@
                 cancelBtn.classList.remove('col-lg-12');
                 cancelBtn.classList.add('col-lg-3');
 
-                var updatedTitle = titleInput.val();
+                var updatedTitleRU = titleInputRU.val();
+                var updatedTitleRO = titleInputRO.val();
+                var updatedTitleEN = titleInputEN.val();
                 var updateComentary = comentaryInput.val();
 
-                titleInput.replaceWith(`<p id="questionName_{index}">` + updatedTitle + `</p>`);
+                titleInputRU.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRU + `</p>`);
+                titleInputRO.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRO + `</p>`);
+                titleInputEN.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleEN + `</p>`);
+
+                function setInputVisibility(selectedLanguage) {
+                    // Hide all language-specific input elements
+                    $("p[id*='questionName']").addClass("hidden");
+
+                    // Show the input element corresponding to the selected language
+                    if (selectedLanguage === "RU") {
+                        $("p[id*='questionNameRU']").removeClass("hidden");
+                    } else if (selectedLanguage === "RO") {
+                        $("p[id*='questionNameRO']").removeClass("hidden");
+                    } else if (selectedLanguage === "EN") {
+                        $("p[id*='questionNameEN']").removeClass("hidden");
+                    }
+                }
+
+                var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
+                setInputVisibility(selectedLanguage);
+
                 comentaryInput.replaceWith(`<p id="questionComentary_${index}">` + updateComentary + "</p>");
 
                 var responseVariants = [];
@@ -327,7 +402,7 @@
                 var upsertQuestionVM = {
                     id: container.find('#QuestionId').val(),
                     questionnaireId: $('#mainId').val(),
-                    question: updatedTitle,
+                    question: JSON.stringify({ EN: updatedTitleEN, RO: updatedTitleRO, RU: updatedTitleRU }),
                     gradingType: container.find('#questionGradingType_' + index).val(),
                     comentary: updateComentary,
                     responseVariant: JSON.stringify({ responseVariants }),
@@ -593,6 +668,38 @@
 
             <br />
             <h3>@Localization.Questions</h3>
+            @{
+                EnUiLanguage currentLanguage;
+                @switch (Localization.languageState.ToUpper())
+                {
+                    case "EN":
+                        currentLanguage = EnUiLanguage.EN;
+                        break;
+                    case "RO":
+                        currentLanguage = EnUiLanguage.RO;
+                        break;
+                    case "RU":
+                        currentLanguage = EnUiLanguage.RU;
+                        break;
+
+                    default:
+                        currentLanguage = EnUiLanguage.EN;
+                        break;
+                }
+
+
+
+            }
+            <select id="uiLanguageSelect" name="uiLanguageSelect">
+                <option value="@currentLanguage">@currentLanguage.ToString()</option>
+                @foreach (EnUiLanguage leng in Enum.GetValues(typeof(EnUiLanguage)))
+                {
+                    if (leng != currentLanguage)
+                    {
+                        <option value="@leng">@leng.ToString()</option>
+                    }
+                }
+            </select>
 
             <div class="tab-pane active" id="about" role="tabpanel">
                 <div id="questions"></div>
