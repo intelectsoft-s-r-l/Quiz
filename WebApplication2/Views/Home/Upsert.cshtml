@@ -318,7 +318,7 @@
             setInputVisibility(selectedLanguage);
             $(".card-body").on("change", "select[id*='uiLanguageSelect']", function () {
                 // Get the selected language when the dropdown changes
-                var selectedLanguage = $(this).val();
+                selectedLanguage = $(this).val();
 
                 // Call the function to set input visibility based on the selected language
                 setInputVisibility(selectedLanguage);
