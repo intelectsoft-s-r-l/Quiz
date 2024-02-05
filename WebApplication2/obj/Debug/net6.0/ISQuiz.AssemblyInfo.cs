@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ISQuiz")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95f26d1c6dc0bf8a2c14c8bfb2a0cdc94fbe21a4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c31325dee90160b26b3ce4c7fd06c94df0bade61")]
 [assembly: System.Reflection.AssemblyProductAttribute("ISQuiz")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ISQuiz")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
