@@ -195,7 +195,10 @@
         var titleElementRO = container.find("#questionNameRO_" + index);
         var titleElementEN = container.find("#questionNameEN_" + index);
 
-        var comentaryElement = container.find("#questionComentary_" + index);
+        var comentaryElementRU = container.find("#questionComentaryRU_" + index);
+        var comentaryElementRO = container.find("#questionComentaryRO_" + index);
+        var comentaryElementEN = container.find("#questionComentaryEN_" + index);
+
         var gradingTypeElement = container.find("#questionGradingType_" + index);
 
 
@@ -218,13 +221,28 @@
         else {
             var titleInputEN = $(`<input type='text' id='questionNameEN_${index}' class='form-control' value='' maxlength='100' />`);
         }
-        if (comentaryElement.attr('data-status') === 'withText') {
-            var comentaryInput = $(`<input type='text' id='questionComentary_${index}' class='form-control' value='${comentaryElement.text()}' maxlength='100' />`);
+
+
+        if (comentaryElementRU.attr('data-status') === 'withText') {
+            var comentaryInputRU = $(`<input type='text' id='questionComentaryRU_${index}' class='form-control' value='${comentaryElementRU.text()}' maxlength='100' />`);
         }
         else
         {
-            var comentaryInput = $(`<input type='text' id='questionComentary_${index}' class='form-control' value='' maxlength='100' />`);
+            var comentaryInputRU = $(`<input type='text' id='questionComentaryRU_${index}' class='form-control' value='' maxlength='100' />`);
         }
+        if (comentaryElementRO.attr('data-status') === 'withText') {
+            var comentaryInputRO = $(`<input type='text' id='questionComentaryRO_${index}' class='form-control' value='${comentaryElementRO.text()}' maxlength='100' />`);
+        }
+        else {
+            var comentaryInputRO = $(`<input type='text' id='questionComentaryRO_${index}' class='form-control' value='' maxlength='100' />`);
+        } 
+        if (comentaryElementEN.attr('data-status') === 'withText') {
+            var comentaryInputEN = $(`<input type='text' id='questionComentaryEN_${index}' class='form-control' value='${comentaryElementEN.text()}' maxlength='100' />`);
+        }
+        else {
+            var comentaryInputEN = $(`<input type='text' id='questionComentaryEN_${index}' class='form-control' value='' maxlength='100' />`);
+        }
+
         var gradingTypeValue = gradingTypeElement[0].value;
 
 
@@ -232,23 +250,30 @@
         titleElementRU.replaceWith(titleInputRU);
         titleElementRO.replaceWith(titleInputRO);
         titleElementEN.replaceWith(titleInputEN);
-        comentaryElement.replaceWith(comentaryInput);
+
+        comentaryElementRU.replaceWith(comentaryInputRU);
+        comentaryElementRO.replaceWith(comentaryInputRO);
+        comentaryElementEN.replaceWith(comentaryInputEN);
 
 
         function setInputVisibility(selectedLanguage) {
             // Hide all language-specific input elements
             $("input[id*='questionName']").addClass("hidden");
+            $("input[id*='questionComentary']").addClass("hidden");
             //$("input[id*='questionName']").prop("required", false);
 
             // Show the input element corresponding to the selected language
             if (selectedLanguage === "RU") {
                 $("input[id*='questionNameRU']").removeClass("hidden");
+                $("input[id*='questionComentaryRU']").removeClass("hidden");
                 //$("input[id*='questionNameRU']").prop("required", true);
             } else if (selectedLanguage === "RO") {
                 $("input[id*='questionNameRO']").removeClass("hidden");
+                $("input[id*='questionComentaryRO']").removeClass("hidden");
                 //$("input[id*='questionNameRO']").prop("required", true);
             } else if (selectedLanguage === "EN") {
                 $("input[id*='questionNameEN']").removeClass("hidden");
+                $("input[id*='questionComentaryEN']").removeClass("hidden");
                // $("input[id*='questionNameEN']").prop("required", true);
             }
         }
@@ -336,11 +361,18 @@
                 var updatedTitleRU = titleInputRU.val();
                 var updatedTitleRO = titleInputRO.val();
                 var updatedTitleEN = titleInputEN.val();
-                var updateComentary = comentaryInput.val();
+
+                var updateComentaryRU = comentaryInputRU.val();
+                var updateComentaryRO = comentaryInputRO.val();
+                var updateComentaryEN = comentaryInputEN.val();
 
                 titleInputRU.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRU + `</p>`);
                 titleInputRO.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRO + `</p>`);
                 titleInputEN.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleEN + `</p>`);
+
+                comentaryInputRU.replaceWith(`<p id="questionComentaryRU_${index}">` + updateComentaryRU + "</p>");
+                comentaryInputRO.replaceWith(`<p id="questionComentaryRO_${index}">` + updateComentaryRO + "</p>");
+                comentaryInputEN.replaceWith(`<p id="questionComentaryEN_${index}">` + updateComentaryEN + "</p>");
 
                 function setInputVisibility(selectedLanguage) {
                     // Hide all language-specific input elements
@@ -359,7 +391,7 @@
                 var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
                 setInputVisibility(selectedLanguage);
 
-                comentaryInput.replaceWith(`<p id="questionComentary_${index}">` + updateComentary + "</p>");
+                
 
                 var responseVariants = [];
 
@@ -404,7 +436,7 @@
                     questionnaireId: $('#mainId').val(),
                     question: JSON.stringify({ EN: updatedTitleEN, RO: updatedTitleRO, RU: updatedTitleRU }),
                     gradingType: container.find('#questionGradingType_' + index).val(),
-                    comentary: updateComentary,
+                    comentary: JSON.stringify({ EN: updateComentaryEN, RO: updateComentaryRO, RU: updateComentaryRU }),
                     responseVariant: JSON.stringify({ responseVariants }),
                 };
 

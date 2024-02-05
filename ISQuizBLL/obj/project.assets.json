@@ -1416,26 +1416,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADavid\\.nuget\\packages\\": {},
-    "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages": {},
+    "C:\\Users\\BOSS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
+      "projectUniqueName": "C:\\Users\\BOSS\\Desktop\\Новая папка (2)\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
       "projectName": "ISQuizBLL",
-      "projectPath": "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
-      "packagesPath": "C:\\Users\\ADavid\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADavid\\Desktop\\Quiz\\ISQuizBLL\\obj\\",
+      "projectPath": "C:\\Users\\BOSS\\Desktop\\Новая папка (2)\\Quiz\\ISQuizBLL\\ISQuizBLL.csproj",
+      "packagesPath": "C:\\Users\\BOSS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\BOSS\\Desktop\\Новая папка (2)\\Quiz\\ISQuizBLL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages",
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ADavid\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
+        "C:\\Users\\BOSS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1444,7 +1441,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1492,7 +1489,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   },
