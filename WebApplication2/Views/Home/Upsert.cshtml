@@ -136,18 +136,22 @@
             function setInputVisibility(selectedLanguage) {
                 // Hide all language-specific input elements
                 $("input[id*='questionName']").addClass("hidden");
+                $("input[id*='questionComentary']").addClass("hidden");
                 $("input[id*='questionName']").prop("required", false);
 
                 // Show the input element corresponding to the selected language
                 if (selectedLanguage === "RU") {
                     $("input[id*='questionNameRU']").removeClass("hidden");
                     $("input[id*='questionNameRU']").prop("required", true);
+                    $("input[id*='questionComentaryRU']").removeClass("hidden");
                 } else if (selectedLanguage === "RO") {
                     $("input[id*='questionNameRO']").removeClass("hidden");
                     $("input[id*='questionNameRO']").prop("required", true);
+                    $("input[id*='questionComentaryRO']").removeClass("hidden");
                 } else if (selectedLanguage === "EN") {
                     $("input[id*='questionNameEN']").removeClass("hidden");
                     $("input[id*='questionNameEN']").prop("required", true);
+                    $("input[id*='questionComentaryEN']").removeClass("hidden");
                 }
             }
 
@@ -173,7 +177,9 @@
 
                                                 <div class="form-group">
                                                     <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
-                                                    <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentary_${questionIndex}" />
+                                                    <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryRU_${questionIndex}" />
+                                                    <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryRO_${questionIndex}" />
+                                                    <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryEN_${questionIndex}" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
@@ -344,12 +350,19 @@
                         divsSetQuestions.each(function (e, element) {
                             var answerRes = [];
                             let questionid = $("#" + element.id).find("input[id*='questionId_']");
+
                             let questionNameRU = $("#" + element.id).find("input[id*='questionNameRU_']")[0].value;
                             let questionNameRO = $("#" + element.id).find("input[id*='questionNameRO_']")[0].value;
                             let questionNameEN = $("#" + element.id).find("input[id*='questionNameEN_']")[0].value;
                             let questionName = JSON.stringify({ EN: questionNameEN, RO: questionNameRO, RU: questionNameRU });
+
                             let questionGradingType = $("#" + element.id).find("select[id*='questionGradingType_']");
-                            let questionComentary = $("#" + element.id).find("input[id*='questionComentary_']");
+
+                            let questionComentaryRU = $("#" + element.id).find("input[id*='questionComentaryRU_']")[0].value;
+                            let questionComentaryRO = $("#" + element.id).find("input[id*='questionComentaryRO_']")[0].value;
+                            let questionComentaryEN = $("#" + element.id).find("input[id*='questionComentaryEN_']")[0].value;
+                            let questionComentary = JSON.stringify({ EN: questionComentaryEN, RO: questionComentaryRO, RU: questionComentaryRU });
+
                             let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
                             if (answerVal.length > 0) {
                                 answerVal.each(function (e, answElement) {
@@ -357,7 +370,7 @@
                                     answerRes.push({ id: answerid[0].value, questionId: questionid[0].value, response: answElement.value });
                                 });
                             }
-                            questions.push({ id: questionid[0].value, questionnaireId: mainIdquestionnaire, question: questionName, gradingType: questionGradingType[0].value, comentary: questionComentary[0].value, responseVariants: answerRes });
+                            questions.push({ id: questionid[0].value, questionnaireId: mainIdquestionnaire, question: questionName, gradingType: questionGradingType[0].value, comentary: questionComentary, responseVariants: answerRes });
                         });
 
                         var Quest = {

@@ -26,17 +26,21 @@
     function setInputVisibility(selectedLanguage) {
         // Hide all language-specific input elements
         $("p[id*='questionName']").addClass("hidden");
+        $("p[id*='questionComentary']").addClass("hidden");
         // $("p[id*='questionName']").prop("required", false);
 
         // Show the input element corresponding to the selected language
         if (selectedLanguage === "RU") {
             $("p[id*='questionNameRU']").removeClass("hidden");
+            $("p[id*='questionComentaryRU']").removeClass("hidden");
             //$("input[id*='questionNameRU']").prop("required", true);
         } else if (selectedLanguage === "RO") {
             $("p[id*='questionNameRO']").removeClass("hidden");
+            $("p[id*='questionComentaryRO']").removeClass("hidden");
             //$("input[id*='questionNameRO']").prop("required", true);
         } else if (selectedLanguage === "EN") {
             $("p[id*='questionNameEN']").removeClass("hidden");
+            $("p[id*='questionComentaryEN']").removeClass("hidden");
             //$("input[id*='questionNameEN']").prop("required", true);
         }
     }
@@ -77,27 +81,28 @@
                                                                   style="cursor: pointer;"></i>
                 </h4>
                 @{
-                    var tmp = JsonConvert.DeserializeObject<Dictionary<string, string>>(item.question);
+                    var questionNameJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(item.question);
+                    var questionComentaryJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(item.comentary);
                 }
-                @if (!string.IsNullOrEmpty(tmp["EN"]))
+                @if (!string.IsNullOrEmpty(questionNameJson["EN"]))
                 {
-                    <p id="questionNameEN_@i" data-status="withText">@tmp["EN"]</p>
+                    <p id="questionNameEN_@i" data-status="withText">@questionNameJson["EN"]</p>
                 }
                 else
                 {
                     <p id="questionNameEN_@i" data-status="noComent"> *enS</p>
                 }
-                @if (!string.IsNullOrEmpty(tmp["RO"]))
+                @if (!string.IsNullOrEmpty(questionNameJson["RO"]))
                 {
-                    <p id="questionNameRO_@i" data-status="withText">@tmp["RO"]</p>
+                    <p id="questionNameRO_@i" data-status="withText">@questionNameJson["RO"]</p>
                 }
                 else
                 {
                     <p id="questionNameRO_@i" data-status="noComent"> *RO</p>
                 }
-                @if (!string.IsNullOrEmpty(tmp["RU"]))
+                @if (!string.IsNullOrEmpty(questionNameJson["RU"]))
                 {
-                    <p id="questionNameRU_@i" data-status="withText">@tmp["RU"]</p>
+                    <p id="questionNameRU_@i" data-status="withText">@questionNameJson["RU"]</p>
                 }
                 else
                 {
@@ -112,14 +117,39 @@
 
                 <div class="form-group">
                     <b>@Localization.Comment</b>
-                    @if (!string.IsNullOrEmpty(item.comentary))
+                    @if (!string.IsNullOrEmpty(questionComentaryJson["EN"]))
+                    {
+                        <p id="questionComentaryEN_@i" data-status="withText">@questionComentaryJson["EN"]</p>
+                    }
+                    else
+                    {
+                        <p id="questionComentaryEN_@i" data-status="noComent"> *enS</p>
+                    }
+                    @if (!string.IsNullOrEmpty(questionComentaryJson["RO"]))
+                    {
+                        <p id="questionComentaryRO_@i" data-status="withText">@questionComentaryJson["RO"]</p>
+                    }
+                    else
+                    {
+                        <p id="questionComentaryRO_@i" data-status="noComent"> *RO</p>
+                    }
+                    @if (!string.IsNullOrEmpty(questionComentaryJson["RU"]))
+                    {
+                        <p id="questionComentaryRU_@i" data-status="withText">@questionComentaryJson["RU"]</p>
+                    }
+                    else
+                    {
+                        <p id="questionComentaryRU_@i" data-status="noComent"> *ru</p>
+                    }
+
+@*                     @if (!string.IsNullOrEmpty(item.comentary))
                     {
                         <p id="questionComentary_@i" data-status="withText">@item.comentary</p>
                     }
                     else
                     {
-                        <p id="questionComentary_@i" data-status="noComent"> *@Localization.SkipCommentMessage</p>
-                    }
+                        <p id="questionComentary_@i" data-status="noComent"> @Localization.SkipCommentMessage</p>
+                    } *@
                 </div>
 
                 <div class="form-group">
