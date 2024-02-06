@@ -70,7 +70,7 @@
 
                         @{
                             EnUiLanguage currentLanguage;
-                            @switch (Localization.languageState.ToUpper())
+                                    @switch (Localization.languageState.ToUpper())
                             {
                                 case "EN":
                                     currentLanguage = EnUiLanguage.EN;
@@ -386,12 +386,19 @@
                             let questionComentaryEN = $("#" + element.id).find("input[id*='questionComentaryEN_']")[0].value;
                             let questionComentary = JSON.stringify({ EN: questionComentaryEN, RO: questionComentaryRO, RU: questionComentaryRU });
 
-                            let answerVal = $("#" + element.id).find("input[id*='answerVal_']");
-                            if (answerVal.length > 0) {
-                                answerVal.each(function (e, answElement) {
-                                    let answerid = $("#" + element.id).find("input[id*='answerId_']");
-                                    answerRes.push({ id: answerid[0].value, questionId: questionid[0].value, response: answElement.value });
-                                });
+                            //debugger
+                            let answerValRU = $("#" + element.id).find("input[id*='answerValRU']");
+                            let answerValRO = $("#" + element.id).find("input[id*='answerValRO']");
+                            let answerValEN = $("#" + element.id).find("input[id*='answerValEN']");
+                            if (answerValRU.length > 0) {
+                                for (var i = 0; i < answerValRU.length; i++) {
+                                    let ruValInput = answerValRU[i].value;
+                                    let roValInput = answerValRO[i].value;
+                                    let enValInput = answerValEN[i].value;
+
+                                    answerRes.push({ id: 0, questionId: 0, response: JSON.stringify({ EN: enValInput, RO: roValInput, RU: ruValInput }) });
+                                }
+
                             }
                             questions.push({ id: questionid[0].value, questionnaireId: mainIdquestionnaire, question: questionName, gradingType: questionGradingType[0].value, comentary: questionComentary, responseVariants: answerRes });
                         });

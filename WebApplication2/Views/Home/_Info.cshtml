@@ -56,9 +56,9 @@
         var ISValid = true;
 
 
-        if ($('#questionName_' + index).val() === "") {
+        if ($('#questionNameRU_' + index).val() === "" && $('#questionNameRO_' + index).val() === "" && $('#questionNameEN_' + index).val() === "") {
             if ($('#QuestionNameError').val() == null) {
-                $('#questionName_' + index).after('<label id="QuestionNameError" class="text-danger">@Localization.QuestionTextValidation</label>');
+                $('#detail_' + index).before('<label id="QuestionNameError" class="text-danger">@Localization.QuestionTextValidation</label>');
             }
             ISValid = false;
         }

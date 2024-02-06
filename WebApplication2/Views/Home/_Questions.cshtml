@@ -27,20 +27,24 @@
         // Hide all language-specific input elements
         $("p[id*='questionName']").addClass("hidden");
         $("p[id*='questionComentary']").addClass("hidden");
+        $("p[id*='questionResponse']").addClass("hidden");
         // $("p[id*='questionName']").prop("required", false);
 
         // Show the input element corresponding to the selected language
         if (selectedLanguage === "RU") {
             $("p[id*='questionNameRU']").removeClass("hidden");
             $("p[id*='questionComentaryRU']").removeClass("hidden");
+            $("p[id*='questionResponseRU']").removeClass("hidden");
             //$("input[id*='questionNameRU']").prop("required", true);
         } else if (selectedLanguage === "RO") {
             $("p[id*='questionNameRO']").removeClass("hidden");
             $("p[id*='questionComentaryRO']").removeClass("hidden");
+            $("p[id*='questionResponseRO']").removeClass("hidden");
             //$("input[id*='questionNameRO']").prop("required", true);
         } else if (selectedLanguage === "EN") {
             $("p[id*='questionNameEN']").removeClass("hidden");
             $("p[id*='questionComentaryEN']").removeClass("hidden");
+            $("p[id*='questionResponseEN']").removeClass("hidden");
             //$("input[id*='questionNameEN']").prop("required", true);
         }
     }
@@ -174,11 +178,35 @@
                         <ul>
                             @foreach (var answ in item.responseVariants.OrderBy(x => x.id))
                             {
+                                var questionResponseJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(answ.response);
                                 <li>
                                     <div class="answer" id="response_@j">
                                         <div class="row">
                                             <div class="col-md-11">
-                                                <p>@answ.response</p>
+                                                @if (!string.IsNullOrEmpty(questionResponseJson["EN"]))
+                                                {
+                                                    <p id="questionResponseEN_@i" data-status="withText">@questionResponseJson["EN"]</p>
+                                                }
+                                                else
+                                                {
+                                                    <p id="questionResponseEN_@i" data-status="noComent"> *enS</p>
+                                                }
+                                                @if (!string.IsNullOrEmpty(questionResponseJson["RO"]))
+                                                {
+                                                    <p id="questionResponseRO_@i" data-status="withText">@questionResponseJson["RO"]</p>
+                                                }
+                                                else
+                                                {
+                                                    <p id="questionResponseRO_@i" data-status="noComent"> *RO</p>
+                                                }
+                                                @if (!string.IsNullOrEmpty(questionResponseJson["RU"]))
+                                                {
+                                                    <p id="questionResponseRU_@i" data-status="withText">@questionResponseJson["RU"]</p>
+                                                }
+                                                else
+                                                {
+                                                    <p id="questionResponseRU_@i" data-status="noComent"> *ru</p>
+                                                }
                                             </div>
                                             <div class="col-md-1">
                                                 <button type='button' style='width: 100%; display: none;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
