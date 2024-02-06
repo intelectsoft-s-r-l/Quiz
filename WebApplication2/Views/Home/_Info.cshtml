@@ -293,7 +293,7 @@
         comentaryElementEN.replaceWith(comentaryInputEN);
 
         function setInputVisibility(selectedLanguage) {
-            debugger
+            
             // Hide all language-specific input elements
             $("input[id*='questionName']").addClass("hidden");
             $("input[id*='questionComentary']").addClass("hidden");
@@ -447,7 +447,7 @@
 
                         let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
                         btnDeleteAnsw.hide();
-                        debugger
+                        
                         let responsesRU = $("#" + element.id).find("[id*='responseRU']");
                         let responsesRO = $("#" + element.id).find("[id*='responseRO']");
                         let responsesEN = $("#" + element.id).find("[id*='responseEN']");
@@ -553,6 +553,7 @@
             // Hide all language-specific input elements
             $("input[id*='questionName']").addClass("hidden");
             $("input[id*='questionComentary']").addClass("hidden");
+            $("input[id*='response']").addClass("hidden");
 
             // Show the input element corresponding to the selected language
             if (selectedLanguage === "RU") {
@@ -561,6 +562,7 @@
 
                 $("input[id*='questionComentaryRU']").removeClass("hidden");
 
+                $("input[id*='responseRU']").removeClass("hidden");
 
             } else if (selectedLanguage === "RO") {
                 $("input[id*='questionNameRO']").removeClass("hidden");
@@ -568,6 +570,7 @@
 
                 $("input[id*='questionComentaryRO']").removeClass("hidden");
 
+                $("input[id*='responseRO']").removeClass("hidden");
 
             } else if (selectedLanguage === "EN") {
                 $("input[id*='questionNameEN']").removeClass("hidden");
@@ -575,6 +578,7 @@
 
                 $("input[id*='questionComentaryEN']").removeClass("hidden");
 
+                $("input[id*='responseEN']").removeClass("hidden");
             }
         }
 
@@ -611,7 +615,9 @@
                                                     <div class="col-lg-12">
                                                         <p>@Localization.AnswerText</p>
                                                         <input hidden id='newResponseId' value='0' />
-                                                        <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                                        <input type="text" maxlength='100' id='responseRU_0' class="form-control mb-4" />
+                                                        <input type="text" maxlength='100' id='responseRO_0' class="form-control mb-4" />
+                                                        <input type="text" maxlength='100' id='responseEN_0' class="form-control mb-4" />
                                                     </div>
                                                 </div>
                                                 <br />
@@ -624,7 +630,7 @@
         $("#questions-container").append(questionHtml);
 
         setInputVisibility(selectedLanguage);
-        $(".card-body").on("change", "select[id*='uiLanguageSelect']", function () {
+        $(".row").on("change", "select[id*='uiLanguageSelect']", function () {
             // Get the selected language when the dropdown changes
             selectedLanguage = $(this).val();
 
@@ -658,16 +664,32 @@
                     let divsSetQuestion = $("#questionN_0").find(`div[id*="answersContainer_0"]`);
 
                     divsSetQuestion.each(function (e, element) {
-                        let responses = $("#" + element.id).find("[id^='response_']");
-                        responses.each(function (index, responseElement) { //index - 0,1,2...
-                            // Получаем значение из textarea
-                            let responseText = $(responseElement).val();
-                            if (responseText.length > 0) {
-                                responseVariants.push({ id: 0, questionId: 0, response: responseText });
 
+                        let responsesRU = $("#" + element.id).find("[id^='responseRU']");
+                        let responsesRO = $("#" + element.id).find("[id^='responseRO']");
+                        let responsesEN = $("#" + element.id).find("[id^='responseEN']");
+
+
+                        //if (responsesRU.length > 0) {
+
+                        for (var i = 0; i < responsesRU.length; i++) {
+                            let ruValInput = responsesRU[i].value;
+                            let roValInput = responsesRO[i].value;
+                            let enValInput = responsesEN[i].value;
+                            
+
+                            if (ruValInput.length > 0 || roValInput.length > 0 || enValInput.length) {
+                                responseVariants.push({ id: 0, questionId: 0, response: JSON.stringify({ EN: enValInput, RO: roValInput, RU: ruValInput }) });
                             }
-                        });
+
+                        }
+
+                        //}
+
                     });
+                    
+
+                    
 
                 }
 
@@ -725,12 +747,15 @@
                                                 <div class="col-lg-12">
                                                     <p>@Localization.AnswerText</p>
                                                     <input hidden id='newResponseId' value='0' />
-                                                    <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                                    <input type="text" maxlength='100' id='responseRU_0' class="form-control mb-4" />
+                                                    <input type="text" maxlength='100' id='responseRO_0' class="form-control mb-4" />
+                                                    <input type="text" maxlength='100' id='responseEN_0' class="form-control mb-4" />
                                                 </div>
                                             </div>`;
 
                     // Добавляем новый div внутрь существующего div
                     $("#answersContainer_0").append(newDiv);
+                    setInputVisibility(selectedLanguage);
                 }
             } else {
                 $answers.remove(); //???!!/
@@ -751,7 +776,9 @@
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <input hidden id='newResponseId' value='0' />
-                                                <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
+                                                <input type="text" maxlength='100' id='responseRU_${answerIndex}' class="form-control mb-4" />
+                                                <input type="text" maxlength='100' id='responseRO_${answerIndex}' class="form-control mb-4" />
+                                                <input type="text" maxlength='100' id='responseEN_${answerIndex}' class="form-control mb-4" />
                                             </div>
                                             <div class="col-md-2">
                                                 <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
@@ -761,6 +788,7 @@
 
             // Вставляем новый input перед кнопкой
             $("#questionN_0").find(".answers-container_0").append(newInput);
+            setInputVisibility(selectedLanguage);
             answerIndex++;
         });
 
