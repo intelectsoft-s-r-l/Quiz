@@ -547,17 +547,52 @@
         cancelBtn.classList.remove('col-lg-3');
         cancelBtn.classList.add('col-lg-12');
 
+        var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
+
+        function setInputVisibility(selectedLanguage) {
+            // Hide all language-specific input elements
+            $("input[id*='questionName']").addClass("hidden");
+            $("input[id*='questionComentary']").addClass("hidden");
+
+            // Show the input element corresponding to the selected language
+            if (selectedLanguage === "RU") {
+                $("input[id*='questionNameRU']").removeClass("hidden");
+
+
+                $("input[id*='questionComentaryRU']").removeClass("hidden");
+
+
+            } else if (selectedLanguage === "RO") {
+                $("input[id*='questionNameRO']").removeClass("hidden");
+
+
+                $("input[id*='questionComentaryRO']").removeClass("hidden");
+
+
+            } else if (selectedLanguage === "EN") {
+                $("input[id*='questionNameEN']").removeClass("hidden");
+
+
+                $("input[id*='questionComentaryEN']").removeClass("hidden");
+
+            }
+        }
+
         var questionHtml = `<div class="question" id="questionN_0">
                                         <div class="form-group">
                                             <input hidden id="QuestionId" value="0" />
                                             <h4>@Localization.QuestionText</h4>
-                                            <input type='text' id='questionName_0' maxlength='100' class='form-control' />
+                                            <input type='text' id='questionNameRU_0' maxlength='100' class='form-control' />
+                                            <input type='text' id='questionNameRO_0' maxlength='100' class='form-control' />
+                                            <input type='text' id='questionNameEN_0' maxlength='100' class='form-control' />
                                         </div>
 
                                         <div id="detail_0">
                                             <div class="form-group">
                                                 <label>@Localization.Comment</label>
-                                                <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
+                                                <input type='text' maxlength='100' id='questionComentaryRU_0' class='form-control' />
+                                                <input type='text' maxlength='100' id='questionComentaryRO_0' class='form-control' />
+                                                <input type='text' maxlength='100' id='questionComentaryEN_0' class='form-control' />
                                             </div>
                                                 <div class="form-group" id="SelectGradingType">
                                                     <label>@Localization.GradingType</label>
@@ -588,7 +623,14 @@
         // Добавляем вопрос в контейнер
         $("#questions-container").append(questionHtml);
 
+        setInputVisibility(selectedLanguage);
+        $(".card-body").on("change", "select[id*='uiLanguageSelect']", function () {
+            // Get the selected language when the dropdown changes
+            selectedLanguage = $(this).val();
 
+            // Call the function to set input visibility based on the selected language
+            setInputVisibility(selectedLanguage);
+        });
 
         // Создаем saveButton
         var saveButton = $("<a style='margin-top: 10px; width: 100%;' class='btn btn-success waves-effect waves-light save' title='@Localization.Save'><i class='uil uil-file-alt me-1' ></i>@Localization.Save</a>").on("click", function () {
@@ -629,13 +671,23 @@
 
                 }
 
+                let questionNameRU = $("#questionN_0").find("input[id*='questionNameRU_0']")[0].value;
+                let questionNameRO = $("#questionN_0").find("input[id*='questionNameRO_0']")[0].value;
+                let questionNameEN = $("#questionN_0").find("input[id*='questionNameEN_0']")[0].value;
+                let questionName = JSON.stringify({ EN: questionNameEN, RO: questionNameRO, RU: questionNameRU });
 
+
+                let questionComentaryRU = $("#questionN_0").find("input[id*='questionComentaryRU_']")[0].value;
+                let questionComentaryRO = $("#questionN_0").find("input[id*='questionComentaryRO_']")[0].value;
+                let questionComentaryEN = $("#questionN_0").find("input[id*='questionComentaryEN_']")[0].value;
+                let questionComentary = JSON.stringify({ EN: questionComentaryEN, RO: questionComentaryRO, RU: questionComentaryRU });
+                //$("#questionN_0").find("input[id*='questionComentary_0']").val(),
                 var upsertQuestionVM = {
                     id: 0,
                     questionnaireId: $('#mainId').val(),
-                    question: $("#questionN_0").find("input[id*='questionName_0']").val(),
+                    question: questionName,
                     gradingType: gradingTypeValue,
-                    comentary: $("#questionN_0").find("input[id*='questionComentary_0']").val(),
+                    comentary: questionComentary,
                     responseVariant: JSON.stringify({ responseVariants }),
                 };
 
@@ -742,6 +794,8 @@
 
             $("#questionN_0").remove();
         });
+
+        setInputVisibility(selectedLanguage);
     }
 
 </script>
