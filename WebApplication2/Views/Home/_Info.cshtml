@@ -255,40 +255,33 @@
         comentaryElementRO.replaceWith(comentaryInputRO);
         comentaryElementEN.replaceWith(comentaryInputEN);
 
-
         function setInputVisibility(selectedLanguage) {
             // Hide all language-specific input elements
             $("input[id*='questionName']").addClass("hidden");
             $("input[id*='questionComentary']").addClass("hidden");
+            $("input[id*='response']").addClass("hidden");
             //$("input[id*='questionName']").prop("required", false);
 
             // Show the input element corresponding to the selected language
             if (selectedLanguage === "RU") {
                 $("input[id*='questionNameRU']").removeClass("hidden");
                 $("input[id*='questionComentaryRU']").removeClass("hidden");
+                $("input[id*='responseRU']").removeClass("hidden");
                 //$("input[id*='questionNameRU']").prop("required", true);
             } else if (selectedLanguage === "RO") {
                 $("input[id*='questionNameRO']").removeClass("hidden");
                 $("input[id*='questionComentaryRO']").removeClass("hidden");
+                $("input[id*='responseRO']").removeClass("hidden");
                 //$("input[id*='questionNameRO']").prop("required", true);
             } else if (selectedLanguage === "EN") {
                 $("input[id*='questionNameEN']").removeClass("hidden");
                 $("input[id*='questionComentaryEN']").removeClass("hidden");
-               // $("input[id*='questionNameEN']").prop("required", true);
+                $("input[id*='responseEN']").removeClass("hidden");
+                // $("input[id*='questionNameEN']").prop("required", true);
             }
         }
 
         var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
-
-        // Call the function to set input visibility based on the selected language
-        setInputVisibility(selectedLanguage);
-        $(".row").on("change", "select[id*='uiLanguageSelect']", function () {
-            // Get the selected language when the dropdown changes
-            var selectedLanguage = $(this).val();
-
-            // Call the function to set input visibility based on the selected language
-            setInputVisibility(selectedLanguage);
-        });
 
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
 
@@ -316,7 +309,9 @@
                                     <div class="row">
                                     <div class="col-md-10">
                                         <input hidden id='newResponseId' value='0' />
-                                        <input type="text" id='response_${answersCount}' class="form-control mb-4" maxlength='100' />
+                                        <input type="text" id='responseRU_${answersCount}' class="form-control mb-4" maxlength='100' />
+                                        <input type="text" id='responseRO_${answersCount}' class="form-control mb-4" maxlength='100' />
+                                        <input type="text" id='responseEN_${answersCount}' class="form-control mb-4" maxlength='100' />
                                     </div>
                                     <div class="col-md-2">
                                         <button type='button' style='width: 100%;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
@@ -327,12 +322,27 @@
 
                 // Вставляем новый input перед кнопкой
                 container.find("#answersContainer_" + index).append(newInput);
+                setInputVisibility(selectedLanguage);
             });
 
 
             // Добавляем кнопку в форму
             container.append(addButton);
+            
+            
         }
+
+
+        $(".row").on("change", "select[id*='uiLanguageSelect']", function () {
+            // Get the selected language when the dropdown changes
+            var selectedLanguage = $(this).val();
+
+            // Call the function to set input visibility based on the selected language
+            setInputVisibility(selectedLanguage);
+        });
+
+        // Call the function to set input visibility based on the selected language
+        setInputVisibility(selectedLanguage);
 
         container.on("click", ".btnremoveAnsw", function () {
             var $answer = $(this).closest('.answer');
@@ -367,8 +377,8 @@
                 var updateComentaryEN = comentaryInputEN.val();
 
                 titleInputRU.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRU + `</p>`);
-                titleInputRO.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRO + `</p>`);
-                titleInputEN.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleEN + `</p>`);
+                titleInputRO.replaceWith(`<p id="questionNameRO_${index}">` + updatedTitleRO + `</p>`);
+                titleInputEN.replaceWith(`<p id="questionNameEN_${index}">` + updatedTitleEN + `</p>`);
 
                 comentaryInputRU.replaceWith(`<p id="questionComentaryRU_${index}">` + updateComentaryRU + "</p>");
                 comentaryInputRO.replaceWith(`<p id="questionComentaryRO_${index}">` + updateComentaryRO + "</p>");
@@ -398,27 +408,31 @@
                 if (gradingTypeValue == '3' || gradingTypeValue == '4') {
                     let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
 
+
+
+
                     divsSetQuestion.each(function (e, element) {
-                        let responses = $("#" + element.id).find("[id^='response_']");
+
                         let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
                         btnDeleteAnsw.hide();
 
-                        responses.each(function (index, responseElement) { //index - 0,1,2...
-                            // Получаем значение из textarea
-                            let responseText = $(responseElement).val();
-                            let answerId = $("#" + element.id).find("input[id*='newResponseId']");
-                            if (responseText.length > 0) {
-                                responseVariants.push({ id: answerId[0].value, questionId: $('#QuestionId').val(), response: responseText });
+                        let responsesRU = $("#" + element.id).find("[id^='responseRU']");
+                        let responsesRO = $("#" + element.id).find("[id^='responseRO']");
+                        let responsesEN = $("#" + element.id).find("[id^='responseEN']");
 
+                        let answerId = $("#" + element.id).find("input[id*='newResponseId']");
+                        if (responsesRU.length > 0) {
+
+                            for (var i = 0; i < responsesRU.length; i++) {
+                                let ruValInput = responsesRU[i].value;
+                                let roValInput = responsesRO[i].value;
+                                let enValInput = responsesEN[i].value;
+
+                                responseVariants.push({ id: answerId[0].value, questionId: $('#QuestionId').val(), response: JSON.stringify({ EN: enValInput, RO: roValInput, RU: ruValInput }) });
                             }
-                            /*
-                            // Создаем новый параграф с этим значением
-                            let newParagraph = $(`<div class="answer" id="response_" > <div class="row"><b>` + responseText + `</b></div></div>`);
 
-                            // Заменяем текущий элемент на новый параграф
-                            $(responseElement).replaceWith(newParagraph);
-                            */
-                        });
+                        }
+
                     });
 
                 }
