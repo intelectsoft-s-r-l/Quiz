@@ -66,11 +66,10 @@
 
 
                         <br />
-                        <h3>@Localization.Question</h3>
 
                         @{
                             EnUiLanguage currentLanguage;
-                                    @switch (Localization.languageState.ToUpper())
+                            @switch (Localization.languageState.ToUpper())
                             {
                                 case "EN":
                                     currentLanguage = EnUiLanguage.EN;
@@ -90,7 +89,8 @@
 
 
                         }
-                        <select id="uiLanguageSelect" name="uiLanguageSelect">
+                        <h3 style="display: inline-block; margin-right: 10px;">@Localization.Questions</h3>
+                        <select id="uiLanguageSelect" name="uiLanguageSelect" style="padding: 5px; border-radius: 5px; font-size: 16px; border: 2px solid black;">
                             <option value="@currentLanguage">@currentLanguage.ToString()</option>
                             @foreach (EnUiLanguage leng in Enum.GetValues(typeof(EnUiLanguage)))
                             {
@@ -178,45 +178,45 @@
             var questionIndex = 0;
 
             function addQuestion() {
-            var questionHtml = `
-                                        <div class="question" id="question_${questionIndex}">
-                                        <input type="hidden" value="0" id="questionId_" />
-                                        <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                        <div class="form-group">
-                                            <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText*</label>
+                var questionHtml = `
+                                                <div class="question" id="question_${questionIndex}">
+                                                <input type="hidden" value="0" id="questionId_" />
+                                                <button type='button' style="width: 100%;" class='btn btn-danger waves-effect waves-light btnremove ${questionIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                                <div class="form-group">
+                                                    <label for="Questions_${questionIndex}__Text"><i class="uil-eye font-size-20" onclick="showHideDetail(${questionIndex})" style="cursor: pointer;"></i> @Localization.QuestionText*</label>
 
-                                            <input type="text" name="Questions[${questionIndex}].question" class="form-control" maxlength='100' id="questionNameRU_${questionIndex}" />
-                                            <input type="text" name="Questions[${questionIndex}].question" class="form-control" maxlength='100' id="questionNameRO_${questionIndex}" />
-                                            <input type="text" name="Questions[${questionIndex}].question" class="form-control" maxlength='100' id="questionNameEN_${questionIndex}" />
-                                        </div>
-                                        <br />
-                                        <div id="otherDataQ_${questionIndex}">
+                                                    <input type="text" name="Questions[${questionIndex}].question" class="form-control" maxlength='100' id="questionNameRU_${questionIndex}" />
+                                                    <input type="text" name="Questions[${questionIndex}].question" class="form-control" maxlength='100' id="questionNameRO_${questionIndex}" />
+                                                    <input type="text" name="Questions[${questionIndex}].question" class="form-control" maxlength='100' id="questionNameEN_${questionIndex}" />
+                                                </div>
+                                                <br />
+                                                <div id="otherDataQ_${questionIndex}">
 
-                                            <div class="form-group">
-                                                <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
-                                                <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryRU_${questionIndex}" />
-                                                <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryRO_${questionIndex}" />
-                                                <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryEN_${questionIndex}" />
+                                                    <div class="form-group">
+                                                        <label for="Questions_${questionIndex}__comentary">@Localization.Comment</label>
+                                                        <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryRU_${questionIndex}" />
+                                                        <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryRO_${questionIndex}" />
+                                                        <input type="text" name="Questions[${questionIndex}].comentary" maxlength='100' class="form-control" id="questionComentaryEN_${questionIndex}" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
+                                                        <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
+                                                            <option value="1">@Localization.YesNo</option>
+                                                            <option value="5">@Localization.Point5Score</option>
+                                                            <option value="2">@Localization.Point10Score</option>
+                                                            <option value="3">@Localization.SingleAnswerVariant</option>
+                                                            <option value="4">@Localization.MultipleAnswerVariant</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="answers-container" style="display: none;">
+                                                        <br />
+                                                        <h4>@Localization.Responses</h4>
+                                                        <br />
+                                                    </div>
+                                                    <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="Questions_${questionIndex}__gradingType">@Localization.GradingType</label>
-                                                <select id="questionGradingType_${questionIndex}" name="Questions[${questionIndex}].gradingType" class="form-select">
-                                                    <option value="1">@Localization.YesNo</option>
-                                                    <option value="5">@Localization.Point5Score</option>
-                                                    <option value="2">@Localization.Point10Score</option>
-                                                    <option value="3">@Localization.SingleAnswerVariant</option>
-                                                    <option value="4">@Localization.MultipleAnswerVariant</option>
-                                                </select>
-                                            </div>
-                                            <div class="answers-container" style="display: none;">
-                                                <br />
-                                                <h4>@Localization.Responses</h4>
-                                                <br />
-                                            </div>
-                                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                                        </div>
-                                    </div>
-                                                `;
+                                                        `;
 
                 $("#questions-container").append(questionHtml);
                 questionIndex++;
@@ -271,12 +271,12 @@
                 var $answers = $question.find(".answer");
                 var $addAnswerButton = $question.find("#add-answer");
 
-                
+
 
                 if ($(this).val() == "4" || $(this).val() == "3") {
                     $answersContainer.show();
                     $addAnswerButton.show();
-                    
+
                     // $removeAnswerButton.show();
 
                     // Проверка наличия div с классом "answer"
@@ -285,14 +285,14 @@
 
                         // Добавляем содержимое в новый div
                         newDiv.html(`
-                                            <div class="col-lg-12">
-                                                <label for="Questions_${questionIndex}__Answers_0__Text">@Localization.AnswerText*</label>
-                                                <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" id="answerValRU_${questionIndex}-0" />
-                                                <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" id="answerValRO_${questionIndex}-0" />
-                                                <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" id="answerValEN_${questionIndex}-0" />
-                                                <input type="hidden" value="0" id="answerId_${questionIndex}-0" />
-                                            </div>
-                                        `);
+                                                    <div class="col-lg-12">
+                                                        <label for="Questions_${questionIndex}__Answers_0__Text">@Localization.AnswerText*</label>
+                                                        <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" id="answerValRU_${questionIndex}-0" />
+                                                        <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" id="answerValRO_${questionIndex}-0" />
+                                                        <input type="text" name="Questions[${questionIndex}].answerVariants[0]" maxlength='100' class="form-control mb-4" id="answerValEN_${questionIndex}-0" />
+                                                        <input type="hidden" value="0" id="answerId_${questionIndex}-0" />
+                                                    </div>
+                                                `);
 
                         // Добавляем новый div внутрь существующего div
                         $answersContainer.append(newDiv);
@@ -315,22 +315,22 @@
                 var answerIndex = $answersContainer.find(".answer").length;
 
                 var answerHtml = `<div class="answer">
-                                                        <div class="form-group">
-                                                                <div class="row align-items-center">
-                                                                <div class="col-lg-10">
-                                                                    <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText*</label>
-                                                                    <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" id="answerValRU_${questionIndex}-${answerIndex}" />
-                                                                    <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" id="answerValRO_${questionIndex}-${answerIndex}" />
-                                                                    <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" id="answerValEN_${questionIndex}-${answerIndex}" />
-                                                                    <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
+                                                                <div class="form-group">
+                                                                        <div class="row align-items-center">
+                                                                        <div class="col-lg-10">
+                                                                            <label for="Questions_${questionIndex}__Answers_${answerIndex}__Text">@Localization.AnswerText*</label>
+                                                                            <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" id="answerValRU_${questionIndex}-${answerIndex}" />
+                                                                            <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" id="answerValRO_${questionIndex}-${answerIndex}" />
+                                                                            <input type="text" name="Questions[${questionIndex}].answerVariants[${answerIndex}]" maxlength='100' class="form-control mb-4" id="answerValEN_${questionIndex}-${answerIndex}" />
+                                                                            <input type="hidden" value="0" id="answerId_${questionIndex}-${answerIndex}" />
+                                                                        </div>
+                                                                        <div class="col-lg-2">
+                                                                            <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
+                                                                            <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${answerIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-lg-2">
-                                                                    <!--<input type='button' id='btnremoveAnsw' style="width: 100%;" class='btn btn-danger waves-effect waves-light' value=' @Localization.Delete' />-->
-                                                                    <button type='button' id='btnremoveAnsw' style="width: 100%;  margin-top:6px;" class='btn btn-danger waves-effect waves-light ${answerIndex === 0 ? ' hidden' : ''}'><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>`;
+                                                            </div>`;
 
                 $answersContainer.append(answerHtml);
                 setInputVisibility(selectedLanguage);
@@ -390,16 +390,18 @@
                             let answerValRU = $("#" + element.id).find("input[id*='answerValRU']");
                             let answerValRO = $("#" + element.id).find("input[id*='answerValRO']");
                             let answerValEN = $("#" + element.id).find("input[id*='answerValEN']");
-                            if (answerValRU.length > 0) {
-                                for (var i = 0; i < answerValRU.length; i++) {
-                                    let ruValInput = answerValRU[i].value;
-                                    let roValInput = answerValRO[i].value;
-                                    let enValInput = answerValEN[i].value;
+                            // if (answerValRU.length > 0) {
+                            for (var i = 0; i < answerValRU.length; i++) {
+                                let ruValInput = answerValRU[i].value;
+                                let roValInput = answerValRO[i].value;
+                                let enValInput = answerValEN[i].value;
 
+                                if (ruValInput.length > 0 || roValInput.length > 0 || enValInput.length) {
                                     answerRes.push({ id: 0, questionId: 0, response: JSON.stringify({ EN: enValInput, RO: roValInput, RU: ruValInput }) });
                                 }
-
                             }
+
+                            //}
                             questions.push({ id: questionid[0].value, questionnaireId: mainIdquestionnaire, question: questionName, gradingType: questionGradingType[0].value, comentary: questionComentary, responseVariants: answerRes });
                         });
 

@@ -226,8 +226,7 @@
         if (comentaryElementRU.attr('data-status') === 'withText') {
             var comentaryInputRU = $(`<input type='text' id='questionComentaryRU_${index}' class='form-control' value='${comentaryElementRU.text()}' maxlength='100' />`);
         }
-        else
-        {
+        else {
             var comentaryInputRU = $(`<input type='text' id='questionComentaryRU_${index}' class='form-control' value='' maxlength='100' />`);
         }
         if (comentaryElementRO.attr('data-status') === 'withText') {
@@ -235,7 +234,7 @@
         }
         else {
             var comentaryInputRO = $(`<input type='text' id='questionComentaryRO_${index}' class='form-control' value='' maxlength='100' />`);
-        } 
+        }
         if (comentaryElementEN.attr('data-status') === 'withText') {
             var comentaryInputEN = $(`<input type='text' id='questionComentaryEN_${index}' class='form-control' value='${comentaryElementEN.text()}' maxlength='100' />`);
         }
@@ -243,7 +242,45 @@
             var comentaryInputEN = $(`<input type='text' id='questionComentaryEN_${index}' class='form-control' value='' maxlength='100' />`);
         }
 
+
+
+
         var gradingTypeValue = gradingTypeElement[0].value;
+
+
+        if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+            let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
+
+            divsSetQuestion.each(function (e, element) {
+                let responsesRU = $("#" + element.id).find("[id^='responseRU']");
+                let responsesRO = $("#" + element.id).find("[id^='responseRO']");
+                let responsesEN = $("#" + element.id).find("[id^='responseEN']");
+
+                responsesRU.each(function (index, responseElement) {
+                    if ($(responseElement).data('status') === 'noComent') {
+                        var answerInputRU = $(`<p id='responseTextRU'>@Localization.AnswerText</p> <input type='text' class='form-control' id='responseRU_' value='' maxlength='100' />`);
+                        $(responseElement).replaceWith(answerInputRU);
+                    }
+                });
+
+                responsesRO.each(function (index, responseElement) {
+                    if ($(responseElement).data('status') === 'noComent') {
+                        var answerInputRO = $(`<p id='responseTextRO'>@Localization.AnswerText</p> <input type='text' class='form-control' id='responseRO_' value='' maxlength='100' />`);
+                        $(responseElement).replaceWith(answerInputRO);
+                    }
+                });
+
+                responsesEN.each(function (index, responseElement) {
+                    if ($(responseElement).data('status') === 'noComent') {
+                        var answerInputEN = $(`<p id='responseTextEN'>@Localization.AnswerText</p> <input type='text' class='form-control' id='responseEN_' value='' maxlength='100' />`);
+                        $(responseElement).replaceWith(answerInputEN);
+                    }
+                });
+            });
+        }
+
+
+
 
 
         // Заменяем на input
@@ -256,27 +293,32 @@
         comentaryElementEN.replaceWith(comentaryInputEN);
 
         function setInputVisibility(selectedLanguage) {
+            debugger
             // Hide all language-specific input elements
             $("input[id*='questionName']").addClass("hidden");
             $("input[id*='questionComentary']").addClass("hidden");
             $("input[id*='response']").addClass("hidden");
+            $("p[id*='responseText']").addClass("hidden");
             //$("input[id*='questionName']").prop("required", false);
 
             // Show the input element corresponding to the selected language
             if (selectedLanguage === "RU") {
                 $("input[id*='questionNameRU']").removeClass("hidden");
                 $("input[id*='questionComentaryRU']").removeClass("hidden");
-                $("input[id*='responseRU']").removeClass("hidden");
+                $("input[id^='responseRU']").removeClass("hidden");
+                $("p[id*='responseTextRU']").removeClass("hidden");
                 //$("input[id*='questionNameRU']").prop("required", true);
             } else if (selectedLanguage === "RO") {
                 $("input[id*='questionNameRO']").removeClass("hidden");
                 $("input[id*='questionComentaryRO']").removeClass("hidden");
                 $("input[id*='responseRO']").removeClass("hidden");
+                $("p[id*='responseTextRO']").removeClass("hidden");
                 //$("input[id*='questionNameRO']").prop("required", true);
             } else if (selectedLanguage === "EN") {
                 $("input[id*='questionNameEN']").removeClass("hidden");
                 $("input[id*='questionComentaryEN']").removeClass("hidden");
                 $("input[id*='responseEN']").removeClass("hidden");
+                $("p[id*='responseTextEN']").removeClass("hidden");
                 // $("input[id*='questionNameEN']").prop("required", true);
             }
         }
@@ -284,15 +326,6 @@
         var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
 
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
-
-            /*
-            let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
-            divsSetQuestion.each(function (e, element) {
-                let responses = $("#" + element.id).find("[id^='response_']");
-                let btnDeleteAnsw = $("#" + element.id).find("[class='btn btn-danger btnremoveAnsw']");
-                btnDeleteAnsw.show();  // Показываем кнопку
-            });*/
-
 
             // Создаем кнопку
             var addButton = $("<button type='button' id='add-answer' style='width: 100%; margin-top: 10px;' class='btn btn-info waves-effect waves-light'><i class='mdi mdi-plus me-1'></i>@Localization.AddAnswer</button>");
@@ -304,32 +337,33 @@
                 answersCount++;
 
                 var newInput = `<div class="answer" id='newAnswer'>
-                            <div class="form-group">
-                                <p>@Localization.AnswerText</p>
-                                    <div class="row">
-                                    <div class="col-md-10">
-                                        <input hidden id='newResponseId' value='0' />
-                                        <input type="text" id='responseRU_${answersCount}' class="form-control mb-4" maxlength='100' />
-                                        <input type="text" id='responseRO_${answersCount}' class="form-control mb-4" maxlength='100' />
-                                        <input type="text" id='responseEN_${answersCount}' class="form-control mb-4" maxlength='100' />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type='button' style='width: 100%;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                <div class="form-group">
+                                    <p>@Localization.AnswerText</p>
+                                        <div class="row">
+                                        <div class="col-md-10">
+                                            <input hidden id='ResponseId' value='0' />
+                                            <input type="text" id='responseRU_${answersCount}' class="form-control mb-4 ${selectedLanguage === 'RU' ? '' : 'hidden'}" maxlength='100' />
+                                            <input type="text" id='responseRO_${answersCount}' class="form-control mb-4 ${selectedLanguage === 'RO' ? '' : 'hidden'}" maxlength='100' />
+                                            <input type="text" id='responseEN_${answersCount}' class="form-control mb-4 ${selectedLanguage === 'EN' ? '' : 'hidden'}" maxlength='100' />
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type='button' style='width: 100%;' class='btn btn-danger btnremoveAnsw'> <i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
 
                 // Вставляем новый input перед кнопкой
                 container.find("#answersContainer_" + index).append(newInput);
-                setInputVisibility(selectedLanguage);
+
             });
 
 
             // Добавляем кнопку в форму
             container.append(addButton);
-            
-            
+
+
         }
 
 
@@ -401,37 +435,54 @@
                 var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
                 setInputVisibility(selectedLanguage);
 
-                
+
 
                 var responseVariants = [];
 
                 if (gradingTypeValue == '3' || gradingTypeValue == '4') {
+
                     let divsSetQuestion = container.find(`div[id*="answersContainer_${index}"]`);
-
-
-
 
                     divsSetQuestion.each(function (e, element) {
 
                         let btnDeleteAnsw = $("#" + element.id).find("[id^='btnremoveAnsw']");
                         btnDeleteAnsw.hide();
+                        debugger
+                        let responsesRU = $("#" + element.id).find("[id*='responseRU']");
+                        let responsesRO = $("#" + element.id).find("[id*='responseRO']");
+                        let responsesEN = $("#" + element.id).find("[id*='responseEN']");
 
-                        let responsesRU = $("#" + element.id).find("[id^='responseRU']");
-                        let responsesRO = $("#" + element.id).find("[id^='responseRO']");
-                        let responsesEN = $("#" + element.id).find("[id^='responseEN']");
 
-                        let answerId = $("#" + element.id).find("input[id*='newResponseId']");
-                        if (responsesRU.length > 0) {
+                        //if (responsesRU.length > 0) {
 
-                            for (var i = 0; i < responsesRU.length; i++) {
-                                let ruValInput = responsesRU[i].value;
-                                let roValInput = responsesRO[i].value;
-                                let enValInput = responsesEN[i].value;
+                        for (var i = 0; i < responsesRU.length; i++) {
+                            let ruValInput = "";
+                            let roValInput = "";
+                            let enValInput = "";
+                            let answerId = $("#" + element.id).find("input[id*='ResponseId']");
+                            if (responsesRU[i].tagName === 'P') {
+                                ruValInput = responsesRU[i].textContent;
+                            } else {
+                                ruValInput = responsesRU[i].value;
+                            }
+                            if (responsesRO[i].tagName === 'P') {
+                                roValInput = responsesRO[i].textContent;
+                            } else {
+                                roValInput = responsesRO[i].value;
+                            }
+                            if (responsesEN[i].tagName === 'P') {
+                                enValInput = responsesEN[i].textContent;
+                            } else {
+                                enValInput = responsesEN[i].value;
+                            }
 
-                                responseVariants.push({ id: answerId[0].value, questionId: $('#QuestionId').val(), response: JSON.stringify({ EN: enValInput, RO: roValInput, RU: ruValInput }) });
+                            if (ruValInput.length > 0 || roValInput.length > 0 || enValInput.length) {
+                                responseVariants.push({ id: answerId[i].value, questionId: $('#QuestionId').val(), response: JSON.stringify({ EN: enValInput, RO: roValInput, RU: ruValInput }) });
                             }
 
                         }
+
+                        //}
 
                     });
 
@@ -497,42 +548,42 @@
         cancelBtn.classList.add('col-lg-12');
 
         var questionHtml = `<div class="question" id="questionN_0">
-                                    <div class="form-group">
-                                        <input hidden id="QuestionId" value="0" />
-                                        <h4>@Localization.QuestionText</h4>
-                                        <input type='text' id='questionName_0' maxlength='100' class='form-control' />
-                                    </div>
-
-                                    <div id="detail_0">
                                         <div class="form-group">
-                                            <label>@Localization.Comment</label>
-                                            <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
+                                            <input hidden id="QuestionId" value="0" />
+                                            <h4>@Localization.QuestionText</h4>
+                                            <input type='text' id='questionName_0' maxlength='100' class='form-control' />
                                         </div>
-                                            <div class="form-group" id="SelectGradingType">
-                                                <label>@Localization.GradingType</label>
-                                                <select id="questionGradingType_0" class="form-select">
-                                                    <option value="1">@Localization.YesNo</option>
-                                                    <option value="5">@Localization.Point5Score</option>
-                                                    <option value="2">@Localization.Point10Score</option>
-                                                    <option value="3">@Localization.SingleAnswerVariant</option>
-                                                    <option value="4">@Localization.MultipleAnswerVariant</option>
-                                                </select>
+
+                                        <div id="detail_0">
+                                            <div class="form-group">
+                                                <label>@Localization.Comment</label>
+                                                <input type='text' maxlength='100' id='questionComentary_0' class='form-control' />
                                             </div>
-                                            <div class="answers-container_0" id="answersContainer_0" style="display: none;">
-                                            <br />
-                                            <h4>@Localization.Responses</h4>
-                                            <div class="answer" id='newAnswer'>
-                                                <div class="col-lg-12">
-                                                    <p>@Localization.AnswerText</p>
-                                                    <input hidden id='newResponseId' value='0' />
-                                                    <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                                <div class="form-group" id="SelectGradingType">
+                                                    <label>@Localization.GradingType</label>
+                                                    <select id="questionGradingType_0" class="form-select">
+                                                        <option value="1">@Localization.YesNo</option>
+                                                        <option value="5">@Localization.Point5Score</option>
+                                                        <option value="2">@Localization.Point10Score</option>
+                                                        <option value="3">@Localization.SingleAnswerVariant</option>
+                                                        <option value="4">@Localization.MultipleAnswerVariant</option>
+                                                    </select>
                                                 </div>
+                                                <div class="answers-container_0" id="answersContainer_0" style="display: none;">
+                                                <br />
+                                                <h4>@Localization.Responses</h4>
+                                                <div class="answer" id='newAnswer'>
+                                                    <div class="col-lg-12">
+                                                        <p>@Localization.AnswerText</p>
+                                                        <input hidden id='newResponseId' value='0' />
+                                                        <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                                    </div>
+                                                </div>
+                                                <br />
                                             </div>
-                                            <br />
+                                            <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
                                         </div>
-                                        <button type="button" id="add-answer" style="display: none; width: 100%; margin-top: 10px;" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-plus me-1"></i> @Localization.AddAnswer</button>
-                                    </div>
-                                </div>`;
+                                    </div>`;
 
         // Добавляем вопрос в контейнер
         $("#questions-container").append(questionHtml);
@@ -619,12 +670,12 @@
                 answersContainer.show();
                 if ($answers.length === 0) {
                     var newDiv = `<div class="answer" id='newAnswer'>
-                                            <div class="col-lg-12">
-                                                <p>@Localization.AnswerText</p>
-                                                <input hidden id='newResponseId' value='0' />
-                                                <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
-                                            </div>
-                                        </div>`;
+                                                <div class="col-lg-12">
+                                                    <p>@Localization.AnswerText</p>
+                                                    <input hidden id='newResponseId' value='0' />
+                                                    <input type="text" maxlength='100' id='response_0' class="form-control mb-4" />
+                                                </div>
+                                            </div>`;
 
                     // Добавляем новый div внутрь существующего div
                     $("#answersContainer_0").append(newDiv);
@@ -644,17 +695,17 @@
 
 
             var newInput = `<div class="answer" id='newAnswer'>
-                                  <p>@Localization.AnswerText</p>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <input hidden id='newResponseId' value='0' />
-                                            <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
+                                      <p>@Localization.AnswerText</p>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <input hidden id='newResponseId' value='0' />
+                                                <input type="text" maxlength='100' id='response_${answerIndex}' class="form-control mb-4" />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
+                                            </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <button type='button' class='btn btn-danger btnremoveAnsw' style="width: 100%;"><i class="uil-trash-alt"></i> @Localization.Delete</button>
-                                        </div>
-                                    </div>
-                                </div>`;
+                                    </div>`;
 
             // Вставляем новый input перед кнопкой
             $("#questionN_0").find(".answers-container_0").append(newInput);
@@ -713,7 +764,6 @@
             </div>
 
             <br />
-            <h3>@Localization.Questions</h3>
             @{
                 EnUiLanguage currentLanguage;
                 @switch (Localization.languageState.ToUpper())
@@ -736,7 +786,8 @@
 
 
             }
-            <select id="uiLanguageSelect" name="uiLanguageSelect">
+            <h3 style="display: inline-block; margin-right: 10px;">@Localization.Questions</h3>
+            <select id="uiLanguageSelect" name="uiLanguageSelect" style="padding: 5px; border-radius: 5px; font-size: 16px; border: 2px solid black;">
                 <option value="@currentLanguage">@currentLanguage.ToString()</option>
                 @foreach (EnUiLanguage leng in Enum.GetValues(typeof(EnUiLanguage)))
                 {
@@ -746,6 +797,9 @@
                     }
                 }
             </select>
+            
+
+
 
             <div class="tab-pane active" id="about" role="tabpanel">
                 <div id="questions"></div>

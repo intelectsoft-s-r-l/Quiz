@@ -408,4 +408,10 @@
   <data name="Point5Score" xml:space="preserve">
     <value>Scor de 5 puncte</value>
   </data>
+  <data name="SkipQuestionTitle" xml:space="preserve">
+    <value>Titlul întrebării a fost omis</value>
+  </data>
+  <data name="SkipAnswerMessage" xml:space="preserve">
+    <value>Răspunsul a fost omis</value>
+  </data>
 </root>

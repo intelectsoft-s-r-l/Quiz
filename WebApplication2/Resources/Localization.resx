@@ -411,4 +411,10 @@
   <data name="Point5Score" xml:space="preserve">
     <value>Score 5 points</value>
   </data>
+  <data name="SkipQuestionTitle" xml:space="preserve">
+    <value>Question title skipped</value>
+  </data>
+  <data name="SkipAnswerMessage" xml:space="preserve">
+    <value>Answer skipped</value>
+  </data>
 </root>

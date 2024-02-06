@@ -411,4 +411,10 @@
   <data name="Point5Score" xml:space="preserve">
     <value>Шкала из 5 пунктов</value>
   </data>
+  <data name="SkipQuestionTitle" xml:space="preserve">
+    <value>Заголовок вопроса был пропущен</value>
+  </data>
+  <data name="SkipAnswerMessage" xml:space="preserve">
+    <value>Ответ был пропущен</value>
+  </data>
 </root>

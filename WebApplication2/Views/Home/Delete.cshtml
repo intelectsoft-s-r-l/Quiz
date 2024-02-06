@@ -20,19 +20,12 @@
     }
 
 </style>
+@*
+    =================
+    =====Details=====
+    =================
 
-<form method="POST" asp-controller="Home" asp-action="DeleteQuestionnaire" id="DeleteQuestionnaireForm">
-    <div class="modal-body">
-        <div class="col-sm-12">
-            <div class="alert alert-danger alert-dismissible fade show mt-1 px-1 mb-0 text-center" role="alert">
-                <i class="uil uil-exclamation-octagon d-block display-4 mt-2 mb-3 text-danger"></i>
-                <h5 class="text-danger">@Localization.Delete</h5>
-                <p>
-                    @Localization.Sure
-                </p>
-                <h2>@Model.Title</h2>
-            </div>
-            <div class="form-container">
+    <div class="form-container">
                 <br />
                 <h4>@Localization.Questions</h4>
                 <br />
@@ -44,37 +37,50 @@
                     <div class="question">
                         <h4><strong>@Localization.Question №@i </strong></h4>
                         <p>@question.question</p>
-                        @* <p><strong>@Localization.Comment:</strong> @question.comentary</p> *@
-                        <b>@Localization.Comment</b>
-                        @if (!string.IsNullOrEmpty(question.comentary))
-                        {
-                            <p>@question.comentary</p>
-                        }
-                        else
-                        {
-                            <p> *@Localization.SkipCommentMessage</p>
-                        }
+                        @* <p><strong>@Localization.Comment:</strong> @question.comentary</p> *
+<b>@Localization.Comment</b>
+@if (!string.IsNullOrEmpty(question.comentary))
+{
+    <p>@question.comentary</p>
+}
+else
+{
+    <p> @Localization.SkipCommentMessage</p>
+}
 
-                        <b>@Localization.GradingType</b>
-                        <p>@Localization.ResourceManager.GetString(question.gradingType.ToString())</p>
+<b>@Localization.GradingType</b>
+<p>@Localization.ResourceManager.GetString(question.gradingType.ToString())</p>
 
-                        @if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
-                        {
-                            <b>@Localization.Responses</b>
-                            <br />
-                            <ul>
-                                @foreach (var answer in question.responseVariants.OrderBy(x => x.id))
-                                {
-                                    <li><p>@answer.response</p></li>
+@if (question.gradingType == GradingType.SingleAnswerVariant || question.gradingType == GradingType.MultipleAnswerVariant)
+{
+    <b>@Localization.Responses</b>
+    <br />
+    <ul>
+        @foreach (var answer in question.responseVariants.OrderBy(x => x.id))
+        {
+            <li><p>@answer.response</p></li>
 
-                                }
-                            </ul>
-                        }
+        }
+    </ul>
+}
                     </div>
                     i++;
                 }
 
             </div>
+*@
+<form method="POST" asp-controller="Home" asp-action="DeleteQuestionnaire" id="DeleteQuestionnaireForm">
+    <div class="modal-body">
+        <div class="col-sm-12">
+            <div class="alert alert-danger alert-dismissible fade show mt-1 px-1 mb-0 text-center" role="alert">
+                <i class="uil uil-exclamation-octagon d-block display-4 mt-2 mb-3 text-danger"></i>
+                <h5 class="text-danger">@Localization.Delete</h5>
+                <p>
+                    @Localization.Sure
+                </p>
+                <h2>@Model.Title</h2>
+            </div>
+            @*DetailCommnet(Up)*@
         </div>
     </div>
     <div class="modal-footer">

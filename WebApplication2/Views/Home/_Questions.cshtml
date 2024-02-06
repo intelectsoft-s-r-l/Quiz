@@ -3,9 +3,7 @@
 @using Newtonsoft.Json
 @model DetailQuestions
 
-@{
-    string currentSelectedLanguage = "";
-}
+
 
 <script>
 
@@ -27,24 +25,24 @@
         // Hide all language-specific input elements
         $("p[id*='questionName']").addClass("hidden");
         $("p[id*='questionComentary']").addClass("hidden");
-        $("p[id*='questionResponse']").addClass("hidden");
+        $("p[id*='response']").addClass("hidden");
         // $("p[id*='questionName']").prop("required", false);
 
         // Show the input element corresponding to the selected language
         if (selectedLanguage === "RU") {
             $("p[id*='questionNameRU']").removeClass("hidden");
             $("p[id*='questionComentaryRU']").removeClass("hidden");
-            $("p[id*='questionResponseRU']").removeClass("hidden");
+            $("p[id*='responseRU']").removeClass("hidden");
             //$("input[id*='questionNameRU']").prop("required", true);
         } else if (selectedLanguage === "RO") {
             $("p[id*='questionNameRO']").removeClass("hidden");
             $("p[id*='questionComentaryRO']").removeClass("hidden");
-            $("p[id*='questionResponseRO']").removeClass("hidden");
+            $("p[id*='responseRO']").removeClass("hidden");
             //$("input[id*='questionNameRO']").prop("required", true);
         } else if (selectedLanguage === "EN") {
             $("p[id*='questionNameEN']").removeClass("hidden");
             $("p[id*='questionComentaryEN']").removeClass("hidden");
-            $("p[id*='questionResponseEN']").removeClass("hidden");
+            $("p[id*='responseEN']").removeClass("hidden");
             //$("input[id*='questionNameEN']").prop("required", true);
         }
     }
@@ -94,7 +92,7 @@
                 }
                 else
                 {
-                    <p id="questionNameEN_@i" data-status="noComent"> *enS</p>
+                    <p id="questionNameEN_@i" data-status="noComent"> *@Localization.SkipQuestionTitle</p>
                 }
                 @if (!string.IsNullOrEmpty(questionNameJson["RO"]))
                 {
@@ -102,7 +100,7 @@
                 }
                 else
                 {
-                    <p id="questionNameRO_@i" data-status="noComent"> *RO</p>
+                    <p id="questionNameRO_@i" data-status="noComent"> *@Localization.SkipQuestionTitle</p>
                 }
                 @if (!string.IsNullOrEmpty(questionNameJson["RU"]))
                 {
@@ -110,7 +108,7 @@
                 }
                 else
                 {
-                    <p id="questionNameRU_@i" data-status="noComent"> *ru</p>
+                    <p id="questionNameRU_@i" data-status="noComent"> *@Localization.SkipQuestionTitle</p>
                 }
 
 
@@ -127,7 +125,7 @@
                     }
                     else
                     {
-                        <p id="questionComentaryEN_@i" data-status="noComent"> *enS</p>
+                        <p id="questionComentaryEN_@i" data-status="noComent"> *@Localization.SkipCommentMessage</p>
                     }
                     @if (!string.IsNullOrEmpty(questionComentaryJson["RO"]))
                     {
@@ -135,7 +133,7 @@
                     }
                     else
                     {
-                        <p id="questionComentaryRO_@i" data-status="noComent"> *RO</p>
+                        <p id="questionComentaryRO_@i" data-status="noComent"> *@Localization.SkipCommentMessage</p>
                     }
                     @if (!string.IsNullOrEmpty(questionComentaryJson["RU"]))
                     {
@@ -143,7 +141,7 @@
                     }
                     else
                     {
-                        <p id="questionComentaryRU_@i" data-status="noComent"> *ru</p>
+                        <p id="questionComentaryRU_@i" data-status="noComent"> *@Localization.SkipCommentMessage</p>
                     }
 
 @*                     @if (!string.IsNullOrEmpty(item.comentary))
@@ -178,34 +176,35 @@
                         <ul>
                             @foreach (var answ in item.responseVariants.OrderBy(x => x.id))
                             {
+                                <input hidden id="ResponseId" value="@answ.id" />
                                 var questionResponseJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(answ.response);
                                 <li>
                                     <div class="answer" id="response_@j">
                                         <div class="row">
-                                            <div class="col-md-11">
+                                            <div class="col-md-12">
                                                 @if (!string.IsNullOrEmpty(questionResponseJson["EN"]))
                                                 {
-                                                    <p id="questionResponseEN_@i" data-status="withText">@questionResponseJson["EN"]</p>
+                                                    <p id="responseEN_@i" data-status="withText">@questionResponseJson["EN"]</p>
                                                 }
                                                 else
                                                 {
-                                                    <p id="questionResponseEN_@i" data-status="noComent"> *enS</p>
+                                                    <p id="responseEN_@i" data-status="noComent"> *@Localization.SkipAnswerMessage</p>
                                                 }
                                                 @if (!string.IsNullOrEmpty(questionResponseJson["RO"]))
                                                 {
-                                                    <p id="questionResponseRO_@i" data-status="withText">@questionResponseJson["RO"]</p>
+                                                    <p id="responseRO_@i" data-status="withText">@questionResponseJson["RO"]</p>
                                                 }
                                                 else
                                                 {
-                                                    <p id="questionResponseRO_@i" data-status="noComent"> *RO</p>
+                                                    <p id="responseRO_@i" data-status="noComent"> *@Localization.SkipAnswerMessage</p>
                                                 }
                                                 @if (!string.IsNullOrEmpty(questionResponseJson["RU"]))
                                                 {
-                                                    <p id="questionResponseRU_@i" data-status="withText">@questionResponseJson["RU"]</p>
+                                                    <p id="responseRU_@i" data-status="withText">@questionResponseJson["RU"]</p>
                                                 }
                                                 else
                                                 {
-                                                    <p id="questionResponseRU_@i" data-status="noComent"> *ru</p>
+                                                    <p id="responseRU_@i" data-status="noComent"> *@Localization.SkipAnswerMessage</p>
                                                 }
                                             </div>
                                             <div class="col-md-1">

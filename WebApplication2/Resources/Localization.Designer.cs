@@ -799,11 +799,29 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Answer skipped.
+        /// </summary>
+        public static string SkipAnswerMessage {
+            get {
+                return ResourceManager.GetString("SkipAnswerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Comment skipped.
         /// </summary>
         public static string SkipCommentMessage {
             get {
                 return ResourceManager.GetString("SkipCommentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Question title skipped.
+        /// </summary>
+        public static string SkipQuestionTitle {
+            get {
+                return ResourceManager.GetString("SkipQuestionTitle", resourceCulture);
             }
         }
         
