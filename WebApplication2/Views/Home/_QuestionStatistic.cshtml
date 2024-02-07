@@ -6,31 +6,31 @@
     <div class="col-sm-12">
         @{
             bool statisticExist = false;
-            if (Model.yesNoStatistic != null && Model.yesNoStatistic.totalResponses > 0)
+            if (Model.yesNoStatistic != null)
             {
                 statisticExist = true;
                 await Html.RenderPartialAsync("_YesorNoStatistic", Model.yesNoStatistic);
             }
 
-            if (Model.point10ScoreStatistic != null && Model.point10ScoreStatistic.totalResponses > 0)
+            if (Model.point10ScoreStatistic != null)
             {
                 statisticExist = true;
                 await Html.RenderPartialAsync("_Point10scoreStatistic", Model.point10ScoreStatistic);
             }
 
-            if (Model.singleAnswerVariantStatistic != null && Model.singleAnswerVariantStatistic.totalResponses > 0)
+            if (Model.singleAnswerVariantStatistic != null)
             {
                 statisticExist = true;
                 await Html.RenderPartialAsync("_SingleAnswerStatistic", Model.singleAnswerVariantStatistic);
             }
 
-            if (Model.multipleAnswerVariantStatistic != null && Model.multipleAnswerVariantStatistic.totalResponses > 0)
+            if (Model.multipleAnswerVariantStatistic != null)
             {
                 statisticExist = true;
                 await Html.RenderPartialAsync("_MultipleAnswerStatistic", Model.multipleAnswerVariantStatistic);
             }
 
-            if (Model.point5ScoreStatistic != null && Model.point5ScoreStatistic.totalResponses > 0)
+            if (Model.point5ScoreStatistic != null)
             {
                 statisticExist = true;
                 await Html.RenderPartialAsync("_Point5scoreStatistic", Model.point5ScoreStatistic);

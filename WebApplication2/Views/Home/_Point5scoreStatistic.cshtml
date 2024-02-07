@@ -1,1 +1,109 @@
-﻿<h1>Hello5Point</h1>
+﻿@using ISQuiz.Models.API.Questionnaires
+@model point5ScoreStatistic
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <p class="card-title-desc">
+            @Localization.GlobalStatistic
+        </p>
+    </div>
+    <div id="chart"></div>
+
+</div>
+<script>
+
+    function decodeHtmlEntities(text) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = text;
+        return textArea.value;
+    }
+
+    // Получаем данные из модели C# и передаем их в JavaScript переменные
+    var totalResponses = @Model.totalResponses;
+    var totalGrade1 = @Model.totalGrade1;
+    var totalGrade2 = @Model.totalGrade2;
+    var totalGrade3 = @Model.totalGrade3;
+    var totalGrade4 = @Model.totalGrade4;
+    var totalGrade5 = @Model.totalGrade5;
+
+    var grade = decodeHtmlEntities('@Localization.Grade');
+
+
+
+
+    var options = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+
+
+            },
+        },
+        colors: ['#37AA0F', '#37AA0F', '#37AA0F', '#37AA0F', '#FF5733', '#3366FF'],  // Меняем цвета столбцов
+        dataLabels: {
+            enabled: false,  // Убираем надписи внутри столбцов
+        },
+        legend: {
+            show: false,
+        },
+        stroke: {
+            width: 1,
+            colors: ['#fff']
+        },
+        series: [{
+            name: "@Localization.Responses ",
+            data: [
+                totalGrade5,
+                totalGrade4,
+                totalGrade3,
+                totalGrade2,
+                totalGrade1,
+                totalResponses
+            ]
+
+        }],
+        xaxis: {
+            categories: [grade + ' 5', grade + ' 4', grade + ' 3', grade + ' 2', grade + ' 1', decodeHtmlEntities('@Localization.Total')],
+            labels: {
+                style: {
+                    fontSize: '14px'
+                }
+            }
+        },
+        /*yaxis: {
+            title: {
+                text: decodeHtmlEntities('@Localization.NumberOfResponses'),
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#333'
+                }
+            }
+        },*/
+        fill: {
+            type: 'solid',  // Изменяем тип заливки на 'solid'
+            opacity: 0.8  // Устанавливаем полную непрозрачность
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+
+
+</script>
