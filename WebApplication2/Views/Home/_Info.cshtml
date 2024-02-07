@@ -11,7 +11,7 @@
 <style>
 
     .form-container {
-        font-size: 19px; /* Исходный размер шрифта */
+        font-size: 17px; /* Исходный размер шрифта */
     }
 
     .form-group {
@@ -55,8 +55,10 @@
 
         var ISValid = true;
 
+            
 
-        if ($('#questionNameRU_' + index).val() === "" && $('#questionNameRO_' + index).val() === "" && $('#questionNameEN_' + index).val() === "") {
+        if (($('#questionNameRU_' + index).val() === "" && $('#questionNameRO_' + index).val() === "" && $('#questionNameEN_' + index).val() === "")
+       && ($('#questionNameRU_' + index).text() === "" && $('#questionNameRO_' + index).text() === "" && $('#questionNameEN_' + index).text() === "")) {
             if ($('#QuestionNameError').val() == null) {
                 $('#detail_' + index).before('<label id="QuestionNameError" class="text-danger">@Localization.QuestionTextValidation</label>');
             }
@@ -203,6 +205,7 @@
 
 
         // Создаем input для редактирования
+        /*
         if (titleElementRU.attr('data-status') === 'withText') {
             var titleInputRU = $(`<input type='text' id='questionNameRU_${index}' class='form-control' value='${titleElementRU.text()}' maxlength='100' />`);
         }
@@ -221,7 +224,22 @@
         else {
             var titleInputEN = $(`<input type='text' id='questionNameEN_${index}' class='form-control' value='' maxlength='100' />`);
         }
-
+        */
+        var titleInputRU = "";
+        var titleInputRO = "";
+        var titleInputEN = "";
+        if (titleElementRU.attr('data-status') === 'noComent') {
+            titleInputRU = $(`<input type='text' id='questionNameRU_${index}' class='form-control' value='' maxlength='100' />`);
+            titleElementRU.replaceWith(titleInputRU);
+        }
+        if (titleElementRO.attr('data-status') === 'noComent') {
+            titleInputRO = $(`<input type='text' id='questionNameRO_${index}' class='form-control' value='' maxlength='100' />`);
+            titleElementRO.replaceWith(titleInputRO);
+        }
+        if (titleElementEN.attr('data-status') === 'noComent') {
+            titleInputEN = $(`<input type='text' id='questionNameEN_${index}' class='form-control' value='' maxlength='100' />`);
+            titleElementEN.replaceWith(titleInputEN);
+        }
 
         if (comentaryElementRU.attr('data-status') === 'withText') {
             var comentaryInputRU = $(`<input type='text' id='questionComentaryRU_${index}' class='form-control' value='${comentaryElementRU.text()}' maxlength='100' />`);
@@ -284,10 +302,6 @@
 
 
         // Заменяем на input
-        titleElementRU.replaceWith(titleInputRU);
-        titleElementRO.replaceWith(titleInputRO);
-        titleElementEN.replaceWith(titleInputEN);
-
         comentaryElementRU.replaceWith(comentaryInputRU);
         comentaryElementRO.replaceWith(comentaryInputRO);
         comentaryElementEN.replaceWith(comentaryInputEN);
@@ -406,17 +420,45 @@
                 cancelBtn.classList.remove('col-lg-12');
                 cancelBtn.classList.add('col-lg-3');
 
-                var updatedTitleRU = titleInputRU.val();
-                var updatedTitleRO = titleInputRO.val();
-                var updatedTitleEN = titleInputEN.val();
+                var updatedTitleRU = "";
+                var updatedTitleRO = "";
+                var updatedTitleEN = "";
+                debugger
+                if (titleElementRU.attr('data-status') === 'withText') {
+                    updatedTitleRU = titleElementRU.text();
+                }
+                else
+                {   
+                    updatedTitleRU = titleInputRU.val();
+                    titleInputRU.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRU + `</p>`);
+                }
+
+                if (titleElementRO.attr('data-status') === 'withText') {
+                    updatedTitleRO = titleElementRO.text();
+                }
+                else {
+                    updatedTitleRO = titleInputRO.val();
+                    titleInputRO.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRO + `</p>`);
+                }
+
+                if (titleElementEN.attr('data-status') === 'withText') {
+                    updatedTitleEN = titleElementEN.text();
+                }
+                else {
+                    updatedTitleEN = titleInputRU.val();
+                    titleInputEN.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleEN + `</p>`);
+                }
+
+                
+                
 
                 var updateComentaryRU = comentaryInputRU.val();
                 var updateComentaryRO = comentaryInputRO.val();
                 var updateComentaryEN = comentaryInputEN.val();
 
-                titleInputRU.replaceWith(`<p id="questionNameRU_${index}">` + updatedTitleRU + `</p>`);
-                titleInputRO.replaceWith(`<p id="questionNameRO_${index}">` + updatedTitleRO + `</p>`);
-                titleInputEN.replaceWith(`<p id="questionNameEN_${index}">` + updatedTitleEN + `</p>`);
+               
+                
+                
 
                 comentaryInputRU.replaceWith(`<p id="questionComentaryRU_${index}">` + updateComentaryRU + "</p>");
                 comentaryInputRO.replaceWith(`<p id="questionComentaryRO_${index}">` + updateComentaryRO + "</p>");
