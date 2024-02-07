@@ -417,4 +417,7 @@
   <data name="SkipAnswerMessage" xml:space="preserve">
     <value>Ответ был пропущен</value>
   </data>
+  <data name="YesNoStatistic" xml:space="preserve">
+    <value>Статистика о да или нет</value>
+  </data>
 </root>

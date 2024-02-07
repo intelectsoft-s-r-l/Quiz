@@ -952,6 +952,15 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Statistic about yes or no.
+        /// </summary>
+        public static string YesNoStatistic {
+            get {
+                return ResourceManager.GetString("YesNoStatistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на No matching records found.
         /// </summary>
         public static string zeroRecords {

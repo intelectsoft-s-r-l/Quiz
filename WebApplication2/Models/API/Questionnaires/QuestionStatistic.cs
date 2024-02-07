@@ -29,11 +29,13 @@
     public class singleAnswerVariantStatistic
     {
         public int totalResponses { get; set; }
+        public List<variantAnswer> variantAnswers { get; set; }
     }
     
     public class multipleAnswerVariantStatistic
     {
         public int totalResponses { get; set; }
+        public List<variantAnswer> variantAnswers { get; set; }
     }
 
     public class point5ScoreStatistic
@@ -45,4 +47,10 @@
         public int totalGrade4 { get; set; }
         public int totalGrade5 { get; set; }
     }
+
+    public class variantAnswer
+    {
+        public int responseVariantId { get; set; } //Чесн сказать тут странно что мне дают ид ответа(там строка с ру/ро/ен)
+    }
+
 }

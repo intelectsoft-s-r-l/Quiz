@@ -182,7 +182,7 @@
         }
 
         document.getElementById('editBtn').style.display = 'none';
-
+        container.find(".statistic").hide();
         var cancelBtn = document.getElementById('cancelBtn');
         cancelBtn.classList.remove('col-lg-3');
         cancelBtn.classList.add('col-lg-12');
@@ -419,6 +419,7 @@
 
             if (ISValid == true) {
                 container.find(".pencil").show();
+                container.find(".statistic").show();
                 //container.find(".btnremove").hide();
                 container.find(".save").hide();
                 container.find(".btnremoveAnsw").hide();

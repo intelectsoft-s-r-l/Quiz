@@ -417,4 +417,7 @@
   <data name="SkipAnswerMessage" xml:space="preserve">
     <value>Answer skipped</value>
   </data>
+  <data name="YesNoStatistic" xml:space="preserve">
+    <value>Statistic about yes or no</value>
+  </data>
 </root>
