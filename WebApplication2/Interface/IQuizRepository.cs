@@ -10,6 +10,7 @@ namespace ISQuiz.Interface
         Task<DetailQuestionnaire> GetQuestionnaire(string token, int id);
         Task<DetailQuestions> GetQuestions(string token, int id);
         Task<QuestionnaireStatisticResponse> GetQuestionnaireStatistic(string token, int id);
+        Task<QuestionStatistic> GetQuestionStatistic(string token, int id);
         Task<QuestionnaireIdViewModel> UpsertQuestionnaire(UpsertQuestionnaire upsertQuestionnaireVM);
         Task<BaseErrors> UpsertQuestions(UpsertQuestions upsertQuestionsVM);
         Task<BaseErrors> DeleteQuestionnaire(string token, int oid);

@@ -18,6 +18,7 @@
         public string GetQuestions(string token, int questionnaireId) => $"/ISNPSAPI/Web/GetQuestions?token={token}&questionnaireId={questionnaireId}";
         public string GetQuestion(string token, int questionId) => $"/ISNPSAPI/Web/GetQuestion?token={token}&questionId={questionId}";
         public string QuestionnaireStatistic(string token, int id) => $"/ISNPSAPI/Web/QuestionnaireStatistic?token={token}&id={id}";
+        public string QuestionStatistic(string token, int id) => $"/ISNPSAPI/Web/QuestionStatistic?token={token}&id={id}";
 
         //POST
         public string UpsertQuestionnaire() => $"/ISNPSAPI/Web/UpsertQuestionnaire";

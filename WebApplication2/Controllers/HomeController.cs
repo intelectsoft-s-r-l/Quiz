@@ -261,6 +261,43 @@ namespace ISQuiz.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> QuestionStatistic(int id)
+        {
+            //Log.Information("Into Home.QuestionnaireStatistic");
+            try
+            {
+                string token = GetToken();
+
+                var statistic = await _quizRepository.GetQuestionStatistic(token, id);
+
+                if (statistic.errorCode == EnErrorCode.Expired_token)
+                {
+                    if (await RefreshToken())
+                    {
+                        return await QuestionStatistic(id);
+                    }
+                }
+                else if (statistic.errorCode == EnErrorCode.Invalid_token)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
+                else if (statistic.errorCode != EnErrorCode.NoError)
+                {
+                    Log.Information("Response => {@statistic}", statistic);
+                    throw new Exception(statistic.errorName + "|||" + statistic.errorMessage);
+                }
+
+                return PartialView("~/Views/Home/_QuestionStatistic.cshtml", statistic);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return PartialView("~/Views/_Shared/Error.cshtml", ex);
+            }
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpsertQuestionnaire([FromBody] UpsertQuestionnaire upsertQuestionnaireVM)
         {

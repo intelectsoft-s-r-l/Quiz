@@ -100,6 +100,32 @@ namespace ISQuiz.Repository
             }
         }
 
+        public async Task<QuestionStatistic> GetQuestionStatistic(string token, int id)
+        {
+            try
+            {
+                var url = quizURLs.QuestionStatistic(token, id);
+                var credentials = quizURLs.Credentials();
+
+                QueryData queryData = new QueryData()
+                {
+                    method = HttpMethod.Get,
+                    endpoint = url,
+                    Credentials = credentials,
+                };
+                return await GlobalQuery.SendRequest<QuestionStatistic>(queryData);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+
+                return new QuestionStatistic
+                {
+                    errorCode = EnErrorCode.Internal_error,
+                    errorMessage = ex.Message + "|||" + ex.StackTrace,
+                };
+            }
+        }
 
         public async Task<DetailQuestions> GetQuestions(string token, int id)
         {

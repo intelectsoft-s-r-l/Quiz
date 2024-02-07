@@ -42,6 +42,17 @@
         display: block; /* Показать карандаш при наведении на div */
     }
 
+    .statistic {
+        position: absolute;
+        top: 15px;
+        right: 60px; /* Расположение карандаша справа от div */
+        display: none; /* Скрыть карандаш изначально */
+    }
+
+    .question:hover .statistic {
+        display: block; /* Показать карандаш при наведении на div */
+    }
+
     #editBtnTitle {
         background-color: #37AA0F;
     }
@@ -423,7 +434,7 @@
                 var updatedTitleRU = "";
                 var updatedTitleRO = "";
                 var updatedTitleEN = "";
-                debugger
+                //debugger
                 if (titleElementRU.attr('data-status') === 'withText') {
                     updatedTitleRU = titleElementRU.text();
                 }

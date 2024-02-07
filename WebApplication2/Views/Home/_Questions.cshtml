@@ -70,6 +70,13 @@
     {
         <div class="question" id="questionN_@i">
 
+            <div class="statistic">
+                <a type="button" class="px-3 text-danger" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="drawPatrialView('/Home/QuestionStatistic/'+@currentQuestion.id, 'xlModalBody')"><i class="fas fa-chart-bar btn btn-info waves-effect waves-light"></i></a>
+@*                 <a href="#questionN_@i">
+                    <i class="fas fa-chart-bar btn btn-info waves-effect waves-light"></i>
+                </a> *@
+            </div>
+
             <div class="pencil">
                 <a href="#questionN_@i"><i class="fas fa-pencil-alt btn btn-primary waves-effect waves-light" onclick="EditQuestion(@i)"></i></a>
             </div>

@@ -1,0 +1,51 @@
+﻿@using ISQuiz.Models.API.Questionnaires
+@model QuestionStatistic
+
+
+<div class="modal-body">
+    <div class="col-sm-12">
+        @{
+            bool statisticExist = false;
+            if (Model.yesNoStatistic != null && Model.yesNoStatistic.totalResponses > 0)
+            {
+                statisticExist = true;
+                await Html.RenderPartialAsync("_YesorNoStatistic", Model.yesNoStatistic);
+            }
+
+            if (Model.point10ScoreStatistic != null && Model.point10ScoreStatistic.totalResponses > 0)
+            {
+                statisticExist = true;
+                await Html.RenderPartialAsync("_Point10scoreStatistic", Model.point10ScoreStatistic);
+            }
+
+            if (Model.singleAnswerVariantStatistic != null && Model.singleAnswerVariantStatistic.totalResponses > 0)
+            {
+                statisticExist = true;
+                await Html.RenderPartialAsync("_SingleAnswerStatistic", Model.singleAnswerVariantStatistic);
+            }
+
+            if (Model.multipleAnswerVariantStatistic != null && Model.multipleAnswerVariantStatistic.totalResponses > 0)
+            {
+                statisticExist = true;
+                await Html.RenderPartialAsync("_MultipleAnswerStatistic", Model.multipleAnswerVariantStatistic);
+            }
+
+            if (Model.point5ScoreStatistic != null && Model.point5ScoreStatistic.totalResponses > 0)
+            {
+                statisticExist = true;
+                await Html.RenderPartialAsync("_Point5scoreStatistic", Model.point5ScoreStatistic);
+            }
+
+
+            if (!statisticExist)
+            {
+                <h1>Статистики пока нет</h1>
+            }
+        }
+    </div>
+</div>
+<div class="modal-footer">
+
+    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">@Localization.Close</button>
+
+</div>
