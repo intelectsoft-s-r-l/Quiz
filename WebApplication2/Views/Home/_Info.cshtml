@@ -71,9 +71,9 @@
         // }
         var gradingTypeValue = $("#questionN_0").find("select[id*='questionGradingType_0']").val()
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
-            if ($('#response_0').val() === "") {
+            if ($('#responseRU_0').val() === "" && $('#responseRO_0').val() === "" && $('#responseEN_0').val() === "" ) {
                 if ($('#ResponseError').val() == null) {
-                    $('#response_0').after('<label id="ResponseError" class="text-danger">@Localization.AnswerTextValidation</label>');
+                    $('#newResponseId').after('<label id="ResponseError" class="text-danger">@Localization.AnswerTextValidation</label>');
                 }
                 ISValid = false;
             }
