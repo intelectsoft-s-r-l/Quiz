@@ -325,6 +325,15 @@
 
         var selectedLanguage = $(".row").find("select[id*='uiLanguageSelect']").val();
 
+
+        $(".row").on("change", "select[id*='uiLanguageSelect']", function () {
+            // Get the selected language when the dropdown changes
+            selectedLanguage = $(this).val();
+
+            // Call the function to set input visibility based on the selected language
+            setInputVisibility(selectedLanguage);
+        });
+
         if (gradingTypeValue == '3' || gradingTypeValue == '4') {
 
             // Создаем кнопку
@@ -333,6 +342,7 @@
             var answersCount = $(`#questionN_${index} .answer`).length;
             // Обработчик события для кнопки (если необходимо)
             addButton.on("click", function () {
+                setInputVisibility(selectedLanguage);
                 // Ваш код обработки события при нажатии на кнопку
                 answersCount++;
 
@@ -367,13 +377,7 @@
         }
 
 
-        $(".row").on("change", "select[id*='uiLanguageSelect']", function () {
-            // Get the selected language when the dropdown changes
-            var selectedLanguage = $(this).val();
 
-            // Call the function to set input visibility based on the selected language
-            setInputVisibility(selectedLanguage);
-        });
 
         // Call the function to set input visibility based on the selected language
         setInputVisibility(selectedLanguage);
@@ -848,26 +852,16 @@
             <br />
             @{
                 EnUiLanguage currentLanguage;
-                @switch (Localization.languageState.ToUpper())
+                currentLanguage = Localization.languageState.ToUpper() switch
                 {
-                    case "EN":
-                        currentLanguage = EnUiLanguage.EN;
-                        break;
-                    case "RO":
-                        currentLanguage = EnUiLanguage.RO;
-                        break;
-                    case "RU":
-                        currentLanguage = EnUiLanguage.RU;
-                        break;
-
-                    default:
-                        currentLanguage = EnUiLanguage.EN;
-                        break;
-                }
-
-
+                    "EN" => EnUiLanguage.EN,
+                    "RO" => EnUiLanguage.RO,
+                    "RU" => EnUiLanguage.RU,
+                    _ => EnUiLanguage.EN,
+                };
 
             }
+
             <h3 style="display: inline-block; margin-right: 10px;">@Localization.Questions</h3>
             <select id="uiLanguageSelect" name="uiLanguageSelect" style="padding: 5px; border-radius: 5px; font-size: 16px; border: 2px solid black;">
                 <option value="@currentLanguage">@currentLanguage.ToString()</option>
