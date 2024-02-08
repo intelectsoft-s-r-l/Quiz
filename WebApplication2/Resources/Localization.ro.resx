@@ -417,4 +417,7 @@
   <data name="YesNoStatistic" xml:space="preserve">
     <value>Statistica despre da sau nu</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
 </root>

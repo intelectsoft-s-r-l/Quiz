@@ -288,6 +288,7 @@ namespace ISQuiz.Controllers
                     throw new Exception(statistic.errorName + "|||" + statistic.errorMessage);
                 }
 
+
                 return PartialView("~/Views/Home/_QuestionStatistic.cshtml", statistic);
             }
             catch (Exception ex)

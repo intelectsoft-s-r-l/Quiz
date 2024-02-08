@@ -367,10 +367,10 @@
     <value>Записи отсутствуют</value>
   </data>
   <data name="successRecoverPWMessage" xml:space="preserve">
-    <value>Проверьте вашу электронную почту</value>
+    <value>Проверьте вашу электронную почту!</value>
   </data>
   <data name="createQuestion" xml:space="preserve">
-    <value> Добавить вопрос</value>
+    <value>Добавить вопрос</value>
   </data>
   <data name="ComentaryTextValidation" xml:space="preserve">
     <value>Комментарий не должен быть пустым</value>

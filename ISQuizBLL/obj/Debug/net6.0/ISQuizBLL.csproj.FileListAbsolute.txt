@@ -50,3 +50,16 @@ C:\Users\BOSS\Desktop\Новая папка (2)\Quiz\ISQuizBLL\obj\Debug\net6.0\
 C:\Users\BOSS\Desktop\Новая папка (2)\Quiz\ISQuizBLL\obj\Debug\net6.0\refint\ISQuizBLL.dll
 C:\Users\BOSS\Desktop\Новая папка (2)\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.pdb
 C:\Users\BOSS\Desktop\Новая папка (2)\Quiz\ISQuizBLL\obj\Debug\net6.0\ref\ISQuizBLL.dll
+C:\Quiz\ISQuizBLL\bin\Debug\net6.0\ISQuizBLL.deps.json
+C:\Quiz\ISQuizBLL\bin\Debug\net6.0\ISQuizBLL.dll
+C:\Quiz\ISQuizBLL\bin\Debug\net6.0\ISQuizBLL.pdb
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.csproj.AssemblyReference.cache
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.AssemblyInfoInputs.cache
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.AssemblyInfo.cs
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.csproj.CoreCompileInputs.cache
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.sourcelink.json
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.dll
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\refint\ISQuizBLL.dll
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ISQuizBLL.pdb
+C:\Quiz\ISQuizBLL\obj\Debug\net6.0\ref\ISQuizBLL.dll
