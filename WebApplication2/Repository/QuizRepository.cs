@@ -270,6 +270,33 @@ namespace ISQuiz.Repository
                 };
             }
         }
+
+        public async Task<DetailQuestion> GetQuestion(string token, int id)
+        {
+            try
+            {
+                var url = quizURLs.GetQuestion(token, id);
+                var credentials = quizURLs.Credentials();
+
+                QueryData queryData = new QueryData()
+                {
+                    method = HttpMethod.Get,
+                    endpoint = url,
+                    Credentials = credentials,
+                };
+                return await GlobalQuery.SendRequest<DetailQuestion>(queryData);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+
+                return new DetailQuestion
+                {
+                    errorCode = EnErrorCode.Internal_error,
+                    errorMessage = ex.Message + "|||" + ex.StackTrace,
+                };
+            }
+        }
     }
 
 }

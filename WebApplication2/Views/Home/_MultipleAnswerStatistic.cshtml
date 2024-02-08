@@ -1,1 +1,151 @@
-﻿<h1>HelloMulti</h1>
+﻿@using ISQuiz.Models.API.Questionnaires
+@model multipleAnswerVariantStatistic
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <p class="card-title-desc">
+            @Localization.GlobalStatistic
+        </p>
+    </div>
+    <div id="chart"></div>
+
+</div>
+<div id="variantAnswearCount">
+    @if (Model.variantAnswers.Count > 0)
+    {
+        var test = @Model.variantAnswers.GroupBy(x => x.responseVariantId);
+        foreach (var item in test)
+        {
+            <input hidden value="@item.Key" id="answearKey_@item.Key" />
+            <input hidden value="@item.Count()" id="answearCount_@item.Count()" />
+            <input hidden value="@item.First().answearName" id="answearName_@item.Key" />
+        }
+    }
+</div>
+
+<script>
+
+    function decodeHtmlEntities(text) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = text;
+        return textArea.value;
+    }
+
+    // Получаем данные из модели C# и передаем их в JavaScript переменные
+    var TotalLoc = decodeHtmlEntities('@Localization.Total');
+    var totalResponses = @Model.totalResponses;
+
+    var answearName = $("#variantAnswearCount").find("input[id*='answearName_']");
+    var answerCount = $("#variantAnswearCount").find("input[id*='answearCount_']");
+
+    var language = $("#uiLanguageSelect").val();
+
+    var responseVariants = [];
+    var categoryName = [];
+
+    answearName.each(function (e, element) {
+        var name = JSON.parse($("#" + element.id).val());
+        var answear = "";
+        if (language == "RU") {
+            if (name["RU"] == "") {
+                answear = "RU @Localization.SkipAnswerMessage";
+            }
+            else {
+                answear = name["RU"];
+            }
+        }
+        else if (language == "RO") {
+            if (name["RO"] == "") {
+                answear = "RO @Localization.SkipAnswerMessage";
+            }
+            else {
+                answear = name["RO"];
+            }
+        }
+        else if (language == "EN") {
+            if (name["EN"] == "") {
+                answear = "EN @Localization.SkipAnswerMessage";
+            }
+            else {
+                answear = name["EN"];
+            }
+        }
+        categoryName.push(answear);
+    });
+    categoryName.push(TotalLoc);
+
+    answerCount.each(function (e, element) {
+        responseVariants.push($("#" + element.id).val());
+    });
+    responseVariants.push(totalResponses);
+
+
+    var grade = decodeHtmlEntities('@Localization.Grade');
+
+    var options = {
+        chart: {
+            type: 'bar',
+            height: 250,
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+            },
+        },
+        colors: ['#FF5733', '#37AA0F', '#3366FF'],  // Меняем цвета столбцов
+        dataLabels: {
+            enabled: false,  // Убираем надписи внутри столбцов
+        },
+        legend: {
+            show: false,
+        },
+        stroke: {
+            width: 1,
+            colors: ['#fff']
+        },
+        series: [{
+            name: "@Localization.Responses ",
+            data: responseVariants
+
+        }],
+        xaxis: {
+            categories: categoryName,
+            labels: {
+                style: {
+                    fontSize: '14px'
+                }
+            }
+        },
+        /*yaxis: {
+            title: {
+                text: decodeHtmlEntities('@Localization.NumberOfResponses'),
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#333'
+                }
+            }
+        },*/
+        fill: {
+            type: 'solid',  // Изменяем тип заливки на 'solid'
+            opacity: 0.8  // Устанавливаем полную непрозрачность
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+
+
+</script>

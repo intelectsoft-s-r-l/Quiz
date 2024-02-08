@@ -51,6 +51,7 @@
     public class variantAnswer
     {
         public int responseVariantId { get; set; } //Чесн сказать тут странно что мне дают ид ответа(там строка с ру/ро/ен)
+        public string answearName { get; set; }
     }
 
 }

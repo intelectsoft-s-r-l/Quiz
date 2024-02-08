@@ -93,7 +93,7 @@ namespace ISQuiz.Controllers
                 }
                 else if (questionnaireData.errorCode == EnErrorCode.Invalid_token)
                 {
-                    return new DetailQuestionnaire { errorCode = EnErrorCode.Invalid_token, errorMessage = questionnaireData.errorMessage};
+                    return new DetailQuestionnaire { errorCode = EnErrorCode.Invalid_token, errorMessage = questionnaireData.errorMessage };
                 }
                 else if (questionnaireData.errorCode != EnErrorCode.NoError)
                 {
@@ -288,6 +288,56 @@ namespace ISQuiz.Controllers
                     throw new Exception(statistic.errorName + "|||" + statistic.errorMessage);
                 }
 
+                if (statistic.singleAnswerVariantStatistic != null || statistic.multipleAnswerVariantStatistic != null)
+                {
+                    List<variantAnswer> statisticList = new List<variantAnswer>();
+                    if (statistic.singleAnswerVariantStatistic != null)
+                    {
+                        statisticList = statistic.singleAnswerVariantStatistic.variantAnswers;
+                    }
+                    else if (statistic.multipleAnswerVariantStatistic != null)
+                    {
+                        statisticList = statistic.multipleAnswerVariantStatistic.variantAnswers;
+                    }
+                    var question = await _quizRepository.GetQuestion(token, id);
+                    if (statistic.errorCode == EnErrorCode.Expired_token)
+                    {
+                        if (await RefreshToken())
+                        {
+                            return await QuestionStatistic(id);
+                        }
+                    }
+                    else if (statistic.errorCode == EnErrorCode.Invalid_token)
+                    {
+                        return RedirectToAction(nameof(AccountController.Login), "Account");
+                    }
+                    else if (statistic.errorCode != EnErrorCode.NoError)
+                    {
+                        Log.Information("Response => {@statistic}", statistic);
+                        throw new Exception(statistic.errorName + "|||" + statistic.errorMessage);
+                    }
+                    List<variantAnswer> variantAnswers = new List<variantAnswer>();
+                    foreach (var item in statisticList)
+                    {
+                        foreach (var ques in question.question.responseVariants)
+                        {
+                            if (item.responseVariantId == ques.id)
+                            {
+                                variantAnswers.Add(new variantAnswer { answearName = ques.response, responseVariantId = item.responseVariantId });
+
+                            }
+                        }
+                    }
+
+                    if (statistic.singleAnswerVariantStatistic != null)
+                    {
+                        statistic.singleAnswerVariantStatistic.variantAnswers = variantAnswers;
+                    }
+                    else if (statistic.multipleAnswerVariantStatistic != null)
+                    {
+                        statistic.multipleAnswerVariantStatistic.variantAnswers = variantAnswers;
+                    }
+                }
 
                 return PartialView("~/Views/Home/_QuestionStatistic.cshtml", statistic);
             }
