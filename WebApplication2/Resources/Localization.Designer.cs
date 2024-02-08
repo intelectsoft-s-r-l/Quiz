@@ -502,6 +502,15 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Statistic about a multi answer variant.
+        /// </summary>
+        public static string MultipleAnswerVariantStatistic {
+            get {
+                return ResourceManager.GetString("MultipleAnswerVariantStatistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password.
         /// </summary>
         public static string NewPassword {
@@ -583,11 +592,29 @@ namespace ISQuiz.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Statistic about point 10 score.
+        /// </summary>
+        public static string Point10ScoreStatistic {
+            get {
+                return ResourceManager.GetString("Point10ScoreStatistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Score 5 points.
         /// </summary>
         public static string Point5Score {
             get {
                 return ResourceManager.GetString("Point5Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistic about point 5 score.
+        /// </summary>
+        public static string Point5ScoreStatistic {
+            get {
+                return ResourceManager.GetString("Point5ScoreStatistic", resourceCulture);
             }
         }
         
@@ -795,6 +822,15 @@ namespace ISQuiz.Resources {
         public static string SingleAnswerVariant {
             get {
                 return ResourceManager.GetString("SingleAnswerVariant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistic about a one answer variant.
+        /// </summary>
+        public static string SingleAnswerVariantStatistic {
+            get {
+                return ResourceManager.GetString("SingleAnswerVariantStatistic", resourceCulture);
             }
         }
         

@@ -420,4 +420,16 @@
   <data name="YesNoStatistic" xml:space="preserve">
     <value>Statistic about yes or no</value>
   </data>
+  <data name="Point10ScoreStatistic" xml:space="preserve">
+    <value>Statistic about point 10 score</value>
+  </data>
+  <data name="SingleAnswerVariantStatistic" xml:space="preserve">
+    <value>Statistic about a one answer variant</value>
+  </data>
+  <data name="MultipleAnswerVariantStatistic" xml:space="preserve">
+    <value>Statistic about a multi answer variant</value>
+  </data>
+  <data name="Point5ScoreStatistic" xml:space="preserve">
+    <value>Statistic about point 5 score</value>
+  </data>
 </root>

@@ -418,6 +418,18 @@
     <value>Ответ был пропущен</value>
   </data>
   <data name="YesNoStatistic" xml:space="preserve">
-    <value>Статистика о да или нет</value>
+    <value>Статистика по да или нет</value>
+  </data>
+  <data name="Point10ScoreStatistic" xml:space="preserve">
+    <value>Статистика по шкале из 10 пунктов</value>
+  </data>
+  <data name="Point5ScoreStatistic" xml:space="preserve">
+    <value>Статистика по шкале из 5 пунктов</value>
+  </data>
+  <data name="SingleAnswerVariantStatistic" xml:space="preserve">
+    <value>Статистика по одному варианту ответа</value>
+  </data>
+  <data name="MultipleAnswerVariantStatistic" xml:space="preserve">
+    <value>Статистика по несколько вариантов ответа</value>
   </data>
 </root>

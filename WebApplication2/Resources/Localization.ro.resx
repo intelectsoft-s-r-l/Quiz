@@ -420,4 +420,16 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="Point10ScoreStatistic" xml:space="preserve">
+    <value>Statistica de un scor de 10 puncte</value>
+  </data>
+  <data name="Point5ScoreStatistic" xml:space="preserve">
+    <value>Statistica de un scor de 5 puncte</value>
+  </data>
+  <data name="SingleAnswerVariantStatistic" xml:space="preserve">
+    <value>Statistica de o variantă cu un singur răspuns</value>
+  </data>
+  <data name="MultipleAnswerVariantStatistic" xml:space="preserve">
+    <value>Statistica de o variantă cu răspuns multiplu</value>
+  </data>
 </root>
